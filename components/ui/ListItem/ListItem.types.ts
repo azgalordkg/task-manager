@@ -1,4 +1,5 @@
 export interface ListItemProps {
-  title: string;
+  name: string;
   checked: boolean;
+  onCheckPress: () => void;
 }

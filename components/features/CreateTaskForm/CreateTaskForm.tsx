@@ -1,10 +1,11 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, {FC} from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {BrakeLine, Input} from '../../ui';
 import {useForm} from 'react-hook-form';
 import styles from './CreateTaskForm.styles';
+import {Props} from './CreateTaskForm.types';
 
-export const CreateTaskForm = () => {
+export const CreateTaskForm: FC<Props> = ({onSubmit}) => {
   const {control, handleSubmit} = useForm();
 
   return (
@@ -14,8 +15,22 @@ export const CreateTaskForm = () => {
       </View>
       <BrakeLine isDark />
       <View style={styles.fieldsWrapper}>
-        <Input control={control} name="title" placeholder="Task name" />
+        <View style={styles.inputWrapper}>
+          <Input control={control} name="name" placeholder="Name *" />
+        </View>
+        <View style={styles.inputWrapper}>
+          <Input
+            control={control}
+            multiline={true}
+            numberOfLines={4}
+            name="description"
+            placeholder="Description"
+          />
+        </View>
       </View>
+      <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.button}>
+        <Text style={styles.buttonText}>Create</Text>
+      </TouchableOpacity>
     </View>
   );
 };

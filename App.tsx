@@ -8,48 +8,37 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import {ListItem, DayBlock} from './components/ui';
+import {ListItem, DayBlock, ModalComponent} from './components/ui';
 import {COLORS} from './constants';
-import {Storage} from './services';
-import {LIST} from './constants';
 import {Plus} from './components/icons';
-import {ModalComponent} from './components/ui';
-import {CreateTaskForm} from './components/features';
-
-const DATA = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    checked: true,
-    title: 'First Item',
-  },
-  {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    checked: false,
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    checked: false,
-    title: 'Third Item',
-  },
-];
+import {CreateTaskForm, DismissKeyboard} from './components/features';
+import {FieldValues} from 'react-hook-form';
+import {useRealm} from './hooks';
+import {CreateTaskData, TasksResponseItem} from './types';
 
 function App(): JSX.Element {
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<TasksResponseItem[]>([]);
   const [createModalVisible, setCreateModalVisible] = useState(false);
   const isDarkMode = useColorScheme() === 'dark';
+  const {createTask, getTasks, realm, checkTaskHandler} = useRealm();
 
-  const getData = async () => {
-    const data = await Storage.getData(LIST);
-    if (data) {
-      setList(data);
+  const fetchList = () => {
+    if (realm) {
+      const tasks = getTasks();
+      if (tasks) {
+        setList(tasks as TasksResponseItem[]);
+      }
     }
   };
 
   useEffect(() => {
-    // eslint-disable-next-line no-void
-    void getData();
-  }, []);
+    fetchList();
+  }, [realm]);
+
+  const createTaskHandler = (data: FieldValues) => {
+    createTask(data as CreateTaskData);
+    setCreateModalVisible(false);
+  };
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
@@ -57,42 +46,52 @@ function App(): JSX.Element {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <View style={styles.mainWrapper}>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={backgroundStyle}>
-          <View
-            style={{
-              backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
-              ...styles.container,
-            }}>
-            <DayBlock>
-              {DATA.map(({title, checked, id}) => (
-                <ListItem key={id} title={title} checked={checked} />
-              ))}
-            </DayBlock>
-          </View>
-        </ScrollView>
+    <DismissKeyboard>
+      <SafeAreaView style={backgroundStyle}>
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
+        <View style={styles.mainWrapper}>
+          <ScrollView
+            contentInsetAdjustmentBehavior="automatic"
+            style={backgroundStyle}>
+            <View
+              style={{
+                backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
+                ...styles.container,
+              }}>
+              <DayBlock>
+                {list.map(({name, isDone, _id}) => (
+                  <ListItem
+                    onCheckPress={() => {
+                      checkTaskHandler(_id, isDone ? 0 : 1);
+                      fetchList();
+                    }}
+                    key={_id}
+                    name={name}
+                    checked={Boolean(isDone)}
+                  />
+                ))}
+              </DayBlock>
+            </View>
+          </ScrollView>
 
-        <TouchableOpacity
-          onPress={() => setCreateModalVisible(true)}
-          activeOpacity={0.75}>
-          <View style={styles.buttonWrapper}>
-            <Plus color={COLORS.BG} width={20} height={20} />
-          </View>
-        </TouchableOpacity>
-      </View>
-      <ModalComponent
-        visible={createModalVisible}
-        onRequestClose={() => setCreateModalVisible(false)}>
-        <CreateTaskForm />
-      </ModalComponent>
-    </SafeAreaView>
+          <TouchableOpacity
+            onPress={() => setCreateModalVisible(true)}
+            activeOpacity={0.75}>
+            <View style={styles.buttonWrapper}>
+              <Plus color={COLORS.BG} width={20} height={20} />
+            </View>
+          </TouchableOpacity>
+        </View>
+        <ModalComponent
+          visible={createModalVisible}
+          onRequestClose={() => setCreateModalVisible(false)}>
+          <CreateTaskForm onSubmit={createTaskHandler} />
+        </ModalComponent>
+      </SafeAreaView>
+    </DismissKeyboard>
   );
 }
 

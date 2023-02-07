@@ -5,4 +5,5 @@ export const COLORS = {
   BG: '#1F1F1F',
   RED: '#f44336',
   BLUE: '#00C8FF',
+  GREEN: '#C9F849',
 };

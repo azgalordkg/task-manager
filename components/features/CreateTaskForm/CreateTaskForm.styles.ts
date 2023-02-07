@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   titleWrapper: {
-    marginBottom: 30,
+    marginBottom: 20,
   },
   title: {
     textTransform: 'uppercase',
@@ -16,9 +16,23 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   fieldsWrapper: {
-    paddingTop: 30,
+    paddingTop: 40,
     flex: 1,
     width: '100%',
+  },
+  inputWrapper: {
+    marginBottom: 24,
+  },
+  button: {
+    backgroundColor: COLORS.RED,
+    width: '100%',
+    paddingVertical: 20,
+    alignItems: 'center',
+    borderRadius: 20,
+  },
+  buttonText: {
+    color: COLORS.WHITE,
+    fontSize: 22,
   },
 });
 
