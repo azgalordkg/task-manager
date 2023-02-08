@@ -23,16 +23,19 @@ const styles = StyleSheet.create({
   inputWrapper: {
     marginBottom: 24,
   },
-  button: {
-    backgroundColor: COLORS.RED,
-    width: '100%',
+  dateButtonsWrapper: {
+    flexDirection: 'row',
     paddingVertical: 20,
-    alignItems: 'center',
-    borderRadius: 20,
+    width: '100%',
   },
-  buttonText: {
-    color: COLORS.WHITE,
-    fontSize: 22,
+  dateButtonContainer: {
+    marginRight: 6,
+  },
+  dateTitle: {
+    fontSize: 18,
+    color: COLORS.BG,
+    marginBottom: 10,
+    fontWeight: '500',
   },
 });
 

@@ -32,12 +32,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
-  closeButton: {
-    padding: 10,
-  },
-  closeButtonText: {
-    fontSize: 18,
-  },
 });
 
 export default styles;

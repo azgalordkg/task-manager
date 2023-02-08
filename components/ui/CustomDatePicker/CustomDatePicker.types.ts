@@ -1,12 +1,11 @@
+import {DatePickerProps} from 'react-native-date-picker';
 import {Control} from 'react-hook-form/dist/types';
-import {TextInputProps} from 'react-native';
 import {CreateTaskData, CreateTaskKey} from '../../../types';
-import {ReactNode} from 'react';
 
-export interface Props extends TextInputProps {
+export interface Props extends Partial<DatePickerProps> {
+  title?: string;
+  // onDateChange: (date: Date) => void;
   control: Control<CreateTaskData>;
   defaultValue?: string;
   name: CreateTaskKey;
-  isDateTime?: boolean;
-  Icon?: ReactNode;
 }

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {ListItem, DayBlock, ModalComponent} from './components/ui';
 import {COLORS} from './constants';
-import {Plus} from './components/icons';
+import {Logo, Plus} from './components/icons';
 import {CreateTaskForm, DismissKeyboard} from './components/features';
 import {FieldValues} from 'react-hook-form';
 import {useRealm} from './hooks';
@@ -53,6 +53,9 @@ function App(): JSX.Element {
           backgroundColor={backgroundStyle.backgroundColor}
         />
         <View style={styles.mainWrapper}>
+          <View style={styles.header}>
+            <Logo height={30} width={145} />
+          </View>
           <ScrollView
             contentInsetAdjustmentBehavior="automatic"
             style={backgroundStyle}>
@@ -96,6 +99,11 @@ function App(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
   mainWrapper: {
     flex: 1,
   },

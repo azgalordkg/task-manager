@@ -7,10 +7,14 @@ const styles = StyleSheet.create({
     borderBottomColor: COLORS.BG,
     paddingBottom: 10,
     width: '100%',
+    flexDirection: 'row',
   },
   input: {
     color: COLORS.BG,
     fontSize: 18,
+  },
+  icon: {
+    marginRight: 10,
   },
 });
 
