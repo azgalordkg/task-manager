@@ -11,6 +11,7 @@ export const Input: FC<Props> = ({
   defaultValue = '',
   name,
   isDateTime,
+  isTime,
   Icon,
   ...props
 }) => {
@@ -22,7 +23,7 @@ export const Input: FC<Props> = ({
 
   const value = isDateTime
     ? field.value
-      ? format(new Date(field.value), 'dd MMMM')
+      ? format(new Date(field.value), isTime ? 'p' : 'dd MMMM')
       : ''
     : (field.value as string);
 

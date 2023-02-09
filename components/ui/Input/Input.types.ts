@@ -8,5 +8,6 @@ export interface Props extends TextInputProps {
   defaultValue?: string;
   name: CreateTaskKey;
   isDateTime?: boolean;
+  isTime?: boolean;
   Icon?: ReactNode;
 }

@@ -43,7 +43,10 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
   }
 
   return (
-    <TouchableOpacity style={buttonStyles} onPress={onPress}>
+    <TouchableOpacity
+      activeOpacity={0.5}
+      style={buttonStyles}
+      onPress={onPress}>
       <Text style={textStyles}>{children}</Text>
     </TouchableOpacity>
   );

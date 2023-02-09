@@ -16,26 +16,23 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   fieldsWrapper: {
-    paddingTop: 40,
+    paddingTop: 15,
     flex: 1,
     width: '100%',
   },
   inputWrapper: {
     marginBottom: 24,
   },
-  dateButtonsWrapper: {
-    flexDirection: 'row',
-    paddingVertical: 20,
-    width: '100%',
-  },
-  dateButtonContainer: {
-    marginRight: 6,
-  },
   dateTitle: {
     fontSize: 18,
     color: COLORS.BG,
     marginBottom: 10,
     fontWeight: '500',
+  },
+  timeContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 

@@ -1,12 +1,21 @@
 import React, {FC} from 'react';
-import {Text, TouchableOpacity, View, Animated} from 'react-native';
+import {Text, TouchableOpacity, View, Animated, TextStyle} from 'react-native';
 import styles from './ListItem.styles';
 import {ListItemProps} from './ListItem.types';
 import {Checkmark, Trash} from '../../icons';
 import {Swipeable} from 'react-native-gesture-handler';
 import {COLORS} from '../../../constants';
+import {format} from 'date-fns';
 
-export const ListItem: FC<ListItemProps> = ({name, checked, onCheckPress}) => {
+export const ListItem: FC<ListItemProps> = ({
+  name,
+  checked,
+  onCheckPress,
+  onDeletePress,
+  startDate,
+  endDate,
+  isLast,
+}) => {
   const rightSwipe = (
     progress: Animated.AnimatedInterpolation<string>,
     dragX: Animated.AnimatedInterpolation<string>,
@@ -18,7 +27,9 @@ export const ListItem: FC<ListItemProps> = ({name, checked, onCheckPress}) => {
     });
     return (
       <View style={styles.buttonsWrapper}>
-        <TouchableOpacity style={styles.buttonsContainer}>
+        <TouchableOpacity
+          onPress={onDeletePress}
+          style={styles.buttonsContainer}>
           <Animated.View
             style={{transform: [{scale}], ...styles.buttonsContainer}}>
             <Trash width={35} height={35} />
@@ -28,9 +39,17 @@ export const ListItem: FC<ListItemProps> = ({name, checked, onCheckPress}) => {
     );
   };
 
+  const crossedTextStyles: TextStyle = checked
+    ? {textDecorationLine: 'line-through'}
+    : {};
+
   return (
     <Swipeable renderRightActions={rightSwipe}>
-      <View style={styles.container}>
+      <View
+        style={{
+          ...styles.container,
+          ...(isLast ? {borderBottomWidth: 0} : {}),
+        }}>
         <View style={styles.contentWrapper}>
           <View style={styles.checkmarkWrapper}>
             <TouchableOpacity onPress={onCheckPress}>
@@ -44,11 +63,22 @@ export const ListItem: FC<ListItemProps> = ({name, checked, onCheckPress}) => {
           </View>
           <View style={styles.textWrapper}>
             <TouchableOpacity>
-              <View style={styles.timeWrapper}>
-                <Text style={styles.time}>11:00AM - 1:00PM</Text>
-              </View>
+              {startDate && endDate && (
+                <View style={styles.timeWrapper}>
+                  <Text
+                    style={{
+                      ...styles.time,
+                      ...crossedTextStyles,
+                    }}>
+                    {format(new Date(startDate), 'p')} -{' '}
+                    {format(new Date(endDate), 'p')}
+                  </Text>
+                </View>
+              )}
               <View>
-                <Text style={styles.title}>{name}</Text>
+                <Text style={{...styles.title, ...crossedTextStyles}}>
+                  {name}
+                </Text>
               </View>
             </TouchableOpacity>
           </View>

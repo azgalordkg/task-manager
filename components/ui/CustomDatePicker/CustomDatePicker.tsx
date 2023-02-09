@@ -3,7 +3,7 @@ import DatePicker from 'react-native-date-picker';
 import {useState} from 'react';
 import {Props} from './CustomDatePicker.types';
 import {useController} from 'react-hook-form';
-import {TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {Calendar} from '../../icons';
 import {Input} from '../Input';
 import styles from './CustomDatePicker.styles';
@@ -12,6 +12,8 @@ export const CustomDatePicker: FC<Props> = ({
   control,
   defaultValue,
   name,
+  label,
+  inputWidth,
   ...props
 }) => {
   const [open, setOpen] = useState(false);
@@ -24,18 +26,22 @@ export const CustomDatePicker: FC<Props> = ({
 
   return (
     <>
-      {/*<CustomButton type="outlined" onPress={() => setOpen(true)}>*/}
-      {/*  {title}*/}
-      {/*</CustomButton>*/}
-      <View>
-        <TouchableOpacity style={styles.button} onPress={() => setOpen(true)} />
-        <Input
-          editable={false}
-          isDateTime
-          control={control}
-          name="startDate"
-          Icon={<Calendar />}
-        />
+      <View style={{width: inputWidth || 'auto'}}>
+        {label && <Text style={styles.label}>{label}</Text>}
+        <View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => setOpen(true)}
+          />
+          <Input
+            editable={false}
+            isDateTime
+            isTime={props.mode === 'time'}
+            control={control}
+            name={name}
+            Icon={<Calendar />}
+          />
+        </View>
       </View>
       <DatePicker
         {...props}

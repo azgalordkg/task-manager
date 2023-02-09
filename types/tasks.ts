@@ -2,6 +2,7 @@ export interface CreateTaskData {
   name: string;
   description?: string;
   startDate: Date;
+  endDate: Date;
 }
 
 export interface TasksResponseItem {
@@ -9,6 +10,12 @@ export interface TasksResponseItem {
   name: string;
   isDone?: number;
   description?: string;
+  startDate?: number;
+  endDate?: number;
+}
+
+export interface TasksList {
+  [key: string]: TasksResponseItem[];
 }
 
 export type CreateTaskKey = keyof CreateTaskData;

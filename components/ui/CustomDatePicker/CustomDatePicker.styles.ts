@@ -9,6 +9,11 @@ const styles = StyleSheet.create({
     height: '100%',
     zIndex: 2,
   },
+  label: {
+    marginBottom: 10,
+    fontSize: 16,
+    fontWeight: '500',
+  },
 });
 
 export default styles;
