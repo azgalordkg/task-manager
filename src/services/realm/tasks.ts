@@ -26,20 +26,6 @@ const realm = new Realm({
   deleteRealmIfMigrationNeeded: true,
 });
 
-export const createTask = (data: CreateTaskData) => {
-  if (realm) {
-    realm.write(() => {
-      realm.create('Task', {
-        _id: uuidv4().slice(0, 8),
-        isDone: 0,
-        ...data,
-        startDate: data.startDate.getTime(),
-        endDate: data.endDate.getTime(),
-      });
-    });
-  }
-};
-
 export const getTasks = () => {
   if (realm) {
     const today = getDateFromToday(-1);
@@ -55,6 +41,20 @@ export const getTasks = () => {
       );
   }
   return [];
+};
+
+export const createTask = (data: CreateTaskData) => {
+  if (realm) {
+    realm.write(() => {
+      realm.create('Task', {
+        _id: uuidv4().slice(0, 8),
+        isDone: 0,
+        ...data,
+        startDate: data.startDate.getTime(),
+        endDate: data.endDate.getTime(),
+      });
+    });
+  }
 };
 
 export const findOne = (_id: string) => {
@@ -75,7 +75,6 @@ export const markTaskAsDone = (_id: string, isDone: number) => {
 
 export const deleteOne = (_id: string) => {
   const task = findOne(_id);
-  console.log(task);
   if (realm && task) {
     realm.write(() => {
       realm.delete(task);

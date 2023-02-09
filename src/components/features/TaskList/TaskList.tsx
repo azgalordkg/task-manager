@@ -5,7 +5,7 @@ import { deleteOne, markTaskAsDone } from '@/services/realm';
 import { DayBlock, ListItem } from '../../ui';
 import { Props } from './TaskList.types';
 
-export const TaskList: FC<Props> = ({ list, fetchList }) => {
+export const TaskList: FC<Props> = ({ list, fetchList, navigation }) => {
   return (
     <>
       {list &&
@@ -15,6 +15,9 @@ export const TaskList: FC<Props> = ({ list, fetchList }) => {
               {list[key].map(
                 ({ name, isDone, _id, endDate, startDate }, index) => (
                   <ListItem
+                    onItemPress={() =>
+                      navigation?.navigate('Task', { id: _id })
+                    }
                     startDate={startDate}
                     endDate={endDate}
                     onCheckPress={() => {

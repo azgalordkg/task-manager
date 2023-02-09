@@ -3,7 +3,7 @@ import { FC } from 'react';
 import Svg, { Path } from 'react-native-svg';
 
 import { COLORS } from '@/constants';
-import { DefaultSvgProps } from '@/types/svg';
+import { DefaultSvgProps } from '@/types';
 
 export const Calendar: FC<DefaultSvgProps> = ({
   color = COLORS.BG,

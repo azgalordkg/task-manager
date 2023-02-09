@@ -6,4 +6,5 @@ export interface ListItemProps {
   onCheckPress: () => void;
   onDeletePress: () => void;
   isLast?: boolean;
+  onItemPress: () => void;
 }

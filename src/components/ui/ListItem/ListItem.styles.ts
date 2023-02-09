@@ -15,7 +15,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     backgroundColor: COLORS.BG,
   },
-  textWrapper: {},
+  textWrapper: {
+    width: '100%',
+  },
   checkmarkWrapper: {
     marginRight: 15,
   },
@@ -37,6 +39,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.RED,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  contentButton: {
+    width: '50%',
   },
 });
 

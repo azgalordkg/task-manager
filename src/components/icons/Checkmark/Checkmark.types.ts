@@ -1,4 +1,4 @@
-import { DefaultSvgProps } from '@/types/svg';
+import { DefaultSvgProps } from '@/types';
 
 export interface Props extends DefaultSvgProps {
   checked?: boolean;

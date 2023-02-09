@@ -7,5 +7,6 @@ module.exports = {
     'no-void': 0,
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
+    'no-duplicate-imports': 'error',
   },
 };

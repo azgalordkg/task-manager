@@ -3,14 +3,6 @@ import { StyleSheet } from 'react-native';
 import { COLORS } from '@/constants';
 
 const styles = StyleSheet.create({
-  header: {
-    paddingHorizontal: 20,
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  mainWrapper: {
-    flex: 1,
-  },
   container: {
     padding: 20,
   },

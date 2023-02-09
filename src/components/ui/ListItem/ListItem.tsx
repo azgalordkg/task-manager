@@ -23,6 +23,7 @@ export const ListItem: FC<ListItemProps> = ({
   startDate,
   endDate,
   isLast,
+  onItemPress,
 }) => {
   const rightSwipe = (
     progress: Animated.AnimatedInterpolation<string>,
@@ -70,7 +71,9 @@ export const ListItem: FC<ListItemProps> = ({
             </TouchableOpacity>
           </View>
           <View style={styles.textWrapper}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={onItemPress}
+              style={styles.contentButton}>
               {startDate && endDate && (
                 <View style={styles.timeWrapper}>
                   <Text

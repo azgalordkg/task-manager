@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FC } from 'react';
 import Svg, { ClipPath, Defs, G, Path } from 'react-native-svg';
 
-import { DefaultSvgProps } from '@/types/svg';
+import { DefaultSvgProps } from '@/types';
 
 export const Logo: FC<DefaultSvgProps> = ({ ...props }) => {
   return (
