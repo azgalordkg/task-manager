@@ -1,12 +1,13 @@
-import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {HomeScreen} from './screens';
-import {ROUTES} from './constants/routes';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, { FC } from 'react';
+
+import { ROUTES } from '@/constants';
+import { HomeScreen } from '@/screens';
 
 const Stack = createNativeStackNavigator();
 
-function App(): JSX.Element {
+const App: FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -18,6 +19,6 @@ function App(): JSX.Element {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 export default App;
