@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   input: {
+    width: '100%',
     color: COLORS.BG,
     fontSize: 18,
   },
