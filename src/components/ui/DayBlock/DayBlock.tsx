@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import React, { FC, PropsWithChildren } from 'react';
 import { Text, View } from 'react-native';
 
-import { BrakeLine } from '../BrakeLine';
+import { BreakLine } from '../BreakLine';
 import styles from './DayBlock.styles';
 import { Props } from './DayBlock.types';
 
@@ -12,7 +12,7 @@ export const DayBlock: FC<PropsWithChildren<Props>> = ({ children, date }) => {
 
   return (
     <View style={styles.container}>
-      <BrakeLine />
+      <BreakLine />
       <View style={styles.dateWrapper}>
         <View style={styles.dayWrapper}>
           {currentDate && (

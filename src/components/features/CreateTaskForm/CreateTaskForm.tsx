@@ -5,7 +5,7 @@ import { Text, View } from 'react-native';
 import { COLORS } from '@/constants';
 import { CreateTaskData } from '@/types';
 
-import { BrakeLine, CustomButton, CustomDatePicker, Input } from '../../ui';
+import { BreakLine, CustomButton, CustomDatePicker, Input } from '../../ui';
 import DateFilter from '../DateFilter/DateFilter';
 import { DismissKeyboard } from '../DismissKeyboard';
 import styles from './CreateTaskForm.styles';
@@ -33,7 +33,7 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit }) => {
         <View style={styles.titleWrapper}>
           <Text style={styles.title}>Create task</Text>
         </View>
-        <BrakeLine isDark />
+        <BreakLine isDark />
         <View style={styles.fieldsWrapper}>
           <View style={styles.inputWrapper}>
             <Input control={control} name="name" placeholder="Name *" />
