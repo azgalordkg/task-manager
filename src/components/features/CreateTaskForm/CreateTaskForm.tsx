@@ -48,7 +48,7 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit }) => {
             />
           </View>
           <View>
-            <Text style={styles.dateTitle}>Date and time</Text>
+            <Text style={styles.dateTitle}>Date</Text>
             <CustomDatePicker
               control={control}
               name="startDate"

@@ -4,7 +4,7 @@ import { Text } from 'react-native';
 import { MainLayout } from '@/components/Layouts';
 import { ScreenProps } from '@/types';
 
-export const TaskScreen: FC<ScreenProps> = ({ route }) => {
+export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route }) => {
   const id = route?.params?.id;
 
   return (

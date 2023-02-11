@@ -19,7 +19,7 @@ import { CreateTaskData, ScreenProps, TasksList } from '@/types';
 
 import styles from './HomeScreen.styles';
 
-export const HomeScreen: FC<ScreenProps> = ({ navigation }) => {
+export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
   const [list, setList] = useState<TasksList | undefined>();
   const [createModalVisible, setCreateModalVisible] = useState(false);
   const isDarkMode = useColorScheme() === 'dark';
@@ -43,6 +43,10 @@ export const HomeScreen: FC<ScreenProps> = ({ navigation }) => {
     setCreateModalVisible(false);
   };
 
+  const handleItemPress = (id: string) => {
+    navigation.navigate('Task', { id });
+  };
+
   return (
     <MainLayout>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
@@ -51,7 +55,11 @@ export const HomeScreen: FC<ScreenProps> = ({ navigation }) => {
             backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
             ...styles.container,
           }}>
-          <TaskList navigation={navigation} fetchList={fetchList} list={list} />
+          <TaskList
+            onItemPress={handleItemPress}
+            fetchList={fetchList}
+            list={list}
+          />
         </View>
       </ScrollView>
 

@@ -1,6 +1,7 @@
-import { ScreenProps, TasksList } from '@/types';
+import { TasksList } from '@/types';
 
-export interface Props extends Partial<ScreenProps> {
+export interface Props {
   list?: TasksList;
   fetchList: () => void;
+  onItemPress: (id: string) => void;
 }
