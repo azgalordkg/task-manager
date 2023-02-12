@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import React, { FC } from 'react';
+import React, { FC, useRef } from 'react';
 import {
   Animated,
   Text,
@@ -9,9 +9,11 @@ import {
 } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 
+import { Pencil, Trash } from '@/components/icons';
+import { ActionButton } from '@/components/ui';
 import { COLORS } from '@/constants';
 
-import { Checkmark, Trash } from '../../icons';
+import { Checkmark } from '../../icons';
 import styles from './ListItem.styles';
 import { ListItemProps } from './ListItem.types';
 
@@ -20,11 +22,20 @@ export const ListItem: FC<ListItemProps> = ({
   checked,
   onCheckPress,
   onDeletePress,
+  onEditPress,
   startDate,
   endDate,
   isLast,
   onItemPress,
 }) => {
+  const swipeRef = useRef<Swipeable | null>(null);
+
+  const closeSwiper = () => {
+    if (swipeRef) {
+      swipeRef.current?.close();
+    }
+  };
+
   const rightSwipe = (
     progress: Animated.AnimatedInterpolation<string>,
     dragX: Animated.AnimatedInterpolation<string>,
@@ -35,16 +46,18 @@ export const ListItem: FC<ListItemProps> = ({
       extrapolate: 'clamp',
     });
     return (
-      <View style={styles.buttonsWrapper}>
-        <TouchableOpacity
-          onPress={onDeletePress}
-          style={styles.buttonsContainer}>
-          <Animated.View
-            style={{ transform: [{ scale }], ...styles.buttonsContainer }}>
-            <Trash width={35} height={35} />
-          </Animated.View>
-        </TouchableOpacity>
-      </View>
+      <>
+        <ActionButton icon={Trash} scale={scale} onPress={onDeletePress} />
+        <ActionButton
+          backgroundColor={COLORS.ORANGE}
+          icon={Pencil}
+          scale={scale}
+          onPress={() => {
+            onEditPress();
+            closeSwiper();
+          }}
+        />
+      </>
     );
   };
 
@@ -53,7 +66,7 @@ export const ListItem: FC<ListItemProps> = ({
     : {};
 
   return (
-    <Swipeable renderRightActions={rightSwipe}>
+    <Swipeable ref={swipeRef} renderRightActions={rightSwipe}>
       <View
         style={{
           ...styles.container,

@@ -14,13 +14,19 @@ import { MainLayout } from '@/components/Layouts';
 import { ModalComponent } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { sortTasksByDate } from '@/services';
-import { createTask, getTasks } from '@/services/realm';
-import { CreateTaskData, ScreenProps, TasksList } from '@/types';
+import { createTask, getTasks, updateTask } from '@/services/realm';
+import {
+  CreateTaskData,
+  ScreenProps,
+  TasksList,
+  UpdateTaskData,
+} from '@/types';
 
 import styles from './HomeScreen.styles';
 
 export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
   const [list, setList] = useState<TasksList | undefined>();
+  const [editItemId, setEditItemId] = useState<string | undefined>();
   const [createModalVisible, setCreateModalVisible] = useState(false);
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -38,13 +44,29 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
   }, []);
 
   const createTaskHandler = (data: FieldValues) => {
-    createTask(data as CreateTaskData);
+    if (editItemId) {
+      updateTask({ ...data, _id: editItemId } as UpdateTaskData);
+    } else {
+      createTask(data as CreateTaskData);
+    }
     fetchList();
     setCreateModalVisible(false);
   };
 
   const handleItemPress = (id: string) => {
     navigation.navigate('Task', { id });
+  };
+
+  const handleEditPress = (id: string) => {
+    setEditItemId(id);
+    setCreateModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    if (editItemId) {
+      setEditItemId(undefined);
+    }
+    setCreateModalVisible(false);
   };
 
   return (
@@ -57,6 +79,7 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
           }}>
           <TaskList
             onItemPress={handleItemPress}
+            onEditPress={handleEditPress}
             fetchList={fetchList}
             list={list}
           />
@@ -73,8 +96,8 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
 
       <ModalComponent
         visible={createModalVisible}
-        onRequestClose={() => setCreateModalVisible(false)}>
-        <CreateTaskForm onSubmit={createTaskHandler} />
+        onRequestClose={handleModalClose}>
+        <CreateTaskForm editItemId={editItemId} onSubmit={createTaskHandler} />
       </ModalComponent>
     </MainLayout>
   );

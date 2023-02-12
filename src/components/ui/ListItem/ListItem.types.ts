@@ -7,4 +7,5 @@ export interface ListItemProps {
   onDeletePress: () => void;
   isLast?: boolean;
   onItemPress: () => void;
+  onEditPress: () => void;
 }
