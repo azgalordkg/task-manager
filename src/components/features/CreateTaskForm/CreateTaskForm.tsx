@@ -1,8 +1,10 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 
 import { COLORS } from '@/constants';
+import { createTaskFormSchema } from '@/constants/createTaskValidation';
 import { CreateTaskData } from '@/types';
 
 import { BrakeLine, CustomButton, CustomDatePicker, Input } from '../../ui';
@@ -20,11 +22,19 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit }) => {
     startDate.getMinutes() < 30 ? 0 : 30,
   );
 
-  const { control, handleSubmit, setValue, watch } = useForm<CreateTaskData>({
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors, isValid, isDirty },
+  } = useForm<CreateTaskData>({
     defaultValues: {
       startDate,
       endDate,
     },
+    mode: 'onBlur',
+    resolver: yupResolver(createTaskFormSchema),
   });
 
   return (
@@ -36,7 +46,12 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit }) => {
         <BrakeLine isDark />
         <View style={styles.fieldsWrapper}>
           <View style={styles.inputWrapper}>
-            <Input control={control} name="name" placeholder="Name *" />
+            <Input
+              control={control}
+              name="name"
+              placeholder="Name *"
+              errorMessage={errors.name?.message}
+            />
           </View>
           <View style={styles.inputWrapper}>
             <Input
@@ -83,8 +98,9 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit }) => {
         <CustomButton
           fullWidth
           height={50}
-          bgColor={COLORS.RED}
-          onPress={handleSubmit(onSubmit)}>
+          bgColor={COLORS.DARK_GREEN}
+          onPress={handleSubmit(onSubmit)}
+          disabled={!(isValid && isDirty)}>
           Create
         </CustomButton>
       </View>

@@ -18,6 +18,7 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
   padding = 15,
   fontSize = 18,
   borderWidth = 2,
+  disabled,
 }) => {
   const buttonStyles: ViewStyle = {
     ...styles.button,
@@ -25,6 +26,7 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
     paddingHorizontal: padding,
     height,
   };
+
   const textStyles: TextStyle = {
     ...styles.text,
     fontSize: fontSize,
@@ -43,12 +45,16 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
   if (type === 'clean') {
     textStyles.color = COLORS.BG;
   }
+  if (disabled) {
+    buttonStyles.opacity = 0.3;
+  }
 
   return (
     <TouchableOpacity
       activeOpacity={0.5}
       style={buttonStyles}
-      onPress={onPress}>
+      onPress={onPress}
+      disabled={disabled}>
       <Text style={textStyles}>{children}</Text>
     </TouchableOpacity>
   );
