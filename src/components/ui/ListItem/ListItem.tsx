@@ -1,12 +1,6 @@
 import { format } from 'date-fns';
 import React, { FC, useRef } from 'react';
-import {
-  Animated,
-  Text,
-  TextStyle,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 
 import { Pencil, Trash } from '@/components/icons';
@@ -61,19 +55,13 @@ export const ListItem: FC<ListItemProps> = ({
     );
   };
 
-  const crossedTextStyles: TextStyle = checked
-    ? { textDecorationLine: 'line-through' }
-    : {};
+  const style = styles({ isLast, checked });
 
   return (
-    <Swipeable ref={swipeRef} renderRightActions={rightSwipe}>
-      <View
-        style={{
-          ...styles.container,
-          ...(isLast ? { borderBottomWidth: 0 } : {}),
-        }}>
-        <View style={styles.contentWrapper}>
-          <View style={styles.checkmarkWrapper}>
+    <Swipeable renderRightActions={rightSwipe}>
+      <View style={style.container}>
+        <View style={style.contentWrapper}>
+          <View style={style.checkmarkWrapper}>
             <TouchableOpacity onPress={onCheckPress}>
               <Checkmark
                 color={checked ? COLORS.GREEN : COLORS.WHITE}
@@ -83,24 +71,18 @@ export const ListItem: FC<ListItemProps> = ({
               />
             </TouchableOpacity>
           </View>
-          <View style={styles.textWrapper}>
-            <TouchableOpacity
-              onPress={onItemPress}
-              style={styles.contentButton}>
+          <View style={style.textWrapper}>
+            <TouchableOpacity onPress={onItemPress} style={style.contentButton}>
               {startDate && endDate && (
-                <View style={styles.timeWrapper}>
-                  <Text
-                    style={{
-                      ...styles.time,
-                      ...crossedTextStyles,
-                    }}>
+                <View style={style.timeWrapper}>
+                  <Text style={[style.time, style.crossedTextStyles]}>
                     {format(new Date(startDate), 'p')} -{' '}
                     {format(new Date(endDate), 'p')}
                   </Text>
                 </View>
               )}
               <View>
-                <Text style={{ ...styles.title, ...crossedTextStyles }}>
+                <Text style={[style.title, style.crossedTextStyles]}>
                   {name}
                 </Text>
               </View>

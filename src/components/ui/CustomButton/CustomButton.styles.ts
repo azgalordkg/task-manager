@@ -1,15 +1,49 @@
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
-  button: {
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    maxWidth: '100%',
-  },
-  text: {
-    fontWeight: '500',
-  },
-});
+import { COLORS } from '@/constants';
+
+import { Props } from './CustomButton.types';
+
+const styles = ({
+  width,
+  fullWidth,
+  padding,
+  height,
+  fontSize,
+  type,
+  bgColor,
+  textColor,
+  borderWidth,
+  disabled,
+}: Partial<Props>) => {
+  const isFilled = type === 'filled';
+  const isOutlined = type === 'outlined';
+  const isClean = type === 'clean';
+
+  return StyleSheet.create({
+    button: {
+      borderRadius: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      maxWidth: '100%',
+      width: fullWidth ? '100%' : width,
+      paddingHorizontal: padding,
+      height: height,
+      backgroundColor: (isFilled && bgColor) || 'transparent',
+      borderWidth: (isOutlined && borderWidth) || 0,
+      borderColor: (isOutlined && bgColor) || 'transparent',
+      opacity: (disabled && 0.3) || 1,
+    },
+    text: {
+      fontWeight: '500',
+      fontSize: fontSize,
+      color:
+        (isFilled && textColor) ||
+        (isOutlined && bgColor) ||
+        (isClean && COLORS.BG) ||
+        'transparent',
+    },
+  });
+};
 
 export default styles;
