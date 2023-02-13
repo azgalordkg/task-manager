@@ -31,19 +31,23 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
       },
     });
 
+  // TODO replace any
+  const prepareEditData = (task: Realm.Object<unknown, never> | any) => {
+    setValue('name', task.name);
+    if (task.description) {
+      setValue('description', task.description);
+    }
+    if (task.startDate && task.endDate) {
+      setValue('startDate', new Date(task.startDate));
+      setValue('endDate', new Date(task.endDate));
+    }
+  };
+
   useEffect(() => {
     if (editItemId) {
-      // TODO replace any
-      const task: Realm.Object<unknown, never> | any = findOne(editItemId);
+      const task = findOne(editItemId);
       if (task) {
-        setValue('name', task.name);
-        if (task.description) {
-          setValue('description', task.description);
-        }
-        if (task.startDate && task.endDate) {
-          setValue('startDate', new Date(task.startDate));
-          setValue('endDate', new Date(task.endDate));
-        }
+        prepareEditData(task);
       }
     } else {
       reset();
