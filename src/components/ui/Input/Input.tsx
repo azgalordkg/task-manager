@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import React, { FC } from 'react';
 import { useController } from 'react-hook-form';
-import { TextInput, View } from 'react-native';
+import { Text, TextInput, View } from 'react-native';
 
 import { COLORS } from '@/constants';
 
@@ -15,8 +15,10 @@ export const Input: FC<Props> = ({
   isDateTime,
   isTime,
   Icon,
+  errorMessage,
   ...props
 }) => {
+  const style = styles(errorMessage);
   const { field } = useController({
     control,
     defaultValue,
@@ -30,15 +32,22 @@ export const Input: FC<Props> = ({
     : (field.value as string);
 
   return (
-    <View style={styles.wrapper}>
-      {Icon && <View style={styles.icon}>{Icon}</View>}
-      <TextInput
-        placeholderTextColor={COLORS.GREY}
-        style={styles.input}
-        value={value}
-        onChangeText={field.onChange}
-        {...props}
-      />
+    <View style={style.inputContainer}>
+      <View style={style.wrapper}>
+        {Icon && <View style={style.icon}>{Icon}</View>}
+        <TextInput
+          placeholderTextColor={COLORS.GREY}
+          style={style.input}
+          value={value}
+          onChangeText={field.onChange}
+          onBlur={() => {
+            field.onBlur();
+          }}
+          {...props}
+        />
+      </View>
+
+      {errorMessage && <Text style={style.errorMessage}>{errorMessage}</Text>}
     </View>
   );
 };

@@ -9,4 +9,5 @@ export interface Props {
   padding?: number;
   fontSize?: number;
   borderWidth?: number;
+  disabled?: boolean;
 }
