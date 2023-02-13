@@ -3,8 +3,7 @@ import React, { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 
-import { COLORS } from '@/constants';
-import { createTaskFormSchema } from '@/constants/createTaskValidation';
+import { COLORS, createTaskFormSchema } from '@/constants';
 import { CreateTaskData } from '@/types';
 
 import { BrakeLine, CustomButton, CustomDatePicker, Input } from '../../ui';
