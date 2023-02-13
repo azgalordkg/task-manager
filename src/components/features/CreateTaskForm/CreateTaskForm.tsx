@@ -1,20 +1,23 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
+import Realm from 'realm';
 
 import { COLORS, createTaskFormSchema } from '@/constants';
+import { findOne } from '@/services/realm';
 import { CreateTaskData } from '@/types';
 
-import { BrakeLine, CustomButton, CustomDatePicker, Input } from '../../ui';
+import { BreakLine, CustomButton, CustomDatePicker, Input } from '../../ui';
 import DateFilter from '../DateFilter/DateFilter';
 import { DismissKeyboard } from '../DismissKeyboard';
 import styles from './CreateTaskForm.styles';
 import { Props } from './CreateTaskForm.types';
 
-export const CreateTaskForm: FC<Props> = ({ onSubmit }) => {
+export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
   const startDate = new Date();
   const endDate = new Date();
+
   startDate.setMinutes(startDate.getMinutes() < 30 ? 0 : 30);
   endDate.setHours(
     startDate.getHours() + 1,
@@ -27,6 +30,7 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit }) => {
     setValue,
     watch,
     formState: { errors, isValid, isDirty },
+    reset,
   } = useForm<CreateTaskData>({
     defaultValues: {
       startDate,
@@ -36,13 +40,38 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit }) => {
     resolver: yupResolver(createTaskFormSchema),
   });
 
+  // TODO replace any
+  const prepareEditData = (task: Realm.Object<unknown, never> | any) => {
+    setValue('name', task.name);
+    if (task.description) {
+      setValue('description', task.description);
+    }
+    if (task.startDate && task.endDate) {
+      setValue('startDate', new Date(task.startDate));
+      setValue('endDate', new Date(task.endDate));
+    }
+  };
+
+  useEffect(() => {
+    if (editItemId) {
+      const task = findOne(editItemId);
+      if (task) {
+        prepareEditData(task);
+      }
+    } else {
+      reset();
+    }
+  }, [editItemId]);
+
   return (
     <DismissKeyboard>
       <View style={styles.container}>
         <View style={styles.titleWrapper}>
-          <Text style={styles.title}>Create task</Text>
+          <Text style={styles.title}>
+            {editItemId ? 'Edit task' : 'Create task'}
+          </Text>
         </View>
-        <BrakeLine isDark />
+        <BreakLine isDark />
         <View style={styles.fieldsWrapper}>
           <View style={styles.inputWrapper}>
             <Input
@@ -62,7 +91,7 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit }) => {
             />
           </View>
           <View>
-            <Text style={styles.dateTitle}>Date and time</Text>
+            <Text style={styles.dateTitle}>Date</Text>
             <CustomDatePicker
               control={control}
               name="startDate"
@@ -100,7 +129,7 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit }) => {
           bgColor={COLORS.DARK_GREEN}
           onPress={handleSubmit(onSubmit)}
           disabled={!(isValid && isDirty)}>
-          Create
+          {editItemId ? 'Edit' : 'Create'}
         </CustomButton>
       </View>
     </DismissKeyboard>

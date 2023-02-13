@@ -14,15 +14,22 @@ import { MainLayout } from '@/components/Layouts';
 import { ModalComponent } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { sortTasksByDate } from '@/services';
-import { createTask, getTasks } from '@/services/realm';
-import { CreateTaskData, ScreenProps, TasksList } from '@/types';
+import { createTask, getTasks, updateTask } from '@/services/realm';
+import {
+  CreateTaskData,
+  ScreenProps,
+  TasksList,
+  UpdateTaskData,
+} from '@/types';
 
 import styles from './HomeScreen.styles';
 
-export const HomeScreen: FC<ScreenProps> = ({ navigation }) => {
+export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
   const [list, setList] = useState<TasksList | undefined>();
+  const [editItemId, setEditItemId] = useState<string | undefined>();
   const [createModalVisible, setCreateModalVisible] = useState(false);
   const isDarkMode = useColorScheme() === 'dark';
+  const style = styles(isDarkMode);
 
   const fetchList = () => {
     const tasks: Realm.Results<Realm.Object> | any[] = getTasks();
@@ -38,35 +45,56 @@ export const HomeScreen: FC<ScreenProps> = ({ navigation }) => {
   }, []);
 
   const createTaskHandler = (data: FieldValues) => {
-    createTask(data as CreateTaskData);
+    if (editItemId) {
+      updateTask({ ...data, _id: editItemId } as UpdateTaskData);
+    } else {
+      createTask(data as CreateTaskData);
+    }
     fetchList();
+    setCreateModalVisible(false);
+  };
+
+  const handleItemPress = (id: string) => {
+    navigation.navigate('Task', { id });
+  };
+
+  const handleEditPress = (id: string) => {
+    setEditItemId(id);
+    setCreateModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    if (editItemId) {
+      setEditItemId(undefined);
+    }
     setCreateModalVisible(false);
   };
 
   return (
     <MainLayout>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View
-          style={{
-            backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
-            ...styles.container,
-          }}>
-          <TaskList navigation={navigation} fetchList={fetchList} list={list} />
+        <View style={style.container}>
+          <TaskList
+            onItemPress={handleItemPress}
+            onEditPress={handleEditPress}
+            fetchList={fetchList}
+            list={list}
+          />
         </View>
       </ScrollView>
 
       <TouchableOpacity
         onPress={() => setCreateModalVisible(true)}
         activeOpacity={0.75}>
-        <View style={styles.buttonWrapper}>
+        <View style={style.buttonWrapper}>
           <Plus color={COLORS.BG} width={20} height={20} />
         </View>
       </TouchableOpacity>
 
       <ModalComponent
         visible={createModalVisible}
-        onRequestClose={() => setCreateModalVisible(false)}>
-        <CreateTaskForm onSubmit={createTaskHandler} />
+        onRequestClose={handleModalClose}>
+        <CreateTaskForm editItemId={editItemId} onSubmit={createTaskHandler} />
       </ModalComponent>
     </MainLayout>
   );

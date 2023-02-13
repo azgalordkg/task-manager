@@ -5,4 +5,5 @@ export type RootStackParamList = {
   Task: { id: string };
 };
 
-export type ScreenProps = NativeStackScreenProps<RootStackParamList, 'Task'>;
+export type ScreenProps<T extends keyof RootStackParamList> =
+  NativeStackScreenProps<RootStackParamList, T>;

@@ -1,17 +1,13 @@
 import { format } from 'date-fns';
-import React, { FC } from 'react';
-import {
-  Animated,
-  Text,
-  TextStyle,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import React, { FC, useRef } from 'react';
+import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 
+import { Pencil, Trash } from '@/components/icons';
+import { ActionButton } from '@/components/ui';
 import { COLORS } from '@/constants';
 
-import { Checkmark, Trash } from '../../icons';
+import { Checkmark } from '../../icons';
 import styles from './ListItem.styles';
 import { ListItemProps } from './ListItem.types';
 
@@ -20,11 +16,20 @@ export const ListItem: FC<ListItemProps> = ({
   checked,
   onCheckPress,
   onDeletePress,
+  onEditPress,
   startDate,
   endDate,
   isLast,
   onItemPress,
 }) => {
+  const swipeRef = useRef<Swipeable | null>(null);
+
+  const closeSwiper = () => {
+    if (swipeRef) {
+      swipeRef.current?.close();
+    }
+  };
+
   const rightSwipe = (
     progress: Animated.AnimatedInterpolation<string>,
     dragX: Animated.AnimatedInterpolation<string>,
@@ -35,32 +40,28 @@ export const ListItem: FC<ListItemProps> = ({
       extrapolate: 'clamp',
     });
     return (
-      <View style={styles.buttonsWrapper}>
-        <TouchableOpacity
-          onPress={onDeletePress}
-          style={styles.buttonsContainer}>
-          <Animated.View
-            style={{ transform: [{ scale }], ...styles.buttonsContainer }}>
-            <Trash width={35} height={35} />
-          </Animated.View>
-        </TouchableOpacity>
-      </View>
+      <>
+        <ActionButton icon={Trash} scale={scale} onPress={onDeletePress} />
+        <ActionButton
+          backgroundColor={COLORS.ORANGE}
+          icon={Pencil}
+          scale={scale}
+          onPress={() => {
+            onEditPress();
+            closeSwiper();
+          }}
+        />
+      </>
     );
   };
 
-  const crossedTextStyles: TextStyle = checked
-    ? { textDecorationLine: 'line-through' }
-    : {};
+  const style = styles({ isLast, checked });
 
   return (
     <Swipeable renderRightActions={rightSwipe}>
-      <View
-        style={{
-          ...styles.container,
-          ...(isLast ? { borderBottomWidth: 0 } : {}),
-        }}>
-        <View style={styles.contentWrapper}>
-          <View style={styles.checkmarkWrapper}>
+      <View style={style.container}>
+        <View style={style.contentWrapper}>
+          <View style={style.checkmarkWrapper}>
             <TouchableOpacity onPress={onCheckPress}>
               <Checkmark
                 color={checked ? COLORS.GREEN : COLORS.WHITE}
@@ -70,24 +71,18 @@ export const ListItem: FC<ListItemProps> = ({
               />
             </TouchableOpacity>
           </View>
-          <View style={styles.textWrapper}>
-            <TouchableOpacity
-              onPress={onItemPress}
-              style={styles.contentButton}>
+          <View style={style.textWrapper}>
+            <TouchableOpacity onPress={onItemPress} style={style.contentButton}>
               {startDate && endDate && (
-                <View style={styles.timeWrapper}>
-                  <Text
-                    style={{
-                      ...styles.time,
-                      ...crossedTextStyles,
-                    }}>
+                <View style={style.timeWrapper}>
+                  <Text style={[style.time, style.crossedTextStyles]}>
                     {format(new Date(startDate), 'p')} -{' '}
                     {format(new Date(endDate), 'p')}
                   </Text>
                 </View>
               )}
               <View>
-                <Text style={{ ...styles.title, ...crossedTextStyles }}>
+                <Text style={[style.title, style.crossedTextStyles]}>
                   {name}
                 </Text>
               </View>

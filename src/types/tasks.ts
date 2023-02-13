@@ -5,6 +5,10 @@ export interface CreateTaskData {
   endDate: Date;
 }
 
+export interface UpdateTaskData extends CreateTaskData {
+  _id: string;
+}
+
 export interface TasksResponseItem {
   _id: string;
   name: string;

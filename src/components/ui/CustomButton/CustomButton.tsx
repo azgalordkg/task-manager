@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren } from 'react';
-import { Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 
 import { COLORS } from '@/constants';
 
@@ -20,42 +20,26 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
   borderWidth = 2,
   disabled,
 }) => {
-  const buttonStyles: ViewStyle = {
-    ...styles.button,
-    width: fullWidth ? '100%' : width,
-    paddingHorizontal: padding,
+  const style = styles({
+    width,
+    fullWidth,
+    padding,
     height,
-  };
-
-  const textStyles: TextStyle = {
-    ...styles.text,
-    fontSize: fontSize,
-  };
-
-  if (type === 'filled') {
-    buttonStyles.backgroundColor = bgColor;
-    textStyles.color = textColor;
-  }
-  if (type === 'outlined') {
-    buttonStyles.backgroundColor = 'transparent';
-    buttonStyles.borderWidth = borderWidth;
-    buttonStyles.borderColor = bgColor;
-    textStyles.color = bgColor;
-  }
-  if (type === 'clean') {
-    textStyles.color = COLORS.BG;
-  }
-  if (disabled) {
-    buttonStyles.opacity = 0.3;
-  }
+    fontSize,
+    type,
+    bgColor,
+    textColor,
+    borderWidth,
+    disabled,
+  });
 
   return (
     <TouchableOpacity
       activeOpacity={0.5}
-      style={buttonStyles}
+      style={style.button}
       onPress={onPress}
       disabled={disabled}>
-      <Text style={textStyles}>{children}</Text>
+      <Text style={style.text}>{children}</Text>
     </TouchableOpacity>
   );
 };

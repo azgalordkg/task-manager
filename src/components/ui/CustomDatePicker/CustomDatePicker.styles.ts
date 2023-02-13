@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
   label: {
     marginBottom: 10,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '500',
   },
 });
