@@ -13,7 +13,7 @@ const Drawer = createDrawerNavigator();
 const Root = () => {
   return (
     <Drawer.Navigator
-      screenOptions={{ headerShown: false, drawerStyle: { width: 250 } }}
+      screenOptions={{ headerShown: false, drawerStyle: { width: 280 } }}
       drawerContent={CustomDrawer}
       initialRouteName="Home">
       <Stack.Screen name="Home" component={HomeScreen} />

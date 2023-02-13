@@ -4,6 +4,5 @@ import { DefaultSvgProps } from '@/types';
 
 export interface Props {
   icon: FC<DefaultSvgProps>;
-  onToggleSwitch: (value: boolean) => void;
-  value: boolean;
+  onPress: () => void;
 }

@@ -19,6 +19,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 20,
   },
+  menuItemWrapper: {
+    marginBottom: 30,
+  },
 });
 
 export default styles;
