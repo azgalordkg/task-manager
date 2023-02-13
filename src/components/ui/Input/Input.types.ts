@@ -11,4 +11,5 @@ export interface Props extends TextInputProps {
   isDateTime?: boolean;
   isTime?: boolean;
   Icon?: ReactNode;
+  errorMessage?: string;
 }

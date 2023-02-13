@@ -1,9 +1,10 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import Realm from 'realm';
 
-import { COLORS } from '@/constants';
+import { COLORS, createTaskFormSchema } from '@/constants';
 import { findOne } from '@/services/realm';
 import { CreateTaskData } from '@/types';
 
@@ -23,13 +24,21 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
     startDate.getMinutes() < 30 ? 0 : 30,
   );
 
-  const { control, handleSubmit, setValue, watch, reset } =
-    useForm<CreateTaskData>({
-      defaultValues: {
-        startDate,
-        endDate,
-      },
-    });
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors, isValid, isDirty },
+    reset,
+  } = useForm<CreateTaskData>({
+    defaultValues: {
+      startDate,
+      endDate,
+    },
+    mode: 'onBlur',
+    resolver: yupResolver(createTaskFormSchema),
+  });
 
   // TODO replace any
   const prepareEditData = (task: Realm.Object<unknown, never> | any) => {
@@ -65,7 +74,12 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
         <BreakLine isDark />
         <View style={styles.fieldsWrapper}>
           <View style={styles.inputWrapper}>
-            <Input control={control} name="name" placeholder="Name *" />
+            <Input
+              control={control}
+              name="name"
+              placeholder="Name *"
+              errorMessage={errors.name?.message}
+            />
           </View>
           <View style={styles.inputWrapper}>
             <Input
@@ -112,8 +126,9 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
         <CustomButton
           fullWidth
           height={50}
-          bgColor={COLORS.RED}
-          onPress={handleSubmit(onSubmit)}>
+          bgColor={COLORS.DARK_GREEN}
+          onPress={handleSubmit(onSubmit)}
+          disabled={!(isValid && isDirty)}>
           {editItemId ? 'Edit' : 'Create'}
         </CustomButton>
       </View>
