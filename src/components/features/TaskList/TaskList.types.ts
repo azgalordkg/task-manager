@@ -4,4 +4,5 @@ export interface Props {
   list?: TasksList;
   fetchList: () => void;
   onItemPress: (id: string) => void;
+  onEditPress: (id: string) => void;
 }

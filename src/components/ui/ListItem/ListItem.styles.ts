@@ -3,12 +3,6 @@ import { StyleSheet } from 'react-native';
 import { COLORS } from '@/constants';
 
 const styles = StyleSheet.create({
-  buttonsContainer: {
-    width: 70,
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   container: {
     paddingVertical: 20,
     borderBottomColor: COLORS.LIGHT_GREY,
@@ -34,11 +28,6 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     flexDirection: 'row',
-  },
-  buttonsWrapper: {
-    backgroundColor: COLORS.RED,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   contentButton: {
     width: '50%',
