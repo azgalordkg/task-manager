@@ -3,7 +3,7 @@ import 'react-native-get-random-values';
 import Realm from 'realm';
 import { v4 as uuidv4 } from 'uuid';
 
-import { CreateTaskData, TasksResponseItem } from '@/types';
+import { CreateTaskData, TasksResponseItem, UpdateTaskData } from '@/types';
 
 import { getDateFromToday } from '../date';
 
@@ -61,6 +61,26 @@ export const findOne = (_id: string) => {
   if (realm) {
     const tasks = realm.objects('Task').filtered('_id == $0', _id);
     return tasks[0];
+  }
+};
+
+export const updateTask = (data: UpdateTaskData) => {
+  const { _id, name, startDate, endDate, description } = data;
+  const task = findOne(_id);
+  if (realm && task) {
+    realm.write(() => {
+      (findOne(_id) as unknown as TasksResponseItem).name = name;
+      if (description) {
+        (findOne(_id) as unknown as TasksResponseItem).description =
+          description;
+      }
+      if (startDate && endDate) {
+        (findOne(_id) as unknown as TasksResponseItem).startDate =
+          startDate.getTime();
+        (findOne(_id) as unknown as TasksResponseItem).endDate =
+          endDate.getTime();
+      }
+    });
   }
 };
 

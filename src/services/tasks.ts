@@ -2,6 +2,7 @@ import Realm from 'realm';
 
 import { TasksList } from '@/types';
 
+// TODO replace any
 export const sortTasksByDate = (tasks: Realm.Results<Realm.Object> | any[]) => {
   const tasksByDays: TasksList = {};
 
