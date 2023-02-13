@@ -1,24 +1,15 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
 
-import { COLORS } from '@/constants';
-
 import styles from './BreakLine.styles';
 import { Props } from './BreakLine.types';
 
 export const BreakLine: FC<Props> = ({ isDark }) => {
+  const style = styles(isDark);
+
   return (
-    <View
-      style={{
-        ...styles.brakeLine,
-        ...(isDark ? { backgroundColor: COLORS.GREY } : {}),
-      }}>
-      <View
-        style={{
-          ...styles.brakeLineChild,
-          ...(isDark ? { backgroundColor: COLORS.BG } : {}),
-        }}
-      />
+    <View style={style.brakeLine}>
+      <View style={style.brakeLineChild} />
     </View>
   );
 };

@@ -29,6 +29,7 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
   const [editItemId, setEditItemId] = useState<string | undefined>();
   const [createModalVisible, setCreateModalVisible] = useState(false);
   const isDarkMode = useColorScheme() === 'dark';
+  const style = styles(isDarkMode);
 
   const fetchList = () => {
     const tasks: Realm.Results<Realm.Object> | any[] = getTasks();
@@ -72,11 +73,7 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
   return (
     <MainLayout>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View
-          style={{
-            backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
-            ...styles.container,
-          }}>
+        <View style={style.container}>
           <TaskList
             onItemPress={handleItemPress}
             onEditPress={handleEditPress}
@@ -89,7 +86,7 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
       <TouchableOpacity
         onPress={() => setCreateModalVisible(true)}
         activeOpacity={0.75}>
-        <View style={styles.buttonWrapper}>
+        <View style={style.buttonWrapper}>
           <Plus color={COLORS.BG} width={20} height={20} />
         </View>
       </TouchableOpacity>
