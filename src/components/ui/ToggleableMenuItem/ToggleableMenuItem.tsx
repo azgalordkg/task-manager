@@ -15,7 +15,7 @@ export const ToggleableMenuItem: FC<PropsWithChildren<Props>> = ({
   const Icon = icon;
 
   return (
-    <View style={styles.container}>
+    <View style={styles.contentWrapper}>
       <Icon style={styles.icon} width={20} height={20} />
       <Text style={styles.text}>{children}</Text>
       <Switch

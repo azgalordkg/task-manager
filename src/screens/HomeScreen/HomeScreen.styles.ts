@@ -4,7 +4,7 @@ import { COLORS } from '@/constants';
 
 const styles = (isDarkMode: boolean) =>
   StyleSheet.create({
-    container: {
+    contentWrapper: {
       padding: 20,
       backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
     },

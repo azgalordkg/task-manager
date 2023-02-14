@@ -12,7 +12,7 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
   const Icon = icon;
 
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity onPress={onPress} style={styles.contentWrapper}>
       <Icon style={styles.icon} width={20} height={20} />
       <Text style={styles.text}>{children}</Text>
     </TouchableOpacity>

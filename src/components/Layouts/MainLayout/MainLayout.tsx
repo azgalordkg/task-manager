@@ -5,13 +5,22 @@ import { Header } from '@/components/ui';
 import { COLORS } from '@/constants';
 
 import styles from './MainLayout.styles';
+import { Props } from './MainLayout.types';
 
-export const MainLayout: FC<PropsWithChildren> = ({ children }) => {
+export const MainLayout: FC<PropsWithChildren<Props>> = ({
+  children,
+  navigation,
+  withMenu,
+}) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
     height: '100%',
+  };
+
+  const onMenuPress = () => {
+    navigation?.openDrawer();
   };
 
   return (
@@ -21,7 +30,7 @@ export const MainLayout: FC<PropsWithChildren> = ({ children }) => {
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <View style={styles.mainWrapper}>
-        <Header />
+        <Header withMenu={withMenu} onMenuPress={onMenuPress} />
         {children}
       </View>
     </SafeAreaView>

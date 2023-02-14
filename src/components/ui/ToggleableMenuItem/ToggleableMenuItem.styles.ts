@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { COLORS } from '@/constants';
 
 const styles = StyleSheet.create({
-  container: {
+  contentWrapper: {
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',

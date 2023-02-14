@@ -16,7 +16,7 @@ const Root = () => {
       screenOptions={{ headerShown: false, drawerStyle: { width: 280 } }}
       drawerContent={CustomDrawer}
       initialRouteName="Home">
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="AboutUs" component={AboutUs} />
       <Drawer.Screen name="Settings" component={Settings} />
     </Drawer.Navigator>

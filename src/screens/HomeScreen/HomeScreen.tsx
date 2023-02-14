@@ -1,3 +1,4 @@
+import { DrawerNavigationHelpers } from '@react-navigation/drawer/src/types';
 import React, { FC, useEffect, useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import {
@@ -15,16 +16,13 @@ import { ModalComponent } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { sortTasksByDate } from '@/services';
 import { createTask, getTasks, updateTask } from '@/services/realm';
-import {
-  CreateTaskData,
-  ScreenProps,
-  TasksList,
-  UpdateTaskData,
-} from '@/types';
+import { CreateTaskData, TasksList, UpdateTaskData } from '@/types';
 
 import styles from './HomeScreen.styles';
 
-export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
+export const HomeScreen: FC<{ navigation: DrawerNavigationHelpers }> = ({
+  navigation,
+}) => {
   const [list, setList] = useState<TasksList | undefined>();
   const [editItemId, setEditItemId] = useState<string | undefined>();
   const [createModalVisible, setCreateModalVisible] = useState(false);
@@ -71,9 +69,9 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout withMenu navigation={navigation}>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View style={style.container}>
+        <View style={style.contentWrapper}>
           <TaskList
             onItemPress={handleItemPress}
             onEditPress={handleEditPress}

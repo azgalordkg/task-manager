@@ -4,8 +4,11 @@ import { COLORS } from '@/constants';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.BG,
     height: '100%',
+    backgroundColor: COLORS.BG,
+  },
+  contentWrapper: {
+    flexGrow: 1,
     paddingHorizontal: 20,
     paddingVertical: 40,
     alignItems: 'center',
@@ -18,9 +21,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
+    marginBottom: 40,
   },
   menuItemWrapper: {
     marginBottom: 30,
+  },
+  logoWrapper: {
+    alignItems: 'center',
+    marginBottom: 40,
   },
 });
 

@@ -4,6 +4,7 @@ export * from './Checkmark';
 export * from './Cross';
 export * from './Info';
 export * from './Logo';
+export * from './Menu';
 export * from './Pencil';
 export * from './Plus';
 export * from './Setting';

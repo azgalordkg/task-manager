@@ -2,7 +2,7 @@ import { DrawerContentComponentProps } from '@react-navigation/drawer/src/types'
 import React, { FC, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
-import { Alarm, Cross, Sun } from '@/components/icons';
+import { Alarm, Cross, Info, Logo, Setting, Sun } from '@/components/icons';
 import { BreakLine, ToggleableMenuItem } from '@/components/ui';
 import { MenuItem } from '@/components/ui/MenuItem';
 import { COLORS } from '@/constants';
@@ -20,32 +20,52 @@ export const CustomDrawer: FC<DrawerContentComponentProps> = ({
     });
   };
 
+  const onAboutUsPress = () => {
+    navigation.navigate('Main', {
+      screen: 'AboutUs',
+    });
+  };
+
+  const onClosePress = () => {
+    navigation.closeDrawer();
+  };
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.closeBtn}>
-        <Cross color={COLORS.WHITE} />
-      </TouchableOpacity>
-      <View style={styles.menuItemWrapper}>
-        <ToggleableMenuItem
-          value={isLightMode}
-          onToggleSwitch={setIsLightMode}
-          icon={Sun}>
-          Light mode
-        </ToggleableMenuItem>
+      <View style={styles.contentWrapper}>
+        <TouchableOpacity onPress={onClosePress} style={styles.closeBtn}>
+          <Cross color={COLORS.WHITE} />
+        </TouchableOpacity>
+        <View style={styles.menuItemWrapper}>
+          <ToggleableMenuItem
+            value={isLightMode}
+            onToggleSwitch={setIsLightMode}
+            icon={Sun}>
+            Light mode
+          </ToggleableMenuItem>
+        </View>
+        <View style={styles.menuItemWrapper}>
+          <ToggleableMenuItem
+            value={isLightMode}
+            onToggleSwitch={setIsLightMode}
+            icon={Alarm}>
+            Notifications
+          </ToggleableMenuItem>
+        </View>
+        <BreakLine marginBottom={30} />
+        <View style={styles.menuItemWrapper}>
+          <MenuItem onPress={onSettingsPress} icon={Setting}>
+            Settings
+          </MenuItem>
+        </View>
+        <View style={styles.menuItemWrapper}>
+          <MenuItem onPress={onAboutUsPress} icon={Info}>
+            About Us
+          </MenuItem>
+        </View>
       </View>
-      <View style={styles.menuItemWrapper}>
-        <ToggleableMenuItem
-          value={isLightMode}
-          onToggleSwitch={setIsLightMode}
-          icon={Alarm}>
-          Notifications
-        </ToggleableMenuItem>
-      </View>
-      <BreakLine />
-      <View style={styles.menuItemWrapper}>
-        <MenuItem onPress={onSettingsPress} icon={Alarm}>
-          Settings
-        </MenuItem>
+      <View style={styles.logoWrapper}>
+        <Logo width={140} height={25} />
       </View>
     </View>
   );

@@ -65,7 +65,7 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
 
   return (
     <DismissKeyboard>
-      <View style={styles.container}>
+      <View style={styles.contentWrapper}>
         <View style={styles.titleWrapper}>
           <Text style={styles.title}>
             {editItemId ? 'Edit task' : 'Create task'}

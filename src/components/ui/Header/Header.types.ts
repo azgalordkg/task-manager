@@ -1,1 +1,4 @@
-export interface Props {}
+export interface Props {
+  onMenuPress: () => void;
+  withMenu?: boolean;
+}
