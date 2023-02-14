@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     flex: 1,
   },
-  container: {
+  contentWrapper: {
     flex: 1,
     backgroundColor: COLORS.WHITE,
     padding: 20,

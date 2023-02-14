@@ -18,7 +18,7 @@ export const ModalComponent: FC<Props> = ({
       modalVisible={visible}
       ContentModal={
         <DismissKeyboard>
-          <View style={styles.container}>
+          <View style={styles.contentWrapper}>
             {children}
             <View style={styles.footer}>
               <CustomButton fullWidth type="clean" onPress={onRequestClose}>
