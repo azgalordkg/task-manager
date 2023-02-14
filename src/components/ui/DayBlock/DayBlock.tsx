@@ -11,7 +11,7 @@ export const DayBlock: FC<PropsWithChildren<Props>> = ({ children, date }) => {
   const isToday = currentDate?.getDay() === new Date().getDay();
 
   return (
-    <View style={styles.container}>
+    <View style={styles.contentWrapper}>
       <BreakLine />
       <View style={styles.dateWrapper}>
         <View style={styles.dayWrapper}>
