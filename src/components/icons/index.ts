@@ -1,3 +1,4 @@
+export * from './Back';
 export * from './Calendar';
 export * from './Checkmark';
 export * from './Logo';

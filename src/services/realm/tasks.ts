@@ -60,6 +60,7 @@ export const createTask = (data: CreateTaskData) => {
 export const findOne = (_id: string) => {
   if (realm) {
     const tasks = realm.objects('Task').filtered('_id == $0', _id);
+    console.log(tasks, 'tasks');
     return tasks[0];
   }
 };
