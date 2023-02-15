@@ -6,6 +6,7 @@ import { Swipeable } from 'react-native-gesture-handler';
 import { Cross, Pencil, Trash } from '@/components/icons';
 import { ActionButton } from '@/components/ui';
 import { COLORS } from '@/constants';
+import { vibrate } from '@/services';
 
 import { Checkmark } from '../../icons';
 import styles from './ListItem.styles';
@@ -57,12 +58,22 @@ export const ListItem: FC<ListItemProps> = ({
 
   const style = styles({ isLast, checked });
 
+  const onCheckPressHandler = () => {
+    vibrate();
+    onCheckPress();
+  };
+
+  const onEasyRemovePress = () => {
+    vibrate();
+    onDeletePress();
+  };
+
   return (
     <Swipeable renderRightActions={!checked ? rightSwipe : undefined}>
       <View style={style.container}>
         <View style={style.contentWrapper}>
           <View style={style.checkmarkWrapper}>
-            <TouchableOpacity onPress={onCheckPress}>
+            <TouchableOpacity onPress={onCheckPressHandler}>
               <Checkmark
                 color={checked ? COLORS.GREEN : COLORS.WHITE}
                 checked={checked}
@@ -81,16 +92,12 @@ export const ListItem: FC<ListItemProps> = ({
                   </Text>
                 </View>
               )}
-              <View>
-                <Text style={[style.title, style.crossedTextStyles]}>
-                  {name}
-                </Text>
-              </View>
+              <Text style={[style.title, style.crossedTextStyles]}>{name}</Text>
             </TouchableOpacity>
           </View>
         </View>
         {checked && (
-          <TouchableOpacity onPress={onDeletePress} style={style.deleteBtn}>
+          <TouchableOpacity onPress={onEasyRemovePress} style={style.deleteBtn}>
             <Cross width={8} height={8} />
           </TouchableOpacity>
         )}
