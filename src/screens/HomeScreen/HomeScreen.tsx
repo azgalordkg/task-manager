@@ -1,4 +1,5 @@
 import { DrawerNavigationHelpers } from '@react-navigation/drawer/src/types';
+import { useIsFocused } from '@react-navigation/native';
 import React, { FC, useEffect, useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import {
@@ -28,6 +29,7 @@ export const HomeScreen: FC<{ navigation: DrawerNavigationHelpers }> = ({
   const [createModalVisible, setCreateModalVisible] = useState(false);
   const isDarkMode = useColorScheme() === 'dark';
   const style = styles(isDarkMode);
+  const isFocused = useIsFocused();
 
   const fetchList = () => {
     const tasks: Realm.Results<Realm.Object> | any[] = getTasks();
@@ -39,8 +41,10 @@ export const HomeScreen: FC<{ navigation: DrawerNavigationHelpers }> = ({
   };
 
   useEffect(() => {
-    fetchList();
-  }, []);
+    if (isFocused) {
+      fetchList();
+    }
+  }, [isFocused]);
 
   const createTaskHandler = (data: FieldValues) => {
     if (editItemId) {
