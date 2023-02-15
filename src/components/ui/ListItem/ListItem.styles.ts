@@ -24,7 +24,7 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
       backgroundColor: COLORS.BG,
     },
     textWrapper: {
-      width: '100%',
+      width: '80%',
     },
     checkmarkWrapper: {
       marginRight: 15,
