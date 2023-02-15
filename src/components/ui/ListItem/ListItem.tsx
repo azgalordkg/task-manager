@@ -3,7 +3,7 @@ import React, { FC, useRef } from 'react';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 
-import { Pencil, Trash } from '@/components/icons';
+import { Cross, Pencil, Trash } from '@/components/icons';
 import { ActionButton } from '@/components/ui';
 import { COLORS } from '@/constants';
 
@@ -58,7 +58,7 @@ export const ListItem: FC<ListItemProps> = ({
   const style = styles({ isLast, checked });
 
   return (
-    <Swipeable renderRightActions={rightSwipe}>
+    <Swipeable renderRightActions={!checked ? rightSwipe : undefined}>
       <View style={style.container}>
         <View style={style.contentWrapper}>
           <View style={style.checkmarkWrapper}>
@@ -89,6 +89,11 @@ export const ListItem: FC<ListItemProps> = ({
             </TouchableOpacity>
           </View>
         </View>
+        {checked && (
+          <TouchableOpacity onPress={onDeletePress} style={style.deleteBtn}>
+            <Cross width={8} height={8} />
+          </TouchableOpacity>
+        )}
       </View>
     </Swipeable>
   );

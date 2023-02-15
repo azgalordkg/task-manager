@@ -54,6 +54,17 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
     crossedTextStyles: {
       textDecorationLine: checked ? 'line-through' : 'none',
     },
+    deleteBtn: {
+      borderRadius: 10,
+      width: 20,
+      height: 20,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: COLORS.LIGHT_GREY,
+      position: 'absolute',
+      right: 0,
+      top: 20,
+    },
   });
 
 export default styles;
