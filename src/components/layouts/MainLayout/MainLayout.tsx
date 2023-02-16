@@ -5,7 +5,7 @@ import { SafeAreaView, StatusBar, useColorScheme, View } from 'react-native';
 import { CreateTaskForm } from '@/components/features';
 import { Header, ModalComponent } from '@/components/ui';
 import { COLORS } from '@/constants';
-import { useEditedTaskIdList, useModalOpen, useTaskList } from '@/hooks';
+import { useTaskModalContext } from '@/context/hooks';
 import { createTask, updateTask } from '@/services/realm';
 import { CreateTaskData, UpdateTaskData } from '@/types';
 
@@ -18,9 +18,8 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
   withMenu,
 }) => {
   const isDarkMode = useColorScheme() === 'dark';
-  const { createModalVisible, setCreateModalVisible } = useModalOpen();
-  const { editItemId } = useEditedTaskIdList();
-  const { fetchList } = useTaskList();
+  const { visible, modalVisibleHandler, taskId, fetchList } =
+    useTaskModalContext();
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
@@ -28,7 +27,7 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
   };
 
   const handleModalClose = () => {
-    setCreateModalVisible(false);
+    modalVisibleHandler(false);
   };
 
   const onMenuPress = () => {
@@ -36,13 +35,13 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
   };
 
   const createTaskHandler = (data: FieldValues) => {
-    if (editItemId) {
-      updateTask({ ...data, _id: editItemId } as UpdateTaskData);
+    if (taskId) {
+      updateTask({ ...data, _id: taskId } as UpdateTaskData);
     } else {
       createTask(data as CreateTaskData);
     }
     fetchList();
-    setCreateModalVisible(false);
+    modalVisibleHandler(false);
   };
 
   return (
@@ -55,13 +54,8 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
         <Header withMenu={withMenu} onMenuPress={onMenuPress} />
         {children}
 
-        <ModalComponent
-          visible={createModalVisible}
-          onRequestClose={handleModalClose}>
-          <CreateTaskForm
-            editItemId={editItemId}
-            onSubmit={createTaskHandler}
-          />
+        <ModalComponent visible={visible} onRequestClose={handleModalClose}>
+          <CreateTaskForm editItemId={taskId} onSubmit={createTaskHandler} />
         </ModalComponent>
       </View>
     </SafeAreaView>

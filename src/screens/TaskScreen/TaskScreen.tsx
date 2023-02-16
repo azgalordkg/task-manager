@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Text } from 'react-native';
 
-import { MainLayout } from '@/components/Layouts';
+import { MainLayout } from '@/components/layouts';
 import { ScreenProps } from '@/types';
 
 export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route }) => {
