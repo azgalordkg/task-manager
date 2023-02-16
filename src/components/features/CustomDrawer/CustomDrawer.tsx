@@ -13,6 +13,7 @@ export const CustomDrawer: FC<DrawerContentComponentProps> = ({
   navigation,
 }) => {
   const [isLightMode, setIsLightMode] = useState(false);
+  const [isNotifications, setIsNotifications] = useState(false);
 
   const onSettingsPress = () => {
     navigation.navigate('Main', {
@@ -46,8 +47,8 @@ export const CustomDrawer: FC<DrawerContentComponentProps> = ({
         </View>
         <View style={styles.menuItemWrapper}>
           <ToggleableMenuItem
-            value={isLightMode}
-            onToggleSwitch={setIsLightMode}
+            value={isNotifications}
+            onToggleSwitch={setIsNotifications}
             icon={Alarm}>
             Notifications
           </ToggleableMenuItem>
