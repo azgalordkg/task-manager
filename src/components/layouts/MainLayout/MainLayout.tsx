@@ -15,7 +15,6 @@ import { Props } from './MainLayout.types';
 export const MainLayout: FC<PropsWithChildren<Props>> = ({
   children,
   navigation,
-  withMenu,
 }) => {
   const isDarkMode = useColorScheme() === 'dark';
   const { visible, modalVisibleHandler, taskId, fetchList } =
@@ -51,7 +50,7 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <View style={styles.mainWrapper}>
-        <Header withMenu={withMenu} onMenuPress={onMenuPress} />
+        <Header onMenuPress={onMenuPress} />
         {children}
 
         <ModalComponent visible={visible} onRequestClose={handleModalClose}>

@@ -46,7 +46,7 @@ export const HomeScreen: FC<{ navigation: DrawerNavigationHelpers }> = ({
   };
 
   return (
-    <MainLayout withMenu navigation={navigation}>
+    <MainLayout navigation={navigation}>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={style.contentWrapper}>
           <TaskList
