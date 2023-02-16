@@ -4,6 +4,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { FC } from 'react';
 
 import { CustomDrawer } from '@/components/features/CustomDrawer';
+import {
+  EditTaskIdContextProvider,
+  ModalProvider,
+  TaskListContextProvider,
+} from '@/contexts';
 import { AboutUs, HomeScreen, Settings, TaskScreen } from '@/screens';
 import { RootStackParamList } from '@/types/navigation';
 
@@ -25,16 +30,22 @@ const Root = () => {
 
 const App: FC = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Main"
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen name="Main" component={Root} />
-        <Stack.Screen name="Task" component={TaskScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ModalProvider>
+      <TaskListContextProvider>
+        <EditTaskIdContextProvider>
+          <NavigationContainer>
+            <Stack.Navigator
+              initialRouteName="Main"
+              screenOptions={{
+                headerShown: false,
+              }}>
+              <Stack.Screen name="Main" component={Root} />
+              <Stack.Screen name="Task" component={TaskScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </EditTaskIdContextProvider>
+      </TaskListContextProvider>
+    </ModalProvider>
   );
 };
 
