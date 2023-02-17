@@ -145,7 +145,6 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
 
         <CustomButton
           fullWidth
-          height={50}
           bgColor={COLORS.DARK_GREEN}
           onPress={handleSubmit(onSubmit)}
           disabled={!(isValid && isDirty)}>
