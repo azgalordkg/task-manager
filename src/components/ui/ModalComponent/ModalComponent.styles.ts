@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   footer: {
-    padding: 15,
+    paddingVertical: 15,
     width: '100%',
     alignItems: 'center',
   },
