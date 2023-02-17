@@ -8,13 +8,8 @@ const styles = (isDark?: boolean, marginBottom?: number) =>
       width: '100%',
       height: 2,
       backgroundColor: isDark ? COLORS.GREY : COLORS.LIGHT_GREY,
-      marginBottom: marginBottom || 15,
+      marginBottom: marginBottom || 0,
       alignItems: 'flex-end',
-    },
-    brakeLineChild: {
-      width: '75%',
-      height: 2,
-      backgroundColor: isDark ? COLORS.BG : COLORS.WHITE,
     },
   });
 

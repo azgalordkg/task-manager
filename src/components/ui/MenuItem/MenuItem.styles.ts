@@ -7,9 +7,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
-  },
-  icon: {
-    marginRight: 15,
+    justifyContent: 'space-between',
+    paddingVertical: 16,
   },
   text: {
     flexGrow: 1,

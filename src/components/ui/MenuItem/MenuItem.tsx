@@ -1,20 +1,43 @@
 import React, { FC, PropsWithChildren } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Switch, Text, TouchableOpacity, View } from 'react-native';
+
+import { ArrowAngle } from '@/components/icons';
+import { BreakLine } from '@/components/ui';
+import { COLORS } from '@/constants';
+import { vibrate } from '@/utils';
 
 import styles from './MenuItem.styles';
 import { Props } from './MenuItem.types';
 
 export const MenuItem: FC<PropsWithChildren<Props>> = ({
-  icon,
   children,
   onPress,
+  isSwitcher,
+  onToggleSwitch,
+  value,
 }) => {
-  const Icon = icon;
+  const onValueChangePress = (currentValue: boolean) => {
+    vibrate();
+    onToggleSwitch?.(currentValue);
+  };
 
   return (
-    <TouchableOpacity onPress={onPress} style={styles.contentWrapper}>
-      <Icon style={styles.icon} width={20} height={20} />
-      <Text style={styles.text}>{children}</Text>
+    <TouchableOpacity disabled={!onPress} onPress={onPress}>
+      <View style={styles.contentWrapper}>
+        <Text style={styles.text}>{children}</Text>
+        {isSwitcher ? (
+          <Switch
+            trackColor={{ false: COLORS.GREY, true: COLORS.DARK_GREEN }}
+            thumbColor={COLORS.WHITE}
+            ios_backgroundColor={COLORS.GREY}
+            onValueChange={onValueChangePress}
+            value={value}
+          />
+        ) : (
+          <ArrowAngle />
+        )}
+      </View>
+      <BreakLine />
     </TouchableOpacity>
   );
 };
