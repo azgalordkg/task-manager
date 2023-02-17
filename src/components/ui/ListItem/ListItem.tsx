@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 
-import { Cross, Pencil, Trash } from '@/components/icons';
+import { Cross, Edit, Trash } from '@/components/icons';
 import { ActionButton } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { vibrate } from '@/utils';
@@ -54,7 +54,7 @@ export const ListItem: FC<ListItemProps> = ({
         <ActionButton icon={Trash} scale={scale} onPress={onDeletePress} />
         <ActionButton
           backgroundColor={COLORS.ORANGE}
-          icon={Pencil}
+          icon={Edit}
           scale={scale}
           onPress={() => {
             onEditPress();
