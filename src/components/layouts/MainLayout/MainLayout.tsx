@@ -22,6 +22,11 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
     useTaskModalContext();
   const style = styles(isDarkMode);
 
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
+    height: '100%',
+  };
+
   const handleModalClose = () => {
     modalVisibleHandler(false);
   };

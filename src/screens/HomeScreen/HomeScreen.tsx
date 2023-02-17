@@ -4,7 +4,7 @@ import { ScrollView, TouchableOpacity, View } from 'react-native';
 
 import { TaskList } from '@/components/features';
 import { Plus } from '@/components/icons';
-import { MainLayout } from '@/components/Layouts';
+import { MainLayout } from '@/components/layouts';
 import { COLORS } from '@/constants';
 import { useTaskModalContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';

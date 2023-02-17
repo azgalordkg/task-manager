@@ -2,8 +2,8 @@ import { format } from 'date-fns';
 import React, { FC } from 'react';
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 
-import { Back, Edit } from '@/components/icons';
-import { MainLayout } from '@/components/Layouts';
+import { ArrowBack, Edit } from '@/components/icons';
+import { MainLayout } from '@/components/layouts';
 import { CustomButton } from '@/components/ui';
 import { ConfirmModal } from '@/components/ui/ConfirmModal';
 import { Tags } from '@/components/ui/Tags';
@@ -22,7 +22,8 @@ const taskTags = [
 
 export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
   const id = route?.params?.id;
-  const task = findOne(id);
+  // TODO need typing for task
+  const task: any = findOne(id);
   const { modalVisibleHandler, onSetTaskIdHandler, fetchList } =
     useTaskModalContext();
   const [confirmModalVisible, setConfirmModalVisible] = React.useState(false);
@@ -37,7 +38,6 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
     deleteOne(id);
     fetchList();
   };
-  // TODO need typing for task
   const startDate = task?.startDate;
   const endDate = task?.endDate;
 
@@ -49,7 +49,7 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
         source={require('../../assets/img/Bg.png')}>
         <View style={styles.taskHeaderContainer}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Back />
+            <ArrowBack />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -96,13 +96,13 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
       <View style={styles.taskButtonContainer}>
         <CustomButton
           width={'100%'}
-          bgColor={COLORS.SUBMIT_GREEN}
+          bgColor={COLORS.DARK_GREEN}
           onPress={() => console.log(123)}>
           Duplicate
         </CustomButton>
         <CustomButton
           width={'100%'}
-          bgColor={COLORS.LIGHT_BG}
+          bgColor={COLORS.LIGHT_GREY}
           textColor={COLORS.RED}
           onPress={handleShowModal}>
           Delete
