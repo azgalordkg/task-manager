@@ -7,7 +7,7 @@ import { Props } from './CustomButton.types';
 const styles = ({
   width,
   fullWidth,
-  padding,
+  paddingHorizontal,
   height,
   fontSize,
   type,
@@ -27,7 +27,7 @@ const styles = ({
       alignItems: 'center',
       maxWidth: '100%',
       width: fullWidth ? '100%' : width,
-      paddingHorizontal: padding,
+      paddingHorizontal,
       height: height,
       backgroundColor: (isFilled && bgColor) || 'transparent',
       borderWidth: (isOutlined && borderWidth) || 0,

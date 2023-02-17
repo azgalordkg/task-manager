@@ -6,7 +6,7 @@ export interface Props {
   height?: number;
   fullWidth?: boolean;
   width?: number | string;
-  padding?: number;
+  paddingHorizontal?: number;
   fontSize?: number;
   borderWidth?: number;
   disabled?: boolean;

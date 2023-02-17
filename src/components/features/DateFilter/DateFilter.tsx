@@ -44,7 +44,7 @@ const DateFilter: FC<Props> = ({
               height={30}
               type={isCurrent ? 'filled' : 'outlined'}
               borderWidth={1}
-              padding={5}
+              paddingHorizontal={5}
               fontSize={14}
               onPress={onDateChange}>
               {index > 1
