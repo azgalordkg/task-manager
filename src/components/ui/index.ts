@@ -1,6 +1,7 @@
 export * from './ActionButton';
 export * from './BackButtonHeader';
 export * from './BreakLine';
+export * from './Checkbox';
 export * from './CustomButton';
 export * from './CustomDatePicker';
 export * from './DayBlock';

@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FC, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useController, useForm } from 'react-hook-form';
 import { Dimensions, Text, View } from 'react-native';
 import Realm from 'realm';
 
@@ -8,7 +8,7 @@ import { COLORS, createTaskFormSchema } from '@/constants';
 import { findOne } from '@/services/realm';
 import { CreateTaskData } from '@/types';
 
-import { CustomButton, CustomDatePicker, Input } from '../../ui';
+import { Checkbox, CustomButton, CustomDatePicker, Input } from '../../ui';
 import DateFilter from '../DateFilter/DateFilter';
 import { DismissKeyboard } from '../DismissKeyboard';
 import styles from './CreateTaskForm.styles';
@@ -35,6 +35,7 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
     defaultValues: {
       startDate,
       endDate,
+      hasDeadline: false,
     },
     mode: 'onBlur',
     resolver: yupResolver(createTaskFormSchema),
@@ -64,6 +65,12 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
   }, [editItemId]);
 
   const timeInputWidth = Dimensions.get('window').width / 2 - 30;
+
+  const { field: hasDeadlineField } = useController({
+    control,
+    defaultValue: undefined,
+    name: 'hasDeadline',
+  });
 
   return (
     <DismissKeyboard>
@@ -108,24 +115,32 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
             />
           </View>
 
-          <View style={styles.timeContainer}>
-            <CustomDatePicker
-              inputWidth={timeInputWidth}
-              label="Start Time"
-              control={control}
-              name="startDate"
-              title="Choose date"
-              mode="time"
-            />
-            <CustomDatePicker
-              inputWidth={timeInputWidth}
-              label="End Time"
-              control={control}
-              name="endDate"
-              title="Choose date"
-              mode="time"
-            />
-          </View>
+          <Checkbox
+            control={control}
+            name="hasDeadline"
+            onChange={value => setValue('hasDeadline', value)}
+            label="Set due time"
+          />
+          {hasDeadlineField.value && (
+            <View style={styles.timeContainer}>
+              <CustomDatePicker
+                inputWidth={timeInputWidth}
+                label="Start Time"
+                control={control}
+                name="startDate"
+                title="Choose date"
+                mode="time"
+              />
+              <CustomDatePicker
+                inputWidth={timeInputWidth}
+                label="End Time"
+                control={control}
+                name="endDate"
+                title="Choose date"
+                mode="time"
+              />
+            </View>
+          )}
         </View>
 
         <CustomButton

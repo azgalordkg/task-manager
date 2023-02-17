@@ -18,8 +18,12 @@ export const TaskList: FC<Props> = ({
           return (
             <DayBlock date={key} key={key}>
               {list[key].map(
-                ({ name, isDone, _id, endDate, startDate }, index) => (
+                (
+                  { name, isDone, hasDeadline, _id, endDate, startDate },
+                  index,
+                ) => (
                   <ListItem
+                    hasDeadline={Boolean(hasDeadline)}
                     onEditPress={() => onEditPress(_id)}
                     onItemPress={() => onItemPress(_id)}
                     startDate={startDate}

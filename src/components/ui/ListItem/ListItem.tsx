@@ -22,6 +22,7 @@ export const ListItem: FC<ListItemProps> = ({
   endDate,
   isLast,
   onItemPress,
+  hasDeadline,
 }) => {
   const style = styles({ isLast, checked });
   const swipeRef = useRef<Swipeable | null>(null);
@@ -98,7 +99,7 @@ export const ListItem: FC<ListItemProps> = ({
             </View>
             <View style={style.textWrapper}>
               <Text style={[style.title, style.crossedTextStyles]}>{name}</Text>
-              {startDate && endDate && (
+              {hasDeadline && startDate && endDate && (
                 <Text style={[style.time, style.crossedTextStyles]}>
                   {format(new Date(startDate), 'p')} -{' '}
                   {format(new Date(endDate), 'p')}
@@ -107,11 +108,13 @@ export const ListItem: FC<ListItemProps> = ({
             </View>
           </View>
           {checked && (
-            <TouchableOpacity
-              onPress={onEasyRemovePress}
-              style={style.deleteBtn}>
-              <Cross width={8} height={8} />
-            </TouchableOpacity>
+            <View style={style.deleteBtnWrapper}>
+              <TouchableOpacity
+                onPress={onEasyRemovePress}
+                style={style.deleteBtn}>
+                <Cross width={8} height={8} />
+              </TouchableOpacity>
+            </View>
           )}
         </TouchableOpacity>
       </Swipeable>

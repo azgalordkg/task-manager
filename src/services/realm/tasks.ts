@@ -15,6 +15,7 @@ const TaskSchema = {
     description: 'string?',
     startDate: 'int?',
     endDate: 'int?',
+    hasDeadline: 'int?',
   },
   primaryKey: '_id',
 };
@@ -46,9 +47,10 @@ export const createTask = (data: CreateTaskData) => {
   if (realm) {
     realm.write(() => {
       realm.create('Task', {
+        ...data,
         _id: uuidv4().slice(0, 8),
         isDone: 0,
-        ...data,
+        hasDeadline: data.hasDeadline ? 1 : 0,
         startDate: data.startDate.getTime(),
         endDate: data.endDate.getTime(),
       });

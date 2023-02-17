@@ -8,4 +8,5 @@ export interface ListItemProps {
   isLast?: boolean;
   onItemPress: () => void;
   onEditPress: () => void;
+  hasDeadline?: boolean;
 }

@@ -21,7 +21,7 @@ const styles = (inputWidth?: string | number) =>
     label: {
       paddingHorizontal: 12,
       marginBottom: -4,
-      fontSize: 18,
+      fontSize: 16,
       color: COLORS.PLACEHOLDER,
     },
   });
