@@ -11,7 +11,6 @@ export const TaskList: FC<Props> = ({
   onItemPress,
   onEditPress,
 }) => {
-  console.log(list, 'list');
   return (
     <>
       {list &&

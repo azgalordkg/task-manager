@@ -46,14 +46,13 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
       <ImageBackground
         style={styles.taskHeaderImage}
         resizeMode="cover"
-        source={require('../../assets/img/Bg.png')}>
+        source={require('../../assets/img/taskBackground.jpg')}>
         <View style={styles.taskHeaderContainer}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <ArrowBack />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              console.log(123);
               modalVisibleHandler(true);
               onSetTaskIdHandler(id);
             }}>
@@ -67,9 +66,9 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
           <View style={styles.taskTitleTagsContainer}>
             <Text style={styles.taskTitle}>{task?.name}</Text>
             <View style={styles.taskTagsContainer}>
-              {taskTags.map(taskItem => {
-                return <Tags name={taskItem.name} bgColor={taskItem.color} />;
-              })}
+              {taskTags?.map(taskTagItem => (
+                <Tags name={taskTagItem.name} bgColor={taskTagItem.color} />
+              ))}
             </View>
           </View>
 
@@ -102,7 +101,7 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
         </CustomButton>
         <CustomButton
           width={'100%'}
-          bgColor={COLORS.LIGHT_GREY}
+          bgColor={COLORS.GREY_BG}
           textColor={COLORS.RED}
           onPress={handleShowModal}>
           Delete
@@ -111,8 +110,8 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
 
       <ConfirmModal
         visible={confirmModalVisible}
-        title={'Confirm Delete'}
-        description={'Are you sure you want to delete this task?'}
+        title="Confirm Delete"
+        description="Are you sure you want to delete this task?"
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowModal}
       />
