@@ -52,7 +52,6 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
       <View style={styles.mainWrapper}>
         <Header onMenuPress={onMenuPress} />
         {children}
-
         <ModalComponent visible={visible} onRequestClose={handleModalClose}>
           <CreateTaskForm editItemId={taskId} onSubmit={createTaskHandler} />
         </ModalComponent>

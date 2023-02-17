@@ -2,7 +2,7 @@ import React, { FC, PropsWithChildren } from 'react';
 import { Switch, Text, View } from 'react-native';
 
 import { COLORS } from '@/constants';
-import { vibrate } from '@/services';
+import { vibrate } from '@/utils';
 
 import styles from './ToggleableMenuItem.styles';
 import { Props } from './ToggleableMenuItem.types';

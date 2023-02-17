@@ -1,9 +1,9 @@
 import React, { createContext, FC, PropsWithChildren, useState } from 'react';
 import Realm from 'realm';
 
-import { sortTasksByDate } from '@/services';
 import { getTasks } from '@/services/realm';
 import { TasksList } from '@/types';
+import { sortTasksByDate } from '@/utils';
 
 import { TaskListContextType } from './TaskModalProvider.types';
 
@@ -29,7 +29,7 @@ export const TaskListProvider: FC<PropsWithChildren> = ({ children }) => {
     setVisible(value);
   };
 
-  const onSetTaskIdHandler = (id: string) => {
+  const onSetTaskIdHandler = (id?: string) => {
     setTaskId(id);
   };
 

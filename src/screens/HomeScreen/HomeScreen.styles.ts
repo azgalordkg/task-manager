@@ -5,7 +5,7 @@ import { COLORS } from '@/constants';
 const styles = (isDarkMode: boolean) =>
   StyleSheet.create({
     contentWrapper: {
-      padding: 20,
+      paddingTop: 30,
       backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
     },
     buttonWrapper: {
