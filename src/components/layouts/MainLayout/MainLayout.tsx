@@ -17,21 +17,11 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
   navigation,
   withMenu,
 }) => {
-  const isDarkMode = useColorScheme() === 'dark';
   const { visible, modalVisibleHandler, taskId, fetchList } =
     useTaskModalContext();
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
-    height: '100%',
-  };
-
   const handleModalClose = () => {
     modalVisibleHandler(false);
-  };
-
-  const onMenuPress = () => {
-    navigation?.openDrawer();
   };
 
   const createTaskHandler = (data: FieldValues) => {
@@ -44,6 +34,17 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
     modalVisibleHandler(false);
   };
 
+  const isDarkMode = useColorScheme() === 'dark';
+
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
+    height: '100%',
+  };
+
+  const onMenuPress = () => {
+    navigation?.openDrawer();
+  };
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -53,11 +54,11 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
       <View style={styles.mainWrapper}>
         <Header withMenu={withMenu} onMenuPress={onMenuPress} />
         {children}
-
-        <ModalComponent visible={visible} onRequestClose={handleModalClose}>
-          <CreateTaskForm editItemId={taskId} onSubmit={createTaskHandler} />
-        </ModalComponent>
       </View>
+
+      <ModalComponent visible={visible} onRequestClose={handleModalClose}>
+        <CreateTaskForm editItemId={taskId} onSubmit={createTaskHandler} />
+      </ModalComponent>
     </SafeAreaView>
   );
 };

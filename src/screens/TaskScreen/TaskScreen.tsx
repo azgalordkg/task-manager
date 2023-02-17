@@ -1,12 +1,15 @@
 import { format } from 'date-fns';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 
 import { Back, Edit } from '@/components/icons';
+import { MainLayout } from '@/components/Layouts';
 import { CustomButton } from '@/components/ui';
+import { ConfirmModal } from '@/components/ui/ConfirmModal';
 import { Tags } from '@/components/ui/Tags';
 import { COLORS } from '@/constants';
-import { findOne } from '@/services/realm';
+import { useTaskModalContext } from '@/context/hooks';
+import { deleteOne, findOne } from '@/services/realm';
 import { ScreenProps } from '@/types';
 
 import styles from './TaskScreen.styles';
@@ -20,22 +23,40 @@ const taskTags = [
 export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
   const id = route?.params?.id;
   const task = findOne(id);
-  const [createModalVisible, setCreateModalVisible] = useState(false);
+  const { modalVisibleHandler, onSetTaskIdHandler, fetchList } =
+    useTaskModalContext();
+  const [confirmModalVisible, setConfirmModalVisible] = React.useState(false);
 
+  const handleShowModal = () => {
+    setConfirmModalVisible(!confirmModalVisible);
+  };
+
+  const handleDeleteTask = () => {
+    navigation.goBack();
+    setConfirmModalVisible(!confirmModalVisible);
+    deleteOne(id);
+    fetchList();
+  };
+  // TODO need typing for task
   const startDate = task?.startDate;
   const endDate = task?.endDate;
 
   return (
-    <View style={styles.taskWrapper}>
+    <MainLayout>
       <ImageBackground
         style={styles.taskHeaderImage}
+        resizeMode="cover"
         source={require('../../assets/img/Bg.png')}>
         <View style={styles.taskHeaderContainer}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Back />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => setCreateModalVisible(!createModalVisible)}>
+            onPress={() => {
+              console.log(123);
+              modalVisibleHandler(true);
+              onSetTaskIdHandler(id);
+            }}>
             <Edit color={COLORS.WHITE} />
           </TouchableOpacity>
         </View>
@@ -83,10 +104,18 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
           width={'100%'}
           bgColor={COLORS.LIGHT_BG}
           textColor={COLORS.RED}
-          onPress={() => console.log(123)}>
+          onPress={handleShowModal}>
           Delete
         </CustomButton>
       </View>
-    </View>
+
+      <ConfirmModal
+        visible={confirmModalVisible}
+        title={'Confirm Delete'}
+        description={'Are you sure you want to delete this task?'}
+        onPressConfirm={handleDeleteTask}
+        onPressDismiss={handleShowModal}
+      />
+    </MainLayout>
   );
 };
