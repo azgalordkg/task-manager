@@ -17,11 +17,14 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
       justifyContent: 'center',
       ...(isLast ? { transform: [{ scale: scale as unknown as number }] } : {}),
     },
+    outerContainer: {
+      marginBottom: isLast ? 0 : 14,
+    },
     container: {
-      paddingVertical: 20,
+      padding: 12,
+      borderRadius: 12,
       borderBottomColor: COLORS.LIGHT_GREY,
-      borderBottomWidth: isLast ? 0 : 1,
-      backgroundColor: COLORS.BG,
+      backgroundColor: COLORS.WHITE_BG,
     },
     textWrapper: {
       width: '80%',
@@ -30,12 +33,10 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
       marginRight: 15,
     },
     title: {
+      marginBottom: 8,
       fontSize: 22,
       fontWeight: '600',
       color: COLORS.WHITE,
-    },
-    timeWrapper: {
-      marginBottom: 10,
     },
     time: {
       color: COLORS.GREY,
@@ -62,8 +63,16 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
       justifyContent: 'center',
       backgroundColor: COLORS.LIGHT_GREY,
       position: 'absolute',
-      right: 0,
-      top: 20,
+      right: 12,
+      top: 12,
+    },
+    outsideBackground: {
+      backgroundColor: COLORS.WHITE_BG,
+      position: 'absolute',
+      height: '100%',
+      width: '70%',
+      left: 70,
+      zIndex: -1,
     },
   });
 

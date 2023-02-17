@@ -13,6 +13,7 @@ export const ActionButton: FC<Props> = ({
   backgroundColor = COLORS.RED,
 }) => {
   const Icon = icon;
+
   return (
     <View style={styles.buttonsWrapper}>
       <TouchableOpacity

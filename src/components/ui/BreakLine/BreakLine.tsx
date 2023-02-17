@@ -7,9 +7,5 @@ import { Props } from './BreakLine.types';
 export const BreakLine: FC<Props> = ({ isDark, marginBottom }) => {
   const style = styles(isDark, marginBottom);
 
-  return (
-    <View style={style.brakeLine}>
-      <View style={style.brakeLineChild} />
-    </View>
-  );
+  return <View style={style.brakeLine} />;
 };

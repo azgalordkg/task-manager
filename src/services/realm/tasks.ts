@@ -4,8 +4,7 @@ import Realm from 'realm';
 import { v4 as uuidv4 } from 'uuid';
 
 import { CreateTaskData, TasksResponseItem, UpdateTaskData } from '@/types';
-
-import { getDateFromToday } from '../date';
+import { getDateFromToday } from '@/utils';
 
 const TaskSchema = {
   name: 'Task',

@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import React, { FC } from 'react';
 import { View } from 'react-native';
 
-import { getDateFromToday, getToday } from '@/services';
+import { getDateFromToday, getToday } from '@/utils';
 
 import { CustomButton } from '../../ui';
 import styles from './DateFilter.styles';
