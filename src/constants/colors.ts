@@ -4,6 +4,8 @@ export const COLORS = {
   GREY_BG: '#2A2A2A',
   GREY: '#b9b9b9',
   LIGHT_GREY: '#6a6a6a',
+  PLACEHOLDER: '#989898',
+  INPUT_BG: '#F5F5F5',
   BG: '#1F1F1F',
   RED: '#f44336',
   BLUE: '#00C8FF',

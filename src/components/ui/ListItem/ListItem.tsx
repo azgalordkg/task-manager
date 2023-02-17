@@ -1,12 +1,6 @@
 import { format } from 'date-fns';
 import React, { FC, useRef, useState } from 'react';
-import {
-  Animated,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 
 import { Cross, Pencil, Trash } from '@/components/icons';
@@ -83,8 +77,9 @@ export const ListItem: FC<ListItemProps> = ({
         onSwipeableClose={() => setSwiping(false)}
         renderRightActions={rightSwipe}
         shouldCancelWhenOutside>
-        <Pressable
-          onPressOut={() => {
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => {
             if (!swiping) {
               onItemPress();
             }
@@ -118,7 +113,7 @@ export const ListItem: FC<ListItemProps> = ({
               <Cross width={8} height={8} />
             </TouchableOpacity>
           )}
-        </Pressable>
+        </TouchableOpacity>
       </Swipeable>
       <View style={style.outsideBackground} />
     </View>

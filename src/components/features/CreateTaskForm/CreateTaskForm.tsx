@@ -8,7 +8,7 @@ import { COLORS, createTaskFormSchema } from '@/constants';
 import { findOne } from '@/services/realm';
 import { CreateTaskData } from '@/types';
 
-import { BreakLine, CustomButton, CustomDatePicker, Input } from '../../ui';
+import { CustomButton, CustomDatePicker, Input } from '../../ui';
 import DateFilter from '../DateFilter/DateFilter';
 import { DismissKeyboard } from '../DismissKeyboard';
 import styles from './CreateTaskForm.styles';
@@ -71,7 +71,6 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
             {editItemId ? 'Edit task' : 'Create task'}
           </Text>
         </View>
-        <BreakLine isDark />
         <View style={styles.fieldsWrapper}>
           <View style={styles.inputWrapper}>
             <Input
@@ -91,8 +90,8 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
             />
           </View>
           <View>
-            <Text style={styles.dateTitle}>Date</Text>
             <CustomDatePicker
+              label="Date"
               control={control}
               name="startDate"
               title="Choose date"

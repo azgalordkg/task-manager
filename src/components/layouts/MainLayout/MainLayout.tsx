@@ -52,7 +52,7 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <View style={style.mainWrapper}>
-        {withHeader && <Header onMenuPress={onMenuPress} />}
+        {withHeader && <Header onSettingsPress={onMenuPress} />}
         <View style={style.contentWrapper}>{children}</View>
         <ModalComponent visible={visible} onRequestClose={handleModalClose}>
           <CreateTaskForm editItemId={taskId} onSubmit={createTaskHandler} />

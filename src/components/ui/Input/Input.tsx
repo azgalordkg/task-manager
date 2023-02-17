@@ -36,7 +36,7 @@ export const Input: FC<Props> = ({
       <View style={style.wrapper}>
         {Icon && <View style={style.icon}>{Icon}</View>}
         <TextInput
-          placeholderTextColor={COLORS.GREY}
+          placeholderTextColor={COLORS.PLACEHOLDER}
           style={style.input}
           value={value}
           onChangeText={field.onChange}
