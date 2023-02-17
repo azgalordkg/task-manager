@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Text, View } from 'react-native';
+import { Dimensions, Text, View } from 'react-native';
 import Realm from 'realm';
 
 import { COLORS, createTaskFormSchema } from '@/constants';
@@ -63,6 +63,8 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
     }
   }, [editItemId]);
 
+  const timeInputWidth = Dimensions.get('window').width / 2 - 30;
+
   return (
     <DismissKeyboard>
       <View style={styles.contentWrapper}>
@@ -89,39 +91,43 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
               placeholder="Description (optional)"
             />
           </View>
-          <View>
-            <CustomDatePicker
-              label="Date"
-              control={control}
-              name="startDate"
-              title="Choose date"
-              mode="date"
-            />
+          <View style={styles.dateContainer}>
+            <View style={styles.inputWrapper}>
+              <CustomDatePicker
+                label="Date *"
+                control={control}
+                name="startDate"
+                title="Choose date"
+                mode="date"
+              />
+            </View>
             <DateFilter
               currentStartDate={watch('startDate')}
               currentEndDate={watch('endDate')}
               onPressHandler={setValue}
             />
-            <View style={styles.timeContainer}>
-              <CustomDatePicker
-                inputWidth="45%"
-                label="Start Time"
-                control={control}
-                name="startDate"
-                title="Choose date"
-                mode="time"
-              />
-              <CustomDatePicker
-                inputWidth="45%"
-                label="End Time"
-                control={control}
-                name="endDate"
-                title="Choose date"
-                mode="time"
-              />
-            </View>
+          </View>
+
+          <View style={styles.timeContainer}>
+            <CustomDatePicker
+              inputWidth={timeInputWidth}
+              label="Start Time"
+              control={control}
+              name="startDate"
+              title="Choose date"
+              mode="time"
+            />
+            <CustomDatePicker
+              inputWidth={timeInputWidth}
+              label="End Time"
+              control={control}
+              name="endDate"
+              title="Choose date"
+              mode="time"
+            />
           </View>
         </View>
+
         <CustomButton
           fullWidth
           height={50}

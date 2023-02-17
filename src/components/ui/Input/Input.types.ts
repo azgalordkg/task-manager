@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
+import { FC } from 'react';
 import { Control } from 'react-hook-form/dist/types';
 import { TextInputProps } from 'react-native';
 
-import { CreateTaskData, CreateTaskKey } from '@/types';
+import { CreateTaskData, CreateTaskKey, DefaultSvgProps } from '@/types';
 
 export interface Props extends TextInputProps {
   control: Control<CreateTaskData>;
@@ -10,6 +10,6 @@ export interface Props extends TextInputProps {
   name: CreateTaskKey;
   isDateTime?: boolean;
   isTime?: boolean;
-  Icon?: ReactNode;
+  icon?: FC<DefaultSvgProps>;
   errorMessage?: string;
 }

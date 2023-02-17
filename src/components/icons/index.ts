@@ -3,6 +3,7 @@ export * from './ArrowAngle';
 export * from './ArrowBack';
 export * from './Calendar';
 export * from './Checkmark';
+export * from './Clock';
 export * from './Cross';
 export * from './Info';
 export * from './Logo';
