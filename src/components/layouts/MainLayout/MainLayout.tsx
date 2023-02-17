@@ -15,10 +15,12 @@ import { Props } from './MainLayout.types';
 export const MainLayout: FC<PropsWithChildren<Props>> = ({
   children,
   navigation,
+  withHeader,
 }) => {
   const isDarkMode = useColorScheme() === 'dark';
   const { visible, modalVisibleHandler, taskId, fetchList } =
     useTaskModalContext();
+  const style = styles(isDarkMode);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
@@ -30,7 +32,7 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
   };
 
   const onMenuPress = () => {
-    navigation?.openDrawer();
+    navigation?.navigate('Settings');
   };
 
   const createTaskHandler = (data: FieldValues) => {
@@ -49,9 +51,9 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
         barStyle="light-content"
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <View style={styles.mainWrapper}>
-        <Header onMenuPress={onMenuPress} />
-        {children}
+      <View style={style.mainWrapper}>
+        {withHeader && <Header onMenuPress={onMenuPress} />}
+        <View style={style.contentWrapper}>{children}</View>
         <ModalComponent visible={visible} onRequestClose={handleModalClose}>
           <CreateTaskForm editItemId={taskId} onSubmit={createTaskHandler} />
         </ModalComponent>

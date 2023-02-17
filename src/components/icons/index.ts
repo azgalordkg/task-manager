@@ -1,4 +1,6 @@
 export * from './Alarm';
+export * from './ArrowAngle';
+export * from './ArrowBack';
 export * from './Calendar';
 export * from './Checkmark';
 export * from './Cross';

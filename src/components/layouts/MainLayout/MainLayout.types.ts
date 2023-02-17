@@ -1,5 +1,5 @@
-import { DrawerNavigationHelpers } from '@react-navigation/drawer/src/types';
+import { ScreenProps } from '@/types';
 
-export interface Props {
-  navigation?: DrawerNavigationHelpers;
+export interface Props extends Partial<ScreenProps<'Home'>> {
+  withHeader?: boolean;
 }

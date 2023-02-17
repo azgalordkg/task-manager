@@ -1,9 +1,16 @@
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
-  mainWrapper: {
-    flex: 1,
-  },
-});
+import { COLORS } from '@/constants';
+
+const styles = (isDarkMode: boolean) =>
+  StyleSheet.create({
+    mainWrapper: {
+      flex: 1,
+    },
+    contentWrapper: {
+      flex: 1,
+      backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
+    },
+  });
 
 export default styles;
