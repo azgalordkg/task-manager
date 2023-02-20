@@ -70,6 +70,9 @@ export const ListItem: FC<ListItemProps> = ({
     onDeletePress();
   };
 
+  const deadlineStart = startDate && format(new Date(startDate), 'p');
+  const deadlineEnd = endDate && format(new Date(endDate), 'p');
+
   return (
     <View style={style.outerContainer}>
       <Swipeable
@@ -99,10 +102,9 @@ export const ListItem: FC<ListItemProps> = ({
             </View>
             <View style={style.textWrapper}>
               <Text style={[style.title, style.crossedTextStyles]}>{name}</Text>
-              {hasDeadline && startDate && endDate && (
+              {hasDeadline && (
                 <Text style={[style.time, style.crossedTextStyles]}>
-                  {format(new Date(startDate), 'p')} -{' '}
-                  {format(new Date(endDate), 'p')}
+                  {deadlineStart} - {deadlineEnd}
                 </Text>
               )}
             </View>
