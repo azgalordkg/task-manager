@@ -14,10 +14,11 @@ export const Input: FC<Props> = ({
   name,
   isDateTime,
   isTime,
-  Icon,
+  icon,
   errorMessage,
   ...props
 }) => {
+  const Icon = icon;
   const style = styles(errorMessage);
   const { field } = useController({
     control,
@@ -34,9 +35,13 @@ export const Input: FC<Props> = ({
   return (
     <View style={style.inputContainer}>
       <View style={style.wrapper}>
-        {Icon && <View style={style.icon}>{Icon}</View>}
+        {Icon && (
+          <View style={style.icon}>
+            <Icon color={COLORS.PLACEHOLDER} />
+          </View>
+        )}
         <TextInput
-          placeholderTextColor={COLORS.GREY}
+          placeholderTextColor={COLORS.PLACEHOLDER}
           style={style.input}
           value={value}
           onChangeText={field.onChange}

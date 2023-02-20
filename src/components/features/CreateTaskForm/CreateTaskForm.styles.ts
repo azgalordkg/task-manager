@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   inputWrapper: {
-    marginBottom: 24,
+    marginBottom: 16,
   },
   dateTitle: {
     fontSize: 18,
@@ -34,6 +34,9 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  dateContainer: {
+    marginBottom: 40,
   },
 });
 

@@ -1,12 +1,6 @@
 import { format } from 'date-fns';
 import React, { FC, useRef, useState } from 'react';
-import {
-  Animated,
-  Pressable,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 
 import { Cross, Edit, Trash } from '@/components/icons';
@@ -28,6 +22,7 @@ export const ListItem: FC<ListItemProps> = ({
   endDate,
   isLast,
   onItemPress,
+  hasDeadline,
 }) => {
   const style = styles({ isLast, checked });
   const swipeRef = useRef<Swipeable | null>(null);
@@ -75,6 +70,9 @@ export const ListItem: FC<ListItemProps> = ({
     onDeletePress();
   };
 
+  const deadlineStart = startDate && format(new Date(startDate), 'p');
+  const deadlineEnd = endDate && format(new Date(endDate), 'p');
+
   return (
     <View style={style.outerContainer}>
       <Swipeable
@@ -83,8 +81,9 @@ export const ListItem: FC<ListItemProps> = ({
         onSwipeableClose={() => setSwiping(false)}
         renderRightActions={rightSwipe}
         shouldCancelWhenOutside>
-        <Pressable
-          onPressOut={() => {
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => {
             if (!swiping) {
               onItemPress();
             }
@@ -103,22 +102,23 @@ export const ListItem: FC<ListItemProps> = ({
             </View>
             <View style={style.textWrapper}>
               <Text style={[style.title, style.crossedTextStyles]}>{name}</Text>
-              {startDate && endDate && (
+              {hasDeadline && (
                 <Text style={[style.time, style.crossedTextStyles]}>
-                  {format(new Date(startDate), 'p')} -{' '}
-                  {format(new Date(endDate), 'p')}
+                  {deadlineStart} - {deadlineEnd}
                 </Text>
               )}
             </View>
           </View>
           {checked && (
-            <TouchableOpacity
-              onPress={onEasyRemovePress}
-              style={style.deleteBtn}>
-              <Cross width={8} height={8} />
-            </TouchableOpacity>
+            <View style={style.deleteBtnWrapper}>
+              <TouchableOpacity
+                onPress={onEasyRemovePress}
+                style={style.deleteBtn}>
+                <Cross width={8} height={8} />
+              </TouchableOpacity>
+            </View>
           )}
-        </Pressable>
+        </TouchableOpacity>
       </Swipeable>
       <View style={style.outsideBackground} />
     </View>

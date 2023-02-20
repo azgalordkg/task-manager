@@ -62,9 +62,6 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: COLORS.LIGHT_GREY,
-      position: 'absolute',
-      right: 12,
-      top: 12,
     },
     outsideBackground: {
       backgroundColor: COLORS.WHITE_BG,
@@ -73,6 +70,12 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
       width: '70%',
       left: 70,
       zIndex: -1,
+    },
+    deleteBtnWrapper: {
+      position: 'absolute',
+      right: 2,
+      top: 2,
+      padding: 10,
     },
   });
 

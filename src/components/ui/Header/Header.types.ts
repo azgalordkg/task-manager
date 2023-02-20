@@ -1,3 +1,3 @@
 export interface Props {
-  onMenuPress: () => void;
+  onSettingsPress: () => void;
 }

@@ -1,9 +1,9 @@
 import React, { FC, useState } from 'react';
 import { useController } from 'react-hook-form';
 import { Text, TouchableOpacity, View } from 'react-native';
-import DatePicker from 'react-native-date-picker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-import { Calendar } from '../../icons';
+import { Calendar, Clock } from '../../icons';
 import { Input } from '../Input';
 import styles from './CustomDatePicker.styles';
 import { Props } from './CustomDatePicker.types';
@@ -16,6 +16,7 @@ export const CustomDatePicker: FC<Props> = ({
   inputWidth,
   ...props
 }) => {
+  const style = styles(inputWidth);
   const [open, setOpen] = useState(false);
 
   const { field } = useController({
@@ -26,11 +27,11 @@ export const CustomDatePicker: FC<Props> = ({
 
   return (
     <>
-      <View style={{ width: inputWidth || 'auto' }}>
-        {label && <Text style={styles.label}>{label}</Text>}
+      <View style={style.container}>
+        {label && <Text style={style.label}>{label}</Text>}
         <View>
           <TouchableOpacity
-            style={styles.button}
+            style={style.button}
             onPress={() => setOpen(true)}
           />
           <Input
@@ -39,14 +40,13 @@ export const CustomDatePicker: FC<Props> = ({
             isTime={props.mode === 'time'}
             control={control}
             name={name}
-            Icon={<Calendar />}
+            icon={props.mode === 'time' ? Clock : Calendar}
           />
         </View>
       </View>
-      <DatePicker
+      <DateTimePickerModal
         {...props}
-        modal
-        open={open}
+        isVisible={open}
         date={field.value as Date}
         minuteInterval={30}
         onConfirm={currentDate => {

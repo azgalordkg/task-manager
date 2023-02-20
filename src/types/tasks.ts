@@ -3,6 +3,7 @@ export interface CreateTaskData {
   description?: string;
   startDate: Date;
   endDate: Date;
+  hasDeadline?: boolean;
 }
 
 export interface UpdateTaskData extends CreateTaskData {
@@ -16,6 +17,7 @@ export interface TasksResponseItem {
   description?: string;
   startDate?: number;
   endDate?: number;
+  hasDeadline?: number;
 }
 
 export interface TasksList {
