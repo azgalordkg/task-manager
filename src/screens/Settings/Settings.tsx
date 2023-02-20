@@ -35,6 +35,12 @@ export const Settings: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
             Notifications
           </MenuItem>
           <MenuItem onPress={() => {}}>Theme</MenuItem>
+          <MenuItem
+            onPress={() => {
+              navigation.navigate('AboutUs');
+            }}>
+            About Us
+          </MenuItem>
         </View>
       </View>
     </MainLayout>
