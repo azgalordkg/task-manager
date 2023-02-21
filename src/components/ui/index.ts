@@ -7,6 +7,7 @@ export * from './CustomDatePicker';
 export * from './DayBlock';
 export * from './Header';
 export * from './Input';
+export * from './InputWrapper';
 export * from './ListItem';
 export * from './ModalComponent';
 export * from './Select';

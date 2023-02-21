@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { useController } from 'react-hook-form';
 import { Text, TextInput, View } from 'react-native';
 
+import { InputWrapper } from '@/components/ui';
 import { COLORS } from '@/constants';
 
 import styles from './Input.styles';
@@ -18,8 +19,6 @@ export const Input: FC<Props> = ({
   errorMessage,
   ...props
 }) => {
-  const Icon = icon;
-  const style = styles(errorMessage);
   const { field } = useController({
     control,
     defaultValue,
@@ -33,16 +32,11 @@ export const Input: FC<Props> = ({
     : (field.value as string);
 
   return (
-    <View style={style.inputContainer}>
-      <View style={style.wrapper}>
-        {Icon && (
-          <View style={style.icon}>
-            <Icon color={COLORS.PLACEHOLDER} />
-          </View>
-        )}
+    <View style={styles.inputContainer}>
+      <InputWrapper errorMessage={errorMessage} icon={icon}>
         <TextInput
           placeholderTextColor={COLORS.PLACEHOLDER}
-          style={style.input}
+          style={styles.input}
           value={value}
           onChangeText={field.onChange}
           onBlur={() => {
@@ -50,9 +44,9 @@ export const Input: FC<Props> = ({
           }}
           {...props}
         />
-      </View>
+      </InputWrapper>
 
-      {errorMessage && <Text style={style.errorMessage}>{errorMessage}</Text>}
+      {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
     </View>
   );
 };
