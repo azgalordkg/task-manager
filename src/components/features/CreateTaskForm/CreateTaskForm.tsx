@@ -8,7 +8,13 @@ import { COLORS, createTaskFormSchema } from '@/constants';
 import { findOne } from '@/services/realm';
 import { CreateTaskData } from '@/types';
 
-import { Checkbox, CustomButton, CustomDatePicker, Input } from '../../ui';
+import {
+  Checkbox,
+  CustomButton,
+  CustomDatePicker,
+  Input,
+  Select,
+} from '../../ui';
 import DateFilter from '../DateFilter/DateFilter';
 import { DismissKeyboard } from '../DismissKeyboard';
 import styles from './CreateTaskForm.styles';
@@ -97,6 +103,9 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
               name="description"
               placeholder="Description (optional)"
             />
+          </View>
+          <View style={styles.inputWrapper}>
+            <Select />
           </View>
           <View style={styles.dateContainer}>
             <View style={styles.inputWrapper}>

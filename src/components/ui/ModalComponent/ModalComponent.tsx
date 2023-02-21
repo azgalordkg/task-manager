@@ -3,6 +3,8 @@ import { FC } from 'react';
 import { View } from 'react-native';
 import SwipeUpDownModal from 'react-native-swipe-modal-up-down';
 
+import { COLORS } from '@/constants';
+
 import { DismissKeyboard } from '../../features';
 import { CustomButton } from '../CustomButton';
 import styles from './ModalComponent.styles';
@@ -21,8 +23,12 @@ export const ModalComponent: FC<Props> = ({
           <View style={styles.contentWrapper}>
             {children}
             <View style={styles.footer}>
-              <CustomButton fullWidth type="clean" onPress={onRequestClose}>
-                Close
+              <CustomButton
+                bgColor={COLORS.BUTTON_BG}
+                textColor={COLORS.BG}
+                fullWidth
+                onPress={onRequestClose}>
+                Cancel
               </CustomButton>
             </View>
           </View>

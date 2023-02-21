@@ -28,7 +28,7 @@ export const Input: FC<Props> = ({
 
   const value = isDateTime
     ? field.value
-      ? format(new Date(field.value), isTime ? 'p' : 'dd MMMM')
+      ? format(new Date(field.value as string), isTime ? 'p' : 'dd MMMM')
       : ''
     : (field.value as string);
 

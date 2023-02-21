@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   titleWrapper: {
-    marginBottom: 20,
+    marginBottom: 30,
   },
   title: {
     textTransform: 'uppercase',
@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   fieldsWrapper: {
-    paddingTop: 15,
     flex: 1,
     width: '100%',
   },

@@ -425,6 +425,8 @@ PODS:
     - React
   - RNCAsyncStorage (1.17.11):
     - React-Core
+  - RNCPicker (2.4.8):
+    - React-Core
   - RNDateTimePicker (6.7.5):
     - React-Core
   - RNGestureHandler (2.9.0):
@@ -531,6 +533,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RealmJS (from `../node_modules/realm`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
@@ -632,6 +635,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/realm"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCPicker:
+    :path: "../node_modules/@react-native-picker/picker"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
   RNGestureHandler:
@@ -698,6 +703,7 @@ SPEC CHECKSUMS:
   ReactCommon: f697c0ac52e999aa818e43e2b6f277787c735e2d
   RealmJS: fc807dff0d416153bcfcae0df613b2e93fb14af4
   RNCAsyncStorage: 8616bd5a58af409453ea4e1b246521bb76578d60
+  RNCPicker: 0bf8ef8f7800524f32d2bb2a8bcadd53eda0ecd1
   RNDateTimePicker: 65e1d202799460b286ff5e741d8baf54695e8abd
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNReactNativeHapticFeedback: 1e3efeca9628ff9876ee7cdd9edec1b336913f8c

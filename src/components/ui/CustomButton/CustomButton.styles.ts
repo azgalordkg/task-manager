@@ -29,7 +29,7 @@ const styles = ({
       width: fullWidth ? '100%' : width,
       paddingHorizontal,
       height: height,
-      backgroundColor: (isFilled && bgColor) || COLORS.BUTTON_BG,
+      backgroundColor: (isFilled && bgColor) || 'transparent',
       borderWidth: (isOutlined && borderWidth) || 0,
       borderColor: (isOutlined && bgColor) || 'transparent',
       opacity: (disabled && 0.3) || 1,
