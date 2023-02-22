@@ -1,27 +1,17 @@
 import 'react-native-get-random-values';
 
+import moment from 'moment';
 import Realm from 'realm';
 import { v4 as uuidv4 } from 'uuid';
 
-import { CreateTaskData, TasksResponseItem, UpdateTaskData } from '@/types';
+import { TaskSchema } from '@/constants';
+import {
+  CreateTaskData,
+  TasksList,
+  TasksResponseItem,
+  UpdateTaskData,
+} from '@/types';
 import { getDateFromToday } from '@/utils';
-
-const TaskSchema = {
-  name: 'Task',
-  properties: {
-    _id: 'string',
-    name: 'string',
-    isDone: 'bool',
-    description: 'string?',
-    startDate: 'int?',
-    endDate: 'int?',
-    hasDeadline: 'bool?',
-    repeat: 'string?',
-    isHidden: 'bool?',
-    repeatId: 'string?',
-  },
-  primaryKey: '_id',
-};
 
 const realm = new Realm({
   path: 'realm-files/taskManager',
@@ -29,21 +19,19 @@ const realm = new Realm({
   deleteRealmIfMigrationNeeded: true,
 });
 
+export const getTasksDueToday = () => {
+  if (realm) {
+    return realm.objects('Task').filtered('repeat == $0', 'Daily');
+  }
+  return [];
+};
+
 export const getTasks = () => {
   if (realm) {
     const today = getDateFromToday(-1);
     today.setHours(0, 0, 0, 0);
     const end = getDateFromToday(4);
 
-    console.log(
-      realm
-        .objects('Task')
-        .filtered(
-          'startDate >= $0 && startDate <= $1',
-          today.getTime(),
-          end.getTime(),
-        ),
-    );
     return realm
       .objects('Task')
       .filtered(
@@ -61,12 +49,55 @@ export const createTask = (data: CreateTaskData) => {
       realm.create('Task', {
         ...data,
         _id: uuidv4().slice(0, 8),
-        repeatId: uuidv4().slice(0, 8),
+        repeatId: data.repeatId || uuidv4().slice(0, 8),
         isDone: false,
         startDate: data.startDate.getTime(),
         endDate: data.endDate.getTime(),
       });
     });
+  }
+};
+
+const prepareRepeatData = (dailyTask: TasksResponseItem, day: string) => {
+  const { name, description, repeatId, hasDeadline, isHidden } = dailyTask;
+  const createTaskData = {
+    name,
+    description,
+    repeat: 'Never',
+    repeatId,
+    hasDeadline,
+    isHidden,
+  } as CreateTaskData;
+
+  if (dailyTask.startDate && dailyTask.endDate) {
+    const startDate = moment(new Date(dailyTask.startDate));
+    const endDate = moment(new Date(dailyTask.endDate));
+    const secondDate = moment(new Date(Number(day)));
+    const diff = startDate.diff(secondDate, 'days') + 1;
+
+    createTaskData.startDate = startDate.add(diff, 'days').toDate();
+    createTaskData.endDate = endDate.add(diff, 'days').toDate();
+  }
+
+  return createTaskData;
+};
+
+export const updateDailyTasks = (tasksByDays: TasksList) => {
+  const dailyTasks = getTasksDueToday() as unknown as TasksResponseItem[];
+  const days = Object.keys(tasksByDays);
+
+  for (let i in dailyTasks) {
+    const dailyTask = dailyTasks[i];
+    for (let day of days) {
+      const isTaskExists = tasksByDays[day].some(({ repeatId }) => {
+        return repeatId === dailyTask.repeatId;
+      });
+
+      if (!isTaskExists) {
+        const createTaskData = prepareRepeatData(dailyTask, day);
+        createTask(createTaskData);
+      }
+    }
   }
 };
 

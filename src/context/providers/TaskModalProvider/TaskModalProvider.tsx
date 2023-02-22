@@ -1,7 +1,7 @@
 import React, { createContext, FC, PropsWithChildren, useState } from 'react';
 import Realm from 'realm';
 
-import { getTasks } from '@/services/realm';
+import { getTasks, updateDailyTasks } from '@/services/realm';
 import { TasksList } from '@/types';
 import { sortTasksByDate } from '@/utils';
 
@@ -17,6 +17,7 @@ export const TaskListProvider: FC<PropsWithChildren> = ({ children }) => {
   const fetchList = () => {
     const tasks: Realm.Results<Realm.Object> | any[] = getTasks();
     const tasksByDays = sortTasksByDate(tasks);
+    updateDailyTasks(tasksByDays);
 
     if (tasks) {
       setTaskList(tasksByDays);
