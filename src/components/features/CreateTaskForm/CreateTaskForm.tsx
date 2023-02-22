@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FC, useEffect, useState } from 'react';
-import { useController, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Dimensions, Text, View } from 'react-native';
 import Realm from 'realm';
 
@@ -59,6 +59,9 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
       setValue('startDate', new Date(task.startDate));
       setValue('endDate', new Date(task.endDate));
     }
+    if (task.hasDeadline) {
+      setValue('hasDeadline', true);
+    }
   };
 
   useEffect(() => {
@@ -73,12 +76,6 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
   }, [editItemId]);
 
   const timeInputWidth = Dimensions.get('window').width / 2 - 30;
-
-  const { field: hasDeadlineField } = useController({
-    control,
-    defaultValue: undefined,
-    name: 'hasDeadline',
-  });
 
   return (
     <DismissKeyboard>
@@ -137,7 +134,7 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
             onChange={value => setValue('hasDeadline', value)}
             label="Set due time"
           />
-          {hasDeadlineField.value && (
+          {watch('hasDeadline') && (
             <View style={styles.timeContainer}>
               <CustomDatePicker
                 inputWidth={timeInputWidth}

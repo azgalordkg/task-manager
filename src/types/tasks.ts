@@ -13,11 +13,11 @@ export interface UpdateTaskData extends CreateTaskData {
 export interface TasksResponseItem {
   _id: string;
   name: string;
-  isDone?: number;
+  isDone: boolean;
   description?: string;
   startDate?: number;
   endDate?: number;
-  hasDeadline?: number;
+  hasDeadline?: boolean;
 }
 
 export interface TasksList {
