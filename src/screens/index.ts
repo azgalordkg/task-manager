@@ -1,4 +1,5 @@
 export * from './AboutUs';
+export * from './CreateTaskScreen';
 export * from './HomeScreen';
-export * from './Settings';
+export * from './SettingsScreen';
 export * from './TaskScreen';

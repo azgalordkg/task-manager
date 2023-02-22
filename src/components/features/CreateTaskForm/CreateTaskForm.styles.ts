@@ -9,15 +9,15 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   titleWrapper: {
-    marginBottom: 20,
+    marginBottom: 30,
+    width: '100%',
+    alignItems: 'center',
   },
   title: {
-    textTransform: 'uppercase',
     fontWeight: '600',
-    fontSize: 24,
+    fontSize: 22,
   },
   fieldsWrapper: {
-    paddingTop: 15,
     flex: 1,
     width: '100%',
   },
