@@ -35,15 +35,6 @@ export const getTasks = () => {
     today.setHours(0, 0, 0, 0);
     const end = getDateFromToday(4);
 
-    console.log(
-      realm
-        .objects('Task')
-        .filtered(
-          'startDate >= $0 && startDate <= $1',
-          today.getTime(),
-          end.getTime(),
-        ),
-    );
     return realm
       .objects('Task')
       .filtered(
@@ -61,7 +52,7 @@ export const createTask = (data: CreateTaskData) => {
       realm.create('Task', {
         ...data,
         _id: uuidv4().slice(0, 8),
-        repeatId: uuidv4().slice(0, 8),
+        // repeatId: uuidv4().slice(0, 8),
         isDone: false,
         startDate: data.startDate.getTime(),
         endDate: data.endDate.getTime(),
