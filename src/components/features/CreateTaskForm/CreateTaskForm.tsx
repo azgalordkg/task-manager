@@ -1,10 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { Dimensions, Text, View } from 'react-native';
 import Realm from 'realm';
 
-import { COLORS, createTaskFormSchema } from '@/constants';
+import { COLORS, createTaskFormSchema, REPEAT_LIST } from '@/constants';
 import { findOne } from '@/services/realm';
 import { CreateTaskData } from '@/types';
 
@@ -23,6 +23,8 @@ import { Props } from './CreateTaskForm.types';
 export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
   const startDate = new Date();
   const endDate = new Date();
+
+  const [repeatValue, setRepeatValue] = useState('Never');
 
   startDate.setMinutes(startDate.getMinutes() < 30 ? 0 : 30);
   endDate.setHours(
@@ -105,7 +107,12 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
             />
           </View>
           <View style={styles.inputWrapper}>
-            <Select />
+            <Select
+              onValueChange={setRepeatValue}
+              items={REPEAT_LIST}
+              value={repeatValue}
+              label="Repeat"
+            />
           </View>
           <View style={styles.dateContainer}>
             <View style={styles.inputWrapper}>

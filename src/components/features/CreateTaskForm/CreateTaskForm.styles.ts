@@ -10,11 +10,12 @@ const styles = StyleSheet.create({
   },
   titleWrapper: {
     marginBottom: 30,
+    width: '100%',
+    alignItems: 'center',
   },
   title: {
-    textTransform: 'uppercase',
     fontWeight: '600',
-    fontSize: 24,
+    fontSize: 22,
   },
   fieldsWrapper: {
     flex: 1,

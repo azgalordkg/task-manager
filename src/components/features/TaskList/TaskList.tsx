@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
 import { deleteOne, markTaskAsDone } from '@/services/realm';
+import { sortTasksForRender } from '@/utils';
 
 import { DayBlock, ListItem } from '../../ui';
 import { Props } from './TaskList.types';
@@ -14,7 +15,7 @@ export const TaskList: FC<Props> = ({
   return (
     <>
       {list &&
-        Object.keys(list).map(key => {
+        sortTasksForRender(list).map(key => {
           return (
             <DayBlock date={key} key={key}>
               {list[key].map(

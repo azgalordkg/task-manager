@@ -9,5 +9,5 @@ export * from './Header';
 export * from './Input';
 export * from './InputWrapper';
 export * from './ListItem';
-export * from './ModalComponent';
+export * from './ModalWrapper';
 export * from './Select';

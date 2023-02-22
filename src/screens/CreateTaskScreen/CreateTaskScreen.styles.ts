@@ -3,9 +3,6 @@ import { StyleSheet } from 'react-native';
 import { COLORS } from '@/constants';
 
 const styles = StyleSheet.create({
-  modal: {
-    flex: 1,
-  },
   contentWrapper: {
     flex: 1,
     backgroundColor: COLORS.WHITE,
