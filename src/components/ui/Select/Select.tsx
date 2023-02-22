@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useController } from 'react-hook-form';
 import { Text, View } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 
@@ -11,16 +12,20 @@ import { Props } from './Select.types';
 
 export const Select: FC<Props> = ({
   label,
-  value,
   icon = Repeat,
   items,
-  onValueChange,
+  control,
+  name,
 }) => {
+  const { field } = useController({
+    control,
+    name,
+  });
   const Icon = icon;
   return (
     <RNPickerSelect
-      value={value}
-      onValueChange={onValueChange}
+      value={field.value}
+      onValueChange={field.onChange}
       placeholder={{ label: 'Never', value: 'Never' }}
       items={items}>
       <InputWrapper>
@@ -30,7 +35,7 @@ export const Select: FC<Props> = ({
             <Text style={styles.label}>{label}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.input}>{value}</Text>
+            <Text style={styles.input}>{field.value as string}</Text>
             <ArrowAngle color={COLORS.PLACEHOLDER} />
           </View>
         </View>

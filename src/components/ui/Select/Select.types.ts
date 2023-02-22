@@ -1,6 +1,7 @@
 import { FC } from 'react';
+import { Control } from 'react-hook-form';
 
-import { DefaultSvgProps } from '@/types';
+import { CreateTaskData, CreateTaskKey, DefaultSvgProps } from '@/types';
 
 export interface Item {
   label: string;
@@ -8,9 +9,9 @@ export interface Item {
 }
 
 export interface Props {
+  name: CreateTaskKey;
+  control: Control<CreateTaskData>;
   label: string;
-  value: string;
   items: Item[];
   icon?: FC<DefaultSvgProps>;
-  onValueChange: (value: string) => void;
 }

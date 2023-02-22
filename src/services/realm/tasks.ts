@@ -16,8 +16,9 @@ const TaskSchema = {
     startDate: 'int?',
     endDate: 'int?',
     hasDeadline: 'bool?',
-    repeatDaily: 'bool?',
-    repeatWeekly: 'bool?',
+    repeat: 'string?',
+    isHidden: 'bool?',
+    repeatId: 'string?',
   },
   primaryKey: '_id',
 };
@@ -34,6 +35,15 @@ export const getTasks = () => {
     today.setHours(0, 0, 0, 0);
     const end = getDateFromToday(4);
 
+    console.log(
+      realm
+        .objects('Task')
+        .filtered(
+          'startDate >= $0 && startDate <= $1',
+          today.getTime(),
+          end.getTime(),
+        ),
+    );
     return realm
       .objects('Task')
       .filtered(
@@ -51,11 +61,10 @@ export const createTask = (data: CreateTaskData) => {
       realm.create('Task', {
         ...data,
         _id: uuidv4().slice(0, 8),
+        repeatId: uuidv4().slice(0, 8),
         isDone: false,
-        hasDeadline: data.hasDeadline,
         startDate: data.startDate.getTime(),
         endDate: data.endDate.getTime(),
-        repeatDaily: true,
       });
     });
   }
@@ -69,7 +78,8 @@ export const findOne = (_id: string) => {
 };
 
 export const updateTask = (data: UpdateTaskData) => {
-  const { _id, name, startDate, endDate, description, hasDeadline } = data;
+  const { _id, name, startDate, endDate, description, hasDeadline, repeat } =
+    data;
   const task = findOne(_id) as unknown as TasksResponseItem;
   if (realm && task) {
     realm.write(() => {
@@ -80,6 +90,7 @@ export const updateTask = (data: UpdateTaskData) => {
         task.endDate = endDate.getTime();
       }
       task.hasDeadline = hasDeadline;
+      task.repeat = repeat;
     });
   }
 };
