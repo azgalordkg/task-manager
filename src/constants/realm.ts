@@ -9,8 +9,6 @@ export const TaskSchema = {
     endDate: 'int?',
     hasDeadline: 'bool?',
     repeat: 'string?',
-    isHidden: 'bool?',
-    repeatId: 'string?',
   },
   primaryKey: '_id',
 };

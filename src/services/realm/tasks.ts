@@ -30,7 +30,7 @@ export const getTasks = () => {
   if (realm) {
     const today = getDateFromToday(-1);
     today.setHours(0, 0, 0, 0);
-    const end = getDateFromToday(4);
+    const end = getDateFromToday(3);
 
     return realm
       .objects('Task')
@@ -49,55 +49,11 @@ export const createTask = (data: CreateTaskData) => {
       realm.create('Task', {
         ...data,
         _id: uuidv4().slice(0, 8),
-        repeatId: data.repeatId || uuidv4().slice(0, 8),
         isDone: false,
         startDate: data.startDate.getTime(),
         endDate: data.endDate.getTime(),
       });
     });
-  }
-};
-
-const prepareRepeatData = (dailyTask: TasksResponseItem, day: string) => {
-  const { name, description, repeatId, hasDeadline, isHidden } = dailyTask;
-  const createTaskData = {
-    name,
-    description,
-    repeat: 'Never',
-    repeatId,
-    hasDeadline,
-    isHidden,
-  } as CreateTaskData;
-
-  if (dailyTask.startDate && dailyTask.endDate) {
-    const startDate = moment(new Date(dailyTask.startDate));
-    const endDate = moment(new Date(dailyTask.endDate));
-    const secondDate = moment(new Date(Number(day)));
-    const diff = startDate.diff(secondDate, 'days') + 1;
-
-    createTaskData.startDate = startDate.add(diff, 'days').toDate();
-    createTaskData.endDate = endDate.add(diff, 'days').toDate();
-  }
-
-  return createTaskData;
-};
-
-export const updateDailyTasks = (tasksByDays: TasksList) => {
-  const dailyTasks = getTasksDueToday() as unknown as TasksResponseItem[];
-  const days = Object.keys(tasksByDays);
-
-  for (let i in dailyTasks) {
-    const dailyTask = dailyTasks[i];
-    for (let day of days) {
-      const isTaskExists = tasksByDays[day].some(({ repeatId }) => {
-        return repeatId === dailyTask.repeatId;
-      });
-
-      if (!isTaskExists) {
-        const createTaskData = prepareRepeatData(dailyTask, day);
-        createTask(createTaskData);
-      }
-    }
   }
 };
 
@@ -109,8 +65,16 @@ export const findOne = (_id: string) => {
 };
 
 export const updateTask = (data: UpdateTaskData) => {
-  const { _id, name, startDate, endDate, description, hasDeadline, repeat } =
-    data;
+  const {
+    _id,
+    name,
+    startDate,
+    endDate,
+    description,
+    hasDeadline,
+    repeat,
+    isDone,
+  } = data;
   const task = findOne(_id) as unknown as TasksResponseItem;
   if (realm && task) {
     realm.write(() => {
@@ -121,14 +85,72 @@ export const updateTask = (data: UpdateTaskData) => {
         task.endDate = endDate.getTime();
       }
       task.hasDeadline = hasDeadline;
+      task.isDone = isDone;
       task.repeat = repeat;
     });
+  }
+};
+
+export const prepareUpdateDailyData = (dailyTask: TasksResponseItem) => {
+  const start = moment(new Date(Number(dailyTask.startDate)));
+  const end = moment(new Date(Number(dailyTask.endDate)));
+  const today = moment();
+
+  const { _id, name, repeat, description, hasDeadline } = dailyTask;
+  const updateData = {
+    _id,
+    name,
+    repeat,
+    description,
+    hasDeadline,
+    isDone: false,
+  } as unknown as UpdateTaskData;
+
+  if (dailyTask.startDate && dailyTask.endDate) {
+    start.set('date', today.date());
+    start.set('month', today.month());
+    end.set('date', today.date());
+    end.set('month', today.month());
+
+    updateData.startDate = start.toDate();
+    updateData.endDate = end.toDate();
+  }
+
+  return updateData;
+};
+
+export const updateDailyTasks = (tasksByDays: TasksList) => {
+  const dailyTasks = getTasksDueToday() as unknown as TasksResponseItem[];
+  const days = Object.keys(tasksByDays);
+
+  for (let i in dailyTasks) {
+    const dailyTask = dailyTasks[i];
+
+    for (let day of days) {
+      const today = moment();
+      today.set({ hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
+
+      const isToday = moment(new Date(Number(day))).isSame(today, 'day');
+      const start = moment(new Date(Number(dailyTask.startDate)));
+      start.set({ hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
+
+      if (isToday) {
+        const isBefore = start.isBefore(today);
+
+        if (isBefore) {
+          const updateData = prepareUpdateDailyData(dailyTask);
+
+          updateTask(updateData);
+        }
+      }
+    }
   }
 };
 
 export const markTaskAsDone = (_id: string, isDone: boolean) => {
   const task = findOne(_id);
   if (realm && task) {
+    console.log(123);
     realm.write(() => {
       (findOne(_id) as unknown as TasksResponseItem).isDone = isDone;
     });
