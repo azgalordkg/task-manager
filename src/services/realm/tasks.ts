@@ -150,7 +150,6 @@ export const updateDailyTasks = (tasksByDays: TasksList) => {
 export const markTaskAsDone = (_id: string, isDone: boolean) => {
   const task = findOne(_id);
   if (realm && task) {
-    console.log(123);
     realm.write(() => {
       (findOne(_id) as unknown as TasksResponseItem).isDone = isDone;
     });
