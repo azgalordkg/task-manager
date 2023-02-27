@@ -3,21 +3,16 @@ import { StyleSheet } from 'react-native';
 import { COLORS } from '@/constants';
 
 const styles = StyleSheet.create({
-  modal: {
-    paddingTop: 40,
-    flex: 1,
-  },
   contentWrapper: {
     flex: 1,
     backgroundColor: COLORS.WHITE,
     padding: 20,
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
-    paddingTop: 60,
+    paddingTop: 40,
   },
   closerWrapper: {
     paddingVertical: 15,
-    marginTop: 50,
     flex: 1,
     width: '100%',
     alignItems: 'center',

@@ -24,8 +24,7 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
   const id = route?.params?.id;
   // TODO need typing for task
   const task: any = findOne(id);
-  const { modalVisibleHandler, onSetTaskIdHandler, fetchList } =
-    useTaskModalContext();
+  const { fetchList } = useTaskModalContext();
   const [confirmModalVisible, setConfirmModalVisible] = React.useState(false);
 
   const handleShowModal = () => {
@@ -41,6 +40,10 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
   const startDate = task?.startDate;
   const endDate = task?.endDate;
 
+  const onEditPressHandler = () => {
+    navigation.navigate('CreateTask', { id });
+  };
+
   return (
     <MainLayout>
       <ImageBackground
@@ -51,11 +54,7 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <ArrowBack />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              modalVisibleHandler(true);
-              onSetTaskIdHandler(id);
-            }}>
+          <TouchableOpacity onPress={onEditPressHandler}>
             <Edit color={COLORS.WHITE} />
           </TouchableOpacity>
         </View>
@@ -67,7 +66,11 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
             <Text style={styles.taskTitle}>{task?.name}</Text>
             <View style={styles.taskTagsContainer}>
               {taskTags?.map(taskTagItem => (
-                <Tags name={taskTagItem.name} bgColor={taskTagItem.color} />
+                <Tags
+                  key={taskTagItem.name}
+                  name={taskTagItem.name}
+                  bgColor={taskTagItem.color}
+                />
               ))}
             </View>
           </View>
@@ -96,7 +99,7 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
         <CustomButton
           width={'100%'}
           bgColor={COLORS.DARK_GREEN}
-          onPress={() => console.log(123)}>
+          onPress={() => {}}>
           Duplicate
         </CustomButton>
         <CustomButton

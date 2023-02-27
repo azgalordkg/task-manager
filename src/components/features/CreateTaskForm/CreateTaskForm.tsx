@@ -1,14 +1,20 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FC, useEffect } from 'react';
-import { useController, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Dimensions, Text, View } from 'react-native';
 import Realm from 'realm';
 
-import { COLORS, createTaskFormSchema } from '@/constants';
+import { COLORS, createTaskFormSchema, REPEAT_LIST } from '@/constants';
 import { findOne } from '@/services/realm';
 import { CreateTaskData } from '@/types';
 
-import { Checkbox, CustomButton, CustomDatePicker, Input } from '../../ui';
+import {
+  Checkbox,
+  CustomButton,
+  CustomDatePicker,
+  Input,
+  Select,
+} from '../../ui';
 import DateFilter from '../DateFilter/DateFilter';
 import { DismissKeyboard } from '../DismissKeyboard';
 import styles from './CreateTaskForm.styles';
@@ -35,6 +41,7 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
     defaultValues: {
       startDate,
       endDate,
+      repeat: 'Never',
       hasDeadline: false,
     },
     mode: 'onBlur',
@@ -51,6 +58,10 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
       setValue('startDate', new Date(task.startDate));
       setValue('endDate', new Date(task.endDate));
     }
+    if (task.hasDeadline) {
+      setValue('hasDeadline', true);
+    }
+    setValue('repeat', task.repeat);
   };
 
   useEffect(() => {
@@ -65,12 +76,6 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
   }, [editItemId]);
 
   const timeInputWidth = Dimensions.get('window').width / 2 - 30;
-
-  const { field: hasDeadlineField } = useController({
-    control,
-    defaultValue: undefined,
-    name: 'hasDeadline',
-  });
 
   return (
     <DismissKeyboard>
@@ -98,6 +103,14 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
               placeholder="Description (optional)"
             />
           </View>
+          <View style={styles.inputWrapper}>
+            <Select
+              name="repeat"
+              control={control}
+              items={REPEAT_LIST}
+              label="Repeat"
+            />
+          </View>
           <View style={styles.dateContainer}>
             <View style={styles.inputWrapper}>
               <CustomDatePicker
@@ -121,7 +134,7 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
             onChange={value => setValue('hasDeadline', value)}
             label="Set due time"
           />
-          {hasDeadlineField.value && (
+          {watch('hasDeadline') && (
             <View style={styles.timeContainer}>
               <CustomDatePicker
                 inputWidth={timeInputWidth}
