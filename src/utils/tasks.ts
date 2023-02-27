@@ -4,7 +4,12 @@ import { TasksList } from '@/types';
 
 // TODO replace any
 export const sortTasksByDate = (tasks: Realm.Results<Realm.Object> | any[]) => {
-  const tasksByDays: TasksList = {};
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const tasksByDays: TasksList = {
+    [today.getTime()]: [],
+  };
 
   tasks.forEach(task => {
     const date = new Date(task.startDate);

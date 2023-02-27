@@ -99,7 +99,7 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
         <CustomButton
           width={'100%'}
           bgColor={COLORS.DARK_GREEN}
-          onPress={() => console.log(123)}>
+          onPress={() => {}}>
           Duplicate
         </CustomButton>
         <CustomButton
