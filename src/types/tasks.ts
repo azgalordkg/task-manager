@@ -1,8 +1,15 @@
+export type RecurringTypes =
+  | 'Never'
+  | 'Daily'
+  | 'Weekly'
+  | 'Monthly'
+  | 'Yearly';
+
 export interface TaskBase {
   name: string;
   description?: string;
   hasDeadline?: boolean;
-  repeat?: 'Never' | 'Daily' | 'Weekly' | 'Monthly' | 'Yearly';
+  repeat?: RecurringTypes;
 }
 
 export interface CreateTaskData extends TaskBase {
