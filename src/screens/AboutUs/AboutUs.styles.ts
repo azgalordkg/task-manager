@@ -11,12 +11,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  brakeLine: {
-    width: '100%',
-    height: 2,
-    backgroundColor: COLORS.LIGHT_BREAK_LINE,
-    alignItems: 'flex-end',
-  },
   headerTitle: {
     marginLeft: 20,
     fontWeight: '500',
