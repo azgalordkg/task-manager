@@ -12,8 +12,7 @@ import { ScreenProps } from '@/types';
 import styles from './HomeScreen.styles';
 
 export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
-  const { taskList, fetchList, onSetTaskIdHandler, modalVisibleHandler } =
-    useTaskModalContext();
+  const { taskList, fetchList } = useTaskModalContext();
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -27,13 +26,11 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
   };
 
   const handleEditPress = (id: string) => {
-    onSetTaskIdHandler(id);
-    modalVisibleHandler(true);
+    navigation.navigate('CreateTask', { id });
   };
 
   const handleCreatePress = () => {
-    onSetTaskIdHandler(undefined);
-    modalVisibleHandler(true);
+    navigation.navigate('CreateTask');
   };
 
   return (
