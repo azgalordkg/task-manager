@@ -4,7 +4,9 @@ import { Text, TouchableOpacity, View } from 'react-native';
 
 import { ArrowBack } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
+import { BreakLine } from '@/components/ui';
 import { MenuItem } from '@/components/ui/MenuItem';
+import { COLORS } from '@/constants';
 
 import styles from './AboutUs.styles';
 import { Props } from './AboutUs.types';
@@ -26,7 +28,7 @@ export const AboutUs: FC<Props> = () => {
         <View style={styles.contentContainer}>
           <Text style={styles.screenTitle}>Simplify. Organize. Conquer.</Text>
 
-          <View style={styles.brakeLine} />
+          <BreakLine color={COLORS.LIGHT_BREAK_LINE} />
 
           <Text style={styles.screenDescription}>
             Lumos Engineering is a software development company dedicated to

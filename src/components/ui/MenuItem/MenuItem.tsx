@@ -37,7 +37,7 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
           <ArrowAngle />
         )}
       </View>
-      <BreakLine />
+      <BreakLine color={COLORS.GREY} />
     </TouchableOpacity>
   );
 };
