@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
   contentWrapper: {
     paddingTop: 30,
     paddingBottom: 50,
+    flex: 1,
   },
   buttonWrapper: {
     backgroundColor: COLORS.BLUE,

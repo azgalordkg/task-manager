@@ -3,10 +3,12 @@ export interface ListItemProps {
   checked: boolean;
   startDate?: number;
   endDate?: number;
-  onCheckPress: () => void;
-  onDeletePress: () => void;
+  onCheckPress: (id: string, isDone: boolean) => void;
+  onDeletePress: (id: string) => void;
   isLast?: boolean;
-  onItemPress: () => void;
-  onEditPress: () => void;
+  onItemPress: (id: string) => void;
+  onEditPress: (id: string) => void;
   hasDeadline?: boolean;
+  id: string;
+  isDone?: boolean;
 }

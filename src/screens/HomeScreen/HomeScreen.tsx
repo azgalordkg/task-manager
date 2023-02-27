@@ -50,7 +50,6 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
           <TaskList
             onItemPress={handleItemPress}
             onEditPress={handleEditPress}
-            fetchList={fetchList}
             list={taskList}
           />
         </View>
