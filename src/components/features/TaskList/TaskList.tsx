@@ -4,6 +4,7 @@ import Accordion from 'react-native-collapsible/Accordion';
 import { MemoizedAccordionContent } from '@/components/ui/AccordionContent';
 import { AccordionHeader } from '@/components/ui/AccordionHeader';
 import { Loader } from '@/components/ui/Loader';
+import { sortTasksForRender } from '@/utils';
 
 import styles from './TaskList.styles';
 import { Props } from './TaskList.types';
@@ -12,7 +13,7 @@ export const TaskList: FC<Props> = ({ list, onItemPress, onEditPress }) => {
   const sections = () => {
     return (
       list &&
-      Object.keys(list).map((dateKey, index) => {
+      sortTasksForRender(list).map((dateKey, index) => {
         return {
           id: index,
           title: dateKey,
