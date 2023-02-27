@@ -5,6 +5,7 @@ export const COLORS = {
   GREY: '#b9b9b9',
   LIGHT_GREY: '#6a6a6a',
   PLACEHOLDER: '#989898',
+  LIGHT_BREAK_LINE: '#2F2F2F',
   INPUT_BG: '#F5F5F5',
   BUTTON_BG: '#F2F2F2',
   BG: '#1F1F1F',
