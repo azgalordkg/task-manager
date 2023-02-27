@@ -1,6 +1,6 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { FC, useEffect } from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 import { TaskList } from '@/components/features';
 import { Plus } from '@/components/icons';
@@ -38,16 +38,13 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
 
   return (
     <MainLayout withHeader navigation={navigation}>
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View style={styles.contentWrapper}>
-          <TaskList
-            onItemPress={handleItemPress}
-            onEditPress={handleEditPress}
-            fetchList={fetchList}
-            list={taskList}
-          />
-        </View>
-      </ScrollView>
+      <View style={styles.contentWrapper}>
+        <TaskList
+          onItemPress={handleItemPress}
+          onEditPress={handleEditPress}
+          list={taskList}
+        />
+      </View>
 
       <TouchableOpacity onPress={handleCreatePress} activeOpacity={0.75}>
         <View style={styles.buttonWrapper}>
