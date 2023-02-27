@@ -66,6 +66,7 @@ export const TaskList: FC<Props> = ({ list, onItemPress, onEditPress }) => {
               activeSection={activeSection}
               id={section.id}
               title={section.title}
+              isContent={!!section.content.length}
             />
           )}
           renderContent={section => (
