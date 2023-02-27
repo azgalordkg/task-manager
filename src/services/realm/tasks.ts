@@ -1,27 +1,17 @@
 import 'react-native-get-random-values';
 
+import moment from 'moment';
 import Realm from 'realm';
 import { v4 as uuidv4 } from 'uuid';
 
-import { CreateTaskData, TasksResponseItem, UpdateTaskData } from '@/types';
+import { TaskSchema } from '@/constants';
+import {
+  CreateTaskData,
+  TasksList,
+  TasksResponseItem,
+  UpdateTaskData,
+} from '@/types';
 import { getDateFromToday } from '@/utils';
-
-const TaskSchema = {
-  name: 'Task',
-  properties: {
-    _id: 'string',
-    name: 'string',
-    isDone: 'bool',
-    description: 'string?',
-    startDate: 'int?',
-    endDate: 'int?',
-    hasDeadline: 'bool?',
-    repeat: 'string?',
-    isHidden: 'bool?',
-    repeatId: 'string?',
-  },
-  primaryKey: '_id',
-};
 
 const realm = new Realm({
   path: 'realm-files/taskManager',
@@ -29,11 +19,18 @@ const realm = new Realm({
   deleteRealmIfMigrationNeeded: true,
 });
 
+export const getTasksDueToday = () => {
+  if (realm) {
+    return realm.objects('Task').filtered('repeat == $0', 'Daily');
+  }
+  return [];
+};
+
 export const getTasks = () => {
   if (realm) {
     const today = getDateFromToday(-1);
     today.setHours(0, 0, 0, 0);
-    const end = getDateFromToday(4);
+    const end = getDateFromToday(3);
 
     return realm
       .objects('Task')
@@ -75,6 +72,7 @@ export const updateTask = ({
   description,
   hasDeadline,
   repeat,
+  isDone,
 }: UpdateTaskData) => {
   const task = findOne(_id) as unknown as TasksResponseItem;
   if (realm && task) {
@@ -86,8 +84,65 @@ export const updateTask = ({
         task.endDate = endDate.getTime();
       }
       task.hasDeadline = hasDeadline;
+      task.isDone = isDone;
       task.repeat = repeat;
     });
+  }
+};
+
+export const prepareUpdateDailyData = (dailyTask: TasksResponseItem) => {
+  const start = moment(new Date(Number(dailyTask.startDate)));
+  const end = moment(new Date(Number(dailyTask.endDate)));
+  const today = moment();
+
+  const { _id, name, repeat, description, hasDeadline } = dailyTask;
+  const updateData = {
+    _id,
+    name,
+    repeat,
+    description,
+    hasDeadline,
+    isDone: false,
+  } as unknown as UpdateTaskData;
+
+  if (dailyTask.startDate && dailyTask.endDate) {
+    start.set('date', today.date());
+    start.set('month', today.month());
+    end.set('date', today.date());
+    end.set('month', today.month());
+
+    updateData.startDate = start.toDate();
+    updateData.endDate = end.toDate();
+  }
+
+  return updateData;
+};
+
+export const updateDailyTasks = (tasksByDays: TasksList) => {
+  const dailyTasks = getTasksDueToday() as unknown as TasksResponseItem[];
+  const days = Object.keys(tasksByDays);
+
+  for (let i in dailyTasks) {
+    const dailyTask = dailyTasks[i];
+
+    for (let day of days) {
+      const today = moment();
+      today.set({ hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
+
+      const isToday = moment(new Date(Number(day))).isSame(today, 'day');
+      const start = moment(new Date(Number(dailyTask.startDate)));
+      start.set({ hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
+
+      if (isToday) {
+        const isBefore = start.isBefore(today);
+
+        if (isBefore) {
+          const updateData = prepareUpdateDailyData(dailyTask);
+
+          updateTask(updateData);
+        }
+      }
+    }
   }
 };
 

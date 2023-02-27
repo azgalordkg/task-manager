@@ -3,8 +3,6 @@ export interface TaskBase {
   description?: string;
   hasDeadline?: boolean;
   repeat?: 'Never' | 'Daily' | 'Weekly' | 'Monthly' | 'Yearly';
-  isHidden?: boolean;
-  repeatId?: string;
 }
 
 export interface CreateTaskData extends TaskBase {
@@ -14,6 +12,7 @@ export interface CreateTaskData extends TaskBase {
 
 export interface UpdateTaskData extends CreateTaskData {
   _id: string;
+  isDone: boolean;
 }
 
 export interface TasksResponseItem extends TaskBase {
