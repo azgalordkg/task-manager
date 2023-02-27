@@ -5,6 +5,7 @@ import { COLORS } from '@/constants';
 const styles = StyleSheet.create({
   contentWrapper: {
     paddingTop: 30,
+    paddingBottom: 50,
   },
   buttonWrapper: {
     backgroundColor: COLORS.BLUE,

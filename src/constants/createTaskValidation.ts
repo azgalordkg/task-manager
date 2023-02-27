@@ -3,7 +3,7 @@ import * as yup from 'yup';
 export const createTaskFormSchema = yup.object().shape({
   name: yup
     .string()
-    .required('Required field')
-    .min(3, 'Must be exactly 3 digits')
-    .max(30, 'Must be exactly 30 digits'),
+    .min(3, 'Name must be at least 3 characters long')
+    .max(30, 'Name must be less than 30 characters long')
+    .required('This field is required'),
 });

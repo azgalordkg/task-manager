@@ -13,8 +13,6 @@ export const TaskListContext = createContext<TaskListContextType>(
 
 export const TaskListProvider: FC<PropsWithChildren> = ({ children }) => {
   const [taskList, setTaskList] = useState<TasksList>({});
-  const [visible, setVisible] = useState<boolean>(false);
-  const [taskId, setTaskId] = useState<string | undefined>();
 
   const fetchList = () => {
     const tasks: Realm.Results<Realm.Object> | any[] = getTasks();
@@ -25,23 +23,11 @@ export const TaskListProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
-  const modalVisibleHandler = (value: boolean) => {
-    setVisible(value);
-  };
-
-  const onSetTaskIdHandler = (id?: string) => {
-    setTaskId(id);
-  };
-
   return (
     <TaskListContext.Provider
       value={{
         taskList,
-        visible,
-        taskId,
         fetchList,
-        modalVisibleHandler,
-        onSetTaskIdHandler,
       }}>
       {children}
     </TaskListContext.Provider>

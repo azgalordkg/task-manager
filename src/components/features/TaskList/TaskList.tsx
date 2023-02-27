@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 
 import { deleteOne, markTaskAsDone } from '@/services/realm';
+import { sortTasksForRender } from '@/utils';
 
 import { DayBlock, ListItem } from '../../ui';
 import { Props } from './TaskList.types';
@@ -14,7 +15,7 @@ export const TaskList: FC<Props> = ({
   return (
     <>
       {list &&
-        Object.keys(list).map(key => {
+        sortTasksForRender(list).map(key => {
           return (
             <DayBlock date={key} key={key}>
               {list[key].map(
@@ -23,13 +24,13 @@ export const TaskList: FC<Props> = ({
                   index,
                 ) => (
                   <ListItem
-                    hasDeadline={Boolean(hasDeadline)}
+                    hasDeadline={hasDeadline}
                     onEditPress={() => onEditPress(_id)}
                     onItemPress={() => onItemPress(_id)}
                     startDate={startDate}
                     endDate={endDate}
                     onCheckPress={() => {
-                      markTaskAsDone(_id, isDone ? 0 : 1);
+                      markTaskAsDone(_id, !isDone);
                       fetchList();
                     }}
                     onDeletePress={() => {
@@ -38,7 +39,7 @@ export const TaskList: FC<Props> = ({
                     }}
                     key={_id}
                     name={name}
-                    checked={Boolean(isDone)}
+                    checked={isDone}
                     isLast={index + 1 === list[key].length}
                   />
                 ),
