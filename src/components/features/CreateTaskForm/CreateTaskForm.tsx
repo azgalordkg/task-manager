@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { FC, useEffect, useState } from 'react';
-import { useController, useForm } from 'react-hook-form';
+import React, { FC, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { Dimensions, Text, View } from 'react-native';
 import Realm from 'realm';
 
@@ -24,8 +24,6 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
   const startDate = new Date();
   const endDate = new Date();
 
-  const [repeatValue, setRepeatValue] = useState('Never');
-
   startDate.setMinutes(startDate.getMinutes() < 30 ? 0 : 30);
   endDate.setHours(
     startDate.getHours() + 1,
@@ -43,6 +41,7 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
     defaultValues: {
       startDate,
       endDate,
+      repeat: 'Never',
       hasDeadline: false,
     },
     mode: 'onBlur',
@@ -59,6 +58,10 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
       setValue('startDate', new Date(task.startDate));
       setValue('endDate', new Date(task.endDate));
     }
+    if (task.hasDeadline) {
+      setValue('hasDeadline', true);
+    }
+    setValue('repeat', task.repeat);
   };
 
   useEffect(() => {
@@ -73,12 +76,6 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
   }, [editItemId]);
 
   const timeInputWidth = Dimensions.get('window').width / 2 - 30;
-
-  const { field: hasDeadlineField } = useController({
-    control,
-    defaultValue: undefined,
-    name: 'hasDeadline',
-  });
 
   return (
     <DismissKeyboard>
@@ -108,9 +105,9 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
           </View>
           <View style={styles.inputWrapper}>
             <Select
-              onValueChange={setRepeatValue}
+              name="repeat"
+              control={control}
               items={REPEAT_LIST}
-              value={repeatValue}
               label="Repeat"
             />
           </View>
@@ -137,7 +134,7 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
             onChange={value => setValue('hasDeadline', value)}
             label="Set due time"
           />
-          {hasDeadlineField.value && (
+          {watch('hasDeadline') && (
             <View style={styles.timeContainer}>
               <CustomDatePicker
                 inputWidth={timeInputWidth}

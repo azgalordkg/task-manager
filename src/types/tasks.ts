@@ -1,23 +1,26 @@
-export interface CreateTaskData {
+export interface TaskBase {
   name: string;
   description?: string;
+  hasDeadline?: boolean;
+  repeat?: 'Never' | 'Daily' | 'Weekly' | 'Monthly' | 'Yearly';
+  isHidden?: boolean;
+  repeatId?: string;
+}
+
+export interface CreateTaskData extends TaskBase {
   startDate: Date;
   endDate: Date;
-  hasDeadline?: boolean;
 }
 
 export interface UpdateTaskData extends CreateTaskData {
   _id: string;
 }
 
-export interface TasksResponseItem {
+export interface TasksResponseItem extends TaskBase {
   _id: string;
-  name: string;
-  isDone?: number;
-  description?: string;
+  isDone: boolean;
   startDate?: number;
   endDate?: number;
-  hasDeadline?: number;
 }
 
 export interface TasksList {

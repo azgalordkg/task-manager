@@ -11,11 +11,14 @@ const TaskSchema = {
   properties: {
     _id: 'string',
     name: 'string',
-    isDone: 'int?',
+    isDone: 'bool',
     description: 'string?',
     startDate: 'int?',
     endDate: 'int?',
-    hasDeadline: 'int?',
+    hasDeadline: 'bool?',
+    repeat: 'string?',
+    isHidden: 'bool?',
+    repeatId: 'string?',
   },
   primaryKey: '_id',
 };
@@ -49,8 +52,7 @@ export const createTask = (data: CreateTaskData) => {
       realm.create('Task', {
         ...data,
         _id: uuidv4().slice(0, 8),
-        isDone: 0,
-        hasDeadline: data.hasDeadline ? 1 : 0,
+        isDone: false,
         startDate: data.startDate.getTime(),
         endDate: data.endDate.getTime(),
       });
@@ -65,27 +67,31 @@ export const findOne = (_id: string) => {
   }
 };
 
-export const updateTask = (data: UpdateTaskData) => {
-  const { _id, name, startDate, endDate, description } = data;
-  const task = findOne(_id);
+export const updateTask = ({
+  _id,
+  name,
+  startDate,
+  endDate,
+  description,
+  hasDeadline,
+  repeat,
+}: UpdateTaskData) => {
+  const task = findOne(_id) as unknown as TasksResponseItem;
   if (realm && task) {
     realm.write(() => {
-      (findOne(_id) as unknown as TasksResponseItem).name = name;
-      if (description) {
-        (findOne(_id) as unknown as TasksResponseItem).description =
-          description;
-      }
+      task.name = name;
+      task.description = description;
       if (startDate && endDate) {
-        (findOne(_id) as unknown as TasksResponseItem).startDate =
-          startDate.getTime();
-        (findOne(_id) as unknown as TasksResponseItem).endDate =
-          endDate.getTime();
+        task.startDate = startDate.getTime();
+        task.endDate = endDate.getTime();
       }
+      task.hasDeadline = hasDeadline;
+      task.repeat = repeat;
     });
   }
 };
 
-export const markTaskAsDone = (_id: string, isDone: number) => {
+export const markTaskAsDone = (_id: string, isDone: boolean) => {
   const task = findOne(_id);
   if (realm && task) {
     realm.write(() => {
