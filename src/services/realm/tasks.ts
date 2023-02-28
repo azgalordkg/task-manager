@@ -64,17 +64,16 @@ export const findOne = (_id: string) => {
   }
 };
 
-export const updateTask = (data: UpdateTaskData) => {
-  const {
-    _id,
-    name,
-    startDate,
-    endDate,
-    description,
-    hasDeadline,
-    repeat,
-    isDone,
-  } = data;
+export const updateTask = ({
+  _id,
+  name,
+  startDate,
+  endDate,
+  description,
+  hasDeadline,
+  repeat,
+  isDone,
+}: UpdateTaskData) => {
   const task = findOne(_id) as unknown as TasksResponseItem;
   if (realm && task) {
     realm.write(() => {
