@@ -29,7 +29,7 @@ export const Input: FC<Props> = ({
     name,
   });
   const style = styles(textColor);
-// TODO remove nested ternary operator
+  // TODO remove nested ternary operator
   const value = isDateTime
     ? field.value
       ? format(new Date(field.value as string), isTime ? 'p' : 'dd MMMM')

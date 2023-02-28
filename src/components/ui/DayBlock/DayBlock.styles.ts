@@ -11,15 +11,20 @@ const styles = ({ isToday }: StyleProps) =>
     container: {
       paddingVertical: 20,
       backgroundColor: COLORS.GREY_BG,
-      marginBottom: 30,
     },
     contentWrapper: {
       paddingHorizontal: 20,
     },
     dateWrapper: {
-      marginBottom: 14,
       flexDirection: 'row',
       alignItems: 'center',
+    },
+    dateContainer: {
+      width: '100%',
+      flexDirection: 'row',
+      paddingRight: 20,
+      alignItems: 'center',
+      justifyContent: 'space-between',
     },
     todayWrapper: {
       width: 60,
@@ -52,6 +57,12 @@ const styles = ({ isToday }: StyleProps) =>
     dayOfWeek: {
       color: COLORS.WHITE,
       fontSize: 18,
+    },
+    accordionVisibleStatus: {
+      fontWeight: '400',
+      fontSize: 12,
+      lineHeight: 15,
+      color: COLORS.LIGHT_GREY,
     },
   });
 

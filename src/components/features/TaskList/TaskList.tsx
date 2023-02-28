@@ -1,59 +1,81 @@
-import moment from 'moment';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
+import Accordion from 'react-native-collapsible/Accordion';
 
-import QuickTask from '@/components/features/QuickTask/QuickTask';
-import { deleteOne, markTaskAsDone } from '@/services/realm';
+import {
+  AccordionHeader,
+  Loader,
+  MemoizedAccordionContent,
+} from '@/components/ui';
 import { sortTasksForRender } from '@/utils';
 
-import { DayBlock, ListItem } from '../../ui';
+import styles from './TaskList.styles';
 import { Props } from './TaskList.types';
 
 export const TaskList: FC<Props> = ({
-  list,
-  fetchList,
+  list = {},
   onItemPress,
   onEditPress,
 }) => {
-  return (
-    <>
-      {list &&
-        sortTasksForRender(list).map(key => {
-          const isShowButton =
-            moment(+key).isSame(moment(), 'day') ||
-            moment(+key).isSame(moment().add(1, 'day'), 'day');
+  const [activeSection, setActiveSection] = useState<number[]>([]);
+  const [loading, setLoading] = useState(true);
 
-          return (
-            <DayBlock date={key} key={key}>
-              {list[key].map(
-                (
-                  { name, isDone, hasDeadline, _id, endDate, startDate },
-                  index,
-                ) => (
-                  <ListItem
-                    hasDeadline={hasDeadline}
-                    onEditPress={() => onEditPress(_id)}
-                    onItemPress={() => onItemPress(_id)}
-                    startDate={startDate}
-                    endDate={endDate}
-                    onCheckPress={() => {
-                      markTaskAsDone(_id, !isDone);
-                      fetchList();
-                    }}
-                    onDeletePress={() => {
-                      deleteOne(_id);
-                      fetchList();
-                    }}
-                    key={_id}
-                    name={name}
-                    checked={isDone}
-                    isLast={index + 1 === list[key].length}
-                  />
-                ),
-              )}
-              {isShowButton && <QuickTask date={key} />}
-            </DayBlock>
-          );
-        })}
-    </>
+  const sectionsList = useMemo(
+    () =>
+      sortTasksForRender(list).map((date, index) => ({
+        id: index,
+        title: date,
+        content: list[date],
+      })),
+    [list],
+  );
+
+  const fillActiveSection = () => {
+    return sectionsList?.forEach((sectionsItem, index) => {
+      const itemDate = new Date(+sectionsItem.title).getDay();
+      const isToday = itemDate === new Date().getDay();
+
+      if (isToday) {
+        setActiveSection(prevState => [...prevState, index]);
+      }
+    });
+  };
+
+  useEffect(() => {
+    fillActiveSection();
+  }, [list]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  return (
+    <Accordion
+      sections={sectionsList}
+      activeSections={activeSection}
+      renderHeader={section => (
+        <AccordionHeader
+          activeSection={activeSection}
+          id={section.id}
+          title={section.title}
+          isContent={!!section.content.length}
+        />
+      )}
+      renderContent={section => (
+        <MemoizedAccordionContent
+          content={section.content}
+          onItemPress={onItemPress}
+          onEditPress={onEditPress}
+        />
+      )}
+      onChange={setActiveSection}
+      expandMultiple={true}
+      containerStyle={styles.containerStyle}
+    />
   );
 };
