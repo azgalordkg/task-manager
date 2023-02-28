@@ -18,7 +18,7 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
       ...(isLast ? { transform: [{ scale: scale as unknown as number }] } : {}),
     },
     outerContainer: {
-      marginBottom: 14,
+      marginBottom: isLast ? 0 : 14,
       marginHorizontal: 20,
     },
     container: {

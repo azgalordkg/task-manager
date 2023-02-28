@@ -15,7 +15,7 @@ import { CreateTaskData } from '@/types';
 import styles from './QuickTask.styles';
 import { Props } from './QuickTask.types';
 
-const QuickTask: FC<Props> = ({ date }) => {
+export const QuickTask: FC<Props> = ({ date }) => {
   const [showInput, setShowInput] = useState(false);
   const { fetchList } = useTaskModalContext();
 
@@ -101,5 +101,3 @@ const QuickTask: FC<Props> = ({ date }) => {
     </>
   );
 };
-
-export default QuickTask;

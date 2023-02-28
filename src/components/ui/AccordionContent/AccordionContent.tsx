@@ -2,6 +2,7 @@ import { isEqual } from 'lodash';
 import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 
+import { QuickTask } from '@/components/features';
 import { MemoizedListItem } from '@/components/ui';
 import { deleteOne, markTaskAsDone } from '@/services';
 
@@ -14,6 +15,7 @@ const customComparator = (prevProps: Props, nextProps: Props) => {
 
 export const AccordionContent: FC<Props> = ({
   content,
+  title,
   onEditPress,
   onItemPress,
 }) => {
@@ -39,6 +41,9 @@ export const AccordionContent: FC<Props> = ({
           </View>
         ),
       )}
+      <View style={styles.buttonContainer}>
+        <QuickTask date={title} />
+      </View>
     </>
   );
 };
