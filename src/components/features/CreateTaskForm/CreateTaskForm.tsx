@@ -92,6 +92,7 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
               name="name"
               placeholder="Name *"
               errorMessage={errors.name?.message}
+              maxLength={30}
             />
           </View>
           <View style={styles.inputWrapper}>
@@ -101,6 +102,7 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
               numberOfLines={4}
               name="description"
               placeholder="Description (optional)"
+              maxLength={255}
             />
           </View>
           <View style={styles.inputWrapper}>

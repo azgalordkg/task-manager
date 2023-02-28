@@ -2,13 +2,17 @@ import { StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
 
-const styles = (errorMessage?: string) =>
+const styles = (
+  errorMessage?: string,
+  borderColor?: string,
+  backgroundColor?: string,
+) =>
   StyleSheet.create({
     wrapper: {
       borderWidth: 1,
-      borderColor: errorMessage ? COLORS.RED : COLORS.INPUT_BG,
+      borderColor: errorMessage ? COLORS.RED : borderColor,
       padding: 11,
-      backgroundColor: COLORS.INPUT_BG,
+      backgroundColor: backgroundColor,
       borderRadius: 12,
       width: '100%',
       flexDirection: 'row',

@@ -19,7 +19,9 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
   fontSize = 18,
   borderWidth = 2,
   disabled,
+  icon,
 }) => {
+  const Icon = icon;
   const style = styles({
     width,
     fullWidth,
@@ -39,6 +41,7 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
       style={style.button}
       onPress={onPress}
       disabled={disabled}>
+      {Icon && <Icon color={COLORS.WHITE} width={14} height={14} />}
       <Text style={style.text}>{children}</Text>
     </TouchableOpacity>
   );

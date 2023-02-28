@@ -17,6 +17,10 @@ export const Input: FC<Props> = ({
   isTime,
   icon,
   errorMessage,
+  borderColor,
+  backgroundColor,
+  maxLength,
+  textColor = COLORS.BG,
   ...props
 }) => {
   const { field } = useController({
@@ -24,6 +28,7 @@ export const Input: FC<Props> = ({
     defaultValue,
     name,
   });
+  const style = styles(textColor);
 // TODO remove nested ternary operator
   const value = isDateTime
     ? field.value
@@ -32,11 +37,16 @@ export const Input: FC<Props> = ({
     : (field.value as string);
 
   return (
-    <View style={styles.inputContainer}>
-      <InputWrapper errorMessage={errorMessage} icon={icon}>
+    <View style={style.inputContainer}>
+      <InputWrapper
+        borderColor={borderColor}
+        backgroundColor={backgroundColor}
+        errorMessage={errorMessage}
+        icon={icon}>
         <TextInput
           placeholderTextColor={COLORS.PLACEHOLDER}
-          style={styles.input}
+          maxLength={maxLength}
+          style={style.input}
           value={value}
           onChangeText={field.onChange}
           onBlur={() => {
@@ -46,7 +56,7 @@ export const Input: FC<Props> = ({
         />
       </InputWrapper>
 
-      {errorMessage && <Text style={styles.errorMessage}>{errorMessage}</Text>}
+      {errorMessage && <Text style={style.errorMessage}>{errorMessage}</Text>}
     </View>
   );
 };

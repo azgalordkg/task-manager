@@ -1,5 +1,7 @@
+import moment from 'moment';
 import React, { FC } from 'react';
 
+import QuickTask from '@/components/features/QuickTask/QuickTask';
 import { deleteOne, markTaskAsDone } from '@/services/realm';
 import { sortTasksForRender } from '@/utils';
 
@@ -16,6 +18,10 @@ export const TaskList: FC<Props> = ({
     <>
       {list &&
         sortTasksForRender(list).map(key => {
+          const isShowButton =
+            moment(+key).isSame(moment(), 'day') ||
+            moment(+key).isSame(moment().add(1, 'day'), 'day');
+
           return (
             <DayBlock date={key} key={key}>
               {list[key].map(
@@ -44,6 +50,7 @@ export const TaskList: FC<Props> = ({
                   />
                 ),
               )}
+              {isShowButton && <QuickTask date={key} />}
             </DayBlock>
           );
         })}

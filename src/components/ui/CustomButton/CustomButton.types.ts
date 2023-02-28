@@ -1,3 +1,7 @@
+import { FC } from 'react';
+
+import { DefaultSvgProps } from '@/types';
+
 export interface Props {
   onPress: () => void;
   bgColor?: string;
@@ -10,4 +14,5 @@ export interface Props {
   fontSize?: number;
   borderWidth?: number;
   disabled?: boolean;
+  icon?: FC<DefaultSvgProps>;
 }
