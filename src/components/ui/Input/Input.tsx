@@ -24,7 +24,7 @@ export const Input: FC<Props> = ({
     defaultValue,
     name,
   });
-// TODO remove nested ternary operator
+  // TODO remove nested ternary operator
   const value = isDateTime
     ? field.value
       ? format(new Date(field.value as string), isTime ? 'p' : 'dd MMMM')
