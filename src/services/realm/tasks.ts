@@ -52,7 +52,6 @@ export const createTask = (data: CreateTaskData) => {
       realm.create('Task', {
         ...data,
         _id: uuidv4().slice(0, 8),
-        // repeatId: uuidv4().slice(0, 8),
         isDone: false,
         startDate: data.startDate.getTime(),
         endDate: data.endDate.getTime(),
@@ -68,9 +67,15 @@ export const findOne = (_id: string) => {
   }
 };
 
-export const updateTask = (data: UpdateTaskData) => {
-  const { _id, name, startDate, endDate, description, hasDeadline, repeat } =
-    data;
+export const updateTask = ({
+  _id,
+  name,
+  startDate,
+  endDate,
+  description,
+  hasDeadline,
+  repeat,
+}: UpdateTaskData) => {
   const task = findOne(_id) as unknown as TasksResponseItem;
   if (realm && task) {
     realm.write(() => {
