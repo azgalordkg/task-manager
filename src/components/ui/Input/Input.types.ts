@@ -15,5 +15,5 @@ export interface Props extends TextInputProps {
   borderColor?: string;
   backgroundColor?: string;
   maxLength?: number;
-  textColor?: string;
+  color?: string;
 }

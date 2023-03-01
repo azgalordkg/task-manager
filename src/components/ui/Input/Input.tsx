@@ -20,7 +20,7 @@ export const Input: FC<Props> = ({
   borderColor,
   backgroundColor,
   maxLength,
-  textColor = COLORS.BG,
+  color = COLORS.BG,
   ...props
 }) => {
   const { field } = useController({
@@ -28,7 +28,7 @@ export const Input: FC<Props> = ({
     defaultValue,
     name,
   });
-  const style = styles(textColor);
+  const style = styles(color);
   // TODO remove nested ternary operator
   const value = isDateTime
     ? field.value

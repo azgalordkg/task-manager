@@ -4,10 +4,12 @@ import { useForm } from 'react-hook-form';
 import { Dimensions, Text, View } from 'react-native';
 import Realm from 'realm';
 
+import { DismissKeyboard } from '@/components/features';
 import { COLORS, createTaskFormSchema, REPEAT_LIST } from '@/constants';
 import { findOne } from '@/services/realm';
 import { CreateTaskData } from '@/types';
 
+import DateFilter from '../../features/DateFilter/DateFilter';
 import {
   Checkbox,
   CustomButton,
@@ -15,8 +17,6 @@ import {
   Input,
   Select,
 } from '../../ui';
-import DateFilter from '../DateFilter/DateFilter';
-import { DismissKeyboard } from '../DismissKeyboard';
 import styles from './CreateTaskForm.styles';
 import { Props } from './CreateTaskForm.types';
 

@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
 
-const styles = (textColor?: string) =>
+const styles = (color?: string) =>
   StyleSheet.create({
     inputContainer: {
       display: 'flex',
@@ -11,7 +11,7 @@ const styles = (textColor?: string) =>
     },
     input: {
       width: '100%',
-      color: textColor,
+      color: color,
       fontSize: 18,
     },
     errorMessage: {
