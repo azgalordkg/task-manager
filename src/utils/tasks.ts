@@ -1,3 +1,4 @@
+import moment from 'moment';
 import Realm from 'realm';
 
 import { TasksList } from '@/types';
@@ -6,9 +7,11 @@ import { TasksList } from '@/types';
 export const sortTasksByDate = (tasks: Realm.Results<Realm.Object> | any[]) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+  const tomorrow = +moment(today.getTime()).add(1, 'day');
 
   const tasksByDays: TasksList = {
     [today.getTime()]: [],
+    [tomorrow]: [],
   };
 
   tasks.forEach(task => {

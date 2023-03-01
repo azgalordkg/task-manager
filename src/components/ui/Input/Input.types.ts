@@ -12,4 +12,8 @@ export interface Props extends TextInputProps {
   isTime?: boolean;
   icon?: FC<DefaultSvgProps>;
   errorMessage?: string;
+  borderColor?: string;
+  backgroundColor?: string;
+  maxLength?: number;
+  color?: string;
 }

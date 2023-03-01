@@ -1,7 +1,9 @@
 import { isEqual } from 'lodash';
+import moment from 'moment';
 import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 
+import { QuickTask } from '@/components/features';
 import { MemoizedListItem } from '@/components/ui';
 import { deleteOne, markTaskAsDone } from '@/services';
 
@@ -14,9 +16,14 @@ const customComparator = (prevProps: Props, nextProps: Props) => {
 
 export const AccordionContent: FC<Props> = ({
   content,
+  title,
   onEditPress,
   onItemPress,
 }) => {
+  const isShowButton =
+    moment(+title).isSame(moment(), 'day') ||
+    moment(+title).isSame(moment().add(1, 'day'), 'day');
+
   return (
     <>
       {content.map(
@@ -38,6 +45,11 @@ export const AccordionContent: FC<Props> = ({
             />
           </View>
         ),
+      )}
+      {isShowButton && (
+        <View style={styles.buttonContainer}>
+          <QuickTask date={title} />
+        </View>
       )}
     </>
   );

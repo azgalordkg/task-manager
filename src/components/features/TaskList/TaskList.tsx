@@ -63,11 +63,11 @@ export const TaskList: FC<Props> = ({
           activeSection={activeSection}
           id={section.id}
           title={section.title}
-          isContent={!!section.content.length}
         />
       )}
       renderContent={section => (
         <MemoizedAccordionContent
+          title={section.title}
           content={section.content}
           onItemPress={onItemPress}
           onEditPress={onEditPress}

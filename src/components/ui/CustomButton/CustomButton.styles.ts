@@ -23,6 +23,8 @@ const styles = ({
   return StyleSheet.create({
     button: {
       borderRadius: 10,
+      flexDirection: 'row',
+      columnGap: 10,
       justifyContent: 'center',
       alignItems: 'center',
       maxWidth: '100%',

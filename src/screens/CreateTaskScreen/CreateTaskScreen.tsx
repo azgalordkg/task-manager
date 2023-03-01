@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { FieldValues } from 'react-hook-form';
 
-import { CreateTaskForm } from '@/components/features';
+import { CreateTaskForm } from '@/components/forms';
 import { ModalWrapper } from '@/components/ui';
 import { useTaskModalContext } from '@/context/hooks';
 import { createTask, updateTask } from '@/services';
