@@ -7,7 +7,7 @@ import { Tag } from '@/components/ui/Tag';
 import styles from './TagsField.styles';
 import { Props } from './TagsField.types';
 
-export const TagsField: FC<Props> = ({ tags }) => {
+export const TagsField: FC<Props> = ({ tags, onAddPress }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Tags: </Text>
@@ -15,7 +15,7 @@ export const TagsField: FC<Props> = ({ tags }) => {
         {tags?.map(({ name, color }) => (
           <Tag onPress={() => {}} key={name} name={name} bgColor={color} />
         ))}
-        <DashedButton>Add</DashedButton>
+        <DashedButton onPress={onAddPress}>Add</DashedButton>
       </View>
     </View>
   );

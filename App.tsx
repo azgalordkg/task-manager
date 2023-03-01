@@ -7,6 +7,7 @@ import {
   AboutUs,
   CreateTaskScreen,
   HomeScreen,
+  ManageTagsScreen,
   Settings,
   TaskScreen,
 } from '@/screens';
@@ -31,6 +32,7 @@ const App: FC = () => {
           </Stack.Group>
           <Stack.Group screenOptions={{ presentation: 'modal' }}>
             <Stack.Screen name="CreateTask" component={CreateTaskScreen} />
+            <Stack.Screen name="ManageTags" component={ManageTagsScreen} />
           </Stack.Group>
         </Stack.Navigator>
       </NavigationContainer>

@@ -8,6 +8,7 @@ export * from './CustomButton';
 export * from './CustomDatePicker';
 export * from './DashedButton';
 export * from './DayBlock';
+export * from './FormContentWrapper';
 export * from './Header';
 export * from './Input';
 export * from './InputWrapper';
