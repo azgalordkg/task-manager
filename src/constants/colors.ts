@@ -14,5 +14,6 @@ export const COLORS = {
   GREEN: '#C9F849',
   ORANGE: '#FFC93D',
   DARK_GREEN: '#3DB39E',
+  LIGHT_GREEN: '#9ED9CF',
   QUICK_TASK_BUTTON: '#3F3F3F',
 };

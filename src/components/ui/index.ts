@@ -6,6 +6,7 @@ export * from './BreakLine';
 export * from './Checkbox';
 export * from './CustomButton';
 export * from './CustomDatePicker';
+export * from './DashedButton';
 export * from './DayBlock';
 export * from './Header';
 export * from './Input';

@@ -8,7 +8,7 @@ import { CustomButton } from '../../ui';
 import styles from './DateFilter.styles';
 import { Props } from './DateFilter.types';
 
-const DateFilter: FC<Props> = ({
+export const DateFilter: FC<Props> = ({
   currentStartDate,
   currentEndDate,
   onPressHandler,
@@ -59,5 +59,3 @@ const DateFilter: FC<Props> = ({
     </View>
   );
 };
-
-export default DateFilter;

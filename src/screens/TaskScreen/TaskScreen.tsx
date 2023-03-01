@@ -6,7 +6,7 @@ import { ArrowBack, Edit } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { CustomButton, TextBlank } from '@/components/ui';
 import { ConfirmModal } from '@/components/ui/ConfirmModal';
-import { Tags } from '@/components/ui/Tags';
+import { Tag } from '@/components/ui/Tag';
 import { COLORS } from '@/constants';
 import { useTaskModalContext } from '@/context/hooks';
 import { deleteOne, findOne } from '@/services/realm';
@@ -66,7 +66,7 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
             <Text style={styles.taskTitle}>{task?.name}</Text>
             <View style={styles.taskTagsContainer}>
               {taskTags?.map(taskTagItem => (
-                <Tags
+                <Tag
                   key={taskTagItem.name}
                   name={taskTagItem.name}
                   bgColor={taskTagItem.color}

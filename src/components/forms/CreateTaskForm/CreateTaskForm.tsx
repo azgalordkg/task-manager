@@ -4,12 +4,11 @@ import { useForm } from 'react-hook-form';
 import { Dimensions, Text, View } from 'react-native';
 import Realm from 'realm';
 
-import { DismissKeyboard } from '@/components/features';
+import { DateFilter, DismissKeyboard, TagsField } from '@/components/features';
 import { COLORS, createTaskFormSchema, REPEAT_LIST } from '@/constants';
 import { findOne } from '@/services/realm';
 import { CreateTaskData } from '@/types';
 
-import DateFilter from '../../features/DateFilter/DateFilter';
 import {
   Checkbox,
   CustomButton,
@@ -156,6 +155,12 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
               />
             </View>
           )}
+          <TagsField
+            tags={[
+              { name: 'Test', color: 'red' },
+              { name: 'Home', color: 'blue' },
+            ]}
+          />
         </View>
 
         <CustomButton
