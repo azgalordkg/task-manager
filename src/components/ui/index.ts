@@ -14,3 +14,4 @@ export * from './ListItem';
 export * from './Loader';
 export * from './ModalWrapper';
 export * from './Select';
+export * from './TextBlank';

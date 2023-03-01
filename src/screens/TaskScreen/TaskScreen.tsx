@@ -4,7 +4,7 @@ import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 
 import { ArrowBack, Edit } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
-import { CustomButton } from '@/components/ui';
+import { CustomButton, TextBlank } from '@/components/ui';
 import { ConfirmModal } from '@/components/ui/ConfirmModal';
 import { Tags } from '@/components/ui/Tags';
 import { COLORS } from '@/constants';
@@ -92,7 +92,13 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
           </View>
         </View>
 
-        <Text style={styles.taskDescription}>{task?.description}</Text>
+        <View style={styles.descriptionWrapper}>
+          {task?.description ? (
+            <Text style={styles.taskDescription}>{task.description}</Text>
+          ) : (
+            <TextBlank>No description</TextBlank>
+          )}
+        </View>
       </View>
 
       <View style={styles.taskButtonContainer}>
