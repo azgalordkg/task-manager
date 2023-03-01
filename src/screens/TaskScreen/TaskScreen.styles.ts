@@ -67,12 +67,14 @@ const styles = StyleSheet.create({
     lineHeight: 14,
     color: COLORS.WHITE,
   },
+  descriptionWrapper: {
+    marginTop: 30,
+  },
   taskDescription: {
     color: '#fff',
     fontWeight: '500',
     fontSize: 16,
     lineHeight: 28,
-    marginTop: 30,
   },
   taskButtonContainer: {
     marginBottom: 32,
