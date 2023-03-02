@@ -20,6 +20,7 @@ export const TagSchema = {
     _id: 'string',
     name: 'string',
     color: 'string',
+    isDefault: 'bool?',
   },
   primaryKey: '_id',
 };

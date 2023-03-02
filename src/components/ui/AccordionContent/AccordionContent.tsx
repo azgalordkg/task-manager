@@ -5,7 +5,7 @@ import { View } from 'react-native';
 
 import { QuickTask } from '@/components/features';
 import { MemoizedListItem } from '@/components/ui';
-import { deleteOne, markTaskAsDone } from '@/services';
+import { deleteOneTask, markTaskAsDone } from '@/services';
 
 import styles from './AccordionContent.styles';
 import { Props } from './AccordionContent.types';
@@ -36,7 +36,7 @@ export const AccordionContent: FC<Props> = ({
               startDate={startDate}
               endDate={endDate}
               onCheckPress={markTaskAsDone}
-              onDeletePress={deleteOne}
+              onDeletePress={deleteOneTask}
               isDone={isDone}
               id={_id}
               name={name}

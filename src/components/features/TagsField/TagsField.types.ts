@@ -1,6 +1,6 @@
-import { Tag } from '@/types';
+import { TagsResponseItem } from '@/types';
 
 export interface Props {
-  tags: Tag[];
+  tags: TagsResponseItem[];
   onAddPress: () => void;
 }

@@ -9,7 +9,7 @@ import { ConfirmModal } from '@/components/ui/ConfirmModal';
 import { Tag } from '@/components/ui/Tag';
 import { COLORS } from '@/constants';
 import { useTaskModalContext } from '@/context/hooks';
-import { deleteOne, findOne } from '@/services/realm';
+import { deleteOneTask, findOneTask } from '@/services/realm';
 import { ScreenProps } from '@/types';
 
 import styles from './TaskScreen.styles';
@@ -23,7 +23,7 @@ const taskTags = [
 export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
   const id = route?.params?.id;
   // TODO need typing for task
-  const task: any = findOne(id);
+  const task: any = findOneTask(id);
   const { fetchList } = useTaskModalContext();
   const [confirmModalVisible, setConfirmModalVisible] = React.useState(false);
 
@@ -34,7 +34,7 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
   const handleDeleteTask = () => {
     navigation.goBack();
     setConfirmModalVisible(!confirmModalVisible);
-    deleteOne(id);
+    deleteOneTask(id);
     fetchList();
   };
   const startDate = task?.startDate;

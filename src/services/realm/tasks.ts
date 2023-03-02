@@ -59,7 +59,7 @@ export const createTask = (data: CreateTaskData) => {
   }
 };
 
-export const findOne = (_id: string) => {
+export const findOneTask = (_id: string) => {
   if (realm) {
     const tasks = realm.objects('Task').filtered('_id == $0', _id);
     return tasks[0];
@@ -76,7 +76,7 @@ export const updateTask = ({
   repeat,
   isDone,
 }: UpdateTaskData) => {
-  const task = findOne(_id) as unknown as TasksResponseItem;
+  const task = findOneTask(_id) as unknown as TasksResponseItem;
   if (realm && task) {
     realm.write(() => {
       task.name = name;
@@ -235,16 +235,16 @@ export const updateRecurringTasks = (tasksByDays: TasksList) => {
 };
 
 export const markTaskAsDone = (_id: string, isDone: boolean) => {
-  const task = findOne(_id);
+  const task = findOneTask(_id);
   if (realm && task) {
     realm.write(() => {
-      (findOne(_id) as unknown as TasksResponseItem).isDone = isDone;
+      (findOneTask(_id) as unknown as TasksResponseItem).isDone = isDone;
     });
   }
 };
 
-export const deleteOne = (_id: string) => {
-  const task = findOne(_id);
+export const deleteOneTask = (_id: string) => {
+  const task = findOneTask(_id);
   if (realm && task) {
     realm.write(() => {
       realm.delete(task);

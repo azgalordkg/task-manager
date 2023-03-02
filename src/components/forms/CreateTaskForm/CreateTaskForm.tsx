@@ -13,7 +13,7 @@ import {
   Select,
 } from '@/components/ui';
 import { createTaskFormSchema, REPEAT_LIST } from '@/constants';
-import { findOne } from '@/services/realm';
+import { findOneTask } from '@/services/realm';
 import { CreateTaskData } from '@/types';
 
 import styles from './CreateTaskForm.styles';
@@ -69,7 +69,7 @@ export const CreateTaskForm: FC<Props> = ({
 
   useEffect(() => {
     if (editItemId) {
-      const task = findOne(editItemId);
+      const task = findOneTask(editItemId);
       if (task) {
         prepareEditData(task);
       }
