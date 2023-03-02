@@ -17,14 +17,14 @@ const styles = (bgColor: string) =>
     tabsTitle: {
       fontWeight: '600',
       fontSize: 12,
-      color: COLORS.WHITE,
+      color: COLORS.BG,
     },
     close: {
       marginLeft: 4,
       width: 12,
       height: 12,
       borderRadius: 6,
-      backgroundColor: COLORS.WHITE,
+      backgroundColor: COLORS.BG,
       justifyContent: 'center',
       alignItems: 'center',
     },

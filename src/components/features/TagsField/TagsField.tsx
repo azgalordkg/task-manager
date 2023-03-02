@@ -24,6 +24,7 @@ export const TagsField: FC<Props> = ({ onAddPress }) => {
     if (selectedTags) {
       fetchDefaultTags();
       fetchCustomTags();
+
       const filteredDefault = defaultTags.filter(tag =>
         selectedTags.includes(tag._id),
       );

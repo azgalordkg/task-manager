@@ -16,8 +16,8 @@ export const TagManageProvider: FC<PropsWithChildren> = ({ children }) => {
   const [defaultTags, setDefaultTags] = useState<TagsResponseItem[]>([]);
   const [customTags, setCustomTags] = useState<TagsResponseItem[]>([]);
 
-  const fetchDefaultTags = () => {
-    setDefaultTags(getDefaultTags());
+  const fetchDefaultTags = async () => {
+    setDefaultTags(await getDefaultTags());
   };
 
   const fetchCustomTags = () => {

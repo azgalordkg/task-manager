@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { COLORS, TagSchema } from '@/constants';
 import { CreateTagData, TagsResponseItem, UpdateTagData } from '@/types';
+import { Storage } from '@/utils';
 
 const realm = new Realm({
   path: 'realm-files/tagManager',
@@ -30,15 +31,18 @@ export const createTag = (data: CreateTagData) => {
   }
 };
 
-export const getDefaultTags = (): TagsResponseItem[] => {
+export const getDefaultTags = async (): Promise<TagsResponseItem[]> => {
   if (realm) {
     const defaultTags = realm.objects('Tag').filtered('isDefault == $0', true);
 
-    if (defaultTags.length) {
+    const isDefaultCreated = await Storage.getData('defaultTags');
+
+    if (defaultTags.length || isDefaultCreated) {
       return defaultTags as unknown as TagsResponseItem[];
     } else {
       createTag({ isDefault: true, color: COLORS.WHITE_RED, name: 'Work' });
       createTag({ isDefault: true, color: COLORS.WHITE_GREEN, name: 'Home' });
+      await Storage.storeData('defaultTags', 'true');
 
       return getDefaultTags();
     }
@@ -64,7 +68,7 @@ export const findOneTag = (_id: string) => {
 export const updateTag = ({ name, color, _id }: UpdateTagData) => {
   if (realm) {
     const tag = findOneTag(_id) as unknown as TagsResponseItem;
-    if (tag && !tag.isDefault) {
+    if (tag) {
       realm.write(() => {
         tag.name = name || tag.name;
         tag.color = color || tag.color;
@@ -75,7 +79,7 @@ export const updateTag = ({ name, color, _id }: UpdateTagData) => {
 
 export const deleteOneTag = (_id: string) => {
   const tag = findOneTag(_id) as unknown as TagsResponseItem;
-  if (realm && tag && !tag.isDefault) {
+  if (realm && tag) {
     realm.write(() => {
       realm.delete(tag);
     });

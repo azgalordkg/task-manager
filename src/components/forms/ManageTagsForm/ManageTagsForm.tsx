@@ -41,20 +41,17 @@ export const ManageTagsForm: FC<Props> = ({ onClose, onCreateTagPress }) => {
           Create a tag
         </DashedButton>
         <ScrollView style={styles.itemsWrapper}>
-          {[...defaultTags, ...customTags].map(
-            ({ _id, name, color, isDefault }) => {
-              return (
-                <SelectTagItem
-                  isDefault={isDefault}
-                  key={_id}
-                  checked={currentSelectedTags.includes(_id)}
-                  onPress={() => selectTagHandler(_id)}
-                  title={name}
-                  color={color}
-                />
-              );
-            },
-          )}
+          {[...defaultTags, ...customTags].map(({ _id, name, color }) => {
+            return (
+              <SelectTagItem
+                key={_id}
+                checked={currentSelectedTags.includes(_id)}
+                onPress={() => selectTagHandler(_id)}
+                title={name}
+                color={color}
+              />
+            );
+          })}
         </ScrollView>
       </View>
     </FormContentWrapper>

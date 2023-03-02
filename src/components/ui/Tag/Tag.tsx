@@ -15,7 +15,7 @@ export const Tag: FC<Props> = ({ name, bgColor, onPress }) => {
         <Text style={style.tabsTitle}>{name}</Text>
         {onPress && (
           <View style={style.close}>
-            <Cross color={bgColor} width={5} height={5} />
+            <Cross color={bgColor} width={6} height={6} />
           </View>
         )}
       </View>

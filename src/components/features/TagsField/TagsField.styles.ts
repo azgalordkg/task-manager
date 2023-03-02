@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
   tagsWrapper: {
     flexDirection: 'row',
-    columnGap: 14,
+    columnGap: 12,
     flexWrap: 'wrap',
   },
 });
