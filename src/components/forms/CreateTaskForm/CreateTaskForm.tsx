@@ -157,13 +157,7 @@ export const CreateTaskForm: FC<Props> = ({
             />
           </View>
         )}
-        <TagsField
-          onAddPress={onAddPress}
-          tags={[
-            { name: 'Test', color: 'red' },
-            { name: 'Home', color: 'blue' },
-          ]}
-        />
+        <TagsField onAddPress={onAddPress} />
       </FormContentWrapper>
     </DismissKeyboard>
   );

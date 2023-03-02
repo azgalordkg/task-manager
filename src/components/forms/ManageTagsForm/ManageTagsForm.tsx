@@ -7,13 +7,16 @@ import {
   FormContentWrapper,
   SelectTagItem,
 } from '@/components/ui';
+import { useTagManageContext } from '@/context/hooks';
 import { getDefaultTags } from '@/services/realm/tags';
 import { TagsResponseItem } from '@/types';
 
 import styles from './ManageTagsForm.styles';
 import { Props } from './ManageTagsForm.types';
 
-export const ManageTagsForm: FC<Props> = () => {
+export const ManageTagsForm: FC<Props> = ({ onClose }) => {
+  const { currentSelectedTags, selectTagHandler, acceptSelectedTags } =
+    useTagManageContext();
   const [defaultTags, setDefaultTags] = useState<TagsResponseItem[]>([]);
 
   useEffect(() => {
@@ -23,23 +26,28 @@ export const ManageTagsForm: FC<Props> = () => {
 
   return (
     <FormContentWrapper
-      submitTitle="Accept"
+      submitTitle="Done"
       title="Manage Tags"
-      onSubmitPress={() => {}}>
+      onSubmitPress={() => {
+        acceptSelectedTags();
+        onClose();
+      }}>
       <View>
         <DashedButton icon={Plus} variant="large" onPress={() => {}}>
           Create a tag
         </DashedButton>
         <ScrollView style={styles.itemsWrapper}>
-          {defaultTags.map(({ _id, name, color }) => (
-            <SelectTagItem
-              key={_id}
-              checked
-              onPress={() => {}}
-              title={name}
-              color={color}
-            />
-          ))}
+          {defaultTags.map(({ _id, name, color }) => {
+            return (
+              <SelectTagItem
+                key={_id}
+                checked={currentSelectedTags.includes(_id)}
+                onPress={() => selectTagHandler(_id)}
+                title={name}
+                color={color}
+              />
+            );
+          })}
         </ScrollView>
       </View>
     </FormContentWrapper>

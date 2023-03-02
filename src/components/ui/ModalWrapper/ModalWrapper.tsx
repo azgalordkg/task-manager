@@ -8,7 +8,11 @@ import { CustomButton } from '../CustomButton';
 import styles from './ModalWrapper.styles';
 import { Props } from './ModalWrapper.types';
 
-export const ModalWrapper: FC<Props> = ({ onRequestClose, children }) => {
+export const ModalWrapper: FC<Props> = ({
+  onRequestClose,
+  children,
+  closeText = 'Cancel',
+}) => {
   return (
     <View style={styles.contentWrapper}>
       <View style={styles.closerWrapper}>
@@ -21,7 +25,7 @@ export const ModalWrapper: FC<Props> = ({ onRequestClose, children }) => {
           textColor={COLORS.BG}
           fullWidth
           onPress={onRequestClose}>
-          Cancel
+          {closeText}
         </CustomButton>
       </View>
     </View>
