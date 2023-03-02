@@ -2,21 +2,27 @@ import { StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
 
-const styles = StyleSheet.create({
-  button: {
-    height: 28,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderWidth: 1,
-    borderColor: COLORS.LIGHT_GREEN,
-    borderRadius: 6,
-    borderStyle: 'dashed',
-  },
-  text: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: COLORS.LIGHT_GREY,
-  },
-});
+const styles = (height: number, fontSize: number) =>
+  StyleSheet.create({
+    button: {
+      height,
+      paddingHorizontal: 10,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: COLORS.LIGHT_GREEN,
+      borderRadius: 6,
+      borderStyle: 'dashed',
+    },
+    text: {
+      fontSize,
+      fontWeight: '700',
+      color: COLORS.LIGHT_GREY,
+    },
+    icon: {
+      marginRight: 10,
+    },
+  });
 
 export default styles;

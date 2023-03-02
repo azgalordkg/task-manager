@@ -1,9 +1,14 @@
 import React, { FC } from 'react';
+import { ScrollView, View } from 'react-native';
 
-// import { Text, View } from 'react-native';
-import { FormContentWrapper } from '@/components/ui';
+import { Plus } from '@/components/icons';
+import {
+  DashedButton,
+  FormContentWrapper,
+  SelectTagItem,
+} from '@/components/ui';
 
-// import styles from './ManageTagsForm.styles';
+import styles from './ManageTagsForm.styles';
 import { Props } from './ManageTagsForm.types';
 
 export const ManageTagsForm: FC<Props> = () => {
@@ -11,7 +16,32 @@ export const ManageTagsForm: FC<Props> = () => {
     <FormContentWrapper
       submitTitle="Accept"
       title="Manage Tags"
-      onSubmitPress={() => {}}
-    />
+      onSubmitPress={() => {}}>
+      <View>
+        <DashedButton icon={Plus} variant="large" onPress={() => {}}>
+          Create a tag
+        </DashedButton>
+        <ScrollView style={styles.itemsWrapper}>
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+          <SelectTagItem checked onPress={() => {}} title="Wife" />
+        </ScrollView>
+      </View>
+    </FormContentWrapper>
   );
 };

@@ -13,3 +13,13 @@ export const TaskSchema = {
   },
   primaryKey: '_id',
 };
+
+export const TagSchema = {
+  name: 'Tag',
+  properties: {
+    _id: 'string',
+    name: 'string',
+    color: 'string',
+  },
+  primaryKey: '_id',
+};

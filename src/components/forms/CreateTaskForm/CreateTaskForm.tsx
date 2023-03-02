@@ -134,7 +134,7 @@ export const CreateTaskForm: FC<Props> = ({
         <Checkbox
           control={control}
           name="hasDeadline"
-          onChange={value => setValue('hasDeadline', value)}
+          onValueChange={value => setValue('hasDeadline', value)}
           label="Set due time"
         />
         {watch('hasDeadline') && (

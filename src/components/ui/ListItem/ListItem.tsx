@@ -5,12 +5,11 @@ import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 
 import { Cross, Edit, Trash } from '@/components/icons';
-import { ActionButton } from '@/components/ui';
+import { ActionButton, CustomCheckbox } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useTaskModalContext } from '@/context/hooks';
 import { vibrate } from '@/utils';
 
-import { Checkmark } from '../../icons';
 import styles from './ListItem.styles';
 import { ListItemProps } from './ListItem.types';
 
@@ -109,14 +108,7 @@ export const ListItem: FC<ListItemProps> = ({
           style={style.container}>
           <View style={style.contentWrapper}>
             <View style={style.checkmarkWrapper}>
-              <TouchableOpacity onPress={onCheckPressHandler}>
-                <Checkmark
-                  color={checked ? COLORS.DARK_GREEN : COLORS.WHITE}
-                  checked={checked}
-                  width={28}
-                  height={28}
-                />
-              </TouchableOpacity>
+              <CustomCheckbox onPress={onCheckPressHandler} checked={checked} />
             </View>
             <View style={style.textWrapper}>
               <Text style={[style.title, style.crossedTextStyles]}>{name}</Text>
