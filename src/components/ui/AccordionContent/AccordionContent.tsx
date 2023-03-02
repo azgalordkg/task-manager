@@ -1,4 +1,5 @@
 import { isEqual } from 'lodash';
+import moment from 'moment';
 import React, { FC, memo } from 'react';
 import { View } from 'react-native';
 
@@ -19,6 +20,10 @@ export const AccordionContent: FC<Props> = ({
   onEditPress,
   onItemPress,
 }) => {
+  const isShowButton =
+    moment(+title).isSame(moment(), 'day') ||
+    moment(+title).isSame(moment().add(1, 'day'), 'day');
+
   return (
     <>
       {content.map(
@@ -41,9 +46,11 @@ export const AccordionContent: FC<Props> = ({
           </View>
         ),
       )}
-      <View style={styles.buttonContainer}>
-        <QuickTask date={title} />
-      </View>
+      {isShowButton && (
+        <View style={styles.buttonContainer}>
+          <QuickTask date={title} />
+        </View>
+      )}
     </>
   );
 };

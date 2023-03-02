@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     flexDirection: 'row',
     columnGap: 12,
-    marginTop: 12,
   },
   buttonContainer: {
     marginTop: 14,
