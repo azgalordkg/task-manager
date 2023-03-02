@@ -78,6 +78,16 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
       top: 2,
       padding: 10,
     },
+    tagsWrapper: {
+      flexDirection: 'row',
+      columnGap: 6,
+      marginBottom: 8,
+    },
+    tag: {
+      height: 6,
+      width: 16,
+      borderRadius: 3,
+    },
   });
 
 export default styles;

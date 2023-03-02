@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 
 import { ArrowBack, Edit } from '@/components/icons';
@@ -8,23 +8,20 @@ import { CustomButton, TextBlank } from '@/components/ui';
 import { ConfirmModal } from '@/components/ui/ConfirmModal';
 import { Tag } from '@/components/ui/Tag';
 import { COLORS } from '@/constants';
-import { useTaskModalContext } from '@/context/hooks';
+import { useTagManageContext, useTaskModalContext } from '@/context/hooks';
 import { deleteOneTask, findOneTask } from '@/services/realm';
-import { ScreenProps } from '@/types';
+import { ScreenProps, TagsResponseItem } from '@/types';
+import { prepareTagsForRender } from '@/utils';
 
 import styles from './TaskScreen.styles';
-
-const taskTags = [
-  { name: 'Home', color: COLORS.RED },
-  { name: 'Family', color: COLORS.ORANGE },
-  { name: 'Sport', color: COLORS.BLUE },
-];
 
 export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
   const id = route?.params?.id;
   // TODO need typing for task
-  const task: any = findOneTask(id);
+  const task = findOneTask(id);
   const { fetchList } = useTaskModalContext();
+  const { tags: allTags } = useTagManageContext();
+
   const [confirmModalVisible, setConfirmModalVisible] = React.useState(false);
 
   const handleShowModal = () => {
@@ -39,10 +36,16 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
   };
   const startDate = task?.startDate;
   const endDate = task?.endDate;
+  const tags = task?.tags;
 
   const onEditPressHandler = () => {
     navigation.navigate('CreateTask', { id });
   };
+
+  const tagsForRender: TagsResponseItem[] = useMemo(
+    () => prepareTagsForRender(tags || [], allTags),
+    [allTags, tags],
+  );
 
   return (
     <MainLayout>
@@ -51,7 +54,9 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
         resizeMode="cover"
         source={require('../../assets/img/taskBackground.jpg')}>
         <View style={styles.taskHeaderContainer}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => navigation.goBack()}>
             <ArrowBack />
           </TouchableOpacity>
           <TouchableOpacity onPress={onEditPressHandler}>
@@ -65,31 +70,29 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
           <View style={styles.taskTitleTagsContainer}>
             <Text style={styles.taskTitle}>{task?.name}</Text>
             <View style={styles.taskTagsContainer}>
-              {taskTags?.map(taskTagItem => (
-                <Tag
-                  key={taskTagItem.name}
-                  name={taskTagItem.name}
-                  bgColor={taskTagItem.color}
-                />
+              {tagsForRender?.map(({ name, color }) => (
+                <Tag key={name} name={name} bgColor={color} />
               ))}
             </View>
           </View>
 
-          <View style={styles.taskDateContainer}>
-            <Text style={styles.taskDateDay}>{format(startDate, 'dd')}</Text>
-            <View style={styles.taskMonthWeekContainer}>
-              <Text style={styles.taskDateMonth}>
-                {format(startDate, 'MMMM')}
-              </Text>
-              <Text style={styles.taskDateWeekday}>/</Text>
-              <Text style={styles.taskDateWeekday}>
-                {format(startDate, 'EEEE')}
+          {startDate && endDate && (
+            <View style={styles.taskDateContainer}>
+              <Text style={styles.taskDateDay}>{format(startDate, 'dd')}</Text>
+              <View style={styles.taskMonthWeekContainer}>
+                <Text style={styles.taskDateMonth}>
+                  {format(startDate, 'MMMM')}
+                </Text>
+                <Text style={styles.taskDateWeekday}>/</Text>
+                <Text style={styles.taskDateWeekday}>
+                  {format(startDate, 'EEEE')}
+                </Text>
+              </View>
+              <Text style={styles.taskDatePeriod}>
+                {format(startDate, 'h:mm a')} - {format(endDate, 'h:mm a')}
               </Text>
             </View>
-            <Text style={styles.taskDatePeriod}>
-              {format(startDate, 'h:mm a')} - {format(endDate, 'h:mm a')}
-            </Text>
-          </View>
+          )}
         </View>
 
         <View style={styles.descriptionWrapper}>

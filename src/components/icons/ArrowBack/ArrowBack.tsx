@@ -10,8 +10,8 @@ export const ArrowBack: FC<DefaultSvgProps> = ({
   ...props
 }) => (
   <Svg
-    width={39}
-    height={29}
+    width={32}
+    height={28}
     viewBox="0 0 39 29"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

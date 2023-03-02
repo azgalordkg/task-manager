@@ -27,9 +27,13 @@ export const AccordionContent: FC<Props> = ({
   return (
     <>
       {content.map(
-        ({ hasDeadline, startDate, endDate, isDone, _id, name }, index) => (
+        (
+          { hasDeadline, startDate, endDate, isDone, _id, name, tags },
+          index,
+        ) => (
           <View key={_id} style={styles.contentContainer}>
             <MemoizedListItem
+              tags={tags}
               hasDeadline={Boolean(hasDeadline)}
               onEditPress={onEditPress}
               onItemPress={onItemPress}

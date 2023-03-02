@@ -1,14 +1,15 @@
 import { format } from 'date-fns';
 import { isEqual } from 'lodash';
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useMemo, useRef, useState } from 'react';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 
 import { Cross, Edit, Trash } from '@/components/icons';
 import { ActionButton, CustomCheckbox } from '@/components/ui';
 import { COLORS } from '@/constants';
-import { useTaskModalContext } from '@/context/hooks';
-import { vibrate } from '@/utils';
+import { useTagManageContext, useTaskModalContext } from '@/context/hooks';
+import { TagsResponseItem } from '@/types';
+import { prepareTagsForRender, vibrate } from '@/utils';
 
 import styles from './ListItem.styles';
 import { ListItemProps } from './ListItem.types';
@@ -22,6 +23,7 @@ const customComparator = (
 
 export const ListItem: FC<ListItemProps> = ({
   name,
+  tags,
   checked,
   onCheckPress,
   onDeletePress,
@@ -43,6 +45,8 @@ export const ListItem: FC<ListItemProps> = ({
       swipeRef.current?.close();
     }
   };
+
+  const { tags: allTags } = useTagManageContext();
 
   const rightSwipe = (
     progress: Animated.AnimatedInterpolation<string>,
@@ -90,6 +94,11 @@ export const ListItem: FC<ListItemProps> = ({
   const deadlineStart = startDate && format(new Date(startDate), 'p');
   const deadlineEnd = endDate && format(new Date(endDate), 'p');
 
+  const tagsForRender: TagsResponseItem[] = useMemo(
+    () => prepareTagsForRender(tags, allTags),
+    [allTags, tags],
+  );
+
   return (
     <View style={style.outerContainer}>
       <Swipeable
@@ -111,6 +120,16 @@ export const ListItem: FC<ListItemProps> = ({
               <CustomCheckbox onPress={onCheckPressHandler} checked={checked} />
             </View>
             <View style={style.textWrapper}>
+              {tagsForRender.length && (
+                <View style={style.tagsWrapper}>
+                  {tagsForRender.map(({ color, _id }) => (
+                    <View
+                      key={_id}
+                      style={{ ...style.tag, backgroundColor: color }}
+                    />
+                  ))}
+                </View>
+              )}
               <Text style={[style.title, style.crossedTextStyles]}>{name}</Text>
               {hasDeadline && (
                 <Text style={[style.time, style.crossedTextStyles]}>
