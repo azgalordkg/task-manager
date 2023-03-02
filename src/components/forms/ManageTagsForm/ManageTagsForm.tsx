@@ -17,15 +17,12 @@ export const ManageTagsForm: FC<Props> = ({ onClose, onCreateTagPress }) => {
     currentSelectedTags,
     selectTagHandler,
     acceptSelectedTags,
-    defaultTags,
-    customTags,
-    fetchDefaultTags,
-    fetchCustomTags,
+    tags,
+    fetchTags,
   } = useTagManageContext();
 
   useEffect(() => {
-    fetchDefaultTags();
-    fetchCustomTags();
+    fetchTags();
   }, []);
 
   return (
@@ -41,7 +38,7 @@ export const ManageTagsForm: FC<Props> = ({ onClose, onCreateTagPress }) => {
           Create a tag
         </DashedButton>
         <ScrollView style={styles.itemsWrapper}>
-          {[...defaultTags, ...customTags].map(({ _id, name, color }) => {
+          {tags.map(({ _id, name, color }) => {
             return (
               <SelectTagItem
                 key={_id}

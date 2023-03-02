@@ -4,10 +4,8 @@ import { TagManageContext } from '../providers';
 
 export const useTagManageContext = () => {
   const {
-    defaultTags,
-    customTags,
-    fetchCustomTags,
-    fetchDefaultTags,
+    tags,
+    fetchTags,
     selectedTags,
     clearSelectedTags,
     selectTagHandler,
@@ -15,13 +13,12 @@ export const useTagManageContext = () => {
     acceptSelectedTags,
     updateCurrentSelectedTags,
     removeTag,
+    setTagsForEdit,
   } = useContext(TagManageContext);
 
   return {
-    defaultTags,
-    customTags,
-    fetchCustomTags,
-    fetchDefaultTags,
+    tags,
+    fetchTags,
     selectedTags,
     clearSelectedTags,
     selectTagHandler,
@@ -29,5 +26,6 @@ export const useTagManageContext = () => {
     acceptSelectedTags,
     updateCurrentSelectedTags,
     removeTag,
+    setTagsForEdit,
   };
 };

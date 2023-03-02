@@ -13,9 +13,10 @@ const realm = new Realm({
   deleteRealmIfMigrationNeeded: true,
 });
 
-export const getTags = () => {
+export const getAllTags = () => {
   if (realm) {
-    return realm.objects('Tag');
+    const tags = realm.objects('Tag');
+    return tags as unknown as TagsResponseItem[];
   }
   return [];
 };
@@ -31,31 +32,16 @@ export const createTag = (data: CreateTagData) => {
   }
 };
 
-export const getDefaultTags = async (): Promise<TagsResponseItem[]> => {
+export const createDefaultTags = async () => {
   if (realm) {
+    const isDefaultCreated = await Storage.getData('defaultTags');
     const defaultTags = realm.objects('Tag').filtered('isDefault == $0', true);
 
-    const isDefaultCreated = await Storage.getData('defaultTags');
-
-    if (defaultTags.length || isDefaultCreated) {
-      return defaultTags as unknown as TagsResponseItem[];
-    } else {
-      createTag({ isDefault: true, color: COLORS.WHITE_RED, name: 'Work' });
+    if (!defaultTags.length || !isDefaultCreated) {
       createTag({ isDefault: true, color: COLORS.WHITE_GREEN, name: 'Home' });
       await Storage.storeData('defaultTags', 'true');
-
-      return getDefaultTags();
     }
   }
-  return [];
-};
-
-export const getCustomTags = (): TagsResponseItem[] => {
-  if (realm) {
-    const customTags = realm.objects('Tag').filtered('isDefault != $0', true);
-    return customTags as unknown as TagsResponseItem[];
-  }
-  return [];
 };
 
 export const findOneTag = (_id: string) => {

@@ -14,24 +14,16 @@ export const TagsField: FC<Props> = ({ onAddPress }) => {
   const {
     selectedTags,
     removeTag,
-    defaultTags,
-    customTags,
-    fetchCustomTags,
-    fetchDefaultTags,
+    tags: allTags,
+    fetchTags,
   } = useTagManageContext();
 
   useEffect(() => {
     if (selectedTags) {
-      fetchDefaultTags();
-      fetchCustomTags();
+      fetchTags();
 
-      const filteredDefault = defaultTags.filter(tag =>
-        selectedTags.includes(tag._id),
-      );
-      const filteredCustom = customTags.filter(tag =>
-        selectedTags.includes(tag._id),
-      );
-      setTags([...filteredDefault, ...filteredCustom]);
+      const filtered = allTags.filter(tag => selectedTags.includes(tag._id));
+      setTags(filtered);
     }
   }, [selectedTags]);
 

@@ -74,6 +74,7 @@ export const updateTask = ({
   description,
   hasDeadline,
   repeat,
+  tags,
   isDone,
 }: UpdateTaskData) => {
   const task = findOneTask(_id) as unknown as TasksResponseItem;
@@ -86,8 +87,9 @@ export const updateTask = ({
         task.endDate = endDate.getTime();
       }
       task.hasDeadline = hasDeadline;
-      task.isDone = isDone;
+      task.isDone = Boolean(isDone);
       task.repeat = repeat;
+      task.tags = tags;
     });
   }
 };
@@ -97,10 +99,11 @@ export const prepareUpdateRecurringData = (task: TasksResponseItem) => {
   const end = moment(new Date(Number(task.endDate)));
   const today = moment();
 
-  const { _id, name, repeat, description, hasDeadline } = task;
+  const { _id, name, repeat, description, hasDeadline, tags } = task;
   const updateData = {
     _id,
     name,
+    tags,
     repeat,
     description,
     hasDeadline,

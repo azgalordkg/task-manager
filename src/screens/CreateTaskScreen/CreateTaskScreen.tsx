@@ -3,7 +3,7 @@ import { FieldValues } from 'react-hook-form';
 
 import { CreateTaskForm } from '@/components/forms';
 import { ModalWrapper } from '@/components/ui';
-import { useTaskModalContext } from '@/context/hooks';
+import { useTagManageContext, useTaskModalContext } from '@/context/hooks';
 import { createTask, updateTask } from '@/services';
 import { CreateTaskData, ScreenProps, UpdateTaskData } from '@/types';
 
@@ -12,6 +12,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   route,
 }) => {
   const { fetchList } = useTaskModalContext();
+  const { selectedTags, clearSelectedTags } = useTagManageContext();
   const taskId = route?.params?.id;
 
   const closeModal = () => {
@@ -19,12 +20,16 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   };
 
   const createTaskHandler = (data: FieldValues) => {
+    const requestData = { ...data, tags: selectedTags };
+
     if (taskId) {
-      updateTask({ ...data, _id: taskId } as UpdateTaskData);
+      updateTask({ ...requestData, _id: taskId } as UpdateTaskData);
     } else {
-      createTask(data as CreateTaskData);
+      createTask(requestData as CreateTaskData);
     }
+
     fetchList();
+    clearSelectedTags();
     closeModal();
   };
 

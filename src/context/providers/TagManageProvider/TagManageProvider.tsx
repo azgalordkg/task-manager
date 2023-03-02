@@ -1,6 +1,12 @@
-import React, { createContext, FC, PropsWithChildren, useState } from 'react';
+import React, {
+  createContext,
+  FC,
+  PropsWithChildren,
+  useEffect,
+  useState,
+} from 'react';
 
-import { getCustomTags, getDefaultTags } from '@/services/realm/tags';
+import { createDefaultTags, getAllTags } from '@/services/realm/tags';
 import { TagsResponseItem } from '@/types';
 
 import { TagManageContextType } from './TagManageProvider.types';
@@ -13,15 +19,10 @@ export const TagManageProvider: FC<PropsWithChildren> = ({ children }) => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [currentSelectedTags, setCurrentSelectedTags] = useState<string[]>([]);
 
-  const [defaultTags, setDefaultTags] = useState<TagsResponseItem[]>([]);
-  const [customTags, setCustomTags] = useState<TagsResponseItem[]>([]);
+  const [tags, setTags] = useState<TagsResponseItem[]>([]);
 
-  const fetchDefaultTags = async () => {
-    setDefaultTags(await getDefaultTags());
-  };
-
-  const fetchCustomTags = () => {
-    setCustomTags(getCustomTags());
+  const fetchTags = () => {
+    setTags(getAllTags());
   };
 
   const selectTagHandler = (tagId: string) => {
@@ -35,6 +36,11 @@ export const TagManageProvider: FC<PropsWithChildren> = ({ children }) => {
         return prevState;
       }
     });
+  };
+
+  const setTagsForEdit = (tagsForEdit: string[]) => {
+    setSelectedTags(tagsForEdit);
+    setCurrentSelectedTags(tagsForEdit);
   };
 
   const clearSelectedTags = () => {
@@ -51,20 +57,23 @@ export const TagManageProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   const removeTag = (tagId: string) => {
-    const tags = [...selectedTags.filter(id => id !== tagId)];
-    setSelectedTags(tags);
-    setCurrentSelectedTags(tags);
+    const currentTags = [...selectedTags.filter(id => id !== tagId)];
+    setSelectedTags(currentTags);
+    setCurrentSelectedTags(currentTags);
   };
+
+  useEffect(() => {
+    void createDefaultTags();
+  }, []);
 
   return (
     <TagManageContext.Provider
       value={{
         selectedTags,
         currentSelectedTags,
-        defaultTags,
-        customTags,
-        fetchCustomTags,
-        fetchDefaultTags,
+        tags,
+        setTagsForEdit,
+        fetchTags,
         selectTagHandler,
         clearSelectedTags,
         acceptSelectedTags,

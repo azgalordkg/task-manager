@@ -14,6 +14,7 @@ import {
 } from '@/components/ui';
 import { REPEAT_LIST } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
+import { useTagManageContext } from '@/context/hooks';
 import { findOneTask } from '@/services/realm';
 import { CreateTaskData } from '@/types';
 
@@ -34,12 +35,14 @@ export const CreateTaskForm: FC<Props> = ({
     startDate.getMinutes() < 30 ? 0 : 30,
   );
 
+  const { setTagsForEdit } = useTagManageContext();
+
   const {
     control,
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid },
     reset,
   } = useForm<CreateTaskData>({
     defaultValues: {
@@ -65,6 +68,9 @@ export const CreateTaskForm: FC<Props> = ({
     if (task.hasDeadline) {
       setValue('hasDeadline', true);
     }
+    if (task.tags.length) {
+      setTagsForEdit(task.tags.map((tag: string) => tag));
+    }
     setValue('repeat', task.repeat);
   };
 
@@ -85,7 +91,7 @@ export const CreateTaskForm: FC<Props> = ({
     <DismissKeyboard>
       <FormContentWrapper
         onSubmitPress={handleSubmit(onSubmit)}
-        isSubmitDisabled={!(isValid && isDirty)}
+        isSubmitDisabled={!isValid}
         submitTitle={editItemId ? 'Edit' : 'Create'}
         title={editItemId ? 'Edit task' : 'Create task'}>
         <View style={styles.inputWrapper}>

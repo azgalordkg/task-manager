@@ -16,6 +16,7 @@ export interface CreateTaskData extends TaskBase {
   startDate: Date;
   endDate: Date;
   createdAt: Date;
+  tags: string[];
 }
 
 export interface UpdateTaskData extends CreateTaskData {
@@ -29,6 +30,7 @@ export interface TasksResponseItem extends TaskBase {
   startDate?: number;
   endDate?: number;
   createdAt: number;
+  tags: string[];
 }
 
 export interface TasksList {

@@ -8,8 +8,7 @@ export interface TagManageContextType {
   acceptSelectedTags: () => void;
   updateCurrentSelectedTags: () => void;
   removeTag: (tagId: string) => void;
-  defaultTags: TagsResponseItem[];
-  customTags: TagsResponseItem[];
-  fetchCustomTags: () => void;
-  fetchDefaultTags: () => void;
+  tags: TagsResponseItem[];
+  fetchTags: () => void;
+  setTagsForEdit: (tags: string[]) => void;
 }

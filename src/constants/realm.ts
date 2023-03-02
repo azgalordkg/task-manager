@@ -1,3 +1,14 @@
+export const TagSchema = {
+  name: 'Tag',
+  properties: {
+    _id: 'string',
+    name: 'string',
+    color: 'string',
+    isDefault: 'bool?',
+  },
+  primaryKey: '_id',
+};
+
 export const TaskSchema = {
   name: 'Task',
   properties: {
@@ -10,17 +21,7 @@ export const TaskSchema = {
     endDate: 'int?',
     hasDeadline: 'bool?',
     repeat: 'string?',
-  },
-  primaryKey: '_id',
-};
-
-export const TagSchema = {
-  name: 'Tag',
-  properties: {
-    _id: 'string',
-    name: 'string',
-    color: 'string',
-    isDefault: 'bool?',
+    tags: 'string[]',
   },
   primaryKey: '_id',
 };

@@ -20,7 +20,7 @@ export const CreateTagForm: FC<Props> = ({ onClose }) => {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid },
   } = useForm<CreateTagData>({
     defaultValues: {
       color: AVAILABLE_COLORS[0].toLowerCase(),
@@ -29,18 +29,18 @@ export const CreateTagForm: FC<Props> = ({ onClose }) => {
     resolver: yupResolver(createTagFormSchema),
   });
 
-  const { fetchCustomTags } = useTagManageContext();
+  const { fetchTags } = useTagManageContext();
 
   const onSubmit = (data: CreateTagData) => {
     createTag(data);
-    fetchCustomTags();
+    fetchTags();
     onClose();
   };
 
   return (
     <DismissKeyboard>
       <FormContentWrapper
-        isSubmitDisabled={!(isValid && isDirty)}
+        isSubmitDisabled={!isValid}
         onSubmitPress={handleSubmit(onSubmit)}
         submitTitle="Create"
         title="Create a tag">
