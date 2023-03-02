@@ -8,7 +8,7 @@ const styles = (active: boolean, color: string) =>
       borderWidth: 2,
       borderColor: active ? COLORS.BG : color,
       backgroundColor: active ? 'transparent' : color,
-      width: 50,
+      width: 60,
       height: 32,
       borderRadius: 6,
       justifyContent: 'center',
@@ -16,7 +16,7 @@ const styles = (active: boolean, color: string) =>
     },
     inner: {
       backgroundColor: color,
-      width: 42,
+      width: 52,
       height: 24,
       borderRadius: 3,
     },

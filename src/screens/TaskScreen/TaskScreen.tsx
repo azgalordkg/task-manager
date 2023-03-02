@@ -17,7 +17,6 @@ import styles from './TaskScreen.styles';
 
 export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
   const id = route?.params?.id;
-  // TODO need typing for task
   const task = findOneTask(id);
   const { fetchList } = useTaskModalContext();
   const { tags: allTags } = useTagManageContext();
