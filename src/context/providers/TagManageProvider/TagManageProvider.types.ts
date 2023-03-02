@@ -5,4 +5,5 @@ export interface TagManageContextType {
   clearSelectedTags: () => void;
   acceptSelectedTags: () => void;
   updateCurrentSelectedTags: () => void;
+  removeTag: (tagId: string) => void;
 }

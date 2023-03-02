@@ -36,6 +36,12 @@ export const TagManageProvider: FC<PropsWithChildren> = ({ children }) => {
     setCurrentSelectedTags(selectedTags);
   };
 
+  const removeTag = (tagId: string) => {
+    const tags = [...selectedTags.filter(id => id !== tagId)];
+    setSelectedTags(tags);
+    setCurrentSelectedTags(tags);
+  };
+
   return (
     <TagManageContext.Provider
       value={{
@@ -45,6 +51,7 @@ export const TagManageProvider: FC<PropsWithChildren> = ({ children }) => {
         clearSelectedTags,
         acceptSelectedTags,
         updateCurrentSelectedTags,
+        removeTag,
       }}>
       {children}
     </TagManageContext.Provider>

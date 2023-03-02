@@ -10,6 +10,7 @@ export const useTagManageContext = () => {
     currentSelectedTags,
     acceptSelectedTags,
     updateCurrentSelectedTags,
+    removeTag,
   } = useContext(TagManageContext);
 
   return {
@@ -19,5 +20,6 @@ export const useTagManageContext = () => {
     currentSelectedTags,
     acceptSelectedTags,
     updateCurrentSelectedTags,
+    removeTag,
   };
 };

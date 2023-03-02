@@ -12,7 +12,7 @@ import { Props } from './TagsField.types';
 
 export const TagsField: FC<Props> = ({ onAddPress }) => {
   const [tags, setTags] = useState<TagsResponseItem[]>([]);
-  const { selectedTags } = useTagManageContext();
+  const { selectedTags, removeTag } = useTagManageContext();
 
   useEffect(() => {
     if (selectedTags) {
@@ -28,8 +28,15 @@ export const TagsField: FC<Props> = ({ onAddPress }) => {
     <View style={styles.container}>
       <Text style={styles.label}>Tags: </Text>
       <View style={styles.tagsWrapper}>
-        {tags?.map(({ name, color }) => (
-          <Tag onPress={() => {}} key={name} name={name} bgColor={color} />
+        {tags?.map(({ name, color, _id }) => (
+          <Tag
+            onPress={() => {
+              removeTag(_id);
+            }}
+            key={name}
+            name={name}
+            bgColor={color}
+          />
         ))}
         <DashedButton onPress={onAddPress}>Add</DashedButton>
       </View>
