@@ -1,4 +1,5 @@
 export * from './AboutUsScreen';
+export * from './CreateTagScreen';
 export * from './CreateTaskScreen';
 export * from './HomeScreen';
 export * from './ManageTagsScreen';

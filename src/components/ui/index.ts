@@ -4,6 +4,7 @@ export * from './ActionButton';
 export * from './BackButtonHeader';
 export * from './BreakLine';
 export * from './Checkbox';
+export * from './ColorSelect';
 export * from './CustomButton';
 export * from './CustomCheckbox';
 export * from './CustomDatePicker';

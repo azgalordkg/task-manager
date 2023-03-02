@@ -12,7 +12,8 @@ import {
   Input,
   Select,
 } from '@/components/ui';
-import { createTaskFormSchema, REPEAT_LIST } from '@/constants';
+import { REPEAT_LIST } from '@/constants';
+import { createTaskFormSchema } from '@/constants/validation';
 import { findOneTask } from '@/services/realm';
 import { CreateTaskData } from '@/types';
 

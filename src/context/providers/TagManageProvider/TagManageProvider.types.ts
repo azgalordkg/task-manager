@@ -1,3 +1,5 @@
+import { TagsResponseItem } from '@/types';
+
 export interface TagManageContextType {
   selectedTags: string[];
   currentSelectedTags: string[];
@@ -6,4 +8,8 @@ export interface TagManageContextType {
   acceptSelectedTags: () => void;
   updateCurrentSelectedTags: () => void;
   removeTag: (tagId: string) => void;
+  defaultTags: TagsResponseItem[];
+  customTags: TagsResponseItem[];
+  fetchCustomTags: () => void;
+  fetchDefaultTags: () => void;
 }

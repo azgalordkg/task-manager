@@ -6,15 +6,16 @@ import { View } from 'react-native';
 import { DismissKeyboard } from '@/components/features';
 import { Checkmark } from '@/components/icons';
 import { CustomButton, Input } from '@/components/ui';
-import { COLORS, createTaskFormSchema } from '@/constants';
+import { COLORS } from '@/constants';
+import { createTaskFormSchema } from '@/constants/validation';
 import { useTaskModalContext } from '@/context/hooks';
 import { createTask } from '@/services';
 import { CreateTaskData } from '@/types';
 
-import styles from './QuickTaskForms.styles';
-import { Props } from './QuickTaskForms.types';
+import styles from './QuickTaskForm.styles';
+import { Props } from './QuickTaskForm.types';
 
-export const QuickTaskForms: FC<Props> = ({ date, handleShowInput }) => {
+export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
   const { fetchList } = useTaskModalContext();
 
   const {

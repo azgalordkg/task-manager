@@ -46,6 +46,14 @@ export const getDefaultTags = (): TagsResponseItem[] => {
   return [];
 };
 
+export const getCustomTags = (): TagsResponseItem[] => {
+  if (realm) {
+    const customTags = realm.objects('Tag').filtered('isDefault != $0', true);
+    return customTags as unknown as TagsResponseItem[];
+  }
+  return [];
+};
+
 export const findOneTag = (_id: string) => {
   if (realm) {
     const tasks = realm.objects('Tag').filtered('_id == $0', _id);

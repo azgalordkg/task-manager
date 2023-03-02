@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   timeContainer: {
+    marginBottom: 14,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',

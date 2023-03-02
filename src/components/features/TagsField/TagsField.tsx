@@ -4,7 +4,6 @@ import { Text, View } from 'react-native';
 import { DashedButton } from '@/components/ui';
 import { Tag } from '@/components/ui/Tag';
 import { useTagManageContext } from '@/context/hooks';
-import { getDefaultTags } from '@/services/realm/tags';
 import { TagsResponseItem } from '@/types';
 
 import styles from './TagsField.styles';
@@ -12,15 +11,26 @@ import { Props } from './TagsField.types';
 
 export const TagsField: FC<Props> = ({ onAddPress }) => {
   const [tags, setTags] = useState<TagsResponseItem[]>([]);
-  const { selectedTags, removeTag } = useTagManageContext();
+  const {
+    selectedTags,
+    removeTag,
+    defaultTags,
+    customTags,
+    fetchCustomTags,
+    fetchDefaultTags,
+  } = useTagManageContext();
 
   useEffect(() => {
     if (selectedTags) {
-      const defaultTags = getDefaultTags();
-      const filtered = defaultTags.filter(tag =>
+      fetchDefaultTags();
+      fetchCustomTags();
+      const filteredDefault = defaultTags.filter(tag =>
         selectedTags.includes(tag._id),
       );
-      setTags(filtered);
+      const filteredCustom = customTags.filter(tag =>
+        selectedTags.includes(tag._id),
+      );
+      setTags([...filteredDefault, ...filteredCustom]);
     }
   }, [selectedTags]);
 

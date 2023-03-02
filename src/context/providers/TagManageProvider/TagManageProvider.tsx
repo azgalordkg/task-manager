@@ -1,5 +1,8 @@
 import React, { createContext, FC, PropsWithChildren, useState } from 'react';
 
+import { getCustomTags, getDefaultTags } from '@/services/realm/tags';
+import { TagsResponseItem } from '@/types';
+
 import { TagManageContextType } from './TagManageProvider.types';
 
 export const TagManageContext = createContext<TagManageContextType>(
@@ -9,6 +12,17 @@ export const TagManageContext = createContext<TagManageContextType>(
 export const TagManageProvider: FC<PropsWithChildren> = ({ children }) => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [currentSelectedTags, setCurrentSelectedTags] = useState<string[]>([]);
+
+  const [defaultTags, setDefaultTags] = useState<TagsResponseItem[]>([]);
+  const [customTags, setCustomTags] = useState<TagsResponseItem[]>([]);
+
+  const fetchDefaultTags = () => {
+    setDefaultTags(getDefaultTags());
+  };
+
+  const fetchCustomTags = () => {
+    setCustomTags(getCustomTags());
+  };
 
   const selectTagHandler = (tagId: string) => {
     setCurrentSelectedTags(prevState => {
@@ -47,6 +61,10 @@ export const TagManageProvider: FC<PropsWithChildren> = ({ children }) => {
       value={{
         selectedTags,
         currentSelectedTags,
+        defaultTags,
+        customTags,
+        fetchCustomTags,
+        fetchDefaultTags,
         selectTagHandler,
         clearSelectedTags,
         acceptSelectedTags,

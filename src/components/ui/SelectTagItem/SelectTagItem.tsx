@@ -13,6 +13,7 @@ export const SelectTagItem: FC<Props> = ({
   checked,
   title,
   color = COLORS.RED,
+  isDefault,
 }) => {
   const style = styles(color);
   return (
@@ -25,9 +26,11 @@ export const SelectTagItem: FC<Props> = ({
       />
       <View style={style.dot} />
       <Text style={style.text}>{title}</Text>
-      <TouchableOpacity style={style.edit}>
-        <Edit color={COLORS.GREY} width={20} height={20} />
-      </TouchableOpacity>
+      {!isDefault && (
+        <TouchableOpacity style={style.edit}>
+          <Edit color={COLORS.GREY} width={20} height={20} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

@@ -3,4 +3,5 @@ export interface Props {
   checked: boolean;
   color?: string;
   title: string;
+  isDefault?: boolean;
 }

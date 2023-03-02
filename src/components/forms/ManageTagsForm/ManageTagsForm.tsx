@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 
 import { Plus } from '@/components/icons';
@@ -8,20 +8,24 @@ import {
   SelectTagItem,
 } from '@/components/ui';
 import { useTagManageContext } from '@/context/hooks';
-import { getDefaultTags } from '@/services/realm/tags';
-import { TagsResponseItem } from '@/types';
 
 import styles from './ManageTagsForm.styles';
 import { Props } from './ManageTagsForm.types';
 
-export const ManageTagsForm: FC<Props> = ({ onClose }) => {
-  const { currentSelectedTags, selectTagHandler, acceptSelectedTags } =
-    useTagManageContext();
-  const [defaultTags, setDefaultTags] = useState<TagsResponseItem[]>([]);
+export const ManageTagsForm: FC<Props> = ({ onClose, onCreateTagPress }) => {
+  const {
+    currentSelectedTags,
+    selectTagHandler,
+    acceptSelectedTags,
+    defaultTags,
+    customTags,
+    fetchDefaultTags,
+    fetchCustomTags,
+  } = useTagManageContext();
 
   useEffect(() => {
-    const tags = getDefaultTags();
-    setDefaultTags(tags);
+    fetchDefaultTags();
+    fetchCustomTags();
   }, []);
 
   return (
@@ -33,21 +37,24 @@ export const ManageTagsForm: FC<Props> = ({ onClose }) => {
         onClose();
       }}>
       <View>
-        <DashedButton icon={Plus} variant="large" onPress={() => {}}>
+        <DashedButton icon={Plus} variant="large" onPress={onCreateTagPress}>
           Create a tag
         </DashedButton>
         <ScrollView style={styles.itemsWrapper}>
-          {defaultTags.map(({ _id, name, color }) => {
-            return (
-              <SelectTagItem
-                key={_id}
-                checked={currentSelectedTags.includes(_id)}
-                onPress={() => selectTagHandler(_id)}
-                title={name}
-                color={color}
-              />
-            );
-          })}
+          {[...defaultTags, ...customTags].map(
+            ({ _id, name, color, isDefault }) => {
+              return (
+                <SelectTagItem
+                  isDefault={isDefault}
+                  key={_id}
+                  checked={currentSelectedTags.includes(_id)}
+                  onPress={() => selectTagHandler(_id)}
+                  title={name}
+                  color={color}
+                />
+              );
+            },
+          )}
         </ScrollView>
       </View>
     </FormContentWrapper>

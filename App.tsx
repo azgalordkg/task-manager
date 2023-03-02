@@ -5,6 +5,7 @@ import React, { FC } from 'react';
 import { TagManageProvider, TaskListProvider } from '@/context/providers';
 import {
   AboutUs,
+  CreateTagScreen,
   CreateTaskScreen,
   HomeScreen,
   ManageTagsScreen,
@@ -34,6 +35,7 @@ const App: FC = () => {
             <Stack.Group screenOptions={{ presentation: 'modal' }}>
               <Stack.Screen name="CreateTask" component={CreateTaskScreen} />
               <Stack.Screen name="ManageTags" component={ManageTagsScreen} />
+              <Stack.Screen name="CreateTag" component={CreateTagScreen} />
             </Stack.Group>
           </Stack.Navigator>
         </NavigationContainer>

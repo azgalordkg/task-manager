@@ -3,20 +3,20 @@ import { StyleSheet } from 'react-native';
 import { COLORS } from '@/constants';
 
 const styles = StyleSheet.create({
-  container: {
-    height: 28,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  label: {
-    marginRight: 10,
-    fontSize: 16,
+  colorTitle: {
     color: COLORS.BG,
+    fontSize: 16,
+    marginBottom: 18,
   },
-  tagsWrapper: {
+  colorContainer: {
+    paddingVertical: 30,
+  },
+  colorList: {
+    justifyContent: 'space-between',
     flexDirection: 'row',
-    columnGap: 14,
     flexWrap: 'wrap',
+    rowGap: 18,
+    columnGap: 10,
   },
 });
 
