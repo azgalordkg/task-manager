@@ -3,7 +3,7 @@ import 'react-native-get-random-values';
 import Realm from 'realm';
 import { v4 as uuidv4 } from 'uuid';
 
-import { COLORS, TagSchema } from '@/constants';
+import { RED_COLORS, TagSchema, YELLOW_COLORS } from '@/constants';
 import { CreateTagData, TagsResponseItem, UpdateTagData } from '@/types';
 import { Storage } from '@/utils';
 
@@ -35,10 +35,10 @@ export const createTag = (data: CreateTagData) => {
 export const createDefaultTags = async () => {
   if (realm) {
     const isDefaultCreated = await Storage.getData('defaultTags');
-    const defaultTags = realm.objects('Tag').filtered('isDefault == $0', true);
 
-    if (!defaultTags.length || !isDefaultCreated) {
-      createTag({ isDefault: true, color: COLORS.WHITE_GREEN, name: 'Home' });
+    if (!isDefaultCreated) {
+      createTag({ isDefault: true, color: RED_COLORS.THIRD, name: 'Home' });
+      createTag({ isDefault: true, color: YELLOW_COLORS.THIRD, name: 'Work' });
       await Storage.storeData('defaultTags', 'true');
     }
   }

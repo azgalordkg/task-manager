@@ -12,7 +12,7 @@ export const DashedButton: FC<PropsWithChildren<Props>> = ({
   variant = 'small',
   icon,
 }) => {
-  let height = 28;
+  let height = 32;
   let fontSize = 12;
   let iconWidth = 10;
   let iconHeight = 10;

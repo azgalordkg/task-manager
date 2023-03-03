@@ -5,6 +5,7 @@ import { DashedButton } from '@/components/ui';
 import { Tag } from '@/components/ui/Tag';
 import { useTagManageContext } from '@/context/hooks';
 import { TagsResponseItem } from '@/types';
+import { vibrate } from '@/utils';
 
 import styles from './TagsField.styles';
 import { Props } from './TagsField.types';
@@ -34,6 +35,7 @@ export const TagsField: FC<Props> = ({ onAddPress }) => {
         {tags?.map(({ name, color, _id }) => (
           <Tag
             onPress={() => {
+              vibrate('selection');
               removeTag(_id);
             }}
             key={name}

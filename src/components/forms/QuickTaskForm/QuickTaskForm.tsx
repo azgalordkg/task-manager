@@ -11,6 +11,7 @@ import { createTaskFormSchema } from '@/constants/validation';
 import { useTaskModalContext } from '@/context/hooks';
 import { createTask } from '@/services';
 import { CreateTaskData } from '@/types';
+import { vibrate } from '@/utils';
 
 import styles from './QuickTaskForm.styles';
 import { Props } from './QuickTaskForm.types';
@@ -38,6 +39,7 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
       description: '',
     } as CreateTaskData);
 
+    vibrate('impactHeavy');
     fetchList();
     handleShowInput();
     reset();

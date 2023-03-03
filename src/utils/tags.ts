@@ -4,7 +4,7 @@ export const prepareTagsForRender = (
   tags: string[],
   allTags: TagsResponseItem[],
 ) => {
-  return tags.map(tag =>
-    allTags.find(({ _id }) => tag === _id),
-  ) as TagsResponseItem[];
+  return tags
+    .map(tag => allTags.find(({ _id }) => tag === _id))
+    .filter(item => item) as TagsResponseItem[];
 };

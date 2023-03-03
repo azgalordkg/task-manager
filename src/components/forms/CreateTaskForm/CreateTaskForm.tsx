@@ -2,7 +2,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Dimensions, View } from 'react-native';
-import Realm from 'realm';
 
 import { DateFilter, DismissKeyboard, TagsField } from '@/components/features';
 import {
@@ -16,7 +15,8 @@ import { REPEAT_LIST } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
 import { useTagManageContext } from '@/context/hooks';
 import { findOneTask } from '@/services/realm';
-import { CreateTaskData } from '@/types';
+import { CreateTaskData, TasksResponseItem } from '@/types';
+import { prepareTagsForRender } from '@/utils';
 
 import styles from './CreateTaskForm.styles';
 import { Props } from './CreateTaskForm.types';
@@ -35,7 +35,7 @@ export const CreateTaskForm: FC<Props> = ({
     startDate.getMinutes() < 30 ? 0 : 30,
   );
 
-  const { setTagsForEdit } = useTagManageContext();
+  const { setTagsForEdit, tags: allTags } = useTagManageContext();
 
   const {
     control,
@@ -55,8 +55,7 @@ export const CreateTaskForm: FC<Props> = ({
     resolver: yupResolver(createTaskFormSchema),
   });
 
-  // TODO replace any
-  const prepareEditData = (task: Realm.Object<unknown, never> | any) => {
+  const prepareEditData = (task: TasksResponseItem) => {
     setValue('name', task.name);
     if (task.description) {
       setValue('description', task.description);
@@ -69,7 +68,8 @@ export const CreateTaskForm: FC<Props> = ({
       setValue('hasDeadline', true);
     }
     if (task.tags.length) {
-      setTagsForEdit(task.tags.map((tag: string) => tag));
+      const tagsForEdit = prepareTagsForRender(task.tags, allTags);
+      setTagsForEdit(tagsForEdit.map(({ _id }) => _id));
     }
     setValue('repeat', task.repeat);
   };

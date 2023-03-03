@@ -61,6 +61,7 @@ export const ListItem: FC<ListItemProps> = ({
     const handleDeletePress = () => {
       onDeletePress(id);
       fetchList();
+      vibrate('selection');
     };
 
     return (
@@ -72,6 +73,7 @@ export const ListItem: FC<ListItemProps> = ({
           scale={scale}
           onPress={() => {
             onEditPress(id);
+            vibrate('selection');
             closeSwiper();
           }}
         />
@@ -120,7 +122,7 @@ export const ListItem: FC<ListItemProps> = ({
               <CustomCheckbox onPress={onCheckPressHandler} checked={checked} />
             </View>
             <View style={style.textWrapper}>
-              {tagsForRender.length && (
+              {Boolean(tagsForRender.length) && (
                 <View style={style.tagsWrapper}>
                   {tagsForRender.map(({ color, _id }) => (
                     <View

@@ -10,6 +10,7 @@ import { createTagFormSchema } from '@/constants/validation';
 import { useTagManageContext } from '@/context/hooks';
 import { createTag } from '@/services/realm/tags';
 import { CreateTagData } from '@/types';
+import { vibrate } from '@/utils';
 
 import styles from './CreateTagForm.styles';
 import { Props } from './CreateTagForm.types';
@@ -34,6 +35,7 @@ export const CreateTagForm: FC<Props> = ({ onClose }) => {
   const onSubmit = (data: CreateTagData) => {
     createTag(data);
     fetchTags();
+    vibrate('impactHeavy');
     onClose();
   };
 

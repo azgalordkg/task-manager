@@ -5,12 +5,12 @@ import { COLORS } from '@/constants';
 const styles = (bgColor: string) =>
   StyleSheet.create({
     tabsContainer: {
-      height: 28,
+      height: 32,
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
       paddingVertical: 7,
-      paddingHorizontal: 10,
+      paddingHorizontal: 12,
       backgroundColor: bgColor,
       borderRadius: 6,
     },

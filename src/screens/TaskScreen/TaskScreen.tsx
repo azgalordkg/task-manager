@@ -68,11 +68,13 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
         <View style={styles.taskTitleWrapper}>
           <View style={styles.taskTitleTagsContainer}>
             <Text style={styles.taskTitle}>{task?.name}</Text>
-            <View style={styles.taskTagsContainer}>
-              {tagsForRender?.map(({ name, color }) => (
-                <Tag key={name} name={name} bgColor={color} />
-              ))}
-            </View>
+            {Boolean(tagsForRender.length) && (
+              <View style={styles.taskTagsContainer}>
+                {tagsForRender?.map(({ name, color }) => (
+                  <Tag key={name} name={name} bgColor={color} />
+                ))}
+              </View>
+            )}
           </View>
 
           {startDate && endDate && (

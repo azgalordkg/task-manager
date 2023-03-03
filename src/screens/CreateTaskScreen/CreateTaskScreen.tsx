@@ -6,6 +6,7 @@ import { ModalWrapper } from '@/components/ui';
 import { useTagManageContext, useTaskModalContext } from '@/context/hooks';
 import { createTask, updateTask } from '@/services';
 import { CreateTaskData, ScreenProps, UpdateTaskData } from '@/types';
+import { vibrate } from '@/utils';
 
 export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   navigation,
@@ -28,6 +29,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
       createTask(requestData as CreateTaskData);
     }
 
+    vibrate('impactHeavy');
     fetchList();
     clearSelectedTags();
     closeModal();
@@ -35,6 +37,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
 
   const addTagsHandler = () => {
     navigation.navigate('ManageTags');
+    vibrate('selection');
   };
 
   return (
