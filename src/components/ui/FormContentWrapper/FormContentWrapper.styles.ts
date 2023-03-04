@@ -19,6 +19,12 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
   },
+  deleteButton: {
+    paddingVertical: 3,
+    paddingHorizontal: 4,
+    position: 'absolute',
+    right: 0,
+  },
 });
 
 export default styles;

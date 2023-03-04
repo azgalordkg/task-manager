@@ -1,6 +1,7 @@
 import React, { FC, PropsWithChildren } from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
+import { Trash } from '@/components/icons';
 import { CustomButton } from '@/components/ui';
 import { COLORS } from '@/constants';
 
@@ -13,11 +14,17 @@ export const FormContentWrapper: FC<PropsWithChildren<Props>> = ({
   onSubmitPress,
   isSubmitDisabled,
   submitTitle,
+  onDeletePress,
 }) => {
   return (
     <View style={styles.contentWrapper}>
       <View style={styles.titleWrapper}>
         <Text style={styles.title}>{title}</Text>
+        {onDeletePress && (
+          <TouchableOpacity onPress={onDeletePress} style={styles.deleteButton}>
+            <Trash color={COLORS.RED} height={26} width={24} />
+          </TouchableOpacity>
+        )}
       </View>
       <View style={styles.fieldsWrapper}>{children}</View>
 

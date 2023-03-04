@@ -3,4 +3,5 @@ export interface Props {
   isSubmitDisabled?: boolean;
   submitTitle: string;
   title: string;
+  onDeletePress?: () => void;
 }

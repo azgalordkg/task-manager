@@ -1,26 +1,28 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 
 import { DismissKeyboard } from '@/components/features';
 import { ColorSelect, FormContentWrapper, Input } from '@/components/ui';
+import { ConfirmModal } from '@/components/ui/ConfirmModal';
 import { AVAILABLE_COLORS } from '@/constants';
 import { createTagFormSchema } from '@/constants/validation';
 import { useTagManageContext } from '@/context/hooks';
-import { createTag } from '@/services/realm/tags';
-import { CreateTagData } from '@/types';
+import { createTag, deleteOneTag, findOneTag, updateTag } from '@/services';
+import { CreateTagData, TagsResponseItem } from '@/types';
 import { vibrate } from '@/utils';
 
 import styles from './CreateTagForm.styles';
 import { Props } from './CreateTagForm.types';
 
-export const CreateTagForm: FC<Props> = ({ onClose }) => {
+export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
   const {
     control,
     handleSubmit,
     setValue,
     watch,
+    reset,
     formState: { errors, isValid },
   } = useForm<CreateTagData>({
     defaultValues: {
@@ -30,22 +32,59 @@ export const CreateTagForm: FC<Props> = ({ onClose }) => {
     resolver: yupResolver(createTagFormSchema),
   });
 
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const { fetchTags } = useTagManageContext();
 
   const onSubmit = (data: CreateTagData) => {
-    createTag(data);
-    fetchTags();
+    if (editItemId) {
+      updateTag({ ...data, _id: editItemId });
+    } else {
+      createTag(data);
+    }
+
     vibrate('impactHeavy');
+    fetchTags();
     onClose();
   };
+
+  const prepareEditData = (tag: TagsResponseItem) => {
+    const { name, color } = tag;
+    setValue('name', name);
+    setValue('color', color);
+  };
+
+  const handleShowModal = () => {
+    setConfirmModalVisible(!confirmModalVisible);
+  };
+
+  const handleDeleteTask = () => {
+    if (editItemId) {
+      deleteOneTag(editItemId);
+      fetchTags();
+    }
+    setConfirmModalVisible(!confirmModalVisible);
+    onClose();
+  };
+
+  useEffect(() => {
+    if (editItemId) {
+      const tag = findOneTag(editItemId);
+      if (tag) {
+        prepareEditData(tag);
+      }
+    } else {
+      reset();
+    }
+  }, [editItemId]);
 
   return (
     <DismissKeyboard>
       <FormContentWrapper
         isSubmitDisabled={!isValid}
         onSubmitPress={handleSubmit(onSubmit)}
-        submitTitle="Create"
-        title="Create a tag">
+        onDeletePress={handleShowModal}
+        submitTitle={editItemId ? 'Edit' : 'Create'}
+        title={`${editItemId ? 'Edit' : 'Create'} a tag`}>
         <View>
           <Input
             control={control}
@@ -70,6 +109,15 @@ export const CreateTagForm: FC<Props> = ({ onClose }) => {
           </View>
         </View>
       </FormContentWrapper>
+
+      <ConfirmModal
+        title="Confirm Deletion"
+        confirmButtonLabel="Delete"
+        description="Are you sure you want to delete this task?"
+        visible={confirmModalVisible}
+        onPressConfirm={handleDeleteTask}
+        onPressDismiss={handleShowModal}
+      />
     </DismissKeyboard>
   );
 };

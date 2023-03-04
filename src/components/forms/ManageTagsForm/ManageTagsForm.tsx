@@ -13,7 +13,11 @@ import { vibrate } from '@/utils';
 import styles from './ManageTagsForm.styles';
 import { Props } from './ManageTagsForm.types';
 
-export const ManageTagsForm: FC<Props> = ({ onClose, onCreateTagPress }) => {
+export const ManageTagsForm: FC<Props> = ({
+  onClose,
+  onCreateTagPress,
+  onEditTagPress,
+}) => {
   const {
     currentSelectedTags,
     selectTagHandler,
@@ -49,6 +53,10 @@ export const ManageTagsForm: FC<Props> = ({ onClose, onCreateTagPress }) => {
                 checked={currentSelectedTags.includes(_id)}
                 onPress={() => {
                   selectTagHandler(_id);
+                  vibrate();
+                }}
+                onEditPress={() => {
+                  onEditTagPress(_id);
                   vibrate();
                 }}
                 title={name}

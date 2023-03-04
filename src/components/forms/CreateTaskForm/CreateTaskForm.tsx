@@ -56,22 +56,23 @@ export const CreateTaskForm: FC<Props> = ({
   });
 
   const prepareEditData = (task: TasksResponseItem) => {
-    setValue('name', task.name);
-    if (task.description) {
-      setValue('description', task.description);
+    const { name, description, hasDeadline, tags, repeat } = task;
+    setValue('name', name);
+    if (description) {
+      setValue('description', description);
     }
     if (task.startDate && task.endDate) {
       setValue('startDate', new Date(task.startDate));
       setValue('endDate', new Date(task.endDate));
     }
-    if (task.hasDeadline) {
+    if (hasDeadline) {
       setValue('hasDeadline', true);
     }
-    if (task.tags.length) {
-      const tagsForEdit = prepareTagsForRender(task.tags, allTags);
+    if (tags.length) {
+      const tagsForEdit = prepareTagsForRender(tags, allTags);
       setTagsForEdit(tagsForEdit.map(({ _id }) => _id));
     }
-    setValue('repeat', task.repeat);
+    setValue('repeat', repeat);
   };
 
   useEffect(() => {

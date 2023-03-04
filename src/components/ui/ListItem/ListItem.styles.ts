@@ -29,17 +29,19 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
     },
     textWrapper: {
       width: '80%',
+      justifyContent: 'center',
     },
     checkmarkWrapper: {
       marginRight: 15,
     },
     title: {
-      marginBottom: 8,
-      fontSize: 22,
+      fontSize: 18,
       fontWeight: '600',
       color: COLORS.WHITE,
     },
     time: {
+      marginTop: 6,
+      fontSize: 14,
       color: COLORS.GREY,
     },
     contentWrapper: {

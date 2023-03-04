@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 
 import { ArrowBack, Edit } from '@/components/icons';
@@ -21,18 +21,19 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
   const { fetchList } = useTaskModalContext();
   const { tags: allTags } = useTagManageContext();
 
-  const [confirmModalVisible, setConfirmModalVisible] = React.useState(false);
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
 
   const handleShowModal = () => {
     setConfirmModalVisible(!confirmModalVisible);
   };
 
   const handleDeleteTask = () => {
-    navigation.goBack();
     setConfirmModalVisible(!confirmModalVisible);
     deleteOneTask(id);
     fetchList();
+    navigation.goBack();
   };
+
   const startDate = task?.startDate;
   const endDate = task?.endDate;
   const tags = task?.tags;
@@ -123,7 +124,8 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
 
       <ConfirmModal
         visible={confirmModalVisible}
-        title="Confirm Delete"
+        title="Confirm Deletion"
+        confirmButtonLabel="Delete"
         description="Are you sure you want to delete this task?"
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowModal}

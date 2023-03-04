@@ -1,7 +1,7 @@
 import React, { createContext, FC, PropsWithChildren, useState } from 'react';
 import Realm from 'realm';
 
-import { getTasks } from '@/services/realm';
+import { getTasks } from '@/services';
 import { TasksList } from '@/types';
 import { sortTasksByDate } from '@/utils';
 

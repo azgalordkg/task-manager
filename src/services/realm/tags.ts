@@ -44,9 +44,11 @@ export const createDefaultTags = async () => {
   }
 };
 
-export const findOneTag = (_id: string) => {
+export const findOneTag = (_id: string): TagsResponseItem | undefined => {
   if (realm) {
-    const tasks = realm.objects('Tag').filtered('_id == $0', _id);
+    const tasks = realm
+      .objects('Tag')
+      .filtered('_id == $0', _id) as unknown as TagsResponseItem[];
     return tasks[0];
   }
 };

@@ -19,6 +19,7 @@ export const ManageTagsScreen: FC<ScreenProps<'ManageTags'>> = ({
       }}>
       <ManageTagsForm
         onClose={handleCloseModal}
+        onEditTagPress={id => navigation.navigate('CreateTag', { id })}
         onCreateTagPress={() => navigation.navigate('CreateTag')}
       />
     </ModalWrapper>

@@ -6,12 +6,14 @@ import { ScreenProps } from '@/types';
 
 export const CreateTagScreen: FC<ScreenProps<'CreateTag'>> = ({
   navigation,
+  route,
 }) => {
+  const taskId = route?.params?.id;
   const handleCloseModal = () => navigation.goBack();
 
   return (
-    <ModalWrapper onRequestClose={() => navigation.goBack()}>
-      <CreateTagForm onClose={handleCloseModal} />
+    <ModalWrapper onRequestClose={handleCloseModal}>
+      <CreateTagForm editItemId={taskId} onClose={handleCloseModal} />
     </ModalWrapper>
   );
 };

@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 
-import { createDefaultTags, getAllTags } from '@/services/realm/tags';
+import { createDefaultTags, getAllTags } from '@/services';
 import { TagsResponseItem } from '@/types';
 
 import { TagManageContextType } from './TagManageProvider.types';
