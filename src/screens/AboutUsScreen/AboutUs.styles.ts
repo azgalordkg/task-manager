@@ -7,17 +7,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 10,
   },
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  headerTitle: {
-    marginLeft: 20,
-    fontWeight: '500',
-    fontSize: 28,
-    lineHeight: 33,
-    color: COLORS.WHITE,
-  },
   contentContainer: {
     marginTop: 40,
     rowGap: 20,

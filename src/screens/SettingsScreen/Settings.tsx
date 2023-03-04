@@ -34,7 +34,6 @@ export const Settings: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
             isSwitcher>
             Notifications
           </MenuItem>
-          <MenuItem onPress={() => {}}>Theme</MenuItem>
           <MenuItem
             onPress={() => {
               navigation.navigate('AboutUs');
