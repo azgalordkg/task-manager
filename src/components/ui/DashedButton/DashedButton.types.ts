@@ -6,4 +6,5 @@ export interface Props {
   onPress?: () => void;
   variant?: 'small' | 'large';
   icon?: FC<DefaultSvgProps>;
+  color?: string;
 }

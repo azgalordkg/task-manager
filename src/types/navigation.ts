@@ -5,6 +5,7 @@ export type RootStackParamList = {
   AboutUs: undefined;
   Settings: undefined;
   ManageTags: undefined;
+  TagsSettings: undefined;
   CreateTag?: { id?: string };
   CreateTask?: { id?: string };
   Task: { id: string };
