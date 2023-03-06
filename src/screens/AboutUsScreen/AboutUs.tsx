@@ -11,10 +11,12 @@ import styles from './AboutUs.styles';
 export const AboutUs: FC = () => {
   const { goBack } = useNavigation();
 
+  const handleClose = () => goBack();
+
   return (
     <MainLayout>
       <View style={styles.contentWrapper}>
-        <BackButtonHeader title="About Us" onPress={() => goBack()} />
+        <BackButtonHeader title="About Us" onPress={handleClose} />
 
         <View style={styles.contentContainer}>
           <Text style={styles.screenTitle}>Simplify. Organize. Conquer.</Text>
