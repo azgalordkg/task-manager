@@ -29,17 +29,19 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
     },
     textWrapper: {
       width: '80%',
+      justifyContent: 'center',
     },
     checkmarkWrapper: {
       marginRight: 15,
     },
     title: {
-      marginBottom: 8,
-      fontSize: 22,
+      fontSize: 18,
       fontWeight: '600',
       color: COLORS.WHITE,
     },
     time: {
+      marginTop: 6,
+      fontSize: 14,
       color: COLORS.GREY,
     },
     contentWrapper: {
@@ -77,6 +79,16 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
       right: 2,
       top: 2,
       padding: 10,
+    },
+    tagsWrapper: {
+      flexDirection: 'row',
+      columnGap: 6,
+      marginBottom: 8,
+    },
+    tag: {
+      height: 6,
+      width: 16,
+      borderRadius: 3,
     },
   });
 

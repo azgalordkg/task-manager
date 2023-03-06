@@ -3,15 +3,17 @@ import { FieldValues } from 'react-hook-form';
 
 import { CreateTaskForm } from '@/components/forms';
 import { ModalWrapper } from '@/components/ui';
-import { useTaskModalContext } from '@/context/hooks';
+import { useTagManageContext, useTaskModalContext } from '@/context/hooks';
 import { createTask, updateTask } from '@/services';
 import { CreateTaskData, ScreenProps, UpdateTaskData } from '@/types';
+import { vibrate } from '@/utils';
 
 export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   navigation,
   route,
 }) => {
   const { fetchList } = useTaskModalContext();
+  const { selectedTags, clearSelectedTags } = useTagManageContext();
   const taskId = route?.params?.id;
 
   const closeModal = () => {
@@ -19,18 +21,32 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   };
 
   const createTaskHandler = (data: FieldValues) => {
+    const requestData = { ...data, tags: selectedTags };
+
     if (taskId) {
-      updateTask({ ...data, _id: taskId } as UpdateTaskData);
+      updateTask({ ...requestData, _id: taskId } as UpdateTaskData);
     } else {
-      createTask(data as CreateTaskData);
+      createTask(requestData as CreateTaskData);
     }
+
+    vibrate('impactHeavy');
     fetchList();
+    clearSelectedTags();
     closeModal();
+  };
+
+  const addTagsHandler = () => {
+    navigation.navigate('ManageTags');
+    vibrate('selection');
   };
 
   return (
     <ModalWrapper onRequestClose={closeModal}>
-      <CreateTaskForm editItemId={taskId} onSubmit={createTaskHandler} />
+      <CreateTaskForm
+        onAddPress={addTagsHandler}
+        editItemId={taskId}
+        onSubmit={createTaskHandler}
+      />
     </ModalWrapper>
   );
 };

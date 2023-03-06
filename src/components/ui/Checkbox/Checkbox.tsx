@@ -9,7 +9,7 @@ import { Props } from './Checkbox.types';
 
 export const Checkbox: FC<Props> = ({
   label,
-  onChange,
+  onValueChange,
   control,
   defaultValue,
   name,
@@ -27,7 +27,7 @@ export const Checkbox: FC<Props> = ({
         thumbColor={COLORS.WHITE}
         ios_backgroundColor={COLORS.GREY}
         value={field.value as boolean}
-        onValueChange={onChange}
+        onValueChange={onValueChange}
       />
       <Text style={styles.text}>{label}</Text>
     </View>

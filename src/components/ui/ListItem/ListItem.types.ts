@@ -11,4 +11,5 @@ export interface ListItemProps {
   hasDeadline?: boolean;
   id: string;
   isDone?: boolean;
+  tags: string[];
 }

@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
   },
   button: {
     marginRight: 20,
+    padding: 4,
   },
   text: {
     color: COLORS.WHITE,

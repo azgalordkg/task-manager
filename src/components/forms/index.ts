@@ -1,2 +1,4 @@
+export * from './CreateTagForm';
 export * from './CreateTaskForm';
-export * from './QuickTaskForms';
+export * from './ManageTagsForm';
+export * from './QuickTaskForm';

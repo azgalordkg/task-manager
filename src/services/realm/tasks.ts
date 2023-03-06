@@ -59,11 +59,14 @@ export const createTask = (data: CreateTaskData) => {
   }
 };
 
-export const findOne = (_id: string) => {
+export const findOneTask = (_id: string): TasksResponseItem => {
   if (realm) {
-    const tasks = realm.objects('Task').filtered('_id == $0', _id);
+    const tasks = realm
+      .objects('Task')
+      .filtered('_id == $0', _id) as unknown as TasksResponseItem[];
     return tasks[0];
   }
+  return {} as TasksResponseItem;
 };
 
 export const updateTask = ({
@@ -74,9 +77,10 @@ export const updateTask = ({
   description,
   hasDeadline,
   repeat,
+  tags,
   isDone,
 }: UpdateTaskData) => {
-  const task = findOne(_id) as unknown as TasksResponseItem;
+  const task = findOneTask(_id) as unknown as TasksResponseItem;
   if (realm && task) {
     realm.write(() => {
       task.name = name;
@@ -86,8 +90,9 @@ export const updateTask = ({
         task.endDate = endDate.getTime();
       }
       task.hasDeadline = hasDeadline;
-      task.isDone = isDone;
+      task.isDone = Boolean(isDone);
       task.repeat = repeat;
+      task.tags = tags;
     });
   }
 };
@@ -97,10 +102,11 @@ export const prepareUpdateRecurringData = (task: TasksResponseItem) => {
   const end = moment(new Date(Number(task.endDate)));
   const today = moment();
 
-  const { _id, name, repeat, description, hasDeadline } = task;
+  const { _id, name, repeat, description, hasDeadline, tags } = task;
   const updateData = {
     _id,
     name,
+    tags,
     repeat,
     description,
     hasDeadline,
@@ -235,16 +241,16 @@ export const updateRecurringTasks = (tasksByDays: TasksList) => {
 };
 
 export const markTaskAsDone = (_id: string, isDone: boolean) => {
-  const task = findOne(_id);
+  const task = findOneTask(_id);
   if (realm && task) {
     realm.write(() => {
-      (findOne(_id) as unknown as TasksResponseItem).isDone = isDone;
+      (findOneTask(_id) as unknown as TasksResponseItem).isDone = isDone;
     });
   }
 };
 
-export const deleteOne = (_id: string) => {
-  const task = findOne(_id);
+export const deleteOneTask = (_id: string) => {
+  const task = findOneTask(_id);
   if (realm && task) {
     realm.write(() => {
       realm.delete(task);

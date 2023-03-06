@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 
-import { QuickTaskForms } from '@/components/forms';
+import { QuickTaskForm } from '@/components/forms';
 import { Plus } from '@/components/icons';
 import { CustomButton } from '@/components/ui';
 import { COLORS } from '@/constants';
@@ -19,7 +19,7 @@ export const QuickTask: FC<Props> = ({ date }) => {
   return (
     <>
       {showInput ? (
-        <QuickTaskForms date={date} handleShowInput={handleShowInput} />
+        <QuickTaskForm date={date} handleShowInput={handleShowInput} />
       ) : (
         <View style={styles.buttonWrapper}>
           <CustomButton

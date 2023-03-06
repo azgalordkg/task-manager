@@ -4,6 +4,8 @@ export type RootStackParamList = {
   Home: undefined;
   AboutUs: undefined;
   Settings: undefined;
+  ManageTags: undefined;
+  CreateTag?: { id?: string };
   CreateTask?: { id?: string };
   Task: { id: string };
 };

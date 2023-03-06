@@ -1,48 +1,46 @@
 import { format } from 'date-fns';
-import React, { FC } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 
 import { ArrowBack, Edit } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
-import { CustomButton, TextBlank } from '@/components/ui';
+import { CustomButton, Tag, TextBlank } from '@/components/ui';
 import { ConfirmModal } from '@/components/ui/ConfirmModal';
-import { Tags } from '@/components/ui/Tags';
 import { COLORS } from '@/constants';
-import { useTaskModalContext } from '@/context/hooks';
-import { deleteOne, findOne } from '@/services/realm';
-import { ScreenProps } from '@/types';
+import { useTagManageContext, useTaskModalContext } from '@/context/hooks';
+import { deleteOneTask, findOneTask } from '@/services/realm';
+import { ScreenProps, TagsResponseItem } from '@/types';
+import { prepareTagsForRender } from '@/utils';
 
 import styles from './TaskScreen.styles';
 
-const taskTags = [
-  { name: 'Home', color: COLORS.RED },
-  { name: 'Family', color: COLORS.ORANGE },
-  { name: 'Sport', color: COLORS.BLUE },
-];
-
 export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
   const id = route?.params?.id;
-  // TODO need typing for task
-  const task: any = findOne(id);
+  const { startDate, endDate, tags, name, description } = findOneTask(id);
   const { fetchList } = useTaskModalContext();
-  const [confirmModalVisible, setConfirmModalVisible] = React.useState(false);
+  const { tags: allTags } = useTagManageContext();
+
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
 
   const handleShowModal = () => {
     setConfirmModalVisible(!confirmModalVisible);
   };
 
   const handleDeleteTask = () => {
-    navigation.goBack();
     setConfirmModalVisible(!confirmModalVisible);
-    deleteOne(id);
+    deleteOneTask(id);
     fetchList();
+    navigation.goBack();
   };
-  const startDate = task?.startDate;
-  const endDate = task?.endDate;
 
   const onEditPressHandler = () => {
     navigation.navigate('CreateTask', { id });
   };
+
+  const tagsForRender: TagsResponseItem[] = useMemo(
+    () => prepareTagsForRender(tags || [], allTags),
+    [allTags, tags],
+  );
 
   return (
     <MainLayout>
@@ -51,7 +49,9 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
         resizeMode="cover"
         source={require('../../assets/img/taskBackground.jpg')}>
         <View style={styles.taskHeaderContainer}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={() => navigation.goBack()}>
             <ArrowBack />
           </TouchableOpacity>
           <TouchableOpacity onPress={onEditPressHandler}>
@@ -63,38 +63,38 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
       <View style={styles.taskContentWrapper}>
         <View style={styles.taskTitleWrapper}>
           <View style={styles.taskTitleTagsContainer}>
-            <Text style={styles.taskTitle}>{task?.name}</Text>
-            <View style={styles.taskTagsContainer}>
-              {taskTags?.map(taskTagItem => (
-                <Tags
-                  key={taskTagItem.name}
-                  name={taskTagItem.name}
-                  bgColor={taskTagItem.color}
-                />
-              ))}
-            </View>
+            <Text style={styles.taskTitle}>{name}</Text>
+            {Boolean(tagsForRender.length) && (
+              <View style={styles.taskTagsContainer}>
+                {tagsForRender?.map(({ name: taskName, color }) => (
+                  <Tag key={name} name={taskName} bgColor={color} />
+                ))}
+              </View>
+            )}
           </View>
 
-          <View style={styles.taskDateContainer}>
-            <Text style={styles.taskDateDay}>{format(startDate, 'dd')}</Text>
-            <View style={styles.taskMonthWeekContainer}>
-              <Text style={styles.taskDateMonth}>
-                {format(startDate, 'MMMM')}
-              </Text>
-              <Text style={styles.taskDateWeekday}>/</Text>
-              <Text style={styles.taskDateWeekday}>
-                {format(startDate, 'EEEE')}
+          {startDate && endDate && (
+            <View style={styles.taskDateContainer}>
+              <Text style={styles.taskDateDay}>{format(startDate, 'dd')}</Text>
+              <View style={styles.taskMonthWeekContainer}>
+                <Text style={styles.taskDateMonth}>
+                  {format(startDate, 'MMMM')}
+                </Text>
+                <Text style={styles.taskDateWeekday}>/</Text>
+                <Text style={styles.taskDateWeekday}>
+                  {format(startDate, 'EEEE')}
+                </Text>
+              </View>
+              <Text style={styles.taskDatePeriod}>
+                {format(startDate, 'h:mm a')} - {format(endDate, 'h:mm a')}
               </Text>
             </View>
-            <Text style={styles.taskDatePeriod}>
-              {format(startDate, 'h:mm a')} - {format(endDate, 'h:mm a')}
-            </Text>
-          </View>
+          )}
         </View>
 
         <View style={styles.descriptionWrapper}>
-          {task?.description ? (
-            <Text style={styles.taskDescription}>{task.description}</Text>
+          {description ? (
+            <Text style={styles.taskDescription}>{description}</Text>
           ) : (
             <TextBlank>No description</TextBlank>
           )}
@@ -119,7 +119,8 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
 
       <ConfirmModal
         visible={confirmModalVisible}
-        title="Confirm Delete"
+        title="Confirm Deletion"
+        confirmButtonLabel="Delete"
         description="Are you sure you want to delete this task?"
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowModal}

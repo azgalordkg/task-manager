@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Modal, Text, TouchableOpacity, View } from 'react-native';
 
 import { CustomButton } from '@/components/ui';
-import { Props } from '@/components/ui/ConfirmModal/ConfirmModal.types';
+import { COLORS } from '@/constants';
 
 import styles from './ConfirmModal.styles';
+import { Props } from './ConfirmModal.types';
 
 export const ConfirmModal: FC<Props> = ({
   visible,
@@ -15,29 +16,34 @@ export const ConfirmModal: FC<Props> = ({
   onPressConfirm,
   onPressDismiss,
 }) => {
-  if (!visible) {
-    return null;
-  }
-
   return (
-    <TouchableOpacity
-      activeOpacity={1}
-      onPress={onPressDismiss}
-      style={styles.modalWrapper}>
-      <View style={styles.modalContainer}>
-        <Text style={styles.modalTitle}>{title}</Text>
+    <Modal
+      animationType="fade"
+      onRequestClose={onPressDismiss}
+      visible={visible}
+      transparent={true}>
+      <TouchableOpacity
+        onPress={onPressDismiss}
+        activeOpacity={1}
+        style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Text style={styles.modalTitle}>{title}</Text>
+          <Text style={styles.modalDescription}>{description}</Text>
 
-        <Text style={styles.modalDescription}>{description}</Text>
-
-        <View style={styles.modalButtonContainer}>
-          <CustomButton width={'50%'} onPress={onPressConfirm}>
-            {confirmButtonLabel}
-          </CustomButton>
-          <CustomButton width={'50%'} onPress={onPressDismiss}>
-            {dismissButtonLabel}
-          </CustomButton>
+          <View style={styles.modalButtonContainer}>
+            <CustomButton
+              bgColor={COLORS.BUTTON_BG}
+              textColor={COLORS.BG}
+              width={'48%'}
+              onPress={onPressDismiss}>
+              {dismissButtonLabel}
+            </CustomButton>
+            <CustomButton width={'48%'} onPress={onPressConfirm}>
+              {confirmButtonLabel}
+            </CustomButton>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </Modal>
   );
 };

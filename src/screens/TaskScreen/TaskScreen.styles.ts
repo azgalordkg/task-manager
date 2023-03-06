@@ -7,6 +7,9 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.BG,
     height: '100%',
   },
+  backButton: {
+    padding: 4,
+  },
   taskContentWrapper: {
     marginHorizontal: 20,
     marginTop: 30,

@@ -2,10 +2,11 @@ import { FC } from 'react';
 import { Control } from 'react-hook-form/dist/types';
 import { TextInputProps } from 'react-native';
 
-import { CreateTaskData, CreateTaskKey, DefaultSvgProps } from '@/types';
+import { CreateTaskKey, DefaultSvgProps } from '@/types';
 
 export interface Props extends TextInputProps {
-  control: Control<CreateTaskData>;
+  // TODO Find solution for this any
+  control: Control<any>;
   defaultValue?: string;
   name: CreateTaskKey;
   isDateTime?: boolean;

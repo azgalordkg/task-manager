@@ -9,9 +9,8 @@ import { MenuItem } from '@/components/ui/MenuItem';
 import { COLORS } from '@/constants';
 
 import styles from './AboutUs.styles';
-import { Props } from './AboutUs.types';
 
-export const AboutUs: FC<Props> = () => {
+export const AboutUs: FC = () => {
   const { goBack } = useNavigation();
 
   return (

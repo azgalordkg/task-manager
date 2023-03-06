@@ -6,7 +6,7 @@ import { TaskList } from '@/components/features';
 import { Plus } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { COLORS } from '@/constants';
-import { useTaskModalContext } from '@/context/hooks';
+import { useTagManageContext, useTaskModalContext } from '@/context/hooks';
 import { updateRecurringTasks } from '@/services';
 import { ScreenProps } from '@/types';
 
@@ -14,6 +14,7 @@ import styles from './HomeScreen.styles';
 
 export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
   const { taskList, fetchList } = useTaskModalContext();
+  const { fetchTags } = useTagManageContext();
   const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);
   const isFocused = useIsFocused();
 
@@ -30,6 +31,10 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
       setDailyTasksUpdated(true);
     }
   }, [taskList, dailyTasksUpdated]);
+
+  useEffect(() => {
+    fetchTags();
+  }, []);
 
   const handleItemPress = (id: string) => {
     navigation.navigate('Task', { id });

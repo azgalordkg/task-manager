@@ -1,26 +1,31 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Dimensions, Text, View } from 'react-native';
-import Realm from 'realm';
+import { Dimensions, View } from 'react-native';
 
-import { DismissKeyboard } from '@/components/features';
-import { COLORS, createTaskFormSchema, REPEAT_LIST } from '@/constants';
-import { findOne } from '@/services/realm';
-import { CreateTaskData } from '@/types';
-
-import DateFilter from '../../features/DateFilter/DateFilter';
+import { DateFilter, DismissKeyboard, TagsField } from '@/components/features';
 import {
   Checkbox,
-  CustomButton,
   CustomDatePicker,
+  FormContentWrapper,
   Input,
   Select,
-} from '../../ui';
+} from '@/components/ui';
+import { REPEAT_LIST } from '@/constants';
+import { createTaskFormSchema } from '@/constants/validation';
+import { useTagManageContext } from '@/context/hooks';
+import { findOneTask } from '@/services/realm';
+import { CreateTaskData, TasksResponseItem } from '@/types';
+import { prepareTagsForRender } from '@/utils';
+
 import styles from './CreateTaskForm.styles';
 import { Props } from './CreateTaskForm.types';
 
-export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
+export const CreateTaskForm: FC<Props> = ({
+  onSubmit,
+  editItemId,
+  onAddPress,
+}) => {
   const startDate = new Date();
   const endDate = new Date();
 
@@ -30,12 +35,14 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
     startDate.getMinutes() < 30 ? 0 : 30,
   );
 
+  const { setTagsForEdit, tags: allTags } = useTagManageContext();
+
   const {
     control,
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid },
     reset,
   } = useForm<CreateTaskData>({
     defaultValues: {
@@ -48,25 +55,29 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
     resolver: yupResolver(createTaskFormSchema),
   });
 
-  // TODO replace any
-  const prepareEditData = (task: Realm.Object<unknown, never> | any) => {
-    setValue('name', task.name);
-    if (task.description) {
-      setValue('description', task.description);
+  const prepareEditData = (task: TasksResponseItem) => {
+    const { name, description, hasDeadline, tags, repeat } = task;
+    setValue('name', name);
+    if (description) {
+      setValue('description', description);
     }
     if (task.startDate && task.endDate) {
       setValue('startDate', new Date(task.startDate));
       setValue('endDate', new Date(task.endDate));
     }
-    if (task.hasDeadline) {
+    if (hasDeadline) {
       setValue('hasDeadline', true);
     }
-    setValue('repeat', task.repeat);
+    if (tags.length) {
+      const tagsForEdit = prepareTagsForRender(tags, allTags);
+      setTagsForEdit(tagsForEdit.map(({ _id }) => _id));
+    }
+    setValue('repeat', repeat);
   };
 
   useEffect(() => {
     if (editItemId) {
-      const task = findOne(editItemId);
+      const task = findOneTask(editItemId);
       if (task) {
         prepareEditData(task);
       }
@@ -79,93 +90,83 @@ export const CreateTaskForm: FC<Props> = ({ onSubmit, editItemId }) => {
 
   return (
     <DismissKeyboard>
-      <View style={styles.contentWrapper}>
-        <View style={styles.titleWrapper}>
-          <Text style={styles.title}>
-            {editItemId ? 'Edit task' : 'Create task'}
-          </Text>
-        </View>
-        <View style={styles.fieldsWrapper}>
-          <View style={styles.inputWrapper}>
-            <Input
-              control={control}
-              name="name"
-              placeholder="Name *"
-              errorMessage={errors.name?.message}
-              maxLength={30}
-            />
-          </View>
-          <View style={styles.inputWrapper}>
-            <Input
-              control={control}
-              multiline={true}
-              numberOfLines={4}
-              name="description"
-              placeholder="Description (optional)"
-              maxLength={255}
-            />
-          </View>
-          <View style={styles.inputWrapper}>
-            <Select
-              name="repeat"
-              control={control}
-              items={REPEAT_LIST}
-              label="Repeat"
-            />
-          </View>
-          <View style={styles.dateContainer}>
-            <View style={styles.inputWrapper}>
-              <CustomDatePicker
-                label="Date *"
-                control={control}
-                name="startDate"
-                title="Choose date"
-                mode="date"
-              />
-            </View>
-            <DateFilter
-              currentStartDate={watch('startDate')}
-              currentEndDate={watch('endDate')}
-              onPressHandler={setValue}
-            />
-          </View>
-
-          <Checkbox
+      <FormContentWrapper
+        onSubmitPress={handleSubmit(onSubmit)}
+        isSubmitDisabled={!isValid}
+        submitTitle={editItemId ? 'Edit' : 'Create'}
+        title={editItemId ? 'Edit task' : 'Create task'}>
+        <View style={styles.inputWrapper}>
+          <Input
             control={control}
-            name="hasDeadline"
-            onChange={value => setValue('hasDeadline', value)}
-            label="Set due time"
+            name="name"
+            placeholder="Name *"
+            errorMessage={errors.name?.message}
+            maxLength={30}
           />
-          {watch('hasDeadline') && (
-            <View style={styles.timeContainer}>
-              <CustomDatePicker
-                inputWidth={timeInputWidth}
-                label="Start Time"
-                control={control}
-                name="startDate"
-                title="Choose date"
-                mode="time"
-              />
-              <CustomDatePicker
-                inputWidth={timeInputWidth}
-                label="End Time"
-                control={control}
-                name="endDate"
-                title="Choose date"
-                mode="time"
-              />
-            </View>
-          )}
+        </View>
+        <View style={styles.inputWrapper}>
+          <Input
+            control={control}
+            multiline={true}
+            numberOfLines={4}
+            name="description"
+            placeholder="Description (optional)"
+            maxLength={255}
+          />
+        </View>
+        <View style={styles.inputWrapper}>
+          <Select
+            name="repeat"
+            control={control}
+            items={REPEAT_LIST}
+            label="Repeat"
+          />
+        </View>
+        <View style={styles.dateContainer}>
+          <View style={styles.inputWrapper}>
+            <CustomDatePicker
+              label="Date *"
+              control={control}
+              name="startDate"
+              title="Choose date"
+              mode="date"
+            />
+          </View>
+          <DateFilter
+            currentStartDate={watch('startDate')}
+            currentEndDate={watch('endDate')}
+            onPressHandler={setValue}
+          />
         </View>
 
-        <CustomButton
-          fullWidth
-          bgColor={COLORS.DARK_GREEN}
-          onPress={handleSubmit(onSubmit)}
-          disabled={!(isValid && isDirty)}>
-          {editItemId ? 'Edit' : 'Create'}
-        </CustomButton>
-      </View>
+        <Checkbox
+          control={control}
+          name="hasDeadline"
+          onValueChange={value => setValue('hasDeadline', value)}
+          label="Set due time"
+        />
+        {watch('hasDeadline') && (
+          <View style={styles.timeContainer}>
+            <CustomDatePicker
+              inputWidth={timeInputWidth}
+              label="Start Time"
+              control={control}
+              name="startDate"
+              title="Choose date"
+              mode="time"
+            />
+            <CustomDatePicker
+              inputWidth={timeInputWidth}
+              label="End Time"
+              control={control}
+              name="endDate"
+              title="Choose date"
+              mode="time"
+            />
+          </View>
+        )}
+        <TagsField onAddPress={onAddPress} />
+      </FormContentWrapper>
     </DismissKeyboard>
   );
 };
