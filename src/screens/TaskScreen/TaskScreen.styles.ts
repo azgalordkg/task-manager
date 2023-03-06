@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   taskHeaderImage: {
-    height: 168,
+    height: 127,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
   },
   taskTitle: {
     color: '#fff',
-    fontSize: 20,
-    lineHeight: 33,
+    fontSize: 24,
+    fontWeight: '600',
   },
   taskDateContainer: {
     flexDirection: 'column',
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   taskDateMonth: {
     fontSize: 16,
     color: COLORS.WHITE,
-    fontWeight: '500',
+    fontWeight: '600',
   },
   taskDateWeekday: {
     fontSize: 14,
@@ -67,7 +67,6 @@ const styles = StyleSheet.create({
   },
   taskDatePeriod: {
     fontSize: 12,
-    lineHeight: 14,
     color: COLORS.WHITE,
   },
   descriptionWrapper: {

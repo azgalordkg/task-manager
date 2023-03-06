@@ -7,6 +7,7 @@ import {
   FormContentWrapper,
   SelectTagItem,
 } from '@/components/ui';
+import { COLORS } from '@/constants';
 import { useTagManageContext } from '@/context/hooks';
 import { vibrate } from '@/utils';
 
@@ -17,6 +18,7 @@ export const ManageTagsForm: FC<Props> = ({
   onClose,
   onCreateTagPress,
   onEditTagPress,
+  isSettings,
 }) => {
   const {
     currentSelectedTags,
@@ -33,13 +35,19 @@ export const ManageTagsForm: FC<Props> = ({
   return (
     <FormContentWrapper
       submitTitle="Done"
-      title="Manage Tags"
+      title={isSettings ? '' : 'Manage Tags'}
       onSubmitPress={() => {
-        acceptSelectedTags();
+        if (isSettings) {
+          acceptSelectedTags();
+        }
         onClose();
       }}>
-      <View>
-        <DashedButton icon={Plus} variant="large" onPress={onCreateTagPress}>
+      <View style={styles.container}>
+        <DashedButton
+          color={isSettings ? COLORS.WHITE : undefined}
+          icon={Plus}
+          variant="large"
+          onPress={onCreateTagPress}>
           Create a tag
         </DashedButton>
         <Text style={styles.message}>
@@ -49,6 +57,7 @@ export const ManageTagsForm: FC<Props> = ({
           {tags.map(({ _id, name, color }) => {
             return (
               <SelectTagItem
+                isSettings={isSettings}
                 key={_id}
                 checked={currentSelectedTags.includes(_id)}
                 onPress={() => {

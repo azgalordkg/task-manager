@@ -11,6 +11,7 @@ export const DashedButton: FC<PropsWithChildren<Props>> = ({
   onPress,
   variant = 'small',
   icon,
+  color = COLORS.LIGHT_GREY,
 }) => {
   let height = 32;
   let fontSize = 12;
@@ -23,7 +24,7 @@ export const DashedButton: FC<PropsWithChildren<Props>> = ({
     iconWidth = 14;
     iconHeight = 14;
   }
-  const style = styles(height, fontSize);
+  const style = styles(height, fontSize, color);
   const Icon = icon;
 
   return (
@@ -33,7 +34,7 @@ export const DashedButton: FC<PropsWithChildren<Props>> = ({
           style={style.icon}
           width={iconWidth}
           height={iconHeight}
-          color={COLORS.LIGHT_GREY}
+          color={color}
         />
       )}
       <Text style={style.text}>{children}</Text>

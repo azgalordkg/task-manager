@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
 
-const styles = (height: number, fontSize: number) =>
+const styles = (height: number, fontSize: number, color?: string) =>
   StyleSheet.create({
     button: {
       height,
@@ -18,7 +18,7 @@ const styles = (height: number, fontSize: number) =>
     text: {
       fontSize,
       fontWeight: '700',
-      color: COLORS.LIGHT_GREY,
+      color,
     },
     icon: {
       marginRight: 10,

@@ -15,16 +15,20 @@ export const SelectTagItem: FC<Props> = ({
   color = COLORS.RED,
   onEditPress,
   isDefault,
+  isSettings,
 }) => {
-  const style = styles(color);
+  const style = styles(color, isSettings);
+
   return (
     <View style={style.container}>
-      <CustomCheckbox
-        defaultColor={COLORS.GREY}
-        size={26}
-        checked={checked}
-        onPress={onPress}
-      />
+      {!isSettings && (
+        <CustomCheckbox
+          defaultColor={COLORS.GREY}
+          size={26}
+          checked={checked}
+          onPress={onPress}
+        />
+      )}
       <View style={style.dot} />
       <Text style={style.text}>{title}</Text>
       {!isDefault && (

@@ -1,11 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { FC } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 
-import { ArrowBack } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
-import { BreakLine } from '@/components/ui';
-import { MenuItem } from '@/components/ui/MenuItem';
+import { BackButtonHeader, BreakLine, MenuItem } from '@/components/ui';
 import { COLORS } from '@/constants';
 
 import styles from './AboutUs.styles';
@@ -13,16 +11,12 @@ import styles from './AboutUs.styles';
 export const AboutUs: FC = () => {
   const { goBack } = useNavigation();
 
+  const handleClose = () => goBack();
+
   return (
     <MainLayout>
       <View style={styles.contentWrapper}>
-        <View style={styles.headerContainer}>
-          <TouchableOpacity onPress={() => goBack()}>
-            <ArrowBack />
-          </TouchableOpacity>
-
-          <Text style={styles.headerTitle}>About Us</Text>
-        </View>
+        <BackButtonHeader title="About Us" onPress={handleClose} />
 
         <View style={styles.contentContainer}>
           <Text style={styles.screenTitle}>Simplify. Organize. Conquer.</Text>

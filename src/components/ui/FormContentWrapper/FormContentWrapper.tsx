@@ -19,7 +19,7 @@ export const FormContentWrapper: FC<PropsWithChildren<Props>> = ({
   return (
     <View style={styles.contentWrapper}>
       <View style={styles.titleWrapper}>
-        <Text style={styles.title}>{title}</Text>
+        {title && <Text style={styles.title}>{title}</Text>}
         {onDeletePress && (
           <TouchableOpacity onPress={onDeletePress} style={styles.deleteButton}>
             <Trash color={COLORS.RED} height={26} width={24} />

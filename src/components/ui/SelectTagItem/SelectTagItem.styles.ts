@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
 
-const styles = (color: string) =>
+const styles = (color: string, isSettings?: boolean) =>
   StyleSheet.create({
     container: {
       paddingVertical: 12,
@@ -12,14 +12,15 @@ const styles = (color: string) =>
       borderBottomColor: COLORS.INPUT_BG,
     },
     dot: {
-      marginHorizontal: 16,
+      marginHorizontal: isSettings ? 0 : 16,
+      marginRight: 16,
       width: 12,
       height: 12,
       borderRadius: 6,
       backgroundColor: color,
     },
     text: {
-      color: COLORS.BG,
+      color: isSettings ? COLORS.WHITE : COLORS.BG,
       fontSize: 18,
       flexGrow: 1,
     },

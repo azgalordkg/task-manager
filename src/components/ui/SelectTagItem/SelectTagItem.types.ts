@@ -3,6 +3,7 @@ export interface Props {
   onEditPress: () => void;
   checked: boolean;
   color?: string;
+  isSettings?: boolean;
   title: string;
   isDefault?: boolean;
 }

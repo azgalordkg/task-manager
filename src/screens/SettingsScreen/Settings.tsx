@@ -25,7 +25,9 @@ export const Settings: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
         <BackButtonHeader title="Settings" onPress={onBackPressHandler} />
 
         <View style={styles.listWrapper}>
-          <MenuItem onPress={() => {}}>Tags</MenuItem>
+          <MenuItem onPress={() => navigation.navigate('TagsSettings')}>
+            Tags
+          </MenuItem>
           <MenuItem onPress={() => {}}>Language</MenuItem>
           <MenuItem onPress={() => {}}>Theme</MenuItem>
           <MenuItem
@@ -34,7 +36,6 @@ export const Settings: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
             isSwitcher>
             Notifications
           </MenuItem>
-          <MenuItem onPress={() => {}}>Theme</MenuItem>
           <MenuItem
             onPress={() => {
               navigation.navigate('AboutUs');
