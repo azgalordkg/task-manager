@@ -59,13 +59,14 @@ export const createTask = (data: CreateTaskData) => {
   }
 };
 
-export const findOneTask = (_id: string): TasksResponseItem | undefined => {
+export const findOneTask = (_id: string): TasksResponseItem => {
   if (realm) {
     const tasks = realm
       .objects('Task')
       .filtered('_id == $0', _id) as unknown as TasksResponseItem[];
     return tasks[0];
   }
+  return {} as TasksResponseItem;
 };
 
 export const updateTask = ({

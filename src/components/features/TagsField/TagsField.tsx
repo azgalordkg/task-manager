@@ -23,7 +23,7 @@ export const TagsField: FC<Props> = ({ onAddPress }) => {
     if (selectedTags) {
       fetchTags();
 
-      const filtered = allTags.filter(tag => selectedTags.includes(tag._id));
+      const filtered = allTags.filter(({ _id }) => selectedTags.includes(_id));
       setTags(filtered);
     }
   }, [selectedTags]);

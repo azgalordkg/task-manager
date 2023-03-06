@@ -4,9 +4,8 @@ import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 
 import { ArrowBack, Edit } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
-import { CustomButton, TextBlank } from '@/components/ui';
+import { CustomButton, Tag, TextBlank } from '@/components/ui';
 import { ConfirmModal } from '@/components/ui/ConfirmModal';
-import { Tag } from '@/components/ui/Tag';
 import { COLORS } from '@/constants';
 import { useTagManageContext, useTaskModalContext } from '@/context/hooks';
 import { deleteOneTask, findOneTask } from '@/services/realm';
@@ -17,7 +16,7 @@ import styles from './TaskScreen.styles';
 
 export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
   const id = route?.params?.id;
-  const task = findOneTask(id);
+  const { startDate, endDate, tags, name, description } = findOneTask(id);
   const { fetchList } = useTaskModalContext();
   const { tags: allTags } = useTagManageContext();
 
@@ -33,10 +32,6 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
     fetchList();
     navigation.goBack();
   };
-
-  const startDate = task?.startDate;
-  const endDate = task?.endDate;
-  const tags = task?.tags;
 
   const onEditPressHandler = () => {
     navigation.navigate('CreateTask', { id });
@@ -68,11 +63,11 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
       <View style={styles.taskContentWrapper}>
         <View style={styles.taskTitleWrapper}>
           <View style={styles.taskTitleTagsContainer}>
-            <Text style={styles.taskTitle}>{task?.name}</Text>
+            <Text style={styles.taskTitle}>{name}</Text>
             {Boolean(tagsForRender.length) && (
               <View style={styles.taskTagsContainer}>
-                {tagsForRender?.map(({ name, color }) => (
-                  <Tag key={name} name={name} bgColor={color} />
+                {tagsForRender?.map(({ name: taskName, color }) => (
+                  <Tag key={name} name={taskName} bgColor={color} />
                 ))}
               </View>
             )}
@@ -98,8 +93,8 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
         </View>
 
         <View style={styles.descriptionWrapper}>
-          {task?.description ? (
-            <Text style={styles.taskDescription}>{task.description}</Text>
+          {description ? (
+            <Text style={styles.taskDescription}>{description}</Text>
           ) : (
             <TextBlank>No description</TextBlank>
           )}

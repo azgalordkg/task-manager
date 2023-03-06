@@ -19,4 +19,5 @@ export * from './Loader';
 export * from './ModalWrapper';
 export * from './Select';
 export * from './SelectTagItem';
+export * from './Tag';
 export * from './TextBlank';
