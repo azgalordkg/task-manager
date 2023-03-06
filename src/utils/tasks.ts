@@ -26,7 +26,10 @@ export const sortTasksByDate = (tasks: Realm.Results<Realm.Object> | any[]) => {
   return tasksByDays;
 };
 
-export const sortTasksForRender = (tasks: TasksList) => {
+export const sortTasksForRender = (tasks?: TasksList) => {
+  if (!tasks) {
+    return [];
+  }
   return Object.keys(tasks).sort(
     (a, b) => new Date(Number(a)).getTime() - new Date(Number(b)).getTime(),
   );

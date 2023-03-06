@@ -78,7 +78,7 @@ export const ListItem: FC<ListItemProps> = ({
 
   const onCheckPressHandler = () => {
     vibrate();
-    onCheckPress(id, isDone ? 0 : 1);
+    onCheckPress(id, Boolean(!isDone));
     fetchList();
   };
 

@@ -1,6 +1,6 @@
 import { isEqual } from 'lodash';
-import React, { FC } from 'react';
-import { FlatList, View } from 'react-native';
+import React, { FC, memo } from 'react';
+import { View } from 'react-native';
 
 import { MemoizedListItem } from '@/components/ui';
 import { deleteOne, markTaskAsDone } from '@/services';
@@ -19,14 +19,9 @@ export const AccordionContent: FC<Props> = ({
 }) => {
   return (
     <>
-      <FlatList
-        data={content}
-        contentInsetAdjustmentBehavior="automatic"
-        renderItem={({
-          item: { hasDeadline, startDate, endDate, isDone, _id, name },
-          index,
-        }) => (
-          <View style={styles.contentContainer}>
+      {content.map(
+        ({ hasDeadline, startDate, endDate, isDone, _id, name }, index) => (
+          <View key={_id} style={styles.contentContainer}>
             <MemoizedListItem
               hasDeadline={Boolean(hasDeadline)}
               onEditPress={onEditPress}
@@ -42,14 +37,13 @@ export const AccordionContent: FC<Props> = ({
               isLast={index + 1 === content.length}
             />
           </View>
-        )}
-        keyExtractor={({ _id }) => _id}
-      />
+        ),
+      )}
     </>
   );
 };
 
-export const MemoizedAccordionContent = React.memo(
+export const MemoizedAccordionContent = memo(
   AccordionContent,
   customComparator,
 );

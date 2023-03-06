@@ -1,32 +1,34 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import Accordion from 'react-native-collapsible/Accordion';
 
-import { MemoizedAccordionContent } from '@/components/ui/AccordionContent';
-import { AccordionHeader } from '@/components/ui/AccordionHeader';
-import { Loader } from '@/components/ui/Loader';
+import {
+  AccordionHeader,
+  Loader,
+  MemoizedAccordionContent,
+} from '@/components/ui';
 import { sortTasksForRender } from '@/utils';
 
 import styles from './TaskList.styles';
 import { Props } from './TaskList.types';
 
-export const TaskList: FC<Props> = ({ list, onItemPress, onEditPress }) => {
-  const sections = () => {
-    return (
-      list &&
-      sortTasksForRender(list).map((dateKey, index) => {
-        return {
-          id: index,
-          title: dateKey,
-          content: list[dateKey],
-        };
-      })
-    );
-  };
-
-  const sectionsList = sections() || [];
-
+export const TaskList: FC<Props> = ({
+  list = {},
+  onItemPress,
+  onEditPress,
+}) => {
   const [activeSection, setActiveSection] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filled, setFilled] = useState(false);
+
+  const sectionsList = useMemo(
+    () =>
+      sortTasksForRender(list).map((date, index) => ({
+        id: index,
+        title: date,
+        content: list[date],
+      })),
+    [list],
+  );
 
   const fillActiveSection = () => {
     return sectionsList?.forEach((sectionsItem, index) => {
@@ -34,14 +36,17 @@ export const TaskList: FC<Props> = ({ list, onItemPress, onEditPress }) => {
       const isToday = itemDate === new Date().getDay();
 
       if (isToday) {
-        return setActiveSection([index]);
+        setActiveSection([index]);
+        setFilled(true);
       }
     });
   };
 
   useEffect(() => {
-    fillActiveSection();
-  }, [list]);
+    if (!filled) {
+      fillActiveSection();
+    }
+  }, [list, filled]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -49,38 +54,32 @@ export const TaskList: FC<Props> = ({ list, onItemPress, onEditPress }) => {
     }, 500);
   }, []);
 
-  const handleClickSections = (activeSections: number[]) => {
-    setActiveSection(activeSections);
-  };
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
-    <>
-      {loading ? (
-        <Loader />
-      ) : (
-        <Accordion
-          sections={sectionsList}
-          activeSections={activeSection}
-          renderHeader={section => (
-            <AccordionHeader
-              activeSection={activeSection}
-              id={section.id}
-              title={section.title}
-              isContent={!!section.content.length}
-            />
-          )}
-          renderContent={section => (
-            <MemoizedAccordionContent
-              content={section.content}
-              onItemPress={onItemPress}
-              onEditPress={onEditPress}
-            />
-          )}
-          onChange={handleClickSections}
-          expandMultiple={true}
-          containerStyle={styles.containerStyle}
+    <Accordion
+      sections={sectionsList}
+      activeSections={activeSection}
+      renderHeader={section => (
+        <AccordionHeader
+          activeSection={activeSection}
+          id={section.id}
+          title={section.title}
+          isContent={!!section.content.length}
         />
       )}
-    </>
+      renderContent={section => (
+        <MemoizedAccordionContent
+          content={section.content}
+          onItemPress={onItemPress}
+          onEditPress={onEditPress}
+        />
+      )}
+      onChange={setActiveSection}
+      expandMultiple={true}
+      containerStyle={styles.containerStyle}
+    />
   );
 };

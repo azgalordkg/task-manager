@@ -10,13 +10,9 @@ export const AccordionHeader: FC<Props> = ({
   title,
   isContent,
 }) => {
-  const status = () => {
-    if (isContent) {
-      return (activeSection.includes(id) && 'Hide') || 'Show';
-    }
+  const status = isContent
+    ? (activeSection.includes(id) && 'Hide') || 'Show'
+    : '';
 
-    return '';
-  };
-
-  return <DayBlock accordionStatus={status()} key={title} date={title} />;
+  return <DayBlock accordionStatus={status} key={title} date={title} />;
 };
