@@ -7,7 +7,7 @@ import { Plus } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { COLORS } from '@/constants';
 import { useTaskModalContext } from '@/context/hooks';
-import { updateDailyTasks } from '@/services';
+import { updateRecurringTasks } from '@/services';
 import { ScreenProps } from '@/types';
 
 import styles from './HomeScreen.styles';
@@ -25,7 +25,7 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
 
   useEffect(() => {
     if (Object.keys(taskList).length && !dailyTasksUpdated) {
-      updateDailyTasks(taskList);
+      updateRecurringTasks(taskList);
       fetchList();
       setDailyTasksUpdated(true);
     }
