@@ -4,8 +4,12 @@ import { useForm } from 'react-hook-form';
 import { Text, View } from 'react-native';
 
 import { DismissKeyboard } from '@/components/features';
-import { ColorSelect, FormContentWrapper, Input } from '@/components/ui';
-import { ConfirmModal } from '@/components/ui/ConfirmModal';
+import {
+  ColorSelect,
+  ConfirmModal,
+  FormContentWrapper,
+  Input,
+} from '@/components/ui';
 import { AVAILABLE_COLORS } from '@/constants';
 import { createTagFormSchema } from '@/constants/validation';
 import { useTagManageContext } from '@/context/hooks';

@@ -35,11 +35,15 @@ export const ListItem: FC<ListItemProps> = ({
   hasDeadline,
   id,
   isDone,
+  repeat,
 }) => {
   const style = styles({ isLast, checked });
   const swipeRef = useRef<Swipeable | null>(null);
   const [swiping, setSwiping] = useState(false);
+  const isRecurring = repeat ? repeat !== 'Never' : false;
+
   const { fetchList } = useTaskModalContext();
+
   const closeSwiper = () => {
     if (swipeRef) {
       swipeRef.current?.close();
@@ -59,8 +63,10 @@ export const ListItem: FC<ListItemProps> = ({
     });
 
     const handleDeletePress = () => {
-      onDeletePress(id);
-      fetchList();
+      onDeletePress(id, isRecurring);
+      if (!isRecurring) {
+        fetchList();
+      }
       vibrate('selection');
     };
 
@@ -89,7 +95,7 @@ export const ListItem: FC<ListItemProps> = ({
 
   const onEasyRemovePress = () => {
     vibrate();
-    onDeletePress(id);
+    onDeletePress(id, isRecurring);
     fetchList();
   };
 
@@ -140,7 +146,7 @@ export const ListItem: FC<ListItemProps> = ({
               )}
             </View>
           </View>
-          {checked && (
+          {checked && !isRecurring && (
             <View style={style.deleteBtnWrapper}>
               <TouchableOpacity
                 onPress={onEasyRemovePress}

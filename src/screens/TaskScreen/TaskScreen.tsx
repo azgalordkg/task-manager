@@ -4,8 +4,7 @@ import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 
 import { ArrowBack, Edit } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
-import { CustomButton, Tag, TextBlank } from '@/components/ui';
-import { ConfirmModal } from '@/components/ui/ConfirmModal';
+import { ConfirmModal, CustomButton, Tag, TextBlank } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useTagManageContext, useTaskModalContext } from '@/context/hooks';
 import { deleteOneTask, findOneTask } from '@/services/realm';

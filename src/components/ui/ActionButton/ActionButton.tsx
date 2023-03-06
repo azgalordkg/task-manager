@@ -22,7 +22,7 @@ export const ActionButton: FC<Props> = ({
         style={{ ...styles.buttonsContainer, backgroundColor }}>
         <Animated.View
           style={{ transform: [{ scale }], ...styles.buttonsContainer }}>
-          <Icon color={COLORS.WHITE} width={25} height={25} />
+          <Icon color={COLORS.WHITE} width={20} height={20} />
         </Animated.View>
       </TouchableOpacity>
     </View>
