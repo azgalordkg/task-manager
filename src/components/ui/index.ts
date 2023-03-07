@@ -11,6 +11,8 @@ export * from './CustomCheckbox';
 export * from './CustomDatePicker';
 export * from './DashedButton';
 export * from './DayBlock';
+export * from './DocumentsContent';
+export * from './DocumentsHeader';
 export * from './FormContentWrapper';
 export * from './Header';
 export * from './Input';
