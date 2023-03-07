@@ -5,4 +5,5 @@ export interface Props {
   title: string;
   onItemPress: (id: string) => void;
   onEditPress: (id: string) => void;
+  onDeletePress: (id: string, isRecurring: boolean) => void;
 }

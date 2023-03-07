@@ -5,7 +5,7 @@ import { View } from 'react-native';
 
 import { QuickTask } from '@/components/features';
 import { MemoizedListItem } from '@/components/ui';
-import { deleteOneTask, markTaskAsDone } from '@/services';
+import { markTaskAsDone } from '@/services';
 
 import styles from './AccordionContent.styles';
 import { Props } from './AccordionContent.types';
@@ -19,6 +19,7 @@ export const AccordionContent: FC<Props> = ({
   title,
   onEditPress,
   onItemPress,
+  onDeletePress,
 }) => {
   const isShowButton =
     moment(+title).isSame(moment(), 'day') ||
@@ -28,7 +29,7 @@ export const AccordionContent: FC<Props> = ({
     <>
       {content.map(
         (
-          { hasDeadline, startDate, endDate, isDone, _id, name, tags },
+          { hasDeadline, startDate, endDate, isDone, _id, name, tags, repeat },
           index,
         ) => (
           <View key={_id} style={styles.contentContainer}>
@@ -40,9 +41,10 @@ export const AccordionContent: FC<Props> = ({
               startDate={startDate}
               endDate={endDate}
               onCheckPress={markTaskAsDone}
-              onDeletePress={deleteOneTask}
+              onDeletePress={onDeletePress}
               isDone={isDone}
               id={_id}
+              repeat={repeat}
               name={name}
               checked={Boolean(isDone)}
               isLast={index + 1 === content.length}

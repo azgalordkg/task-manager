@@ -3,9 +3,12 @@ import Accordion from 'react-native-collapsible/Accordion';
 
 import {
   AccordionHeader,
+  ConfirmModal,
   Loader,
   MemoizedAccordionContent,
 } from '@/components/ui';
+import { useTaskModalContext } from '@/context/hooks';
+import { deleteOneTask } from '@/services';
 import { sortTasksForRender } from '@/utils';
 
 import styles from './TaskList.styles';
@@ -18,6 +21,10 @@ export const TaskList: FC<Props> = ({
 }) => {
   const [activeSection, setActiveSection] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [deleteId, setDeleteId] = useState('');
+
+  const { fetchList } = useTaskModalContext();
 
   const sectionsList = useMemo(
     () =>
@@ -54,28 +61,61 @@ export const TaskList: FC<Props> = ({
     return <Loader />;
   }
 
+  const handleShowModal = () => {
+    setDeleteId('');
+    setConfirmModalVisible(!confirmModalVisible);
+  };
+
+  const handleDeletePress = (id: string, isRecurring: boolean) => {
+    if (isRecurring) {
+      handleShowModal();
+      setDeleteId(id);
+    } else {
+      deleteOneTask(id);
+    }
+  };
+
+  const handleDeleteTask = () => {
+    if (deleteId) {
+      deleteOneTask(deleteId);
+    }
+    fetchList();
+    handleShowModal();
+  };
+
   return (
-    <Accordion
-      sections={sectionsList}
-      activeSections={activeSection}
-      renderHeader={section => (
-        <AccordionHeader
-          activeSection={activeSection}
-          id={section.id}
-          title={section.title}
-        />
-      )}
-      renderContent={section => (
-        <MemoizedAccordionContent
-          title={section.title}
-          content={section.content}
-          onItemPress={onItemPress}
-          onEditPress={onEditPress}
-        />
-      )}
-      onChange={setActiveSection}
-      expandMultiple={true}
-      containerStyle={styles.containerStyle}
-    />
+    <>
+      <Accordion
+        sections={sectionsList}
+        activeSections={activeSection}
+        renderHeader={section => (
+          <AccordionHeader
+            activeSection={activeSection}
+            id={section.id}
+            title={section.title}
+          />
+        )}
+        renderContent={section => (
+          <MemoizedAccordionContent
+            title={section.title}
+            content={section.content}
+            onDeletePress={handleDeletePress}
+            onItemPress={onItemPress}
+            onEditPress={onEditPress}
+          />
+        )}
+        onChange={setActiveSection}
+        expandMultiple={true}
+        containerStyle={styles.containerStyle}
+      />
+      <ConfirmModal
+        title="Confirm Deletion"
+        confirmButtonLabel="Delete"
+        description="Are you sure you want to delete this task?"
+        visible={confirmModalVisible}
+        onPressConfirm={handleDeleteTask}
+        onPressDismiss={handleShowModal}
+      />
+    </>
   );
 };
