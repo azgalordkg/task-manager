@@ -12,13 +12,8 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     flex: 1,
   },
-  icon: {
-    color: COLORS.WHITE,
-    fontSize: 22,
-    lineHeight: 20,
-    fontWeight: '600',
-  },
   update: {
+    paddingBottom: 20,
     color: COLORS.WHITE,
     fontSize: 12,
   },

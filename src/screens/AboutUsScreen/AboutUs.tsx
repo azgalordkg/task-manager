@@ -42,8 +42,13 @@ export const AboutUs: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
           </Text>
 
           <View style={styles.footerContainer}>
-            <MenuItem onPress={() => {}}>Privacy Policy</MenuItem>
-            <MenuItem onPress={() => navigation.navigate('TermsOfUse')}>
+            <MenuItem
+              onPress={() =>
+                navigation.navigate('Documents', { isPrivacyPolicy: true })
+              }>
+              Privacy Policy
+            </MenuItem>
+            <MenuItem onPress={() => navigation.navigate('Documents')}>
               Terms of use
             </MenuItem>
           </View>
