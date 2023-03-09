@@ -31,7 +31,7 @@ export const TaskList: FC<Props> = ({
       sortTasksForRender(list).map((date, index) => ({
         id: index,
         title: date,
-        content: list[date],
+        content: list[date].sort((a, b) => +a.isDone - +b.isDone),
       })),
     [list],
   );
