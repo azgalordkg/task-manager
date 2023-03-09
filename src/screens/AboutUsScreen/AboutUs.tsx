@@ -5,10 +5,11 @@ import { Text, View } from 'react-native';
 import { MainLayout } from '@/components/layouts';
 import { BackButtonHeader, BreakLine, MenuItem } from '@/components/ui';
 import { COLORS } from '@/constants';
+import { ScreenProps } from '@/types';
 
 import styles from './AboutUs.styles';
 
-export const AboutUs: FC = () => {
+export const AboutUs: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
   const { goBack } = useNavigation();
 
   const handleClose = () => goBack();
@@ -42,7 +43,9 @@ export const AboutUs: FC = () => {
 
           <View style={styles.footerContainer}>
             <MenuItem onPress={() => {}}>Privacy Policy</MenuItem>
-            <MenuItem onPress={() => {}}>Terms of use</MenuItem>
+            <MenuItem onPress={() => navigation.navigate('TermsOfUse')}>
+              Terms of use
+            </MenuItem>
           </View>
         </View>
       </View>

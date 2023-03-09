@@ -8,7 +8,7 @@ export * from './Cross';
 export * from './Edit';
 export * from './Info';
 export * from './Logo';
-export * from './Menu';
+export * from './Minus';
 export * from './Plus';
 export * from './Repeat';
 export * from './Setting';
