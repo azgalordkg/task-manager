@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   },
   title: {
     flexGrow: 1,
+    maxWidth: '95%',
     color: COLORS.WHITE,
     fontSize: 16,
     fontWeight: '600',
