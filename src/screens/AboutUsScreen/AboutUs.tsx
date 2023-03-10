@@ -41,8 +41,12 @@ export const AboutUs: FC = () => {
           </Text>
 
           <View style={styles.footerContainer}>
-            <MenuItem onPress={() => {}}>Privacy Policy</MenuItem>
-            <MenuItem onPress={() => {}}>Terms of use</MenuItem>
+            <MenuItem isArrow onPress={() => {}}>
+              Privacy Policy
+            </MenuItem>
+            <MenuItem isArrow onPress={() => {}}>
+              Terms of use
+            </MenuItem>
           </View>
         </View>
       </View>

@@ -6,3 +6,4 @@ export * from './ManageTagsScreen';
 export * from './SettingsScreen';
 export * from './TagsSettingsScreen';
 export * from './TaskScreen';
+export * from './Theme';

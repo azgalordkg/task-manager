@@ -1,29 +1,20 @@
 import * as React from 'react';
 import { FC } from 'react';
-import Svg, { ClipPath, Defs, G, Path } from 'react-native-svg';
-
-import { COLORS } from '@/constants';
+import Svg, { Path } from 'react-native-svg';
 
 import { Props } from './Checkmark.types';
 
-export const Checkmark: FC<Props> = ({ color, checked, ...props }) => (
+export const Checkmark: FC<Props> = ({ color, height, width, ...props }) => (
   <Svg
-    width={512}
-    height={512}
+    width={width || 16}
+    height={height || 16}
+    viewBox="0 0 16 16"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 512 512"
     {...props}>
-    <G clipPath="url(#a)" fill={color || COLORS.WHITE}>
-      <Path d="M384 42.667c47.061 0 85.333 38.272 85.333 85.333v256c0 47.061-38.272 85.333-85.333 85.333H128c-47.061 0-85.333-38.272-85.333-85.333V128c0-47.061 38.272-85.333 85.333-85.333h256ZM384 0H128C57.301 0 0 57.301 0 128v256c0 70.699 57.301 128 128 128h256c70.699 0 128-57.301 128-128V128C512 57.301 454.699 0 384 0Z" />
-      {checked && (
-        <Path d="M212.416 362.667c-5.397 0-10.773-2.048-14.933-6.102l-60.95-59.733c-8.405-8.235-8.533-21.739-.298-30.165 8.256-8.427 21.781-8.534 30.165-.32l46.016 45.12 137.429-134.699c8.427-8.235 21.931-8.149 30.166.299 8.256 8.405 8.128 21.93-.278 30.165L227.349 356.565c-4.16 4.054-9.536 6.102-14.933 6.102Z" />
-      )}
-    </G>
-    <Defs>
-      <ClipPath id="a">
-        <Path fill="#fff" d="M0 0h512v512H0z" />
-      </ClipPath>
-    </Defs>
+    <Path
+      d="M5.14251 14.2513C4.80514 14.2513 4.46912 14.1313 4.20909 13.8938L0.399432 10.3935C-0.125947 9.91096 -0.133947 9.11964 0.380764 8.62585C0.896808 8.13205 1.74221 8.1258 2.26626 8.60709L5.14251 11.2511L13.7326 3.35789C14.2593 2.87535 15.1034 2.88035 15.6181 3.37539C16.1341 3.86794 16.1261 4.6605 15.6007 5.14304L6.07592 13.8938C5.8159 14.1313 5.47987 14.2513 5.14251 14.2513Z"
+      fill={color}
+    />
   </Svg>
 );

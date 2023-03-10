@@ -58,6 +58,26 @@ export const COLORS = {
   QUICK_TASK_BUTTON: '#3F3F3F',
 };
 
+export const DARK_COLORS = {
+  WHITE: '#FFFFFF',
+  WHITE_BG: '#353535',
+  GREY_BG: '#2A2A2A',
+  GREY: '#b9b9b9',
+  LIGHT_GREY: '#6a6a6a',
+  PLACEHOLDER: '#989898',
+  LIGHT_BREAK_LINE: '#2F2F2F',
+  INPUT_BG: '#F5F5F5',
+  BUTTON_BG: '#F2F2F2',
+  BG: '#ffffff',
+  RED: RED_COLORS.THIRD,
+  BLUE: BLUE_COLORS.THIRD,
+  ORANGE: YELLOW_COLORS.THIRD,
+  DARK_GREEN: '#3DB39E',
+  WHITE_GREEN: '#74E6CF',
+  LIGHT_GREEN: '#9ED9CF',
+  QUICK_TASK_BUTTON: '#3F3F3F',
+};
+
 export const AVAILABLE_COLORS = [
   ...Object.values(RED_COLORS),
   ...Object.values(PURPLE_COLORS),

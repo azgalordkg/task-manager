@@ -4,7 +4,7 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { View } from 'react-native';
 
 import { DismissKeyboard } from '@/components/features';
-import { Checkmark } from '@/components/icons';
+import { Checkbox } from '@/components/icons';
 import { CustomButton, Input } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
@@ -48,7 +48,7 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
   return (
     <DismissKeyboard>
       <View style={styles.container}>
-        <Checkmark width={32} height={32} color={COLORS.QUICK_TASK_BUTTON} />
+        <Checkbox width={32} height={32} color={COLORS.QUICK_TASK_BUTTON} />
 
         <View style={styles.inputContainer}>
           <Input

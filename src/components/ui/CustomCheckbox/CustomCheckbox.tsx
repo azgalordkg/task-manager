@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { TouchableOpacity } from 'react-native';
 
-import { Checkmark } from '@/components/icons';
+import { Checkbox } from '@/components/icons';
 import { COLORS } from '@/constants';
 
 import { Props } from './CustomCheckbox.types';
@@ -15,7 +15,7 @@ export const CustomCheckbox: FC<Props> = ({
 }) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <Checkmark
+      <Checkbox
         color={checked ? checkedColor : defaultColor}
         checked={checked}
         width={size}
