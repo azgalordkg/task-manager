@@ -2,6 +2,8 @@ import { format } from 'date-fns';
 import React, { FC, PropsWithChildren } from 'react';
 import { Text, View } from 'react-native';
 
+import { useThemeContext } from '@/context/hooks';
+
 import styles from './DayBlock.styles';
 import { Props } from './DayBlock.types';
 
@@ -12,7 +14,8 @@ export const DayBlock: FC<PropsWithChildren<Props>> = ({
 }) => {
   const currentDate = date ? new Date(Number(date)) : new Date();
   const isToday = currentDate?.getDay() === new Date().getDay();
-  const style = styles({ isToday });
+  const { theme } = useThemeContext();
+  const style = styles({ isToday, theme });
 
   return (
     <View style={style.container}>

@@ -3,12 +3,12 @@ import { useContext } from 'react';
 import { ThemeProviderContext } from '../providers';
 
 export const useThemeContext = () => {
-  const { activeTheme, themeHandleChange, colorScheme } =
+  const { activeTheme, themeHandleChange, theme } =
     useContext(ThemeProviderContext);
 
   return {
     activeTheme,
     themeHandleChange,
-    colorScheme,
+    theme,
   };
 };

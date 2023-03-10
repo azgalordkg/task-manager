@@ -1,24 +1,25 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
+import { SchemeType } from '@/types';
 
-const styles = StyleSheet.create({
-  contentWrapper: {
-    paddingTop: 30,
-    paddingBottom: 50,
-    flex: 1,
-  },
-  buttonWrapper: {
-    backgroundColor: COLORS.BLUE,
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    bottom: 20,
-    right: 15,
-  },
-});
+const styles = (theme: SchemeType) =>
+  StyleSheet.create({
+    contentWrapper: {
+      paddingTop: 30,
+      paddingBottom: 50,
+      flex: 1,
+    },
+    buttonWrapper: {
+      backgroundColor: theme.BUTTONS_ACCENT,
+      width: 70,
+      height: 70,
+      borderRadius: 35,
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      bottom: 20,
+      right: 15,
+    },
+  });
 
 export default styles;

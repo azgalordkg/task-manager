@@ -5,8 +5,11 @@ import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { TaskList } from '@/components/features';
 import { Plus } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
-import { COLORS } from '@/constants';
-import { useTagManageContext, useTaskModalContext } from '@/context/hooks';
+import {
+  useTagManageContext,
+  useTaskModalContext,
+  useThemeContext,
+} from '@/context/hooks';
 import { updateRecurringTasks } from '@/services';
 import { ScreenProps } from '@/types';
 
@@ -17,6 +20,9 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
   const { fetchTags } = useTagManageContext();
   const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);
   const isFocused = useIsFocused();
+
+  const { theme } = useThemeContext();
+  const style = styles(theme);
 
   useEffect(() => {
     if (isFocused) {
@@ -51,7 +57,7 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
   return (
     <MainLayout withHeader navigation={navigation}>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View style={styles.contentWrapper}>
+        <View style={style.contentWrapper}>
           <TaskList
             onItemPress={handleItemPress}
             onEditPress={handleEditPress}
@@ -61,8 +67,8 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
       </ScrollView>
 
       <TouchableOpacity onPress={handleCreatePress} activeOpacity={0.75}>
-        <View style={styles.buttonWrapper}>
-          <Plus color={COLORS.BLACK_DARK} width={20} height={20} />
+        <View style={style.buttonWrapper}>
+          <Plus color={theme.BACKGROUND_PRIMARY} width={20} height={20} />
         </View>
       </TouchableOpacity>
     </MainLayout>

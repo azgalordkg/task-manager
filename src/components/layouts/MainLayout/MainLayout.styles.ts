@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-import { schemeType } from '@/types/scheme';
+import { SchemeType } from '@/types';
 
-const styles = (colorScheme: schemeType) =>
+const styles = (theme: SchemeType) =>
   StyleSheet.create({
     backgroundStyle: {
-      backgroundColor: colorScheme.BLACK_DARK,
+      backgroundColor: theme.BACKGROUND_PRIMARY,
       height: '100%',
     },
     mainWrapper: {
@@ -13,7 +13,7 @@ const styles = (colorScheme: schemeType) =>
     },
     contentWrapper: {
       flex: 1,
-      backgroundColor: colorScheme.BLACK_DARK,
+      backgroundColor: theme.BACKGROUND_PRIMARY,
     },
   });
 

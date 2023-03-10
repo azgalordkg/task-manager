@@ -1,5 +1,5 @@
-import { COLORS } from '@/constants';
+import { LIGHT_SCHEMA } from '@/constants';
 
-export type colorsKeys = keyof typeof COLORS;
+export type colorsKeys = keyof typeof LIGHT_SCHEMA;
 
-export type schemeType = Record<colorsKeys, string>;
+export type SchemeType = Record<colorsKeys, string>;

@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { useColorScheme } from 'react-native';
 
-import { COLORS, DARK_COLORS } from '@/constants';
+import { DARK_SCHEMA, LIGHT_SCHEMA } from '@/constants';
 import { Storage } from '@/utils';
 
 import { ThemeProviderType, themeValue } from './ThemeProvider.types';
@@ -36,11 +36,11 @@ export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
     void getCurrentTheme();
   }, []);
 
-  const colorScheme = activeTheme === 'light' ? COLORS : DARK_COLORS;
+  const theme = activeTheme === 'light' ? LIGHT_SCHEMA : DARK_SCHEMA;
 
   return (
     <ThemeProviderContext.Provider
-      value={{ activeTheme, themeHandleChange, colorScheme }}>
+      value={{ activeTheme, themeHandleChange, theme }}>
       {children}
     </ThemeProviderContext.Provider>
   );
