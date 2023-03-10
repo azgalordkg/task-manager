@@ -15,7 +15,9 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
   isSwitcher,
   onToggleSwitch,
   value,
+  icon = ArrowAngle,
 }) => {
+  const Icon = icon;
   const onValueChangePress = (currentValue: boolean) => {
     vibrate();
     onToggleSwitch?.(currentValue);
@@ -34,7 +36,7 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
             value={value}
           />
         ) : (
-          <ArrowAngle />
+          <Icon />
         )}
       </View>
       <BreakLine color={COLORS.GREY} />
