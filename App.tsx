@@ -10,6 +10,7 @@ import {
   DocumentsScreen,
   HomeScreen,
   ManageTagsScreen,
+  PurchaseScreen,
   Settings,
   TagsSettingsScreen,
   TaskScreen,
@@ -43,6 +44,7 @@ const App: FC = () => {
               <Stack.Screen name="CreateTask" component={CreateTaskScreen} />
               <Stack.Screen name="ManageTags" component={ManageTagsScreen} />
               <Stack.Screen name="CreateTag" component={CreateTagScreen} />
+              <Stack.Screen name="Purchase" component={PurchaseScreen} />
             </Stack.Group>
           </Stack.Navigator>
         </NavigationContainer>

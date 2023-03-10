@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 
+import { Crown } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { BackButtonHeader } from '@/components/ui';
 import { MenuItem } from '@/components/ui/MenuItem';
@@ -41,6 +42,13 @@ export const Settings: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
               navigation.navigate('AboutUs');
             }}>
             About Us
+          </MenuItem>
+          <MenuItem
+            icon={Crown}
+            onPress={() => {
+              navigation.navigate('Purchase');
+            }}>
+            Upgrade
           </MenuItem>
         </View>
       </View>
