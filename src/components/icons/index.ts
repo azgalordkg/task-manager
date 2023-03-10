@@ -8,6 +8,7 @@ export * from './Clock';
 export * from './Cross';
 export * from './Crown';
 export * from './Edit';
+export * from './HashTag';
 export * from './Info';
 export * from './Logo';
 export * from './Minus';

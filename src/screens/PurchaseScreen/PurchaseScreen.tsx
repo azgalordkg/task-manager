@@ -1,14 +1,13 @@
 import React, { FC, useState } from 'react';
 import { Text, View } from 'react-native';
 
-import { CheckmarkEmpty } from '@/components/icons';
 import {
   CustomButton,
   ModalWrapper,
   PurchaseItem,
   PurchasePlan,
 } from '@/components/ui';
-import { COLORS, PURCHASE_PLANS } from '@/constants';
+import { COLORS, PURCHASE_ADVANTAGES, PURCHASE_PLANS } from '@/constants';
 import { ScreenProps } from '@/types';
 
 import styles from './PurchaseScreen.styles';
@@ -29,12 +28,9 @@ export const PurchaseScreen: FC<ScreenProps<'Purchase'>> = ({ navigation }) => {
           </Text>
           <Text style={styles.cancel}>Cancel any time, No Commitments</Text>
           <View style={styles.items}>
-            <PurchaseItem title="Recurring Tasks" />
-            <PurchaseItem title="Unlimited Tag Creation" />
-            <PurchaseItem
-              icon={CheckmarkEmpty}
-              title="Unlimited Daily Planning"
-            />
+            {PURCHASE_ADVANTAGES.map(({ id, title, icon }) => (
+              <PurchaseItem key={id} icon={icon} title={title} />
+            ))}
           </View>
           <View style={styles.planWrapper}>
             {PURCHASE_PLANS.map(({ id, duration, price, description }) => (
