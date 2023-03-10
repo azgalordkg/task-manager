@@ -13,7 +13,8 @@ const styles = ({ isDark, marginBottom, color }: StylesProps) =>
     brakeLine: {
       width: '100%',
       height: 2,
-      backgroundColor: color || (isDark ? COLORS.GREY : COLORS.LIGHT_GREY),
+      backgroundColor:
+        color || (isDark ? COLORS.WHITE_DARK : COLORS.GREY_LIGHT),
       marginBottom: marginBottom || 0,
       alignItems: 'flex-end',
     },

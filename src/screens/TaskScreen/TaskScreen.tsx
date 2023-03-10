@@ -54,7 +54,7 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
             <ArrowBack />
           </TouchableOpacity>
           <TouchableOpacity onPress={onEditPressHandler}>
-            <Edit color={COLORS.WHITE} />
+            <Edit color={COLORS.WHITE_LIGHT} />
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -101,15 +101,12 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
       </View>
 
       <View style={styles.taskButtonContainer}>
-        <CustomButton
-          width={'100%'}
-          bgColor={COLORS.DARK_GREEN}
-          onPress={() => {}}>
+        <CustomButton width={'100%'} bgColor={COLORS.GREEN} onPress={() => {}}>
           Duplicate
         </CustomButton>
         <CustomButton
           width={'100%'}
-          bgColor={COLORS.GREY_BG}
+          bgColor={COLORS.BLACK_MEDIUM}
           textColor={COLORS.RED}
           onPress={handleShowModal}>
           Delete

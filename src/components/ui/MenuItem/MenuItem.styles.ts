@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   text: {
     flexGrow: 1,
-    color: COLORS.WHITE,
+    color: COLORS.WHITE_LIGHT,
     fontSize: 18,
   },
 });

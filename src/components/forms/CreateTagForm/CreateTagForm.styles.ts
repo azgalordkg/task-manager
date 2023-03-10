@@ -4,7 +4,7 @@ import { COLORS } from '@/constants';
 
 const styles = StyleSheet.create({
   colorTitle: {
-    color: COLORS.BG,
+    color: COLORS.BLACK_DARK,
     fontSize: 16,
     marginBottom: 18,
   },

@@ -5,13 +5,13 @@ import { COLORS } from '@/constants';
 const styles = StyleSheet.create({
   input: {
     fontSize: 18,
-    color: COLORS.BG,
+    color: COLORS.BLACK_DARK,
     marginRight: 8,
   },
   label: {
     fontSize: 16,
     marginLeft: 8,
-    color: COLORS.PLACEHOLDER,
+    color: COLORS.WHITE_DARK,
   },
   container: {
     flex: 1,

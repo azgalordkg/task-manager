@@ -11,7 +11,7 @@ export const DashedButton: FC<PropsWithChildren<Props>> = ({
   onPress,
   variant = 'small',
   icon,
-  color = COLORS.LIGHT_GREY,
+  color = COLORS.GREY_LIGHT,
 }) => {
   let height = 32;
   let fontSize = 12;

@@ -9,7 +9,7 @@ const styles = (color: string, isSettings?: boolean) =>
       flexDirection: 'row',
       alignItems: 'center',
       borderBottomWidth: 1,
-      borderBottomColor: COLORS.INPUT_BG,
+      borderBottomColor: COLORS.WHITE_MEDIUM,
     },
     dot: {
       marginHorizontal: isSettings ? 0 : 16,
@@ -20,7 +20,7 @@ const styles = (color: string, isSettings?: boolean) =>
       backgroundColor: color,
     },
     text: {
-      color: isSettings ? COLORS.WHITE : COLORS.BG,
+      color: isSettings ? COLORS.WHITE_LIGHT : COLORS.BLACK_DARK,
       fontSize: 18,
       flexGrow: 1,
     },

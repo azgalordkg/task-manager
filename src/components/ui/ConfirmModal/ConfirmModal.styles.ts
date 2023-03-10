@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.3)',
   },
   modalView: {
-    backgroundColor: COLORS.WHITE,
+    backgroundColor: COLORS.WHITE_LIGHT,
     margin: 20,
     borderRadius: 20,
     padding: 22,
@@ -26,13 +26,13 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   modalTitle: {
-    color: COLORS.BG,
+    color: COLORS.BLACK_DARK,
     fontSize: 20,
     fontWeight: '500',
     marginBottom: 8,
   },
   modalDescription: {
-    color: COLORS.BG,
+    color: COLORS.BLACK_DARK,
     fontSize: 16,
     textAlign: 'center',
     fontWeight: '400',

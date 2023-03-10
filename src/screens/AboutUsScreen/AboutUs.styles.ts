@@ -15,13 +15,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 24,
     lineHeight: 28,
-    color: COLORS.WHITE,
+    color: COLORS.WHITE_LIGHT,
   },
   screenDescription: {
     fontWeight: '500',
     fontSize: 14,
     lineHeight: 26,
-    color: COLORS.WHITE,
+    color: COLORS.WHITE_LIGHT,
   },
   footerContainer: {
     flexGrow: 1,

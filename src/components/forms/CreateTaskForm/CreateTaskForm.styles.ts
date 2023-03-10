@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   },
   dateTitle: {
     fontSize: 18,
-    color: COLORS.BG,
+    color: COLORS.BLACK_DARK,
     marginBottom: 10,
     fontWeight: '500',
   },

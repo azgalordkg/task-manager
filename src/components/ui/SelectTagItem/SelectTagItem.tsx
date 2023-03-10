@@ -23,7 +23,7 @@ export const SelectTagItem: FC<Props> = ({
     <View style={style.container}>
       {!isSettings && (
         <CustomCheckbox
-          defaultColor={COLORS.GREY}
+          defaultColor={COLORS.WHITE_DARK}
           size={26}
           checked={checked}
           onPress={onPress}
@@ -33,7 +33,7 @@ export const SelectTagItem: FC<Props> = ({
       <Text style={style.text}>{title}</Text>
       {!isDefault && (
         <TouchableOpacity onPress={onEditPress} style={style.edit}>
-          <Edit color={COLORS.GREY} width={20} height={20} />
+          <Edit color={COLORS.WHITE_DARK} width={20} height={20} />
         </TouchableOpacity>
       )}
     </View>

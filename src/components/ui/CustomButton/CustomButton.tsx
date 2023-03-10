@@ -9,8 +9,8 @@ import { Props } from './CustomButton.types';
 export const CustomButton: FC<PropsWithChildren<Props>> = ({
   children,
   onPress,
-  bgColor = COLORS.DARK_GREEN,
-  textColor = COLORS.WHITE,
+  bgColor = COLORS.GREEN,
+  textColor = COLORS.WHITE_LIGHT,
   type = 'filled',
   height = 40,
   fullWidth,
@@ -41,7 +41,7 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
       style={style.button}
       onPress={onPress}
       disabled={disabled}>
-      {Icon && <Icon color={COLORS.WHITE} width={14} height={14} />}
+      {Icon && <Icon color={COLORS.WHITE_LIGHT} width={14} height={14} />}
       <Text style={style.text}>{children}</Text>
     </TouchableOpacity>
   );

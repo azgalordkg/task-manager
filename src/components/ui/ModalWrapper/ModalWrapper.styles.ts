@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     flex: 1,
-    backgroundColor: COLORS.WHITE,
+    backgroundColor: COLORS.WHITE_LIGHT,
     padding: 20,
     paddingTop: 15,
     borderTopRightRadius: 25,
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   closer: {
     height: 5,
     width: 65,
-    backgroundColor: COLORS.GREY,
+    backgroundColor: COLORS.WHITE_DARK,
     borderRadius: 3,
   },
   footer: {

@@ -54,10 +54,7 @@ export const PurchaseScreen: FC<ScreenProps<'Purchase'>> = ({ navigation }) => {
             Subscriptions and auto-renewals can be managed via Apple.
           </Text>
         </View>
-        <CustomButton
-          fullWidth
-          bgColor={COLORS.DARK_GREEN}
-          onPress={onSubmitPress}>
+        <CustomButton fullWidth bgColor={COLORS.GREEN} onPress={onSubmitPress}>
           Continue
         </CustomButton>
       </View>

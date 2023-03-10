@@ -62,7 +62,7 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
 
       <TouchableOpacity onPress={handleCreatePress} activeOpacity={0.75}>
         <View style={styles.buttonWrapper}>
-          <Plus color={COLORS.BG} width={20} height={20} />
+          <Plus color={COLORS.BLACK_DARK} width={20} height={20} />
         </View>
       </TouchableOpacity>
     </MainLayout>

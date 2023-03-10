@@ -10,7 +10,7 @@ const styles = ({ isToday }: StyleProps) =>
   StyleSheet.create({
     container: {
       paddingVertical: 20,
-      backgroundColor: COLORS.GREY_BG,
+      backgroundColor: COLORS.BLACK_MEDIUM,
     },
     contentWrapper: {
       paddingHorizontal: 20,
@@ -30,14 +30,14 @@ const styles = ({ isToday }: StyleProps) =>
       width: 60,
       borderRadius: 8,
       marginLeft: 'auto',
-      backgroundColor: COLORS.ORANGE,
+      backgroundColor: COLORS.YELLOW,
     },
     dayWrapper: {
       height: 30,
       width: 80,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: isToday ? COLORS.ORANGE : COLORS.WHITE,
+      backgroundColor: isToday ? COLORS.YELLOW : COLORS.WHITE_LIGHT,
       borderBottomEndRadius: 8,
       borderTopEndRadius: 8,
       marginRight: 12,
@@ -50,19 +50,19 @@ const styles = ({ isToday }: StyleProps) =>
       flexDirection: 'row',
     },
     month: {
-      color: COLORS.WHITE,
+      color: COLORS.WHITE_LIGHT,
       fontWeight: '700',
       fontSize: 18,
     },
     dayOfWeek: {
-      color: COLORS.WHITE,
+      color: COLORS.WHITE_LIGHT,
       fontSize: 18,
     },
     accordionVisibleStatus: {
       fontWeight: '400',
       fontSize: 12,
       lineHeight: 15,
-      color: COLORS.LIGHT_GREY,
+      color: COLORS.GREY_LIGHT,
     },
   });
 

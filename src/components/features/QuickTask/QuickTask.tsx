@@ -23,7 +23,7 @@ export const QuickTask: FC<Props> = ({ date }) => {
       ) : (
         <View style={styles.buttonWrapper}>
           <CustomButton
-            bgColor={COLORS.QUICK_TASK_BUTTON}
+            bgColor={COLORS.GREY_MEDIUM}
             onPress={handleShowInput}
             width="100%"
             icon={Plus}>

@@ -74,7 +74,7 @@ export const ListItem: FC<ListItemProps> = ({
       <>
         <ActionButton icon={Trash} scale={scale} onPress={handleDeletePress} />
         <ActionButton
-          backgroundColor={COLORS.ORANGE}
+          backgroundColor={COLORS.YELLOW}
           icon={Edit}
           scale={scale}
           onPress={() => {

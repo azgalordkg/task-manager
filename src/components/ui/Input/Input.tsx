@@ -20,7 +20,7 @@ export const Input: FC<Props> = ({
   borderColor,
   backgroundColor,
   maxLength,
-  color = COLORS.BG,
+  color = COLORS.BLACK_DARK,
   ...props
 }) => {
   const { field } = useController({
@@ -44,7 +44,7 @@ export const Input: FC<Props> = ({
         errorMessage={errorMessage}
         icon={icon}>
         <TextInput
-          placeholderTextColor={COLORS.PLACEHOLDER}
+          placeholderTextColor={COLORS.WHITE_DARK}
           maxLength={maxLength}
           style={style.input}
           value={value}

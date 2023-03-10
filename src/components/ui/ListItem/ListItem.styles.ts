@@ -24,8 +24,8 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
     container: {
       padding: 12,
       borderRadius: 12,
-      borderBottomColor: COLORS.LIGHT_GREY,
-      backgroundColor: COLORS.WHITE_BG,
+      borderBottomColor: COLORS.GREY_LIGHT,
+      backgroundColor: COLORS.GREY_DARK,
     },
     textWrapper: {
       width: '80%',
@@ -37,12 +37,12 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
     title: {
       fontSize: 18,
       fontWeight: '600',
-      color: COLORS.WHITE,
+      color: COLORS.WHITE_LIGHT,
     },
     time: {
       marginTop: 6,
       fontSize: 14,
-      color: COLORS.GREY,
+      color: COLORS.WHITE_DARK,
     },
     contentWrapper: {
       flexDirection: 'row',
@@ -64,10 +64,10 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
       height: 20,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: COLORS.LIGHT_GREY,
+      backgroundColor: COLORS.GREY_LIGHT,
     },
     outsideBackground: {
-      backgroundColor: COLORS.WHITE_BG,
+      backgroundColor: COLORS.GREY_DARK,
       position: 'absolute',
       height: '100%',
       width: '70%',

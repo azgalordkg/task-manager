@@ -18,7 +18,7 @@ export const Theme: FC<ScreenProps<'Theme'>> = ({ navigation }) => {
   };
 
   const colorHandler = (type: string) => {
-    return activeTheme === type ? COLORS.DARK_GREEN : 'transparent';
+    return activeTheme === type ? COLORS.GREEN : 'transparent';
   };
 
   return (

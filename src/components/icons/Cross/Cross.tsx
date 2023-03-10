@@ -5,7 +5,10 @@ import Svg, { Path } from 'react-native-svg';
 import { COLORS } from '@/constants';
 import { DefaultSvgProps } from '@/types';
 
-export const Cross: FC<DefaultSvgProps> = ({ color = COLORS.BG, ...props }) => (
+export const Cross: FC<DefaultSvgProps> = ({
+  color = COLORS.BLACK_DARK,
+  ...props
+}) => (
   <Svg
     width={15}
     height={15}

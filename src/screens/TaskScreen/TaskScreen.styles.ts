@@ -4,7 +4,7 @@ import { COLORS } from '@/constants';
 
 const styles = StyleSheet.create({
   taskWrapper: {
-    backgroundColor: COLORS.BG,
+    backgroundColor: COLORS.BLACK_DARK,
     height: '100%',
   },
   backButton: {
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   taskDateDay: {
     fontSize: 28,
-    color: COLORS.WHITE,
+    color: COLORS.WHITE_LIGHT,
   },
   taskMonthWeekContainer: {
     flexDirection: 'row',
@@ -58,16 +58,16 @@ const styles = StyleSheet.create({
   },
   taskDateMonth: {
     fontSize: 16,
-    color: COLORS.WHITE,
+    color: COLORS.WHITE_LIGHT,
     fontWeight: '600',
   },
   taskDateWeekday: {
     fontSize: 14,
-    color: COLORS.WHITE,
+    color: COLORS.WHITE_LIGHT,
   },
   taskDatePeriod: {
     fontSize: 12,
-    color: COLORS.WHITE,
+    color: COLORS.WHITE_LIGHT,
   },
   descriptionWrapper: {
     marginTop: 30,

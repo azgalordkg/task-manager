@@ -44,7 +44,7 @@ export const ManageTagsForm: FC<Props> = ({
       }}>
       <View style={styles.container}>
         <DashedButton
-          color={isSettings ? COLORS.WHITE : undefined}
+          color={isSettings ? COLORS.WHITE_LIGHT : undefined}
           icon={Plus}
           variant="large"
           onPress={onCreateTagPress}>

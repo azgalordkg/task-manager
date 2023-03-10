@@ -5,7 +5,7 @@ import { schemeType } from '@/types/scheme';
 const styles = (colorScheme: schemeType) =>
   StyleSheet.create({
     backgroundStyle: {
-      backgroundColor: colorScheme.BG,
+      backgroundColor: colorScheme.BLACK_DARK,
       height: '100%',
     },
     mainWrapper: {
@@ -13,7 +13,7 @@ const styles = (colorScheme: schemeType) =>
     },
     contentWrapper: {
       flex: 1,
-      backgroundColor: colorScheme.BG,
+      backgroundColor: colorScheme.BLACK_DARK,
     },
   });
 

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
   text: {
     marginLeft: 10,
-    color: COLORS.BG,
+    color: COLORS.BLACK_DARK,
     fontSize: 16,
   },
 });

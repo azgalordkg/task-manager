@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginBottom: 4,
     fontSize: 16,
-    color: COLORS.PLACEHOLDER,
+    color: COLORS.WHITE_DARK,
   },
 });
 

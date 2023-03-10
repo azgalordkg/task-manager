@@ -4,10 +4,10 @@ import { COLORS } from '@/constants';
 
 const styles = StyleSheet.create({
   contentContainer: {
-    backgroundColor: COLORS.GREY_BG,
+    backgroundColor: COLORS.BLACK_MEDIUM,
   },
   buttonContainer: {
-    backgroundColor: COLORS.GREY_BG,
+    backgroundColor: COLORS.BLACK_MEDIUM,
     paddingHorizontal: 20,
     paddingBottom: 14,
   },

@@ -8,7 +8,7 @@ const styles = (inputWidth?: string | number) =>
       width: inputWidth || 'auto',
       paddingTop: 12,
       borderRadius: 12,
-      backgroundColor: COLORS.INPUT_BG,
+      backgroundColor: COLORS.WHITE_MEDIUM,
     },
     button: {
       position: 'absolute',
@@ -22,7 +22,7 @@ const styles = (inputWidth?: string | number) =>
       paddingHorizontal: 12,
       marginBottom: -4,
       fontSize: 16,
-      color: COLORS.PLACEHOLDER,
+      color: COLORS.WHITE_DARK,
     },
   });
 

@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     marginRight: 10,
     fontSize: 16,
-    color: COLORS.BG,
+    color: COLORS.BLACK_DARK,
   },
   tagsWrapper: {
     flexDirection: 'row',

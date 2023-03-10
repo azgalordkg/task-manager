@@ -11,7 +11,7 @@ const styles = (height: number, fontSize: number, color?: string) =>
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,
-      borderColor: COLORS.LIGHT_GREEN,
+      borderColor: COLORS.GREEN,
       borderRadius: 6,
       borderStyle: 'dashed',
     },

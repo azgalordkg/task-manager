@@ -30,9 +30,9 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
         <Text style={styles.text}>{children}</Text>
         {isSwitcher ? (
           <Switch
-            trackColor={{ false: COLORS.GREY, true: COLORS.DARK_GREEN }}
-            thumbColor={COLORS.WHITE}
-            ios_backgroundColor={COLORS.GREY}
+            trackColor={{ false: COLORS.WHITE_DARK, true: COLORS.GREEN }}
+            thumbColor={COLORS.WHITE_LIGHT}
+            ios_backgroundColor={COLORS.WHITE_DARK}
             onValueChange={onValueChangePress}
             value={value}
           />
@@ -40,7 +40,7 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
           <Icon color={color} />
         )}
       </View>
-      <BreakLine color={COLORS.GREY} />
+      <BreakLine color={COLORS.WHITE_DARK} />
     </TouchableOpacity>
   );
 };

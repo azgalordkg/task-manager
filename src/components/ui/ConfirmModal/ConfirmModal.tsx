@@ -32,8 +32,8 @@ export const ConfirmModal: FC<Props> = ({
 
           <View style={styles.modalButtonContainer}>
             <CustomButton
-              bgColor={COLORS.BUTTON_BG}
-              textColor={COLORS.BG}
+              bgColor={COLORS.WHITE_MEDIUM}
+              textColor={COLORS.BLACK_DARK}
               width={'48%'}
               onPress={onPressDismiss}>
               {dismissButtonLabel}

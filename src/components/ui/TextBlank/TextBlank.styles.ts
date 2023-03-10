@@ -5,13 +5,13 @@ import { COLORS } from '@/constants';
 const styles = StyleSheet.create({
   wrapper: {
     borderWidth: 1,
-    borderColor: COLORS.QUICK_TASK_BUTTON,
+    borderColor: COLORS.GREY_MEDIUM,
     borderStyle: 'dashed',
     padding: 12,
     borderRadius: 8,
   },
   text: {
-    color: COLORS.PLACEHOLDER,
+    color: COLORS.WHITE_DARK,
     fontSize: 16,
   },
 });

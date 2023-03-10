@@ -30,7 +30,7 @@ export const FormContentWrapper: FC<PropsWithChildren<Props>> = ({
 
       <CustomButton
         fullWidth
-        bgColor={COLORS.DARK_GREEN}
+        bgColor={COLORS.GREEN}
         onPress={onSubmitPress}
         disabled={isSubmitDisabled}>
         {submitTitle}

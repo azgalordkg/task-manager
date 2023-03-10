@@ -36,7 +36,7 @@ export const Select: FC<Props> = ({
           </View>
           <View style={styles.row}>
             <Text style={styles.input}>{field.value as string}</Text>
-            <ArrowAngle color={COLORS.PLACEHOLDER} />
+            <ArrowAngle color={COLORS.WHITE_DARK} />
           </View>
         </View>
       </InputWrapper>

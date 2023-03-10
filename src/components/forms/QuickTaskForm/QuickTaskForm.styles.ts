@@ -6,8 +6,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 12,
     borderRadius: 12,
-    borderBottomColor: COLORS.LIGHT_GREY,
-    backgroundColor: COLORS.WHITE_BG,
+    backgroundColor: COLORS.GREY_DARK,
     flexDirection: 'row',
     columnGap: 14,
   },

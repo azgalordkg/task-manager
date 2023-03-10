@@ -48,7 +48,7 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
   return (
     <DismissKeyboard>
       <View style={styles.container}>
-        <Checkbox width={32} height={32} color={COLORS.QUICK_TASK_BUTTON} />
+        <Checkbox width={32} height={32} color={COLORS.GREY_MEDIUM} />
 
         <View style={styles.inputContainer}>
           <Input
@@ -56,16 +56,16 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
             name="name"
             placeholder="Name *"
             errorMessage={errors.name?.message}
-            borderColor={COLORS.QUICK_TASK_BUTTON}
-            backgroundColor={COLORS.QUICK_TASK_BUTTON}
+            borderColor={COLORS.GREY_MEDIUM}
+            backgroundColor={COLORS.GREY_MEDIUM}
             maxLength={30}
-            color={COLORS.WHITE}
+            color={COLORS.WHITE_LIGHT}
           />
 
           <View style={styles.buttonWrapper}>
             <CustomButton
               width="48%"
-              bgColor={COLORS.QUICK_TASK_BUTTON}
+              bgColor={COLORS.GREY_MEDIUM}
               textColor={COLORS.RED}
               onPress={handleShowInput}>
               Cancel

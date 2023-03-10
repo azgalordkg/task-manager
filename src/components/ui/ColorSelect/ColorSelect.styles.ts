@@ -6,7 +6,7 @@ const styles = (active: boolean, color: string) =>
   StyleSheet.create({
     outer: {
       borderWidth: 2,
-      borderColor: active ? COLORS.BG : color,
+      borderColor: active ? COLORS.BLACK_DARK : color,
       backgroundColor: active ? 'transparent' : color,
       width: 60,
       height: 32,

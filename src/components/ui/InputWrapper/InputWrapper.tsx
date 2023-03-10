@@ -10,8 +10,8 @@ export const InputWrapper: FC<PropsWithChildren<Props>> = ({
   errorMessage,
   icon,
   children,
-  borderColor = COLORS.INPUT_BG,
-  backgroundColor = COLORS.INPUT_BG,
+  borderColor = COLORS.WHITE_MEDIUM,
+  backgroundColor = COLORS.WHITE_MEDIUM,
 }) => {
   const Icon = icon;
   const style = styles(errorMessage, borderColor, backgroundColor);
@@ -20,7 +20,7 @@ export const InputWrapper: FC<PropsWithChildren<Props>> = ({
     <View style={style.wrapper}>
       {Icon && (
         <View style={style.icon}>
-          <Icon color={COLORS.PLACEHOLDER} />
+          <Icon color={COLORS.WHITE_DARK} />
         </View>
       )}
       {children}

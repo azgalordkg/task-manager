@@ -12,7 +12,7 @@ const styles = (containerWidth: number) =>
     iconWrapper: {
       width: 30,
       height: 30,
-      backgroundColor: COLORS.INPUT_BG,
+      backgroundColor: COLORS.WHITE_MEDIUM,
       borderRadius: 15,
       justifyContent: 'center',
       alignItems: 'center',
@@ -21,7 +21,7 @@ const styles = (containerWidth: number) =>
       width: '85%',
       textAlign: 'center',
       fontSize: 12,
-      color: COLORS.BG,
+      color: COLORS.BLACK_DARK,
     },
   });
 

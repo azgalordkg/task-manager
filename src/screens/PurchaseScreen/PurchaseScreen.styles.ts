@@ -19,27 +19,27 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: '600',
-    color: COLORS.BG,
+    color: COLORS.BLACK_DARK,
     marginBottom: 10,
   },
   subTitle: {
     fontSize: 18,
-    color: COLORS.BG,
+    color: COLORS.BLACK_DARK,
     marginBottom: 20,
   },
   cancel: {
-    color: COLORS.PLACEHOLDER,
+    color: COLORS.WHITE_DARK,
     fontSize: 14,
   },
   description: {
     marginTop: 'auto',
     marginBottom: 30,
-    color: COLORS.BG,
+    color: COLORS.BLACK_DARK,
     fontSize: 12,
     lineHeight: 21,
   },
   planWrapper: {
-    backgroundColor: COLORS.INPUT_BG,
+    backgroundColor: COLORS.WHITE_MEDIUM,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',

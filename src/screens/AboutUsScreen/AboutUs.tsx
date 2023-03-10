@@ -22,7 +22,7 @@ export const AboutUs: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
         <View style={styles.contentContainer}>
           <Text style={styles.screenTitle}>Simplify. Organize. Conquer.</Text>
 
-          <BreakLine color={COLORS.LIGHT_BREAK_LINE} />
+          <BreakLine color={COLORS.GREY_DARK} />
 
           <Text style={styles.screenDescription}>
             Lumos Engineering is a software development company dedicated to

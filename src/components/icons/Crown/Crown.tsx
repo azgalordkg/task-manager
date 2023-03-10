@@ -6,7 +6,7 @@ import { COLORS } from '@/constants';
 import { DefaultSvgProps } from '@/types';
 
 export const Crown: FC<DefaultSvgProps> = ({
-  color = COLORS.ORANGE,
+  color = COLORS.YELLOW,
   ...props
 }) => (
   <Svg

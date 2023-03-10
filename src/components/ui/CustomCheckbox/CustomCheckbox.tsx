@@ -9,8 +9,8 @@ import { Props } from './CustomCheckbox.types';
 export const CustomCheckbox: FC<Props> = ({
   onPress,
   checked,
-  checkedColor = COLORS.DARK_GREEN,
-  defaultColor = COLORS.WHITE,
+  checkedColor = COLORS.GREEN,
+  defaultColor = COLORS.WHITE_LIGHT,
   size = 28,
 }) => {
   return (

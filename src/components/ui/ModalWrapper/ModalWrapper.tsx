@@ -21,8 +21,8 @@ export const ModalWrapper: FC<Props> = ({
       {children}
       <View style={styles.footer}>
         <CustomButton
-          bgColor={COLORS.BUTTON_BG}
-          textColor={COLORS.BG}
+          bgColor={COLORS.WHITE_MEDIUM}
+          textColor={COLORS.BLACK_DARK}
           fullWidth
           onPress={onRequestClose}>
           {closeText}

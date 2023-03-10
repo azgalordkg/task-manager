@@ -4,7 +4,7 @@ import { COLORS } from '@/constants';
 
 const styles = StyleSheet.create({
   content: {
-    color: COLORS.WHITE,
+    color: COLORS.WHITE_LIGHT,
   },
 });
 
