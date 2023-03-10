@@ -11,8 +11,10 @@ import {
   AboutUs,
   CreateTagScreen,
   CreateTaskScreen,
+  DocumentsScreen,
   HomeScreen,
   ManageTagsScreen,
+  PurchaseScreen,
   Settings,
   TagsSettingsScreen,
   TaskScreen,
@@ -30,7 +32,6 @@ const App: FC = () => {
           <NavigationContainer>
             <Stack.Navigator
               initialRouteName="Home"
-              // initialRouteName="Theme"
               screenOptions={{
                 headerShown: false,
               }}>
@@ -39,6 +40,7 @@ const App: FC = () => {
                 <Stack.Screen name="AboutUs" component={AboutUs} />
                 <Stack.Screen name="Settings" component={Settings} />
                 <Stack.Screen name="Task" component={TaskScreen} />
+                <Stack.Screen name="Documents" component={DocumentsScreen} />
                 <Stack.Screen
                   name="TagsSettings"
                   component={TagsSettingsScreen}
@@ -49,6 +51,7 @@ const App: FC = () => {
                 <Stack.Screen name="CreateTask" component={CreateTaskScreen} />
                 <Stack.Screen name="ManageTags" component={ManageTagsScreen} />
                 <Stack.Screen name="CreateTag" component={CreateTagScreen} />
+                <Stack.Screen name="Purchase" component={PurchaseScreen} />
               </Stack.Group>
             </Stack.Navigator>
           </NavigationContainer>

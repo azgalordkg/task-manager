@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 
+import { Crown } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { BackButtonHeader } from '@/components/ui';
 import { MenuItem } from '@/components/ui/MenuItem';
@@ -25,17 +26,15 @@ export const Settings: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
         <BackButtonHeader title="Settings" onPress={onBackPressHandler} />
 
         <View style={styles.listWrapper}>
-          <MenuItem isArrow onPress={() => navigation.navigate('TagsSettings')}>
+          <MenuItem onPress={() => navigation.navigate('TagsSettings')}>
             Tags
           </MenuItem>
-          <MenuItem isArrow onPress={() => {}}>
-            Language
-          </MenuItem>
-          <MenuItem isArrow onPress={() => navigation.navigate('Theme')}>
+          <MenuItem onPress={() => {}}>Language</MenuItem>
+          <MenuItem onPress={() => navigation.navigate('Theme')}>
             Theme
           </MenuItem>
           <MenuItem
-            switcherValue={isNotification}
+            value={isNotification}
             onToggleSwitch={onNotificationSwitchHandler}
             isSwitcher>
             Notifications
@@ -43,9 +42,15 @@ export const Settings: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
           <MenuItem
             onPress={() => {
               navigation.navigate('AboutUs');
-            }}
-            isArrow>
+            }}>
             About Us
+          </MenuItem>
+          <MenuItem
+            icon={Crown}
+            onPress={() => {
+              navigation.navigate('Purchase');
+            }}>
+            Upgrade
           </MenuItem>
         </View>
       </View>

@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
 
+import { Checkmark } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { BackButtonHeader, MenuItem } from '@/components/ui';
+import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks/useThemeContext';
 import { ScreenProps } from '@/types';
 
@@ -15,6 +17,10 @@ export const Theme: FC<ScreenProps<'Theme'>> = ({ navigation }) => {
     navigation.goBack();
   };
 
+  const colorHandler = (type: string) => {
+    return activeTheme === type ? COLORS.DARK_GREEN : 'transparent';
+  };
+
   return (
     <MainLayout>
       <View style={styles.themeWrapper}>
@@ -22,26 +28,22 @@ export const Theme: FC<ScreenProps<'Theme'>> = ({ navigation }) => {
 
         <View style={styles.themeContainer}>
           <MenuItem
-            themeValue={activeTheme}
-            isCheckMark
-            checkMarkValue={'dark'}
-            onPress={() => themeHandleChange('dark')}>
+            color={colorHandler('dark')}
+            onPress={() => themeHandleChange('dark')}
+            icon={Checkmark}>
             Dark Theme
           </MenuItem>
 
           <MenuItem
-            themeValue={activeTheme}
-            isCheckMark
-            checkMarkValue={'light'}
-            onPress={() => themeHandleChange('light')}>
+            color={colorHandler('light')}
+            onPress={() => themeHandleChange('light')}
+            icon={Checkmark}>
             Light Theme
           </MenuItem>
-
           <MenuItem
-            themeValue={activeTheme}
-            isCheckMark
-            checkMarkValue={'system'}
-            onPress={() => themeHandleChange('system')}>
+            color={colorHandler('system')}
+            onPress={() => themeHandleChange('system')}
+            icon={Checkmark}>
             System Theme
           </MenuItem>
         </View>

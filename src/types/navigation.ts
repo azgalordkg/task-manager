@@ -6,6 +6,8 @@ export type RootStackParamList = {
   Settings: undefined;
   ManageTags: undefined;
   TagsSettings: undefined;
+  Purchase: undefined;
+  Documents?: { isPrivacyPolicy?: boolean };
   CreateTag?: { id?: string };
   CreateTask?: { id?: string };
   Task: { id: string };
