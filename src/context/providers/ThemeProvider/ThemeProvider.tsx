@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { useColorScheme } from 'react-native';
+import { Appearance } from 'react-native';
 
 import { DARK_SCHEMA, LIGHT_SCHEMA } from '@/constants';
 import { Storage } from '@/utils';
@@ -17,18 +17,16 @@ export const ThemeProviderContext = createContext<ThemeProviderType>(
 );
 
 export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
-  const scheme = useColorScheme();
+  const scheme = Appearance.getColorScheme();
   const [activeTheme, setActiveTheme] = useState<themeValue>('');
 
   const themeHandleChange = async (value: themeValue) => {
-    const handleThemeValue = value === 'system' ? scheme : value;
     value && setActiveTheme(value);
-    await Storage.storeData('theme', handleThemeValue);
+    await Storage.storeData('theme', value);
   };
 
   const getCurrentTheme = async () => {
     const currentTheme = await Storage.getData('theme');
-
     setActiveTheme(currentTheme);
   };
 
@@ -36,11 +34,19 @@ export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
     void getCurrentTheme();
   }, []);
 
-  const theme = activeTheme === 'light' ? LIGHT_SCHEMA : DARK_SCHEMA;
+  const theme = () => {
+    const isSystem = activeTheme === 'system' ? scheme : activeTheme;
+
+    if (isSystem === 'light') {
+      return LIGHT_SCHEMA;
+    } else {
+      return DARK_SCHEMA;
+    }
+  };
 
   return (
     <ThemeProviderContext.Provider
-      value={{ activeTheme, themeHandleChange, theme }}>
+      value={{ activeTheme, themeHandleChange, theme: theme() }}>
       {children}
     </ThemeProviderContext.Provider>
   );
