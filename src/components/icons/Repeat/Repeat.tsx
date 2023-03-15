@@ -6,7 +6,7 @@ import { COLORS } from '@/constants';
 import { DefaultSvgProps } from '@/types';
 
 export const Repeat: FC<DefaultSvgProps> = ({
-  color = COLORS.WHITE_DARK,
+  color = COLORS.GREY_LIGHT,
   ...props
 }) => (
   <Svg

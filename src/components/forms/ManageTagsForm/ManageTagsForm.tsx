@@ -7,8 +7,7 @@ import {
   FormContentWrapper,
   SelectTagItem,
 } from '@/components/ui';
-import { COLORS } from '@/constants';
-import { useTagManageContext } from '@/context/hooks';
+import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { vibrate } from '@/utils';
 
 import styles from './ManageTagsForm.styles';
@@ -20,6 +19,7 @@ export const ManageTagsForm: FC<Props> = ({
   onEditTagPress,
   isSettings,
 }) => {
+  const { theme } = useThemeContext();
   const {
     currentSelectedTags,
     selectTagHandler,
@@ -44,7 +44,7 @@ export const ManageTagsForm: FC<Props> = ({
       }}>
       <View style={styles.container}>
         <DashedButton
-          color={isSettings ? COLORS.WHITE_LIGHT : undefined}
+          color={theme.TEXT_INFO}
           icon={Plus}
           variant="large"
           onPress={onCreateTagPress}>

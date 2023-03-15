@@ -3,6 +3,7 @@ import { Modal, Text, TouchableOpacity, View } from 'react-native';
 
 import { CustomButton } from '@/components/ui';
 import { COLORS } from '@/constants';
+import { useThemeContext } from '@/context/hooks';
 
 import styles from './ConfirmModal.styles';
 import { Props } from './ConfirmModal.types';
@@ -16,6 +17,9 @@ export const ConfirmModal: FC<Props> = ({
   onPressConfirm,
   onPressDismiss,
 }) => {
+  const { theme } = useThemeContext();
+  const style = styles(theme);
+
   return (
     <Modal
       animationType="fade"
@@ -25,12 +29,12 @@ export const ConfirmModal: FC<Props> = ({
       <TouchableOpacity
         onPress={onPressDismiss}
         activeOpacity={1}
-        style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={styles.modalTitle}>{title}</Text>
-          <Text style={styles.modalDescription}>{description}</Text>
+        style={style.centeredView}>
+        <View style={style.modalView}>
+          <Text style={style.modalTitle}>{title}</Text>
+          <Text style={style.modalDescription}>{description}</Text>
 
-          <View style={styles.modalButtonContainer}>
+          <View style={style.modalButtonContainer}>
             <CustomButton
               bgColor={COLORS.WHITE_MEDIUM}
               textColor={COLORS.BLACK_DARK}

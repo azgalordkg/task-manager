@@ -1,18 +1,19 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
+import { SchemeType } from '@/types';
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  text: {
-    marginLeft: 10,
-    color: COLORS.BLACK_DARK,
-    fontSize: 16,
-  },
-});
+const styles = (theme: SchemeType) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 16,
+    },
+    text: {
+      marginLeft: 10,
+      color: theme.TEXT_PRIMARY,
+      fontSize: 16,
+    },
+  });
 
 export default styles;

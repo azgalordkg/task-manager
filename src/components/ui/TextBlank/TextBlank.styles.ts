@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   text: {
-    color: COLORS.WHITE_DARK,
+    color: COLORS.GREY_LIGHT,
     fontSize: 16,
   },
 });

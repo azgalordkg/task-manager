@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
+import { SchemeType } from '@/types';
 
-const styles = (containerWidth: number) =>
+const styles = (containerWidth: number, theme: SchemeType) =>
   StyleSheet.create({
     container: {
       width: containerWidth,
@@ -21,7 +22,7 @@ const styles = (containerWidth: number) =>
       width: '85%',
       textAlign: 'center',
       fontSize: 12,
-      color: COLORS.BLACK_DARK,
+      color: theme.TEXT_PRIMARY,
     },
   });
 

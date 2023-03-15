@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 
 import { DashedButton } from '@/components/ui';
 import { Tag } from '@/components/ui/Tag';
-import { useTagManageContext } from '@/context/hooks';
+import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { TagsResponseItem } from '@/types';
 import { vibrate } from '@/utils';
 
@@ -11,6 +11,9 @@ import styles from './TagsField.styles';
 import { Props } from './TagsField.types';
 
 export const TagsField: FC<Props> = ({ onAddPress }) => {
+  const { theme } = useThemeContext();
+
+  const style = styles(theme);
   const [tags, setTags] = useState<TagsResponseItem[]>([]);
   const {
     selectedTags,
@@ -29,9 +32,9 @@ export const TagsField: FC<Props> = ({ onAddPress }) => {
   }, [selectedTags]);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Tags: </Text>
-      <View style={styles.tagsWrapper}>
+    <View style={style.container}>
+      <Text style={style.label}>Tags: </Text>
+      <View style={style.tagsWrapper}>
         {tags?.map(({ name, color, _id }) => (
           <Tag
             onPress={() => {

@@ -7,7 +7,11 @@ import { Swipeable } from 'react-native-gesture-handler';
 import { Cross, Edit, Trash } from '@/components/icons';
 import { ActionButton, CustomCheckbox } from '@/components/ui';
 import { COLORS } from '@/constants';
-import { useTagManageContext, useTaskModalContext } from '@/context/hooks';
+import {
+  useTagManageContext,
+  useTaskModalContext,
+  useThemeContext,
+} from '@/context/hooks';
 import { TagsResponseItem } from '@/types';
 import { prepareTagsForRender, vibrate } from '@/utils';
 
@@ -37,7 +41,8 @@ export const ListItem: FC<ListItemProps> = ({
   isDone,
   repeat,
 }) => {
-  const style = styles({ isLast, checked });
+  const { theme } = useThemeContext();
+  const style = styles({ isLast, checked, theme });
   const swipeRef = useRef<Swipeable | null>(null);
   const [swiping, setSwiping] = useState(false);
   const isRecurring = repeat ? repeat !== 'Never' : false;
@@ -125,7 +130,11 @@ export const ListItem: FC<ListItemProps> = ({
           style={style.container}>
           <View style={style.contentWrapper}>
             <View style={style.checkmarkWrapper}>
-              <CustomCheckbox onPress={onCheckPressHandler} checked={checked} />
+              <CustomCheckbox
+                defaultColor={theme.TEXT_INFO}
+                onPress={onCheckPressHandler}
+                checked={checked}
+              />
             </View>
             <View style={style.textWrapper}>
               {Boolean(tagsForRender.length) && (

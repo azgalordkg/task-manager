@@ -6,7 +6,7 @@ import { COLORS } from '@/constants';
 import { DefaultSvgProps } from '@/types';
 
 export const ArrowBack: FC<DefaultSvgProps> = ({
-  color = COLORS.WHITE_LIGHT,
+  color = COLORS.WHITE,
   ...props
 }) => (
   <Svg

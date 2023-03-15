@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
+import { SchemeType } from '@/types';
 
-const styles = StyleSheet.create({
-  content: {
-    color: COLORS.WHITE_LIGHT,
-  },
-});
+const styles = (theme: SchemeType) =>
+  StyleSheet.create({
+    content: {
+      color: theme.TEXT_PRIMARY,
+    },
+  });
 
 export default styles;

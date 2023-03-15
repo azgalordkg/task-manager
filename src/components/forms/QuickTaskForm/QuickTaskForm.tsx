@@ -8,7 +8,7 @@ import { Checkbox } from '@/components/icons';
 import { CustomButton, Input } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
-import { useTaskModalContext } from '@/context/hooks';
+import { useTaskModalContext, useThemeContext } from '@/context/hooks';
 import { createTask } from '@/services';
 import { CreateTaskData } from '@/types';
 import { vibrate } from '@/utils';
@@ -18,6 +18,9 @@ import { Props } from './QuickTaskForm.types';
 
 export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
   const { fetchList } = useTaskModalContext();
+  const { theme, activeTheme } = useThemeContext();
+  const iconColor = activeTheme === 'light' ? COLORS.GREY : COLORS.GREY_MEDIUM;
+  const style = styles(theme);
 
   const {
     control,
@@ -47,25 +50,25 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
 
   return (
     <DismissKeyboard>
-      <View style={styles.container}>
-        <Checkbox width={32} height={32} color={COLORS.GREY_MEDIUM} />
+      <View style={style.container}>
+        <Checkbox width={28} height={28} color={iconColor} />
 
-        <View style={styles.inputContainer}>
+        <View style={style.inputContainer}>
           <Input
             control={control}
             name="name"
             placeholder="Name *"
             errorMessage={errors.name?.message}
-            borderColor={COLORS.GREY_MEDIUM}
-            backgroundColor={COLORS.GREY_MEDIUM}
+            borderColor={theme.INPUT_QUICK_TASK}
+            backgroundColor={theme.INPUT_QUICK_TASK}
             maxLength={30}
-            color={COLORS.WHITE_LIGHT}
+            color={theme.TEXT_PRIMARY}
           />
 
-          <View style={styles.buttonWrapper}>
+          <View style={style.buttonWrapper}>
             <CustomButton
               width="48%"
-              bgColor={COLORS.GREY_MEDIUM}
+              bgColor={theme.INPUT_QUICK_TASK}
               textColor={COLORS.RED}
               onPress={handleShowInput}>
               Cancel

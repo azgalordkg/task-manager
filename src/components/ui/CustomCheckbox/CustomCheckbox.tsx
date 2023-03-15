@@ -10,7 +10,7 @@ export const CustomCheckbox: FC<Props> = ({
   onPress,
   checked,
   checkedColor = COLORS.GREEN,
-  defaultColor = COLORS.WHITE_LIGHT,
+  defaultColor = COLORS.WHITE,
   size = 28,
 }) => {
   return (

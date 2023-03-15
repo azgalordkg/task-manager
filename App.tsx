@@ -47,7 +47,11 @@ const App: FC = () => {
                 />
                 <Stack.Screen name="Theme" component={Theme} />
               </Stack.Group>
-              <Stack.Group screenOptions={{ presentation: 'modal' }}>
+              <Stack.Group
+                screenOptions={{
+                  presentation: 'modal',
+                  contentStyle: { backgroundColor: 'transparent' },
+                }}>
                 <Stack.Screen name="CreateTask" component={CreateTaskScreen} />
                 <Stack.Screen name="ManageTags" component={ManageTagsScreen} />
                 <Stack.Screen name="CreateTag" component={CreateTagScreen} />

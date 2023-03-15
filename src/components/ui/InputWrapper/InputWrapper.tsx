@@ -20,7 +20,7 @@ export const InputWrapper: FC<PropsWithChildren<Props>> = ({
     <View style={style.wrapper}>
       {Icon && (
         <View style={style.icon}>
-          <Icon color={COLORS.WHITE_DARK} />
+          <Icon color={COLORS.GREY_LIGHT} />
         </View>
       )}
       {children}

@@ -41,7 +41,7 @@ const styles = (containerWidth: number, isActive?: boolean) =>
       transform: [{ translateX: -23 }],
     },
     save: {
-      color: COLORS.WHITE_LIGHT,
+      color: COLORS.WHITE,
       fontWeight: '600',
       fontSize: 8,
     },

@@ -8,6 +8,7 @@ import {
   PurchasePlan,
 } from '@/components/ui';
 import { COLORS, PURCHASE_ADVANTAGES, PURCHASE_PLANS } from '@/constants';
+import { useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
 
 import styles from './PurchaseScreen.styles';
@@ -15,24 +16,26 @@ import styles from './PurchaseScreen.styles';
 export const PurchaseScreen: FC<ScreenProps<'Purchase'>> = ({ navigation }) => {
   const closeModal = () => navigation.goBack();
   const [activePlan, setActivePlan] = useState(1);
+  const { theme } = useThemeContext();
+  const style = styles(theme);
 
   const onSubmitPress = () => {};
 
   return (
     <ModalWrapper onRequestClose={closeModal}>
-      <View style={styles.container}>
-        <View style={styles.contentWrapper}>
-          <Text style={styles.title}>Unlock Premium Features:</Text>
-          <Text style={styles.subTitle}>
+      <View style={style.container}>
+        <View style={style.contentWrapper}>
+          <Text style={style.title}>Unlock Premium Features:</Text>
+          <Text style={style.subTitle}>
             Upgrade to a Paid Subscription Today!
           </Text>
-          <Text style={styles.cancel}>Cancel any time, No Commitments</Text>
-          <View style={styles.items}>
+          <Text style={style.cancel}>Cancel any time, No Commitments</Text>
+          <View style={style.items}>
             {PURCHASE_ADVANTAGES.map(({ id, title, icon }) => (
               <PurchaseItem key={id} icon={icon} title={title} />
             ))}
           </View>
-          <View style={styles.planWrapper}>
+          <View style={style.planWrapper}>
             {PURCHASE_PLANS.map(({ id, duration, price, description }) => (
               <PurchasePlan
                 key={id}
@@ -45,7 +48,7 @@ export const PurchaseScreen: FC<ScreenProps<'Purchase'>> = ({ navigation }) => {
               />
             ))}
           </View>
-          <Text style={styles.description}>
+          <Text style={style.description}>
             By tapping Continue, you agree to subscribe to an auto-renewal
             Premium plan via Apple. Unless cancelled at least 24-hours prior to
             the renewal date, the subscription will be charged on that date. The

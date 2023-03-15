@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
+import { SchemeType } from '@/types';
 
-const styles = (color: string, isSettings?: boolean) =>
+const styles = (theme: SchemeType, color: string, isSettings?: boolean) =>
   StyleSheet.create({
     container: {
       paddingVertical: 12,
@@ -20,7 +21,7 @@ const styles = (color: string, isSettings?: boolean) =>
       backgroundColor: color,
     },
     text: {
-      color: isSettings ? COLORS.WHITE_LIGHT : COLORS.BLACK_DARK,
+      color: theme.TEXT_PRIMARY,
       fontSize: 18,
       flexGrow: 1,
     },

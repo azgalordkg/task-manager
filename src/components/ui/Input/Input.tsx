@@ -44,7 +44,7 @@ export const Input: FC<Props> = ({
         errorMessage={errorMessage}
         icon={icon}>
         <TextInput
-          placeholderTextColor={COLORS.WHITE_DARK}
+          placeholderTextColor={COLORS.GREY_LIGHT}
           maxLength={maxLength}
           style={style.input}
           value={value}

@@ -6,11 +6,17 @@ import { ArrowBack, Edit } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { ConfirmModal, CustomButton, Tag, TextBlank } from '@/components/ui';
 import { COLORS } from '@/constants';
-import { useTagManageContext, useTaskModalContext } from '@/context/hooks';
+import {
+  useTagManageContext,
+  useTaskModalContext,
+  useThemeContext,
+} from '@/context/hooks';
 import { deleteOneTask, findOneTask } from '@/services/realm';
 import { ScreenProps, TagsResponseItem } from '@/types';
 import { prepareTagsForRender } from '@/utils';
 
+import darkThemeBackground from '../../assets/img/darkTaskBg.jpg';
+import lightThemeBackground from '../../assets/img/lightTaskBg.jpg';
 import styles from './TaskScreen.styles';
 
 export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
@@ -18,6 +24,12 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
   const { startDate, endDate, tags, name, description } = findOneTask(id);
   const { fetchList } = useTaskModalContext();
   const { tags: allTags } = useTagManageContext();
+  const { theme, activeTheme } = useThemeContext();
+
+  const style = styles(theme);
+
+  const backgroundImage =
+    activeTheme === 'dark' ? darkThemeBackground : lightThemeBackground;
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
 
@@ -44,27 +56,27 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
   return (
     <MainLayout>
       <ImageBackground
-        style={styles.taskHeaderImage}
+        style={style.taskHeaderImage}
         resizeMode="cover"
-        source={require('../../assets/img/taskBackground.jpg')}>
-        <View style={styles.taskHeaderContainer}>
+        source={backgroundImage}>
+        <View style={style.taskHeaderContainer}>
           <TouchableOpacity
-            style={styles.backButton}
+            style={style.backButton}
             onPress={() => navigation.goBack()}>
-            <ArrowBack />
+            <ArrowBack color={theme.TEXT_PRIMARY} />
           </TouchableOpacity>
           <TouchableOpacity onPress={onEditPressHandler}>
-            <Edit color={COLORS.WHITE_LIGHT} />
+            <Edit color={theme.TEXT_PRIMARY} />
           </TouchableOpacity>
         </View>
       </ImageBackground>
 
-      <View style={styles.taskContentWrapper}>
-        <View style={styles.taskTitleWrapper}>
-          <View style={styles.taskTitleTagsContainer}>
-            <Text style={styles.taskTitle}>{name}</Text>
+      <View style={style.taskContentWrapper}>
+        <View style={style.taskTitleWrapper}>
+          <View style={style.taskTitleTagsContainer}>
+            <Text style={style.taskTitle}>{name}</Text>
             {Boolean(tagsForRender.length) && (
-              <View style={styles.taskTagsContainer}>
+              <View style={style.taskTagsContainer}>
                 {tagsForRender?.map(({ name: taskName, color }) => (
                   <Tag key={name} name={taskName} bgColor={color} />
                 ))}
@@ -73,40 +85,40 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
           </View>
 
           {startDate && endDate && (
-            <View style={styles.taskDateContainer}>
-              <Text style={styles.taskDateDay}>{format(startDate, 'dd')}</Text>
-              <View style={styles.taskMonthWeekContainer}>
-                <Text style={styles.taskDateMonth}>
+            <View style={style.taskDateContainer}>
+              <Text style={style.taskDateDay}>{format(startDate, 'dd')}</Text>
+              <View style={style.taskMonthWeekContainer}>
+                <Text style={style.taskDateMonth}>
                   {format(startDate, 'MMMM')}
                 </Text>
-                <Text style={styles.taskDateWeekday}>/</Text>
-                <Text style={styles.taskDateWeekday}>
+                <Text style={style.taskDateWeekday}>/</Text>
+                <Text style={style.taskDateWeekday}>
                   {format(startDate, 'EEEE')}
                 </Text>
               </View>
-              <Text style={styles.taskDatePeriod}>
+              <Text style={style.taskDatePeriod}>
                 {format(startDate, 'h:mm a')} - {format(endDate, 'h:mm a')}
               </Text>
             </View>
           )}
         </View>
 
-        <View style={styles.descriptionWrapper}>
+        <View style={style.descriptionWrapper}>
           {description ? (
-            <Text style={styles.taskDescription}>{description}</Text>
+            <Text style={style.taskDescription}>{description}</Text>
           ) : (
             <TextBlank>No description</TextBlank>
           )}
         </View>
       </View>
 
-      <View style={styles.taskButtonContainer}>
+      <View style={style.taskButtonContainer}>
         <CustomButton width={'100%'} bgColor={COLORS.GREEN} onPress={() => {}}>
           Duplicate
         </CustomButton>
         <CustomButton
           width={'100%'}
-          bgColor={COLORS.BLACK_MEDIUM}
+          bgColor={theme.BUTTONS_SECONDARY}
           textColor={COLORS.RED}
           onPress={handleShowModal}>
           Delete
