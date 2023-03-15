@@ -33,7 +33,7 @@ export const SelectTagItem: FC<Props> = ({
         />
       )}
       <View style={style.dot} />
-      <Text style={style.text}>{title}qwe</Text>
+      <Text style={style.text}>{title}</Text>
       {!isDefault && (
         <TouchableOpacity onPress={onEditPress} style={style.edit}>
           <Edit color={COLORS.GREY_LIGHT} width={20} height={20} />
