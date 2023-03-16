@@ -12,7 +12,7 @@ import {
 } from '@/components/ui';
 import { AVAILABLE_COLORS } from '@/constants';
 import { createTagFormSchema } from '@/constants/validation';
-import { useTagManageContext } from '@/context/hooks';
+import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { createTag, deleteOneTag, findOneTag, updateTag } from '@/services';
 import { CreateTagData, TagsResponseItem } from '@/types';
 import { vibrate } from '@/utils';
@@ -21,6 +21,10 @@ import styles from './CreateTagForm.styles';
 import { Props } from './CreateTagForm.types';
 
 export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
+  const { theme } = useThemeContext();
+
+  const style = styles(theme);
+
   const {
     control,
     handleSubmit,
@@ -94,11 +98,12 @@ export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
             control={control}
             name="name"
             placeholder="Tag name *"
+            color={theme.TEXT_PRIMARY}
             errorMessage={errors.name?.message}
           />
-          <View style={styles.colorContainer}>
-            <Text style={styles.colorTitle}>Select a color</Text>
-            <View style={styles.colorList}>
+          <View style={style.colorContainer}>
+            <Text style={style.colorTitle}>Select a color</Text>
+            <View style={style.colorList}>
               {AVAILABLE_COLORS.map(color => (
                 <ColorSelect
                   active={color.toLowerCase() === watch('color')?.toLowerCase()}

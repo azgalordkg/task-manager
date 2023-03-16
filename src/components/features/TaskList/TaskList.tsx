@@ -108,6 +108,7 @@ export const TaskList: FC<Props> = ({
         expandMultiple={true}
         containerStyle={styles.containerStyle}
       />
+
       <ConfirmModal
         title="Confirm Deletion"
         confirmButtonLabel="Delete"

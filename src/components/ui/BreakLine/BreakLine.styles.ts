@@ -1,19 +1,19 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
+import { SchemeType } from '@/types';
 
 interface StylesProps {
-  isDark?: boolean;
+  theme?: SchemeType;
   marginBottom?: number;
   color?: string;
 }
 
-const styles = ({ isDark, marginBottom, color }: StylesProps) =>
+const styles = ({ theme, marginBottom, color }: StylesProps) =>
   StyleSheet.create({
     brakeLine: {
       width: '100%',
       height: 2,
-      backgroundColor: color || (isDark ? COLORS.GREY : COLORS.LIGHT_GREY),
+      backgroundColor: color || theme?.TEXT_INFO,
       marginBottom: marginBottom || 0,
       alignItems: 'flex-end',
     },

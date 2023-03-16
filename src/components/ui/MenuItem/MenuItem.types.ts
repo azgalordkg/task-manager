@@ -7,5 +7,6 @@ export interface Props {
   isSwitcher?: boolean;
   onToggleSwitch?: (value: boolean) => void;
   value?: boolean;
+  color?: string;
   icon?: FC<DefaultSvgProps>;
 }

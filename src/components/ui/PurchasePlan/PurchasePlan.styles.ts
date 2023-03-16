@@ -15,18 +15,18 @@ const styles = (containerWidth: number, isActive?: boolean) =>
       borderRadius: 10,
     },
     duration: {
-      color: COLORS.BG,
+      color: COLORS.BLACK_DARK,
       fontSize: 12,
       textAlign: 'center',
     },
     price: {
-      color: COLORS.BG,
+      color: COLORS.BLACK_DARK,
       fontSize: 16,
       fontWeight: '600',
       textAlign: 'center',
     },
     description: {
-      color: COLORS.BG,
+      color: COLORS.BLACK_DARK,
       fontSize: 12,
       textAlign: 'center',
     },

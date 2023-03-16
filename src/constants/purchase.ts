@@ -1,4 +1,4 @@
-import { CheckmarkEmpty, HashTag } from '@/components/icons';
+import { Checkmark, HashTag } from '@/components/icons';
 
 export const PURCHASE_PLANS = [
   {
@@ -24,5 +24,5 @@ export const PURCHASE_PLANS = [
 export const PURCHASE_ADVANTAGES = [
   { id: 0, title: 'Recurring Tasks' },
   { id: 1, title: 'Unlimited Tag Creation', icon: HashTag },
-  { id: 2, title: 'Unlimited Daily Planning', icon: CheckmarkEmpty },
+  { id: 2, title: 'Unlimited Daily Planning', icon: Checkmark },
 ];

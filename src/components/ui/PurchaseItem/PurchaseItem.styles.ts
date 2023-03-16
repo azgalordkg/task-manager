@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
+import { SchemeType } from '@/types';
 
-const styles = (containerWidth: number) =>
+const styles = (containerWidth: number, theme: SchemeType) =>
   StyleSheet.create({
     container: {
       width: containerWidth,
@@ -12,7 +13,7 @@ const styles = (containerWidth: number) =>
     iconWrapper: {
       width: 30,
       height: 30,
-      backgroundColor: COLORS.INPUT_BG,
+      backgroundColor: COLORS.WHITE_MEDIUM,
       borderRadius: 15,
       justifyContent: 'center',
       alignItems: 'center',
@@ -21,7 +22,7 @@ const styles = (containerWidth: number) =>
       width: '85%',
       textAlign: 'center',
       fontSize: 12,
-      color: COLORS.BG,
+      color: theme.TEXT_PRIMARY,
     },
   });
 

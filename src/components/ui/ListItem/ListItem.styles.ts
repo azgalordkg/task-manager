@@ -1,14 +1,16 @@
 import { Animated, StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
+import { SchemeType } from '@/types';
 
 export interface StyleProps {
   scale?: Animated.AnimatedInterpolation<string>;
   isLast?: boolean;
   checked?: boolean;
+  theme: SchemeType;
 }
 
-const styles = ({ scale, isLast, checked }: StyleProps) =>
+const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
   StyleSheet.create({
     buttonsContainer: {
       width: 70,
@@ -24,8 +26,8 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
     container: {
       padding: 12,
       borderRadius: 12,
-      borderBottomColor: COLORS.LIGHT_GREY,
-      backgroundColor: COLORS.WHITE_BG,
+      borderBottomColor: COLORS.GREY,
+      backgroundColor: theme.BACKGROUND_TASK,
     },
     textWrapper: {
       width: '80%',
@@ -37,12 +39,12 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
     title: {
       fontSize: 18,
       fontWeight: '600',
-      color: COLORS.WHITE,
+      color: theme.TEXT_PRIMARY,
     },
     time: {
       marginTop: 6,
       fontSize: 14,
-      color: COLORS.GREY,
+      color: theme.TEXT_SECONDARY,
     },
     contentWrapper: {
       flexDirection: 'row',
@@ -64,10 +66,10 @@ const styles = ({ scale, isLast, checked }: StyleProps) =>
       height: 20,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: COLORS.LIGHT_GREY,
+      backgroundColor: COLORS.GREY,
     },
     outsideBackground: {
-      backgroundColor: COLORS.WHITE_BG,
+      backgroundColor: theme.BACKGROUND_TASK,
       position: 'absolute',
       height: '100%',
       width: '70%',

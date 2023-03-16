@@ -13,6 +13,7 @@ import {
   PRIVACY_POLICY_DESCRIPTION,
   TERMS_OF_USE,
 } from '@/constants';
+import { useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
 
 import styles from './DocumentsScreen.styles';
@@ -21,6 +22,9 @@ export const DocumentsScreen: FC<ScreenProps<'Documents'>> = ({
   navigation,
   route,
 }) => {
+  const { theme } = useThemeContext();
+  const style = styles(theme);
+
   const isPrivacyPolicy = route?.params?.isPrivacyPolicy;
   const onClose = () => navigation.goBack();
   const [activeSection, setActiveSection] = useState<number[]>([0]);
@@ -30,11 +34,11 @@ export const DocumentsScreen: FC<ScreenProps<'Documents'>> = ({
 
   return (
     <MainLayout>
-      <View style={styles.contentWrapper}>
+      <View style={style.contentWrapper}>
         <BackButtonHeader onPress={onClose} title={screenTitle} />
 
-        <View style={styles.container}>
-          <Text style={styles.update}>
+        <View style={style.container}>
+          <Text style={style.update}>
             Last updated {screenContent.LAST_UPDATED}
           </Text>
           <ScrollView>

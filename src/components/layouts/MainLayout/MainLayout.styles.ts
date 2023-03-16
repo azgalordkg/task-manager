@@ -1,15 +1,19 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
+import { SchemeType } from '@/types';
 
-const styles = (isDarkMode: boolean) =>
+const styles = (theme: SchemeType) =>
   StyleSheet.create({
+    backgroundStyle: {
+      backgroundColor: theme.BACKGROUND_PRIMARY,
+      height: '100%',
+    },
     mainWrapper: {
       flex: 1,
     },
     contentWrapper: {
       flex: 1,
-      backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
+      backgroundColor: theme.BACKGROUND_PRIMARY,
     },
   });
 

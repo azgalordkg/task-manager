@@ -1,16 +1,17 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
+import { SchemeType } from '@/types';
 
 export interface StyleProps {
   isToday?: boolean;
+  theme: SchemeType;
 }
 
-const styles = ({ isToday }: StyleProps) =>
+const styles = ({ isToday, theme }: StyleProps) =>
   StyleSheet.create({
     container: {
       paddingVertical: 20,
-      backgroundColor: COLORS.GREY_BG,
+      backgroundColor: theme.BACKGROUND_SECONDARY,
     },
     contentWrapper: {
       paddingHorizontal: 20,
@@ -26,18 +27,14 @@ const styles = ({ isToday }: StyleProps) =>
       alignItems: 'center',
       justifyContent: 'space-between',
     },
-    todayWrapper: {
-      width: 60,
-      borderRadius: 8,
-      marginLeft: 'auto',
-      backgroundColor: COLORS.ORANGE,
-    },
     dayWrapper: {
       height: 30,
       width: 80,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: isToday ? COLORS.ORANGE : COLORS.WHITE,
+      backgroundColor: isToday
+        ? theme.BACKGROUND_ACCENT
+        : theme.BACKGROUND_NEUTRAL,
       borderBottomEndRadius: 8,
       borderTopEndRadius: 8,
       marginRight: 12,
@@ -50,19 +47,19 @@ const styles = ({ isToday }: StyleProps) =>
       flexDirection: 'row',
     },
     month: {
-      color: COLORS.WHITE,
+      color: theme.TEXT_PRIMARY,
       fontWeight: '700',
       fontSize: 18,
     },
     dayOfWeek: {
-      color: COLORS.WHITE,
+      color: theme.TEXT_PRIMARY,
       fontSize: 18,
     },
     accordionVisibleStatus: {
       fontWeight: '400',
       fontSize: 12,
       lineHeight: 15,
-      color: COLORS.LIGHT_GREY,
+      color: theme.TEXT_INFO,
     },
   });
 

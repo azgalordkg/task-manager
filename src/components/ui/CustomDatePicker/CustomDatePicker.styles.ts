@@ -1,14 +1,15 @@
 import { StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
+import { SchemeType } from '@/types';
 
-const styles = (inputWidth?: string | number) =>
+const styles = (theme: SchemeType, inputWidth?: string | number) =>
   StyleSheet.create({
     container: {
       width: inputWidth || 'auto',
       paddingTop: 12,
       borderRadius: 12,
-      backgroundColor: COLORS.INPUT_BG,
+      backgroundColor: theme.INPUT_DEFAULT,
     },
     button: {
       position: 'absolute',
@@ -22,7 +23,7 @@ const styles = (inputWidth?: string | number) =>
       paddingHorizontal: 12,
       marginBottom: -4,
       fontSize: 16,
-      color: COLORS.PLACEHOLDER,
+      color: COLORS.GREY_LIGHT,
     },
   });
 

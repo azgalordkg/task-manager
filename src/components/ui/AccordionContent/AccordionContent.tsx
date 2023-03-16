@@ -5,6 +5,7 @@ import { View } from 'react-native';
 
 import { QuickTask } from '@/components/features';
 import { MemoizedListItem } from '@/components/ui';
+import { useThemeContext } from '@/context/hooks';
 import { markTaskAsDone } from '@/services';
 
 import styles from './AccordionContent.styles';
@@ -21,6 +22,8 @@ export const AccordionContent: FC<Props> = ({
   onItemPress,
   onDeletePress,
 }) => {
+  const { theme } = useThemeContext();
+  const style = styles(theme);
   const isShowButton =
     moment(+title).isSame(moment(), 'day') ||
     moment(+title).isSame(moment().add(1, 'day'), 'day');
@@ -32,7 +35,7 @@ export const AccordionContent: FC<Props> = ({
           { hasDeadline, startDate, endDate, isDone, _id, name, tags, repeat },
           index,
         ) => (
-          <View key={_id} style={styles.contentContainer}>
+          <View key={_id} style={style.contentContainer}>
             <MemoizedListItem
               tags={tags}
               hasDeadline={Boolean(hasDeadline)}
@@ -53,7 +56,7 @@ export const AccordionContent: FC<Props> = ({
         ),
       )}
       {isShowButton && (
-        <View style={styles.buttonContainer}>
+        <View style={style.buttonContainer}>
           <QuickTask date={title} />
         </View>
       )}

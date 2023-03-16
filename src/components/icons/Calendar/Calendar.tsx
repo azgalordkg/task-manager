@@ -6,7 +6,7 @@ import { COLORS } from '@/constants';
 import { DefaultSvgProps } from '@/types';
 
 export const Calendar: FC<DefaultSvgProps> = ({
-  color = COLORS.BG,
+  color = COLORS.BLACK_DARK,
   ...props
 }) => (
   <Svg

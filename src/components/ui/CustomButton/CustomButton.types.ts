@@ -15,4 +15,5 @@ export interface Props {
   borderWidth?: number;
   disabled?: boolean;
   icon?: FC<DefaultSvgProps>;
+  iconColor?: string;
 }

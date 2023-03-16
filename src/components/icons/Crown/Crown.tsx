@@ -2,13 +2,9 @@ import * as React from 'react';
 import { FC } from 'react';
 import Svg, { G, Path } from 'react-native-svg';
 
-import { COLORS } from '@/constants';
 import { DefaultSvgProps } from '@/types';
 
-export const Crown: FC<DefaultSvgProps> = ({
-  color = COLORS.ORANGE,
-  ...props
-}) => (
+export const Crown: FC<DefaultSvgProps> = ({ color, ...props }) => (
   <Svg
     id="Capa_1"
     xmlns="http://www.w3.org/2000/svg"

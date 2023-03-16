@@ -5,6 +5,7 @@ import { Crown } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { BackButtonHeader } from '@/components/ui';
 import { MenuItem } from '@/components/ui/MenuItem';
+import { COLORS } from '@/constants';
 import { ScreenProps } from '@/types';
 
 import styles from './Settings.styles';
@@ -30,7 +31,9 @@ export const Settings: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
             Tags
           </MenuItem>
           <MenuItem onPress={() => {}}>Language</MenuItem>
-          <MenuItem onPress={() => {}}>Theme</MenuItem>
+          <MenuItem onPress={() => navigation.navigate('Theme')}>
+            Theme
+          </MenuItem>
           <MenuItem
             value={isNotification}
             onToggleSwitch={onNotificationSwitchHandler}
@@ -45,6 +48,7 @@ export const Settings: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
           </MenuItem>
           <MenuItem
             icon={Crown}
+            color={COLORS.YELLOW}
             onPress={() => {
               navigation.navigate('Purchase');
             }}>

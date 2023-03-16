@@ -5,26 +5,29 @@ import { Text, View } from 'react-native';
 import { MainLayout } from '@/components/layouts';
 import { BackButtonHeader, BreakLine, MenuItem } from '@/components/ui';
 import { COLORS } from '@/constants';
+import { useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
 
 import styles from './AboutUs.styles';
 
 export const AboutUs: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
+  const { theme } = useThemeContext();
+  const style = styles(theme);
   const { goBack } = useNavigation();
 
   const handleClose = () => goBack();
 
   return (
     <MainLayout>
-      <View style={styles.contentWrapper}>
+      <View style={style.contentWrapper}>
         <BackButtonHeader title="About Us" onPress={handleClose} />
 
-        <View style={styles.contentContainer}>
-          <Text style={styles.screenTitle}>Simplify. Organize. Conquer.</Text>
+        <View style={style.contentContainer}>
+          <Text style={style.screenTitle}>Simplify. Organize. Conquer.</Text>
 
-          <BreakLine color={COLORS.LIGHT_BREAK_LINE} />
+          <BreakLine color={COLORS.GREY_DARK} />
 
-          <Text style={styles.screenDescription}>
+          <Text style={style.screenDescription}>
             Lumos Engineering is a software development company dedicated to
             creating innovative and user-friendly applications. Our goal is to
             make technology work for you, not the other way around. That's why
@@ -32,7 +35,7 @@ export const AboutUs: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
             that strikes the perfect balance between functionality and design.
           </Text>
 
-          <Text style={styles.screenDescription}>
+          <Text style={style.screenDescription}>
             At Lumos Engineering, we believe that productivity should be simple
             and accessible. That's why we designed Tracker to be both easy to
             use and visually appealing. With its clean, intuitive interface,
@@ -41,7 +44,7 @@ export const AboutUs: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
             always with you, helping you stay organized and on top of your game.
           </Text>
 
-          <View style={styles.footerContainer}>
+          <View style={style.footerContainer}>
             <MenuItem
               onPress={() =>
                 navigation.navigate('Documents', { isPrivacyPolicy: true })

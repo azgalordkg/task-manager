@@ -13,7 +13,7 @@ import {
 } from '@/components/ui';
 import { REPEAT_LIST } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
-import { useTagManageContext } from '@/context/hooks';
+import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { findOneTask } from '@/services/realm';
 import { CreateTaskData, TasksResponseItem } from '@/types';
 import { prepareTagsForRender } from '@/utils';
@@ -54,6 +54,8 @@ export const CreateTaskForm: FC<Props> = ({
     mode: 'onBlur',
     resolver: yupResolver(createTaskFormSchema),
   });
+
+  const { theme } = useThemeContext();
 
   const prepareEditData = (task: TasksResponseItem) => {
     const { name, description, hasDeadline, tags, repeat } = task;
@@ -98,6 +100,9 @@ export const CreateTaskForm: FC<Props> = ({
         <View style={styles.inputWrapper}>
           <Input
             control={control}
+            backgroundColor={theme.INPUT_DEFAULT}
+            borderColor={theme.INPUT_DEFAULT}
+            color={theme.TEXT_PRIMARY}
             name="name"
             placeholder="Name *"
             errorMessage={errors.name?.message}
@@ -107,6 +112,9 @@ export const CreateTaskForm: FC<Props> = ({
         <View style={styles.inputWrapper}>
           <Input
             control={control}
+            backgroundColor={theme.INPUT_DEFAULT}
+            borderColor={theme.INPUT_DEFAULT}
+            color={theme.TEXT_PRIMARY}
             multiline={true}
             numberOfLines={4}
             name="description"

@@ -1,8 +1,8 @@
 import React, { FC, PropsWithChildren } from 'react';
-import { SafeAreaView, StatusBar, useColorScheme, View } from 'react-native';
+import { SafeAreaView, StatusBar, View } from 'react-native';
 
 import { Header } from '@/components/ui';
-import { COLORS } from '@/constants';
+import { useThemeContext } from '@/context/hooks';
 
 import styles from './MainLayout.styles';
 import { Props } from './MainLayout.types';
@@ -12,23 +12,18 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
   navigation,
   withHeader,
 }) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  const style = styles(isDarkMode);
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? COLORS.BG : COLORS.BG,
-    height: '100%',
-  };
+  const { theme } = useThemeContext();
+  const style = styles(theme);
 
   const onMenuPress = () => {
     navigation?.navigate('Settings');
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView style={style.backgroundStyle}>
       <StatusBar
         barStyle="light-content"
-        backgroundColor={backgroundStyle.backgroundColor}
+        backgroundColor={theme.BACKGROUND_PRIMARY}
       />
       <View style={style.mainWrapper}>
         {withHeader && <Header onSettingsPress={onMenuPress} />}

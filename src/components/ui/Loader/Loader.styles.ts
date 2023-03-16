@@ -1,18 +1,19 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
+import { SchemeType } from '@/types';
 
-const styles = StyleSheet.create({
-  loaderContainer: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: COLORS.BG,
-  },
-});
+const styles = (theme: SchemeType) =>
+  StyleSheet.create({
+    loaderContainer: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.BACKGROUND_PRIMARY,
+    },
+  });
 
 export default styles;
