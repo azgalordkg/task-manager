@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { FC, useEffect } from 'react';
+import { isEqual } from 'lodash';
+import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Dimensions, View } from 'react-native';
 
@@ -36,6 +37,14 @@ export const CreateTaskForm: FC<Props> = ({
   );
 
   const { setTagsForEdit, tags: allTags } = useTagManageContext();
+
+  const [editableTask, setEditableTask] = useState({} as TasksResponseItem);
+
+  useEffect(() => {
+    if (editItemId) {
+      setEditableTask(findOneTask(editItemId));
+    }
+  }, [editItemId]);
 
   const {
     control,
@@ -77,24 +86,53 @@ export const CreateTaskForm: FC<Props> = ({
 
   useEffect(() => {
     if (editItemId) {
-      const task = findOneTask(editItemId);
-      if (task) {
-        prepareEditData(task);
+      if (editableTask) {
+        prepareEditData(editableTask);
       }
     } else {
       reset();
     }
   }, [editItemId]);
 
+  const isDisabled = (
+    initialTaskValue: Partial<TasksResponseItem>,
+    formValue: CreateTaskData,
+  ) => {
+    const stringifyValue = JSON.stringify(initialTaskValue);
+
+    const editInitialTaskValue = Object.keys(formValue)?.reduce<CreateTaskData>(
+      (result, key) => {
+        const objectKey = key as keyof CreateTaskData;
+        const dateException = ['endDate', 'startDate'];
+        const isKeyInInitialValue =
+          JSON.parse(stringifyValue).hasOwnProperty(objectKey);
+
+        if (isKeyInInitialValue) {
+          // TODO need type for result[objectKey]
+          // @ts-ignore
+          result[objectKey] = dateException.includes(objectKey)
+            ? new Date(initialTaskValue[objectKey] as number)
+            : initialTaskValue[objectKey];
+        }
+        return result;
+      },
+      {} as CreateTaskData,
+    );
+
+    return isEqual(editInitialTaskValue, formValue);
+  };
+
+  const isDisabledButton = !isDisabled(editableTask, watch()) && isValid;
   const timeInputWidth = Dimensions.get('window').width / 2 - 30;
+  const title = editItemId ? 'Edit' : 'Create';
 
   return (
     <DismissKeyboard>
       <FormContentWrapper
         onSubmitPress={handleSubmit(onSubmit)}
-        isSubmitDisabled={!isValid}
-        submitTitle={editItemId ? 'Edit' : 'Create'}
-        title={editItemId ? 'Edit task' : 'Create task'}>
+        isSubmitDisabled={!isDisabledButton}
+        submitTitle={title}
+        title={`${title} task`}>
         <View style={styles.inputWrapper}>
           <Input
             control={control}
