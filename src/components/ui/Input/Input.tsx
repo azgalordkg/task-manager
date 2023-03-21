@@ -1,10 +1,10 @@
-import { format } from 'date-fns';
 import React, { FC } from 'react';
 import { useController } from 'react-hook-form';
 import { Text, TextInput, View } from 'react-native';
 
 import { InputWrapper } from '@/components/ui';
 import { COLORS } from '@/constants';
+import { dateFormat } from '@/utils';
 
 import styles from './Input.styles';
 import { Props } from './Input.types';
@@ -29,10 +29,12 @@ export const Input: FC<Props> = ({
     name,
   });
   const style = styles(color);
-  // TODO remove nested ternary operator
+  const formatDate = isTime ? 'LT' : 'DD MMMM';
+  const dateValue = dateFormat(field.value, formatDate);
+
   const value = isDateTime
     ? field.value
-      ? format(new Date(field.value as string), isTime ? 'p' : 'dd MMMM')
+      ? dateValue
       : ''
     : (field.value as string);
 
