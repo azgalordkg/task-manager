@@ -10,4 +10,5 @@ export interface Props extends Partial<DateTimePickerProps> {
   name: CreateTaskKey;
   label?: string;
   inputWidth?: string | number;
+  minimumDate?: Date;
 }

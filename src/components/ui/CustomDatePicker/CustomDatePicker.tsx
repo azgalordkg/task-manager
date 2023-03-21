@@ -16,6 +16,7 @@ export const CustomDatePicker: FC<Props> = ({
   name,
   label,
   inputWidth,
+  minimumDate,
   ...props
 }) => {
   const { theme } = useThemeContext();
@@ -54,7 +55,7 @@ export const CustomDatePicker: FC<Props> = ({
         {...props}
         isVisible={open}
         date={field.value as Date}
-        minuteInterval={30}
+        minuteInterval={15}
         onConfirm={currentDate => {
           setOpen(false);
           field.onChange(currentDate);
@@ -62,6 +63,7 @@ export const CustomDatePicker: FC<Props> = ({
         onCancel={() => {
           setOpen(false);
         }}
+        minimumDate={minimumDate}
       />
     </>
   );

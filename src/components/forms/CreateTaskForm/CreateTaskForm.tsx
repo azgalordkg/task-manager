@@ -170,6 +170,7 @@ export const CreateTaskForm: FC<Props> = ({
               name="endDate"
               title="Choose date"
               mode="time"
+              minimumDate={startDate}
             />
           </View>
         )}
