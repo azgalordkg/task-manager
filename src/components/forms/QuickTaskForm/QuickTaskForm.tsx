@@ -17,6 +17,29 @@ import styles from './QuickTaskForm.styles';
 import { Props } from './QuickTaskForm.types';
 
 export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
+  const createDateTime = new Date();
+
+  const combineStartDate = (dateDay: Date, dateTime: Date) => {
+    const day = dateDay.getDate();
+    const month = dateDay.getMonth();
+    const year = dateDay.getFullYear();
+
+    const hours = dateTime.getHours();
+    const minutes = dateTime.getMinutes();
+    const seconds = dateTime.getSeconds();
+
+    return new Date(year, month, day, hours, minutes, seconds);
+  };
+
+  const startDate = combineStartDate(new Date(+date), createDateTime);
+  const endDate = new Date();
+
+  startDate.setMinutes(startDate.getMinutes() < 30 ? 0 : 30);
+  endDate.setHours(
+    startDate.getHours() + 1,
+    startDate.getMinutes() < 30 ? 0 : 30,
+  );
+
   const { fetchList } = useTaskModalContext();
   const { theme, activeTheme } = useThemeContext();
   const iconColor = activeTheme === 'light' ? COLORS.GREY : COLORS.GREY_MEDIUM;
@@ -35,8 +58,8 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
   const onSubmit = (data: FieldValues) => {
     createTask({
       ...data,
-      startDate: new Date(+date),
-      endDate: new Date(),
+      startDate,
+      endDate,
       repeat: 'Never',
       hasDeadline: false,
       description: '',
