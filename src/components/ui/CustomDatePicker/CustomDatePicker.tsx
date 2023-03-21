@@ -3,9 +3,9 @@ import { useController } from 'react-hook-form';
 import { Text, TouchableOpacity, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
+import { Calendar, Clock } from '@/components/icons';
 import { useThemeContext } from '@/context/hooks';
 
-import { Calendar, Clock } from '../../icons';
 import { Input } from '../Input';
 import styles from './CustomDatePicker.styles';
 import { Props } from './CustomDatePicker.types';
