@@ -4,7 +4,7 @@ import { Text, TextInput, View } from 'react-native';
 
 import { InputWrapper } from '@/components/ui';
 import { COLORS } from '@/constants';
-import { dateFormat } from '@/utils';
+import { dateFormat as customFormat } from '@/utils';
 
 import styles from './Input.styles';
 import { Props } from './Input.types';
@@ -29,12 +29,12 @@ export const Input: FC<Props> = ({
     name,
   });
   const style = styles(color);
-  const formatDate = isTime ? 'LT' : 'DD MMMM';
-  const dateValue = dateFormat(field.value, formatDate);
+  const dateFormat = isTime ? 'LT' : 'DD MMMM';
+  const formattedValue = customFormat(field.value, dateFormat);
 
   const value = isDateTime
     ? field.value
-      ? dateValue
+      ? formattedValue
       : ''
     : (field.value as string);
 
