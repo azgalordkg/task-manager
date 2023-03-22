@@ -38,11 +38,11 @@ export const CreateTaskForm: FC<Props> = ({
 
   const { setTagsForEdit, tags: allTags } = useTagManageContext();
 
-  const [editableTask, setEditableTask] = useState({} as TasksResponseItem);
+  const [taskForEdit, setTaskForEdit] = useState({} as TasksResponseItem);
 
   useEffect(() => {
     if (editItemId) {
-      setEditableTask(findOneTask(editItemId));
+      setTaskForEdit(findOneTask(editItemId));
     }
   }, [editItemId]);
 
@@ -77,7 +77,7 @@ export const CreateTaskForm: FC<Props> = ({
     if (hasDeadline) {
       setValue('hasDeadline', true);
     }
-    if (tags.length) {
+    if (tags?.length) {
       const tagsForEdit = prepareTagsForRender(tags, allTags);
       setTagsForEdit(tagsForEdit.map(({ _id }) => _id));
     }
@@ -86,15 +86,15 @@ export const CreateTaskForm: FC<Props> = ({
 
   useEffect(() => {
     if (editItemId) {
-      if (editableTask) {
-        prepareEditData(editableTask);
+      if (taskForEdit) {
+        prepareEditData(taskForEdit);
       }
     } else {
       reset();
     }
-  }, [editItemId]);
+  }, [editItemId, taskForEdit]);
 
-  const isDisabled = (
+  const isInitialDataChanged = (
     initialTaskValue: Partial<TasksResponseItem>,
     formValue: CreateTaskData,
   ) => {
@@ -122,7 +122,7 @@ export const CreateTaskForm: FC<Props> = ({
     return isEqual(editInitialTaskValue, formValue);
   };
 
-  const isDisabledButton = !isDisabled(editableTask, watch()) && isValid;
+  const isDisabled = !isInitialDataChanged(taskForEdit, watch()) && isValid;
   const timeInputWidth = Dimensions.get('window').width / 2 - 30;
   const title = editItemId ? 'Edit' : 'Create';
 
@@ -130,7 +130,7 @@ export const CreateTaskForm: FC<Props> = ({
     <DismissKeyboard>
       <FormContentWrapper
         onSubmitPress={handleSubmit(onSubmit)}
-        isSubmitDisabled={!isDisabledButton}
+        isSubmitDisabled={!isDisabled}
         submitTitle={title}
         title={`${title} task`}>
         <View style={styles.inputWrapper}>
