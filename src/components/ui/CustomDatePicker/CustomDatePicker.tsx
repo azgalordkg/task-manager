@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { FC, useState } from 'react';
 import { useController } from 'react-hook-form';
 import { Text, TouchableOpacity, View } from 'react-native';
@@ -16,7 +17,7 @@ export const CustomDatePicker: FC<Props> = ({
   name,
   label,
   inputWidth,
-  minimumDate,
+  setValue,
   ...props
 }) => {
   const { theme } = useThemeContext();
@@ -28,6 +29,37 @@ export const CustomDatePicker: FC<Props> = ({
     defaultValue,
     name,
   });
+
+  const changeOppositeDate = (currentDate: Date) => {
+    const isStartDate = name === 'startDate';
+    const fieldName = isStartDate ? 'endDate' : 'startDate';
+    const oppositeDate = control._fields[fieldName]?._f.value;
+    const momentDate = moment(+currentDate);
+
+    const isSameOrAfterDate = momentDate.isSameOrAfter(
+      oppositeDate,
+      'hour' && 'minute',
+    );
+    const isSameOrBeforeDate = momentDate.isSameOrBefore(oppositeDate);
+
+    const addMethod = isStartDate && isSameOrAfterDate && 'add';
+    const subtractMethod = !isStartDate && isSameOrBeforeDate && 'subtract';
+
+    const momentMethod = addMethod || subtractMethod;
+
+    if (momentMethod && setValue) {
+      const changedOppositeDate = momentDate[momentMethod](15, 'minutes');
+
+      setValue(fieldName, new Date(+changedOppositeDate));
+    }
+  };
+
+  const onConfirm = (currentDate: Date) => {
+    setOpen(false);
+    field.onChange(currentDate);
+
+    changeOppositeDate(currentDate);
+  };
 
   return (
     <>
@@ -56,14 +88,10 @@ export const CustomDatePicker: FC<Props> = ({
         isVisible={open}
         date={field.value as Date}
         minuteInterval={15}
-        onConfirm={currentDate => {
-          setOpen(false);
-          field.onChange(currentDate);
-        }}
+        onConfirm={currentDate => onConfirm(currentDate)}
         onCancel={() => {
           setOpen(false);
         }}
-        minimumDate={minimumDate}
       />
     </>
   );
