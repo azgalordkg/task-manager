@@ -2,7 +2,6 @@ import * as React from 'react';
 import { FC } from 'react';
 import { View } from 'react-native';
 
-import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 
 import { CustomButton } from '../CustomButton';
@@ -15,11 +14,8 @@ export const ModalWrapper: FC<Props> = ({
   closeText = 'Cancel',
   responsiveHeight,
 }) => {
-  const { theme, activeTheme } = useThemeContext();
+  const { theme } = useThemeContext();
   const style = styles(theme, responsiveHeight);
-
-  const buttonColor =
-    activeTheme === 'light' ? COLORS.WHITE_LIGHT : COLORS.GREY_MEDIUM;
 
   return (
     <View style={style.container}>
@@ -30,7 +26,7 @@ export const ModalWrapper: FC<Props> = ({
         {children}
         <View style={style.footer}>
           <CustomButton
-            bgColor={buttonColor}
+            bgColor={theme.BUTTONS_SECONDARY}
             textColor={theme.TEXT_PRIMARY}
             fullWidth
             onPress={onRequestClose}>

@@ -41,8 +41,7 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
   );
 
   const { fetchList } = useTaskModalContext();
-  const { theme, activeTheme } = useThemeContext();
-  const iconColor = activeTheme === 'light' ? COLORS.GREY : COLORS.GREY_MEDIUM;
+  const { theme } = useThemeContext();
   const style = styles(theme);
 
   const {
@@ -75,7 +74,7 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
     <View style={style.contentWrapper}>
       <DismissKeyboard>
         <View style={style.container}>
-          <Checkbox width={28} height={28} color={iconColor} />
+          <Checkbox width={28} height={28} color={theme.TEXT_INFO} />
 
           <View style={style.inputContainer}>
             <Input

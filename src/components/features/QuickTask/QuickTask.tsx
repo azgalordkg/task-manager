@@ -4,7 +4,6 @@ import { View } from 'react-native';
 import { QuickTaskForm } from '@/components/forms';
 import { Plus } from '@/components/icons';
 import { CustomButton } from '@/components/ui';
-import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 
 import styles from './QuickTask.styles';
@@ -12,8 +11,7 @@ import { Props } from './QuickTask.types';
 
 export const QuickTask: FC<Props> = ({ date }) => {
   const [showInput, setShowInput] = useState(false);
-  const { theme, activeTheme } = useThemeContext();
-  const textColor = activeTheme === 'light' ? COLORS.GREY_MEDIUM : COLORS.WHITE;
+  const { theme } = useThemeContext();
 
   const handleShowInput = () => {
     setShowInput(!showInput);
@@ -30,8 +28,8 @@ export const QuickTask: FC<Props> = ({ date }) => {
             onPress={handleShowInput}
             width="100%"
             icon={Plus}
-            textColor={textColor}
-            iconColor={textColor}>
+            textColor={theme.TEXT_SECONDARY}
+            iconColor={theme.TEXT_SECONDARY}>
             Add quick task
           </CustomButton>
         </View>
