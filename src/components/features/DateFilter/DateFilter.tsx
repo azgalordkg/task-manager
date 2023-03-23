@@ -1,8 +1,7 @@
-import { format } from 'date-fns';
 import React, { FC } from 'react';
 import { View } from 'react-native';
 
-import { getDateFromToday, getToday } from '@/utils';
+import { formatDate, getDateFromToday, getToday } from '@/utils';
 
 import { CustomButton } from '../../ui';
 import styles from './DateFilter.styles';
@@ -48,7 +47,7 @@ export const DateFilter: FC<Props> = ({
               fontSize={14}
               onPress={onDateChange}>
               {index > 1
-                ? `${startDate.getDate()} ${format(startDate, 'MMM')}`
+                ? `${startDate.getDate()} ${formatDate(startDate, 'MMM')}`
                 : index === 0
                 ? 'Today'
                 : 'Tomorrow'}

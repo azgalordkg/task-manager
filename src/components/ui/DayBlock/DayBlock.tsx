@@ -1,8 +1,8 @@
-import { format } from 'date-fns';
 import React, { FC, PropsWithChildren } from 'react';
 import { Text, View } from 'react-native';
 
 import { useThemeContext } from '@/context/hooks';
+import { formatDate } from '@/utils';
 
 import styles from './DayBlock.styles';
 import { Props } from './DayBlock.types';
@@ -23,16 +23,16 @@ export const DayBlock: FC<PropsWithChildren<Props>> = ({
         <View style={style.dateWrapper}>
           <View style={style.dayWrapper}>
             {currentDate && (
-              <Text style={style.day}>{format(currentDate, 'dd')}</Text>
+              <Text style={style.day}>{formatDate(currentDate, 'DD')}</Text>
             )}
           </View>
           <View style={style.monthWrapper}>
             {currentDate && (
-              <Text style={style.month}>{format(currentDate, 'MMM')} </Text>
+              <Text style={style.month}>{formatDate(currentDate, 'MMM')}</Text>
             )}
             {currentDate && (
               <Text style={style.dayOfWeek}>
-                / {format(currentDate, 'iii')}
+                / {formatDate(currentDate, 'ddd')}
               </Text>
             )}
           </View>
