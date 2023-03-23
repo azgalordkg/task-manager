@@ -17,7 +17,6 @@ import {
   PurchaseScreen,
   Settings,
   TagsSettingsScreen,
-  TaskScreen,
   Theme,
 } from '@/screens';
 import { RootStackParamList } from '@/types/navigation';
@@ -39,7 +38,6 @@ const App: FC = () => {
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="AboutUs" component={AboutUs} />
                 <Stack.Screen name="Settings" component={Settings} />
-                <Stack.Screen name="Task" component={TaskScreen} />
                 <Stack.Screen name="Documents" component={DocumentsScreen} />
                 <Stack.Screen
                   name="TagsSettings"

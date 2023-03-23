@@ -43,10 +43,6 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
   }, []);
 
   const handleItemPress = (id: string) => {
-    navigation.navigate('Task', { id });
-  };
-
-  const handleEditPress = (id: string) => {
     navigation.navigate('CreateTask', { id });
   };
 
@@ -58,11 +54,7 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
     <MainLayout withHeader navigation={navigation}>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={style.contentWrapper}>
-          <TaskList
-            onItemPress={handleItemPress}
-            onEditPress={handleEditPress}
-            list={taskList}
-          />
+          <TaskList onItemPress={handleItemPress} list={taskList} />
         </View>
       </ScrollView>
 

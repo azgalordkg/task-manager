@@ -1,9 +1,13 @@
 import React, { FC, useMemo, useState } from 'react';
-import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 
-import { ArrowBack, Edit } from '@/components/icons';
-import { MainLayout } from '@/components/layouts';
-import { ConfirmModal, CustomButton, Tag, TextBlank } from '@/components/ui';
+import {
+  ConfirmModal,
+  CustomButton,
+  ModalWrapper,
+  Tag,
+  TextBlank,
+} from '@/components/ui';
 import { COLORS } from '@/constants';
 import {
   useTagManageContext,
@@ -14,21 +18,17 @@ import { deleteOneTask, findOneTask } from '@/services/realm';
 import { ScreenProps, TagsResponseItem } from '@/types';
 import { formatDate, prepareTagsForRender } from '@/utils';
 
-import darkThemeBackground from '../../assets/img/darkTaskBg.jpg';
-import lightThemeBackground from '../../assets/img/lightTaskBg.jpg';
 import styles from './TaskScreen.styles';
 
 export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
+  // TODO Remove this screen later
   const id = route?.params?.id;
   const { startDate, endDate, tags, name, description } = findOneTask(id);
   const { fetchList } = useTaskModalContext();
   const { tags: allTags } = useTagManageContext();
-  const { theme, activeTheme } = useThemeContext();
+  const { theme } = useThemeContext();
 
   const style = styles(theme);
-
-  const backgroundImage =
-    activeTheme === 'dark' ? darkThemeBackground : lightThemeBackground;
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
 
@@ -52,24 +52,10 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
     [allTags, tags],
   );
 
-  return (
-    <MainLayout>
-      <ImageBackground
-        style={style.taskHeaderImage}
-        resizeMode="cover"
-        source={backgroundImage}>
-        <View style={style.taskHeaderContainer}>
-          <TouchableOpacity
-            style={style.backButton}
-            onPress={() => navigation.goBack()}>
-            <ArrowBack color={theme.TEXT_PRIMARY} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={onEditPressHandler}>
-            <Edit color={theme.TEXT_PRIMARY} />
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
+  const handleCloseModal = () => navigation.goBack();
 
+  return (
+    <ModalWrapper responsiveHeight onRequestClose={handleCloseModal}>
       <View style={style.taskContentWrapper}>
         <View style={style.taskTitleWrapper}>
           <View style={style.taskTitleTagsContainer}>
@@ -77,7 +63,7 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
             {Boolean(tagsForRender.length) && (
               <View style={style.taskTagsContainer}>
                 {tagsForRender?.map(({ name: taskName, color }) => (
-                  <Tag key={name} name={taskName} bgColor={color} />
+                  <Tag key={taskName} name={taskName} bgColor={color} />
                 ))}
               </View>
             )}
@@ -115,11 +101,14 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
       </View>
 
       <View style={style.taskButtonContainer}>
-        <CustomButton width={'100%'} bgColor={COLORS.GREEN} onPress={() => {}}>
+        {/*<CustomButton width={'100%'} bgColor={COLORS.GREEN} onPress={() => {}}>
           Duplicate
+        </CustomButton>*/}
+        <CustomButton width={'48%'} onPress={onEditPressHandler}>
+          Edit
         </CustomButton>
         <CustomButton
-          width={'100%'}
+          width={'48%'}
           bgColor={theme.BUTTONS_SECONDARY}
           textColor={COLORS.RED}
           onPress={handleShowModal}>
@@ -135,6 +124,6 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowModal}
       />
-    </MainLayout>
+    </ModalWrapper>
   );
 };

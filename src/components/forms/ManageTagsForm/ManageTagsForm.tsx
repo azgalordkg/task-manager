@@ -37,7 +37,7 @@ export const ManageTagsForm: FC<Props> = ({
       submitTitle="Done"
       title={isSettings ? '' : 'Manage Tags'}
       onSubmitPress={() => {
-        if (isSettings) {
+        if (!isSettings) {
           acceptSelectedTags();
         }
         onClose();

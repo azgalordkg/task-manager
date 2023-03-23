@@ -41,6 +41,10 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
       fontWeight: '600',
       color: theme.TEXT_PRIMARY,
     },
+    description: {
+      fontSize: 12,
+      color: theme.TEXT_SECONDARY,
+    },
     time: {
       marginTop: 6,
       fontSize: 14,
@@ -66,7 +70,7 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
       height: 20,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: COLORS.GREY,
+      backgroundColor: theme.BUTTONS_ADDITIONAL,
     },
     outsideBackground: {
       backgroundColor: theme.BACKGROUND_TASK,

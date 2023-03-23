@@ -7,5 +7,4 @@ export * from './ManageTagsScreen';
 export * from './PurchaseScreen';
 export * from './SettingsScreen';
 export * from './TagsSettingsScreen';
-export * from './TaskScreen';
 export * from './Theme';

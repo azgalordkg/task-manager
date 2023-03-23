@@ -10,14 +10,14 @@ const styles = (theme: SchemeType) =>
       alignItems: 'flex-start',
     },
     titleWrapper: {
-      marginBottom: 30,
+      marginBottom: 20,
       width: '100%',
       alignItems: 'center',
     },
     title: {
-      color: theme.TEXT_PRIMARY,
+      color: theme.TEXT_SECONDARY,
       fontWeight: '600',
-      fontSize: 22,
+      fontSize: 18,
     },
     fieldsWrapper: {
       flex: 1,

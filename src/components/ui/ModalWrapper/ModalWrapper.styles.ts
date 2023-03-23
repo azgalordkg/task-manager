@@ -3,13 +3,14 @@ import { StyleSheet } from 'react-native';
 import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
 
-const styles = (theme: SchemeType) =>
+const styles = (theme: SchemeType, responsiveHeight?: boolean) =>
   StyleSheet.create({
-    modal: {
+    container: {
       flex: 1,
+      justifyContent: 'flex-end',
     },
     contentWrapper: {
-      flex: 1,
+      flex: responsiveHeight ? 0 : 1,
       backgroundColor: theme.BACKGROUND_MODAL,
       padding: 20,
       paddingTop: 15,
