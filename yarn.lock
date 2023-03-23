@@ -6549,11 +6549,6 @@ react-native-modal-datetime-picker@^14.0.1:
   dependencies:
     prop-types "^15.7.2"
 
-react-native-outside-press@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-outside-press/-/react-native-outside-press-1.1.0.tgz#0c24ca004069c7939e1154417946a58743939362"
-  integrity sha512-uapMDdhd+sWc1BtShGOLvOA210cFsVcnbyIjXqoNSKUjmb1Aekb8wO1mIMd0MawHjaMgFLj2ynrPgrfg6Z3Ang==
-
 react-native-picker-select@^8.0.4:
   version "8.0.4"
   resolved "https://registry.yarnpkg.com/react-native-picker-select/-/react-native-picker-select-8.0.4.tgz#3f7f1f42df69b06e7d2c10338288332a6c40fd10"
