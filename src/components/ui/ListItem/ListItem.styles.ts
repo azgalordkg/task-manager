@@ -41,6 +41,10 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
       fontWeight: '600',
       color: theme.TEXT_PRIMARY,
     },
+    description: {
+      fontSize: 12,
+      color: theme.TEXT_SECONDARY,
+    },
     time: {
       marginTop: 6,
       fontSize: 14,

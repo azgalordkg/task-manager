@@ -14,4 +14,5 @@ export interface ListItemProps {
   isDone?: boolean;
   repeat?: RecurringTypes;
   tags: string[];
+  description?: string;
 }

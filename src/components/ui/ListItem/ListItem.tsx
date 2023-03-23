@@ -37,6 +37,7 @@ export const ListItem: FC<ListItemProps> = ({
   id,
   isDone,
   repeat,
+  description,
 }) => {
   const { theme } = useThemeContext();
   const style = styles({ isLast, checked, theme });
@@ -129,6 +130,13 @@ export const ListItem: FC<ListItemProps> = ({
                 </View>
               )}
               <Text style={[style.title, style.crossedTextStyles]}>{name}</Text>
+              {description && (
+                <Text
+                  numberOfLines={1}
+                  style={[style.description, style.crossedTextStyles]}>
+                  {description}
+                </Text>
+              )}
               {hasDeadline && (
                 <Text style={[style.time, style.crossedTextStyles]}>
                   {deadlineStart} - {deadlineEnd}
