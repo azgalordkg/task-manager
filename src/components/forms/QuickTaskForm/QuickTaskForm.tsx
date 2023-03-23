@@ -72,37 +72,39 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
   };
 
   return (
-    <DismissKeyboard>
-      <View style={style.container}>
-        <Checkbox width={28} height={28} color={iconColor} />
+    <View style={style.contentWrapper}>
+      <DismissKeyboard>
+        <View style={style.container}>
+          <Checkbox width={28} height={28} color={iconColor} />
 
-        <View style={style.inputContainer}>
-          <Input
-            control={control}
-            name="name"
-            placeholder="Name *"
-            errorMessage={errors.name?.message}
-            borderColor={theme.INPUT_QUICK_TASK}
-            backgroundColor={theme.INPUT_QUICK_TASK}
-            maxLength={30}
-            color={theme.TEXT_PRIMARY}
-          />
+          <View style={style.inputContainer}>
+            <Input
+              control={control}
+              name="name"
+              placeholder="Name *"
+              errorMessage={errors.name?.message}
+              borderColor={theme.INPUT_QUICK_TASK}
+              backgroundColor={theme.INPUT_QUICK_TASK}
+              maxLength={30}
+              color={theme.TEXT_PRIMARY}
+            />
 
-          <View style={style.buttonWrapper}>
-            <CustomButton
-              width="48%"
-              bgColor={theme.INPUT_QUICK_TASK}
-              textColor={COLORS.RED}
-              onPress={handleShowInput}>
-              Cancel
-            </CustomButton>
+            <View style={style.buttonWrapper}>
+              <CustomButton
+                width="48%"
+                bgColor={theme.INPUT_QUICK_TASK}
+                textColor={COLORS.RED}
+                onPress={handleShowInput}>
+                Cancel
+              </CustomButton>
 
-            <CustomButton width="48%" onPress={handleSubmit(onSubmit)}>
-              Create
-            </CustomButton>
+              <CustomButton width="48%" onPress={handleSubmit(onSubmit)}>
+                Create
+              </CustomButton>
+            </View>
           </View>
         </View>
-      </View>
-    </DismissKeyboard>
+      </DismissKeyboard>
+    </View>
   );
 };
