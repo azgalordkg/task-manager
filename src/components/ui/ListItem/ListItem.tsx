@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import { isEqual } from 'lodash';
 import React, { FC, useMemo, useRef, useState } from 'react';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
@@ -13,7 +12,7 @@ import {
   useThemeContext,
 } from '@/context/hooks';
 import { TagsResponseItem } from '@/types';
-import { prepareTagsForRender, vibrate } from '@/utils';
+import { formatDate, prepareTagsForRender, vibrate } from '@/utils';
 
 import styles from './ListItem.styles';
 import { ListItemProps } from './ListItem.types';
@@ -104,8 +103,8 @@ export const ListItem: FC<ListItemProps> = ({
     fetchList();
   };
 
-  const deadlineStart = startDate && format(new Date(startDate), 'p');
-  const deadlineEnd = endDate && format(new Date(endDate), 'p');
+  const deadlineStart = startDate && formatDate(startDate, 'LT');
+  const deadlineEnd = endDate && formatDate(endDate, 'LT');
 
   const tagsForRender: TagsResponseItem[] = useMemo(
     () => prepareTagsForRender(tags, allTags),

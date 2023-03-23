@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import React, { FC, useMemo, useState } from 'react';
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native';
 
@@ -13,7 +12,7 @@ import {
 } from '@/context/hooks';
 import { deleteOneTask, findOneTask } from '@/services/realm';
 import { ScreenProps, TagsResponseItem } from '@/types';
-import { prepareTagsForRender } from '@/utils';
+import { formatDate, prepareTagsForRender } from '@/utils';
 
 import darkThemeBackground from '../../assets/img/darkTaskBg.jpg';
 import lightThemeBackground from '../../assets/img/lightTaskBg.jpg';
@@ -86,18 +85,21 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
 
           {startDate && endDate && (
             <View style={style.taskDateContainer}>
-              <Text style={style.taskDateDay}>{format(startDate, 'dd')}</Text>
+              <Text style={style.taskDateDay}>
+                {formatDate(startDate, 'DD')}
+              </Text>
               <View style={style.taskMonthWeekContainer}>
                 <Text style={style.taskDateMonth}>
-                  {format(startDate, 'MMMM')}
+                  {formatDate(startDate, 'MMMM')}
                 </Text>
                 <Text style={style.taskDateWeekday}>/</Text>
                 <Text style={style.taskDateWeekday}>
-                  {format(startDate, 'EEEE')}
+                  {formatDate(startDate, 'dddd')}
                 </Text>
               </View>
               <Text style={style.taskDatePeriod}>
-                {format(startDate, 'h:mm a')} - {format(endDate, 'h:mm a')}
+                {formatDate(startDate, 'h:mm A')} -
+                {formatDate(endDate, 'h:mm A')}
               </Text>
             </View>
           )}
