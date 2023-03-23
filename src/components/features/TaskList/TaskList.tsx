@@ -14,11 +14,7 @@ import { sortTasksForRender } from '@/utils';
 import styles from './TaskList.styles';
 import { Props } from './TaskList.types';
 
-export const TaskList: FC<Props> = ({
-  list = {},
-  onItemPress,
-  onEditPress,
-}) => {
+export const TaskList: FC<Props> = ({ list = {}, onItemPress }) => {
   const [activeSection, setActiveSection] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
@@ -101,7 +97,6 @@ export const TaskList: FC<Props> = ({
             content={section.content}
             onDeletePress={handleDeletePress}
             onItemPress={onItemPress}
-            onEditPress={onEditPress}
           />
         )}
         onChange={setActiveSection}

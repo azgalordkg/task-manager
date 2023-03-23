@@ -66,7 +66,7 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
       height: 20,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: COLORS.GREY,
+      backgroundColor: theme.BUTTONS_ADDITIONAL,
     },
     outsideBackground: {
       backgroundColor: theme.BACKGROUND_TASK,

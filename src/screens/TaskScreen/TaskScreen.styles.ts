@@ -8,8 +8,8 @@ const styles = (theme: SchemeType) =>
       padding: 4,
     },
     taskContentWrapper: {
-      marginHorizontal: 20,
-      marginTop: 30,
+      minHeight: 300,
+      flexGrow: 1,
     },
     taskTitleWrapper: {
       flexDirection: 'row',
@@ -23,9 +23,8 @@ const styles = (theme: SchemeType) =>
     },
     taskHeaderContainer: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-end',
       width: '100%',
-      paddingHorizontal: 20,
     },
     taskTitleTagsContainer: {
       rowGap: 20,
@@ -76,11 +75,9 @@ const styles = (theme: SchemeType) =>
       lineHeight: 28,
     },
     taskButtonContainer: {
-      marginBottom: 32,
       rowGap: 12,
-      flexGrow: 1,
-      justifyContent: 'flex-end',
-      marginHorizontal: 20,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
       marginTop: 12,
     },
   });

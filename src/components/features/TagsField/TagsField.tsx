@@ -46,7 +46,9 @@ export const TagsField: FC<Props> = ({ onAddPress }) => {
             bgColor={color}
           />
         ))}
-        <DashedButton onPress={onAddPress}>Add</DashedButton>
+        {tags?.length < 3 && (
+          <DashedButton onPress={onAddPress}>Add</DashedButton>
+        )}
       </View>
     </View>
   );

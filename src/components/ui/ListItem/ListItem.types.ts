@@ -9,7 +9,6 @@ export interface ListItemProps {
   onDeletePress: (id: string, isRecurring: boolean) => void;
   isLast?: boolean;
   onItemPress: (id: string) => void;
-  onEditPress: (id: string) => void;
   hasDeadline?: boolean;
   id: string;
   isDone?: boolean;

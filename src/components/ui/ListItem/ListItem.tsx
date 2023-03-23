@@ -4,9 +4,8 @@ import React, { FC, useMemo, useRef, useState } from 'react';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 
-import { Cross, Edit, Trash } from '@/components/icons';
+import { Cross, Trash } from '@/components/icons';
 import { ActionButton, CustomCheckbox } from '@/components/ui';
-import { COLORS } from '@/constants';
 import {
   useTagManageContext,
   useTaskModalContext,
@@ -31,7 +30,6 @@ export const ListItem: FC<ListItemProps> = ({
   checked,
   onCheckPress,
   onDeletePress,
-  onEditPress,
   startDate,
   endDate,
   isLast,
@@ -48,12 +46,6 @@ export const ListItem: FC<ListItemProps> = ({
   const isRecurring = repeat ? repeat !== 'Never' : false;
 
   const { fetchList } = useTaskModalContext();
-
-  const closeSwiper = () => {
-    if (swipeRef) {
-      swipeRef.current?.close();
-    }
-  };
 
   const { tags: allTags } = useTagManageContext();
 
@@ -78,16 +70,6 @@ export const ListItem: FC<ListItemProps> = ({
     return (
       <>
         <ActionButton icon={Trash} scale={scale} onPress={handleDeletePress} />
-        <ActionButton
-          backgroundColor={COLORS.YELLOW}
-          icon={Edit}
-          scale={scale}
-          onPress={() => {
-            onEditPress(id);
-            vibrate('selection');
-            closeSwiper();
-          }}
-        />
       </>
     );
   };

@@ -18,7 +18,6 @@ const customComparator = (prevProps: Props, nextProps: Props) => {
 export const AccordionContent: FC<Props> = ({
   content,
   title,
-  onEditPress,
   onItemPress,
   onDeletePress,
 }) => {
@@ -39,7 +38,6 @@ export const AccordionContent: FC<Props> = ({
             <MemoizedListItem
               tags={tags}
               hasDeadline={Boolean(hasDeadline)}
-              onEditPress={onEditPress}
               onItemPress={onItemPress}
               startDate={startDate}
               endDate={endDate}
