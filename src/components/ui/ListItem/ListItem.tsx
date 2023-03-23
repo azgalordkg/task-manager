@@ -12,7 +12,7 @@ import {
   useThemeContext,
 } from '@/context/hooks';
 import { TagsResponseItem } from '@/types';
-import { dateFormat, prepareTagsForRender, vibrate } from '@/utils';
+import { formatDate, prepareTagsForRender, vibrate } from '@/utils';
 
 import styles from './ListItem.styles';
 import { ListItemProps } from './ListItem.types';
@@ -103,8 +103,8 @@ export const ListItem: FC<ListItemProps> = ({
     fetchList();
   };
 
-  const deadlineStart = startDate && dateFormat(startDate, 'LT');
-  const deadlineEnd = endDate && dateFormat(endDate, 'LT');
+  const deadlineStart = startDate && formatDate(startDate, 'LT');
+  const deadlineEnd = endDate && formatDate(endDate, 'LT');
 
   const tagsForRender: TagsResponseItem[] = useMemo(
     () => prepareTagsForRender(tags, allTags),

@@ -12,7 +12,7 @@ import {
 } from '@/context/hooks';
 import { deleteOneTask, findOneTask } from '@/services/realm';
 import { ScreenProps, TagsResponseItem } from '@/types';
-import { dateFormat, prepareTagsForRender } from '@/utils';
+import { formatDate, prepareTagsForRender } from '@/utils';
 
 import darkThemeBackground from '../../assets/img/darkTaskBg.jpg';
 import lightThemeBackground from '../../assets/img/lightTaskBg.jpg';
@@ -86,20 +86,20 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
           {startDate && endDate && (
             <View style={style.taskDateContainer}>
               <Text style={style.taskDateDay}>
-                {dateFormat(startDate, 'DD')}
+                {formatDate(startDate, 'DD')}
               </Text>
               <View style={style.taskMonthWeekContainer}>
                 <Text style={style.taskDateMonth}>
-                  {dateFormat(startDate, 'MMMM')}
+                  {formatDate(startDate, 'MMMM')}
                 </Text>
                 <Text style={style.taskDateWeekday}>/</Text>
                 <Text style={style.taskDateWeekday}>
-                  {dateFormat(startDate, 'dddd')}
+                  {formatDate(startDate, 'dddd')}
                 </Text>
               </View>
               <Text style={style.taskDatePeriod}>
-                {dateFormat(startDate, 'h:mm A')} -
-                {dateFormat(endDate, 'h:mm A')}
+                {formatDate(startDate, 'h:mm A')} -
+                {formatDate(endDate, 'h:mm A')}
               </Text>
             </View>
           )}
