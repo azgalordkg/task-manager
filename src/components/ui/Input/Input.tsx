@@ -23,20 +23,19 @@ export const Input: FC<Props> = ({
   color = COLORS.BLACK_DARK,
   ...props
 }) => {
-  const { field } = useController({
+  const {
+    field: { value: fieldValue, onChange, onBlur },
+  } = useController({
     control,
     defaultValue,
     name,
   });
   const style = styles(color);
   const dateFormat = isTime ? 'LT' : 'DD MMMM';
-  const formattedValue = formatDate(field.value, dateFormat);
+  const formattedValue = formatDate(fieldValue, dateFormat);
 
-  const value = isDateTime
-    ? field.value
-      ? formattedValue
-      : ''
-    : (field.value as string);
+  const value =
+    fieldValue && isDateTime ? formattedValue : (fieldValue as string);
 
   return (
     <View style={style.inputContainer}>
@@ -50,10 +49,8 @@ export const Input: FC<Props> = ({
           maxLength={maxLength}
           style={style.input}
           value={value}
-          onChangeText={field.onChange}
-          onBlur={() => {
-            field.onBlur();
-          }}
+          onChangeText={onChange}
+          onBlur={onBlur}
           {...props}
         />
       </InputWrapper>
