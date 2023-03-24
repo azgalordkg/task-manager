@@ -17,7 +17,7 @@ import { createTaskFormSchema } from '@/constants/validation';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { findOneTask } from '@/services/realm';
 import { CreateTaskData, TasksResponseItem } from '@/types';
-import { prepareTagsForRender } from '@/utils';
+import { initialDateRounder, prepareTagsForRender } from '@/utils';
 
 import styles from './CreateTaskForm.styles';
 import { Props } from './CreateTaskForm.types';
@@ -27,14 +27,7 @@ export const CreateTaskForm: FC<Props> = ({
   editItemId,
   onAddPress,
 }) => {
-  const startDate = new Date();
-  const endDate = new Date();
-
-  startDate.setMinutes(startDate.getMinutes() < 30 ? 0 : 30);
-  endDate.setHours(
-    startDate.getHours() + 1,
-    startDate.getMinutes() < 30 ? 0 : 30,
-  );
+  const { startDate, endDate } = initialDateRounder();
 
   const { setTagsForEdit, tags: allTags } = useTagManageContext();
 

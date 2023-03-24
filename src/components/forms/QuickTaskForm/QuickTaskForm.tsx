@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import moment from 'moment';
 import React, { FC } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { View } from 'react-native';
@@ -11,7 +12,7 @@ import { createTaskFormSchema } from '@/constants/validation';
 import { useTaskModalContext, useThemeContext } from '@/context/hooks';
 import { createTask } from '@/services';
 import { CreateTaskData } from '@/types';
-import { vibrate } from '@/utils';
+import { initialDateRounder, vibrate } from '@/utils';
 
 import styles from './QuickTaskForm.styles';
 import { Props } from './QuickTaskForm.types';
@@ -20,24 +21,21 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
   const createDateTime = new Date();
 
   const combineStartDate = (dateDay: Date, dateTime: Date) => {
-    const day = dateDay.getDate();
-    const month = dateDay.getMonth();
-    const year = dateDay.getFullYear();
+    const day = moment(dateDay);
+    const time = moment(dateTime);
 
-    const hours = dateTime.getHours();
-    const minutes = dateTime.getMinutes();
-    const seconds = dateTime.getSeconds();
-
-    return new Date(year, month, day, hours, minutes, seconds);
+    return moment({
+      year: day.year(),
+      month: day.month(),
+      day: day.date(),
+      hour: time.hour(),
+      minute: time.minute(),
+      second: time.second(),
+    });
   };
 
-  const startDate = combineStartDate(new Date(+date), createDateTime);
-  const endDate = new Date();
-
-  startDate.setMinutes(startDate.getMinutes() < 30 ? 0 : 30);
-  endDate.setHours(
-    startDate.getHours() + 1,
-    startDate.getMinutes() < 30 ? 0 : 30,
+  const { startDate, endDate } = initialDateRounder(
+    combineStartDate(new Date(+date), createDateTime),
   );
 
   const { fetchList } = useTaskModalContext();
