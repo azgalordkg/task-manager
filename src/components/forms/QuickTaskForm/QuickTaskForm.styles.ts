@@ -4,6 +4,9 @@ import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
+    contentWrapper: {
+      height: 126,
+    },
     container: {
       padding: 12,
       borderRadius: 12,
