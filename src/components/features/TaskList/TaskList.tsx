@@ -86,6 +86,7 @@ export const TaskList: FC<Props> = ({ list = {}, onItemPress }) => {
         activeSections={activeSection}
         renderHeader={section => (
           <AccordionHeader
+            tasksCurrent={section.content.length}
             activeSection={activeSection}
             id={section.id}
             title={section.title}

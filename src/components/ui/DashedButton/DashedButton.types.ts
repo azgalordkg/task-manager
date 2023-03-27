@@ -7,4 +7,5 @@ export interface Props {
   variant?: 'small' | 'large';
   icon?: FC<DefaultSvgProps>;
   color?: string;
+  disabled?: boolean;
 }

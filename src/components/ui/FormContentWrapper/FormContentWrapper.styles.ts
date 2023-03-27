@@ -28,6 +28,7 @@ const styles = (theme: SchemeType) =>
       paddingHorizontal: 4,
       position: 'absolute',
       right: 0,
+      bottom: -3,
     },
   });
 

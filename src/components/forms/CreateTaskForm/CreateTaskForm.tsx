@@ -7,6 +7,7 @@ import { Dimensions, View } from 'react-native';
 import { DateFilter, DismissKeyboard, TagsField } from '@/components/features';
 import {
   Checkbox,
+  ConfirmModal,
   CustomDatePicker,
   FormContentWrapper,
   Input,
@@ -14,8 +15,12 @@ import {
 } from '@/components/ui';
 import { REPEAT_LIST } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
-import { useTagManageContext, useThemeContext } from '@/context/hooks';
-import { findOneTask } from '@/services/realm';
+import {
+  useTagManageContext,
+  useTaskModalContext,
+  useThemeContext,
+} from '@/context/hooks';
+import { deleteOneTask, findOneTask } from '@/services/realm';
 import { CreateTaskData, TasksResponseItem } from '@/types';
 import { prepareTagsForRender, roundAndExtendTimeRange } from '@/utils';
 
@@ -27,11 +32,12 @@ export const CreateTaskForm: FC<Props> = ({
   editItemId,
   onAddPress,
 }) => {
-  const { startDate, endDate } = roundAndExtendTimeRange();
-
-  const { setTagsForEdit, tags: allTags } = useTagManageContext();
-
   const [taskForEdit, setTaskForEdit] = useState({} as TasksResponseItem);
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+
+  const { startDate, endDate } = roundAndExtendTimeRange();
+  const { setTagsForEdit, tags: allTags } = useTagManageContext();
+  const { fetchList } = useTaskModalContext();
 
   useEffect(() => {
     if (editItemId) {
@@ -121,11 +127,24 @@ export const CreateTaskForm: FC<Props> = ({
   const timeInputWidth = Dimensions.get('window').width / 2 - 30;
   const title = editItemId ? 'Edit' : 'Create';
 
+  const handleShowModal = () => {
+    setConfirmModalVisible(!confirmModalVisible);
+  };
+
+  const handleDeleteTask = () => {
+    if (editItemId) {
+      deleteOneTask(editItemId);
+    }
+    fetchList();
+    handleShowModal();
+  };
+
   return (
     <DismissKeyboard>
       <FormContentWrapper
         onSubmitPress={handleSubmit(onSubmit)}
         isSubmitDisabled={!isDisabled}
+        onDeletePress={editItemId ? handleShowModal : undefined}
         submitTitle={title}
         title={`${title} task`}>
         <View style={styles.inputWrapper}>
@@ -208,6 +227,15 @@ export const CreateTaskForm: FC<Props> = ({
         )}
         <TagsField onAddPress={onAddPress} />
       </FormContentWrapper>
+
+      <ConfirmModal
+        title="Confirm Deletion"
+        confirmButtonLabel="Delete"
+        description="Are you sure you want to delete this task?"
+        visible={confirmModalVisible}
+        onPressConfirm={handleDeleteTask}
+        onPressDismiss={handleShowModal}
+      />
     </DismissKeyboard>
   );
 };

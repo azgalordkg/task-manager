@@ -1,11 +1,9 @@
 import React, { FC, useState } from 'react';
 import { View } from 'react-native';
 
-import { Crown } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { BackButtonHeader } from '@/components/ui';
 import { MenuItem } from '@/components/ui/MenuItem';
-import { COLORS } from '@/constants';
 import { ScreenProps } from '@/types';
 
 import styles from './Settings.styles';
@@ -30,7 +28,7 @@ export const Settings: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
           <MenuItem onPress={() => navigation.navigate('TagsSettings')}>
             Tags
           </MenuItem>
-          <MenuItem onPress={() => {}}>Language</MenuItem>
+          {/*<MenuItem onPress={() => {}}>Language</MenuItem>*/}
           <MenuItem onPress={() => navigation.navigate('Theme')}>
             Theme
           </MenuItem>
@@ -46,14 +44,14 @@ export const Settings: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
             }}>
             About Us
           </MenuItem>
-          <MenuItem
+          {/*<MenuItem
             icon={Crown}
             color={COLORS.YELLOW}
             onPress={() => {
               navigation.navigate('Purchase');
             }}>
             Upgrade
-          </MenuItem>
+          </MenuItem>*/}
         </View>
       </View>
     </MainLayout>

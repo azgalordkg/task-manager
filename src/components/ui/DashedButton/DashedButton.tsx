@@ -12,6 +12,7 @@ export const DashedButton: FC<PropsWithChildren<Props>> = ({
   variant = 'small',
   icon,
   color = COLORS.GREY,
+  disabled,
 }) => {
   let height = 32;
   let fontSize = 12;
@@ -25,10 +26,13 @@ export const DashedButton: FC<PropsWithChildren<Props>> = ({
     iconHeight = 14;
   }
   const Icon = icon;
-  const style = styles(height, fontSize, color);
+  const style = styles(height, fontSize, color, disabled);
 
   return (
-    <TouchableOpacity onPress={onPress} style={style.button}>
+    <TouchableOpacity
+      disabled={disabled}
+      onPress={onPress}
+      style={style.button}>
       {Icon && (
         <Icon
           style={style.icon}
