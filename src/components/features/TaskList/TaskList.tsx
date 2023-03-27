@@ -62,13 +62,9 @@ export const TaskList: FC<Props> = ({ list = {}, onItemPress }) => {
     setConfirmModalVisible(!confirmModalVisible);
   };
 
-  const handleDeletePress = (id: string, isRecurring: boolean) => {
-    if (isRecurring) {
-      handleShowModal();
-      setDeleteId(id);
-    } else {
-      deleteOneTask(id);
-    }
+  const handleDeletePress = (id: string) => {
+    handleShowModal();
+    setDeleteId(id);
   };
 
   const handleDeleteTask = () => {

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Modal, Text, TouchableOpacity, View } from 'react-native';
+import { Modal, TouchableOpacity, View } from 'react-native';
 
 import { CustomButton } from '@/components/ui';
 import { COLORS } from '@/constants';
@@ -10,8 +10,6 @@ import { Props } from './ConfirmModal.types';
 
 export const ConfirmModal: FC<Props> = ({
   visible,
-  title,
-  description,
   confirmButtonLabel = 'Confirm',
   dismissButtonLabel = 'Cancel',
   onPressConfirm,
@@ -31,9 +29,6 @@ export const ConfirmModal: FC<Props> = ({
         activeOpacity={1}
         style={style.centeredView}>
         <View style={style.modalView}>
-          <Text style={style.modalTitle}>{title}</Text>
-          <Text style={style.modalDescription}>{description}</Text>
-
           <View style={style.modalButtonContainer}>
             <CustomButton
               bgColor={COLORS.WHITE_MEDIUM}
