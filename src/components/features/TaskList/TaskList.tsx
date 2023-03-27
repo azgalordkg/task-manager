@@ -18,7 +18,6 @@ export const TaskList: FC<Props> = ({
 }) => {
   const [activeSection, setActiveSection] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filled, setFilled] = useState(false);
 
   const sectionsList = useMemo(
     () =>
@@ -36,17 +35,14 @@ export const TaskList: FC<Props> = ({
       const isToday = itemDate === new Date().getDay();
 
       if (isToday) {
-        setActiveSection([index]);
-        setFilled(true);
+        setActiveSection(prevState => [...prevState, index]);
       }
     });
   };
 
   useEffect(() => {
-    if (!filled) {
-      fillActiveSection();
-    }
-  }, [list, filled]);
+    fillActiveSection();
+  }, [list]);
 
   useEffect(() => {
     setTimeout(() => {
