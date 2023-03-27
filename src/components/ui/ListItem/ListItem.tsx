@@ -1,4 +1,5 @@
 import { format } from 'date-fns';
+import { isEqual } from 'lodash';
 import React, { FC, useRef, useState } from 'react';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
@@ -6,11 +7,19 @@ import { Swipeable } from 'react-native-gesture-handler';
 import { Cross, Edit, Trash } from '@/components/icons';
 import { ActionButton } from '@/components/ui';
 import { COLORS } from '@/constants';
+import { useTaskModalContext } from '@/context/hooks';
 import { vibrate } from '@/utils';
 
 import { Checkmark } from '../../icons';
 import styles from './ListItem.styles';
 import { ListItemProps } from './ListItem.types';
+
+const customComparator = (
+  prevProps: ListItemProps,
+  nextProps: ListItemProps,
+) => {
+  return isEqual(prevProps, nextProps);
+};
 
 export const ListItem: FC<ListItemProps> = ({
   name,
@@ -23,11 +32,13 @@ export const ListItem: FC<ListItemProps> = ({
   isLast,
   onItemPress,
   hasDeadline,
+  id,
+  isDone,
 }) => {
   const style = styles({ isLast, checked });
   const swipeRef = useRef<Swipeable | null>(null);
   const [swiping, setSwiping] = useState(false);
-
+  const { fetchList } = useTaskModalContext();
   const closeSwiper = () => {
     if (swipeRef) {
       swipeRef.current?.close();
@@ -44,15 +55,20 @@ export const ListItem: FC<ListItemProps> = ({
       extrapolate: 'clamp',
     });
 
+    const handleDeletePress = () => {
+      onDeletePress(id);
+      fetchList();
+    };
+
     return (
       <>
-        <ActionButton icon={Trash} scale={scale} onPress={onDeletePress} />
+        <ActionButton icon={Trash} scale={scale} onPress={handleDeletePress} />
         <ActionButton
           backgroundColor={COLORS.ORANGE}
           icon={Edit}
           scale={scale}
           onPress={() => {
-            onEditPress();
+            onEditPress(id);
             closeSwiper();
           }}
         />
@@ -62,12 +78,14 @@ export const ListItem: FC<ListItemProps> = ({
 
   const onCheckPressHandler = () => {
     vibrate();
-    onCheckPress();
+    onCheckPress(id, Boolean(!isDone));
+    fetchList();
   };
 
   const onEasyRemovePress = () => {
     vibrate();
-    onDeletePress();
+    onDeletePress(id);
+    fetchList();
   };
 
   const deadlineStart = startDate && format(new Date(startDate), 'p');
@@ -85,7 +103,7 @@ export const ListItem: FC<ListItemProps> = ({
           activeOpacity={1}
           onPress={() => {
             if (!swiping) {
-              onItemPress();
+              onItemPress(id);
             }
           }}
           style={style.container}>
@@ -124,3 +142,5 @@ export const ListItem: FC<ListItemProps> = ({
     </View>
   );
 };
+
+export const MemoizedListItem = React.memo(ListItem, customComparator);

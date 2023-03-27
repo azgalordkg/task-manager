@@ -1,7 +1,7 @@
-import { TasksList } from '@/types';
+import { TasksResponseItem } from '@/types';
 
 export interface Props {
-  list?: TasksList;
+  content: TasksResponseItem[];
   onItemPress: (id: string) => void;
   onEditPress: (id: string) => void;
 }

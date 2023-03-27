@@ -1,12 +1,13 @@
 import 'react-native-get-random-values';
 
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import Realm from 'realm';
 import { v4 as uuidv4 } from 'uuid';
 
 import { TaskSchema } from '@/constants';
 import {
   CreateTaskData,
+  RecurringTypes,
   TasksList,
   TasksResponseItem,
   UpdateTaskData,
@@ -19,9 +20,9 @@ const realm = new Realm({
   deleteRealmIfMigrationNeeded: true,
 });
 
-export const getTasksDueToday = () => {
+export const getRecurringTasks = (type: RecurringTypes = 'Daily') => {
   if (realm) {
-    return realm.objects('Task').filtered('repeat == $0', 'Daily');
+    return realm.objects('Task').filtered('repeat == $0', type);
   }
   return [];
 };
@@ -90,12 +91,12 @@ export const updateTask = ({
   }
 };
 
-export const prepareUpdateDailyData = (dailyTask: TasksResponseItem) => {
-  const start = moment(new Date(Number(dailyTask.startDate)));
-  const end = moment(new Date(Number(dailyTask.endDate)));
+export const prepareUpdateRecurringData = (task: TasksResponseItem) => {
+  const start = moment(new Date(Number(task.startDate)));
+  const end = moment(new Date(Number(task.endDate)));
   const today = moment();
 
-  const { _id, name, repeat, description, hasDeadline } = dailyTask;
+  const { _id, name, repeat, description, hasDeadline } = task;
   const updateData = {
     _id,
     name,
@@ -105,7 +106,7 @@ export const prepareUpdateDailyData = (dailyTask: TasksResponseItem) => {
     isDone: false,
   } as unknown as UpdateTaskData;
 
-  if (dailyTask.startDate && dailyTask.endDate) {
+  if (task.startDate && task.endDate) {
     start.set('date', today.date());
     start.set('month', today.month());
     end.set('date', today.date());
@@ -118,32 +119,50 @@ export const prepareUpdateDailyData = (dailyTask: TasksResponseItem) => {
   return updateData;
 };
 
-export const updateDailyTasks = (tasksByDays: TasksList) => {
-  const dailyTasks = getTasksDueToday() as unknown as TasksResponseItem[];
-  const days = Object.keys(tasksByDays);
-
-  for (let i in dailyTasks) {
-    const dailyTask = dailyTasks[i];
+export const updateRecurringDates = (
+  tasks: TasksResponseItem[],
+  today: Moment,
+  days: string[],
+  type: RecurringTypes,
+) => {
+  for (let i in tasks) {
+    const recurringTask = tasks[i];
+    const start = moment(new Date(Number(recurringTask.startDate)));
+    start.set({ hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
 
     for (let day of days) {
-      const today = moment();
-      today.set({ hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
-
       const isToday = moment(new Date(Number(day))).isSame(today, 'day');
-      const start = moment(new Date(Number(dailyTask.startDate)));
-      start.set({ hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
 
       if (isToday) {
-        const isBefore = start.isBefore(today);
+        let isBefore = start.isBefore(today);
+
+        if (type === 'Weekly') {
+          isBefore = today.diff(start, 'days') % 7 === 0;
+        }
 
         if (isBefore) {
-          const updateData = prepareUpdateDailyData(dailyTask);
-
+          const updateData = prepareUpdateRecurringData(recurringTask);
           updateTask(updateData);
         }
       }
     }
   }
+};
+
+export const updateRecurringTasks = (tasksByDays: TasksList) => {
+  const dailyTasks = getRecurringTasks(
+    'Daily',
+  ) as unknown as TasksResponseItem[];
+  const weeklyTasks = getRecurringTasks(
+    'Weekly',
+  ) as unknown as TasksResponseItem[];
+
+  const days = Object.keys(tasksByDays);
+  const today = moment();
+  today.set({ hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
+
+  updateRecurringDates(dailyTasks, today, days, 'Daily');
+  updateRecurringDates(weeklyTasks, today, days, 'Weekly');
 };
 
 export const markTaskAsDone = (_id: string, isDone: boolean) => {
