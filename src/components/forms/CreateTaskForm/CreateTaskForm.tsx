@@ -229,9 +229,7 @@ export const CreateTaskForm: FC<Props> = ({
       </FormContentWrapper>
 
       <ConfirmModal
-        title="Confirm Deletion"
-        confirmButtonLabel="Delete"
-        description="Are you sure you want to delete this task?"
+        confirmLabel="Delete"
         visible={confirmModalVisible}
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowModal}

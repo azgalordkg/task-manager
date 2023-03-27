@@ -122,9 +122,7 @@ export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
       </FormContentWrapper>
 
       <ConfirmModal
-        title="Confirm Deletion"
-        confirmButtonLabel="Delete"
-        description="Are you sure you want to delete this tag?"
+        confirmLabel="Delete"
         visible={confirmModalVisible}
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowModal}
