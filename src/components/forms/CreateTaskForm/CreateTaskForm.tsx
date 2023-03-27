@@ -17,7 +17,7 @@ import { createTaskFormSchema } from '@/constants/validation';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { findOneTask } from '@/services/realm';
 import { CreateTaskData, TasksResponseItem } from '@/types';
-import { initialDateRounder, prepareTagsForRender } from '@/utils';
+import { prepareTagsForRender, roundAndExtendTimeRange } from '@/utils';
 
 import styles from './CreateTaskForm.styles';
 import { Props } from './CreateTaskForm.types';
@@ -27,7 +27,7 @@ export const CreateTaskForm: FC<Props> = ({
   editItemId,
   onAddPress,
 }) => {
-  const { startDate, endDate } = initialDateRounder();
+  const { startDate, endDate } = roundAndExtendTimeRange();
 
   const { setTagsForEdit, tags: allTags } = useTagManageContext();
 

@@ -12,7 +12,7 @@ import { createTaskFormSchema } from '@/constants/validation';
 import { useTaskModalContext, useThemeContext } from '@/context/hooks';
 import { createTask } from '@/services';
 import { CreateTaskData } from '@/types';
-import { initialDateRounder, vibrate } from '@/utils';
+import { roundAndExtendTimeRange, vibrate } from '@/utils';
 
 import styles from './QuickTaskForm.styles';
 import { Props } from './QuickTaskForm.types';
@@ -34,7 +34,7 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
     });
   };
 
-  const { startDate, endDate } = initialDateRounder(
+  const { startDate, endDate } = roundAndExtendTimeRange(
     combineStartDate(new Date(+date), createDateTime),
   );
 

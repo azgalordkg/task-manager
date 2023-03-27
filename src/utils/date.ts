@@ -12,7 +12,7 @@ export const formatDate = (date: Date | number, format: string) => {
   return moment(date).format(format);
 };
 
-export const initialDateRounder = (
+export const roundAndExtendTimeRange = (
   defaultStartDate?: moment.Moment,
   defaultEndDate?: moment.Moment,
 ) => {
