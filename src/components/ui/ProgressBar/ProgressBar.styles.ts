@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
 
-const styles = () =>
+const styles = (progress: number) =>
   StyleSheet.create({
     container: {
       flexDirection: 'row',
@@ -18,10 +18,11 @@ const styles = () =>
       padding: 2,
     },
     progress: {
-      width: '50%',
       height: 8,
       borderTopLeftRadius: 4,
       borderBottomLeftRadius: 4,
+      borderTopRightRadius: progress >= 100 ? 4 : 0,
+      borderBottomEndRadius: progress >= 100 ? 4 : 0,
       backgroundColor: COLORS.WHITE,
     },
     text: {
