@@ -1,4 +1,4 @@
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 
 export const getToday = () => {
   return new Date();
@@ -28,4 +28,8 @@ export const roundAndExtendTimeRange = (
     startDate: startDate.toDate(),
     endDate: endDate.toDate(),
   };
+};
+
+export const isDateToday = (date: Moment) => {
+  return date.isSame(new Date(), 'day');
 };

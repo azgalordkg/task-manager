@@ -13,6 +13,8 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
   withHeader,
   onBack,
   screenTitle = '',
+  tasksTotal,
+  tasksCurrent,
 }) => {
   const { theme } = useThemeContext();
   const style = styles(theme);
@@ -31,7 +33,13 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
         />
         <View style={style.mainWrapper}>
           {onBack && <BackButtonHeader title={screenTitle} onPress={onBack} />}
-          {withHeader && <Header onSettingsPress={onMenuPress} />}
+          {withHeader && (
+            <Header
+              current={tasksCurrent}
+              total={tasksTotal}
+              onSettingsPress={onMenuPress}
+            />
+          )}
           <View style={style.contentWrapper}>{children}</View>
         </View>
       </SafeAreaView>
