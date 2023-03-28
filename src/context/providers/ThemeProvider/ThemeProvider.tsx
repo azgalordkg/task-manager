@@ -27,7 +27,12 @@ export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const getCurrentTheme = async () => {
     const currentTheme = await Storage.getData('theme');
-    setActiveTheme(currentTheme);
+
+    if (currentTheme) {
+      setActiveTheme(currentTheme);
+    } else {
+      setActiveTheme('dark');
+    }
   };
 
   useEffect(() => {
