@@ -2,6 +2,7 @@ import { isEqual } from 'lodash';
 import React, { FC, useMemo, useRef, useState } from 'react';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
+import OutsidePressHandler from 'react-native-outside-press';
 
 import { Cross, Trash } from '@/components/icons';
 import { ActionButton, CustomCheckbox } from '@/components/ui';
@@ -96,65 +97,73 @@ export const ListItem: FC<ListItemProps> = ({
 
   return (
     <View style={style.outerContainer}>
-      <Swipeable
-        ref={swipeRef}
-        onActivated={() => setSwiping(true)}
-        onSwipeableClose={() => setSwiping(false)}
-        renderRightActions={rightSwipe}
-        shouldCancelWhenOutside>
-        <TouchableOpacity
-          activeOpacity={1}
-          onPress={() => {
-            if (!swiping) {
-              onItemPress(id);
-            }
-          }}
-          style={style.container}>
-          <View style={style.contentWrapper}>
-            <View style={style.checkmarkWrapper}>
-              <CustomCheckbox
-                defaultColor={theme.TEXT_INFO}
-                onPress={onCheckPressHandler}
-                checked={checked}
-              />
-            </View>
-            <View style={style.textWrapper}>
-              {Boolean(tagsForRender.length) && (
-                <View style={style.tagsWrapper}>
-                  {tagsForRender.map(({ color, _id }) => (
-                    <View
-                      key={_id}
-                      style={{ ...style.tag, backgroundColor: color }}
-                    />
-                  ))}
-                </View>
-              )}
-              <Text style={[style.title, style.crossedTextStyles]}>{name}</Text>
-              {description && (
-                <Text
-                  numberOfLines={1}
-                  style={[style.description, style.crossedTextStyles]}>
-                  {description}
+      <OutsidePressHandler
+        onOutsidePress={() => {
+          swipeRef.current?.close();
+        }}
+        disabled={false}>
+        <Swipeable
+          ref={swipeRef}
+          onActivated={() => setSwiping(true)}
+          onSwipeableClose={() => setSwiping(false)}
+          renderRightActions={rightSwipe}
+          shouldCancelWhenOutside>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() => {
+              if (!swiping) {
+                onItemPress(id);
+              }
+            }}
+            style={style.container}>
+            <View style={style.contentWrapper}>
+              <View style={style.checkmarkWrapper}>
+                <CustomCheckbox
+                  defaultColor={theme.TEXT_INFO}
+                  onPress={onCheckPressHandler}
+                  checked={checked}
+                />
+              </View>
+              <View style={style.textWrapper}>
+                {Boolean(tagsForRender.length) && (
+                  <View style={style.tagsWrapper}>
+                    {tagsForRender.map(({ color, _id }) => (
+                      <View
+                        key={_id}
+                        style={{ ...style.tag, backgroundColor: color }}
+                      />
+                    ))}
+                  </View>
+                )}
+                <Text style={[style.title, style.crossedTextStyles]}>
+                  {name}
                 </Text>
-              )}
-              {hasDeadline && (
-                <Text style={[style.time, style.crossedTextStyles]}>
-                  {deadlineStart} - {deadlineEnd}
-                </Text>
-              )}
+                {description && (
+                  <Text
+                    numberOfLines={1}
+                    style={[style.description, style.crossedTextStyles]}>
+                    {description}
+                  </Text>
+                )}
+                {hasDeadline && (
+                  <Text style={[style.time, style.crossedTextStyles]}>
+                    {deadlineStart} - {deadlineEnd}
+                  </Text>
+                )}
+              </View>
             </View>
-          </View>
-          {checked && !isRecurring && (
-            <View style={style.deleteBtnWrapper}>
-              <TouchableOpacity
-                onPress={onEasyRemovePress}
-                style={style.deleteBtn}>
-                <Cross width={8} height={8} />
-              </TouchableOpacity>
-            </View>
-          )}
-        </TouchableOpacity>
-      </Swipeable>
+            {checked && !isRecurring && (
+              <View style={style.deleteBtnWrapper}>
+                <TouchableOpacity
+                  onPress={onEasyRemovePress}
+                  style={style.deleteBtn}>
+                  <Cross width={8} height={8} />
+                </TouchableOpacity>
+              </View>
+            )}
+          </TouchableOpacity>
+        </Swipeable>
+      </OutsidePressHandler>
       <View style={style.outsideBackground} />
     </View>
   );
