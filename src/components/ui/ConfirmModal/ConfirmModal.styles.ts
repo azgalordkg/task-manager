@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 50,
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: 'rgba(0,0,0,0.45)',
   },
   modalButtonContainer: {
     width: '100%',

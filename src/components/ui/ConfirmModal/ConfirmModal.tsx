@@ -29,7 +29,7 @@ export const ConfirmModal: FC<Props> = ({
         style={styles.centeredView}>
         <View style={styles.modalButtonContainer}>
           <CustomButton
-            bgColor={theme.BUTTONS_SECONDARY}
+            bgColor={COLORS.WHITE_MEDIUM}
             textColor={COLORS.RED}
             height={46}
             width={'100%'}
@@ -37,8 +37,8 @@ export const ConfirmModal: FC<Props> = ({
             {confirmLabel}
           </CustomButton>
           <CustomButton
-            bgColor={COLORS.WHITE_MEDIUM}
-            textColor={COLORS.BLACK_DARK}
+            bgColor={theme.BUTTONS_SECONDARY}
+            textColor={COLORS.WHITE}
             height={46}
             width={'100%'}
             onPress={onPressDismiss}>

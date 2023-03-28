@@ -73,7 +73,7 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
       backgroundColor: theme.BUTTONS_ADDITIONAL,
     },
     outsideBackground: {
-      backgroundColor: theme.BACKGROUND_TASK,
+      // backgroundColor: theme.BACKGROUND_TASK,
       position: 'absolute',
       height: '100%',
       width: '70%',
