@@ -62,13 +62,9 @@ export const TaskList: FC<Props> = ({ list = {}, onItemPress }) => {
     setConfirmModalVisible(!confirmModalVisible);
   };
 
-  const handleDeletePress = (id: string, isRecurring: boolean) => {
-    if (isRecurring) {
-      handleShowModal();
-      setDeleteId(id);
-    } else {
-      deleteOneTask(id);
-    }
+  const handleDeletePress = (id: string) => {
+    handleShowModal();
+    setDeleteId(id);
   };
 
   const handleDeleteTask = () => {
@@ -86,6 +82,7 @@ export const TaskList: FC<Props> = ({ list = {}, onItemPress }) => {
         activeSections={activeSection}
         renderHeader={section => (
           <AccordionHeader
+            tasksCurrent={section.content.length}
             activeSection={activeSection}
             id={section.id}
             title={section.title}
@@ -105,9 +102,7 @@ export const TaskList: FC<Props> = ({ list = {}, onItemPress }) => {
       />
 
       <ConfirmModal
-        title="Confirm Deletion"
-        confirmButtonLabel="Delete"
-        description="Are you sure you want to delete this task?"
+        confirmLabel="Delete"
         visible={confirmModalVisible}
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowModal}

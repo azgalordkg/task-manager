@@ -90,7 +90,7 @@ export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
       <FormContentWrapper
         isSubmitDisabled={!isValid}
         onSubmitPress={handleSubmit(onSubmit)}
-        onDeletePress={handleShowModal}
+        onDeletePress={editItemId ? handleShowModal : undefined}
         submitTitle={editItemId ? 'Edit' : 'Create'}
         title={`${editItemId ? 'Edit' : 'Create'} a tag`}>
         <View>
@@ -98,6 +98,8 @@ export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
             control={control}
             name="name"
             placeholder="Tag name *"
+            backgroundColor={theme.INPUT_DEFAULT}
+            borderColor={theme.INPUT_DEFAULT}
             color={theme.TEXT_PRIMARY}
             errorMessage={errors.name?.message}
           />
@@ -120,9 +122,7 @@ export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
       </FormContentWrapper>
 
       <ConfirmModal
-        title="Confirm Deletion"
-        confirmButtonLabel="Delete"
-        description="Are you sure you want to delete this task?"
+        confirmLabel="Delete"
         visible={confirmModalVisible}
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowModal}

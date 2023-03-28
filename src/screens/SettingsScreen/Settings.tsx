@@ -1,25 +1,23 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { View } from 'react-native';
 
-import { Crown } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { BackButtonHeader } from '@/components/ui';
 import { MenuItem } from '@/components/ui/MenuItem';
-import { COLORS } from '@/constants';
 import { ScreenProps } from '@/types';
 
 import styles from './Settings.styles';
 
 export const Settings: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
-  const [isNotification, setIsNotification] = useState(true);
+  // const [isNotification, setIsNotification] = useState(true);
 
   const onBackPressHandler = () => {
     navigation.goBack();
   };
 
-  const onNotificationSwitchHandler = (value: boolean) => {
-    setIsNotification(value);
-  };
+  // const onNotificationSwitchHandler = (value: boolean) => {
+  //   setIsNotification(value);
+  // };
 
   return (
     <MainLayout>
@@ -30,30 +28,30 @@ export const Settings: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
           <MenuItem onPress={() => navigation.navigate('TagsSettings')}>
             Tags
           </MenuItem>
-          <MenuItem onPress={() => {}}>Language</MenuItem>
+          {/*<MenuItem onPress={() => {}}>Language</MenuItem>*/}
           <MenuItem onPress={() => navigation.navigate('Theme')}>
             Theme
           </MenuItem>
-          <MenuItem
+          {/*<MenuItem
             value={isNotification}
             onToggleSwitch={onNotificationSwitchHandler}
             isSwitcher>
             Notifications
-          </MenuItem>
+          </MenuItem>*/}
           <MenuItem
             onPress={() => {
               navigation.navigate('AboutUs');
             }}>
             About Us
           </MenuItem>
-          <MenuItem
+          {/*<MenuItem
             icon={Crown}
             color={COLORS.YELLOW}
             onPress={() => {
               navigation.navigate('Purchase');
             }}>
             Upgrade
-          </MenuItem>
+          </MenuItem>*/}
         </View>
       </View>
     </MainLayout>

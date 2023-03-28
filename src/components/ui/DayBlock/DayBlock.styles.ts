@@ -19,13 +19,13 @@ const styles = ({ isToday, theme }: StyleProps) =>
     dateWrapper: {
       flexDirection: 'row',
       alignItems: 'center',
+      flexGrow: 1,
     },
     dateContainer: {
       width: '100%',
       flexDirection: 'row',
       paddingRight: 20,
       alignItems: 'center',
-      justifyContent: 'space-between',
     },
     dayWrapper: {
       height: 30,
@@ -56,6 +56,7 @@ const styles = ({ isToday, theme }: StyleProps) =>
       fontSize: 18,
     },
     accordionVisibleStatus: {
+      marginLeft: 12,
       fontWeight: '400',
       fontSize: 12,
       lineHeight: 15,

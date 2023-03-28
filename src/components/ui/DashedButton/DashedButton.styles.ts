@@ -2,9 +2,15 @@ import { StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
 
-const styles = (height: number, fontSize: number, color?: string) =>
+const styles = (
+  height: number,
+  fontSize: number,
+  color?: string,
+  disabled?: boolean,
+) =>
   StyleSheet.create({
     button: {
+      opacity: disabled ? 0.5 : 1,
       height,
       paddingHorizontal: 12,
       flexDirection: 'row',

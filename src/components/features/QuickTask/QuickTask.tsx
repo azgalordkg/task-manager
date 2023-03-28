@@ -30,7 +30,7 @@ export const QuickTask: FC<Props> = ({ date }) => {
             icon={Plus}
             textColor={theme.TEXT_SECONDARY}
             iconColor={theme.TEXT_SECONDARY}>
-            Add quick task
+            Add Quick Task
           </CustomButton>
         </View>
       )}

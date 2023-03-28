@@ -60,7 +60,7 @@ export const ListItem: FC<ListItemProps> = ({
     });
 
     const handleDeletePress = () => {
-      onDeletePress(id, isRecurring);
+      onDeletePress(id);
       if (!isRecurring) {
         fetchList();
       }
@@ -82,7 +82,7 @@ export const ListItem: FC<ListItemProps> = ({
 
   const onEasyRemovePress = () => {
     vibrate();
-    onDeletePress(id, isRecurring);
+    onDeletePress(id);
     fetchList();
   };
 

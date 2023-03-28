@@ -7,6 +7,7 @@ import {
   FormContentWrapper,
   SelectTagItem,
 } from '@/components/ui';
+import { TAGS_CREATION_LIMITS } from '@/constants';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { vibrate } from '@/utils';
 
@@ -27,6 +28,8 @@ export const ManageTagsForm: FC<Props> = ({
     tags,
     fetchTags,
   } = useTagManageContext();
+  const isLimit = tags?.length >= TAGS_CREATION_LIMITS;
+  const style = styles(theme, isLimit);
 
   useEffect(() => {
     fetchTags();
@@ -42,18 +45,25 @@ export const ManageTagsForm: FC<Props> = ({
         }
         onClose();
       }}>
-      <View style={styles.container}>
+      <View style={style.container}>
+        <Text style={style.total}>
+          Total tags:{' '}
+          <Text style={style.totalCount}>
+            {tags.length}/{TAGS_CREATION_LIMITS}
+          </Text>
+        </Text>
         <DashedButton
-          color={theme.TEXT_INFO}
+          disabled={tags.length >= TAGS_CREATION_LIMITS}
+          color={theme.TEXT_SECONDARY}
           icon={Plus}
           variant="large"
           onPress={onCreateTagPress}>
           Create a tag
         </DashedButton>
-        <Text style={styles.message}>
+        <Text style={style.message}>
           You can select only 3 tags to be active
         </Text>
-        <ScrollView style={styles.itemsWrapper}>
+        <ScrollView style={style.itemsWrapper}>
           {tags.map(({ _id, name, color }) => {
             return (
               <SelectTagItem

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Modal, Text, TouchableOpacity, View } from 'react-native';
+import { Modal, TouchableOpacity, View } from 'react-native';
 
 import { CustomButton } from '@/components/ui';
 import { COLORS } from '@/constants';
@@ -10,15 +10,12 @@ import { Props } from './ConfirmModal.types';
 
 export const ConfirmModal: FC<Props> = ({
   visible,
-  title,
-  description,
-  confirmButtonLabel = 'Confirm',
-  dismissButtonLabel = 'Cancel',
+  confirmLabel = 'Confirm',
+  dismissLabel = 'Cancel',
   onPressConfirm,
   onPressDismiss,
 }) => {
   const { theme } = useThemeContext();
-  const style = styles(theme);
 
   return (
     <Modal
@@ -29,23 +26,24 @@ export const ConfirmModal: FC<Props> = ({
       <TouchableOpacity
         onPress={onPressDismiss}
         activeOpacity={1}
-        style={style.centeredView}>
-        <View style={style.modalView}>
-          <Text style={style.modalTitle}>{title}</Text>
-          <Text style={style.modalDescription}>{description}</Text>
-
-          <View style={style.modalButtonContainer}>
-            <CustomButton
-              bgColor={COLORS.WHITE_MEDIUM}
-              textColor={COLORS.BLACK_DARK}
-              width={'48%'}
-              onPress={onPressDismiss}>
-              {dismissButtonLabel}
-            </CustomButton>
-            <CustomButton width={'48%'} onPress={onPressConfirm}>
-              {confirmButtonLabel}
-            </CustomButton>
-          </View>
+        style={styles.centeredView}>
+        <View style={styles.modalButtonContainer}>
+          <CustomButton
+            bgColor={theme.BUTTONS_SECONDARY}
+            textColor={COLORS.RED}
+            height={46}
+            width={'100%'}
+            onPress={onPressConfirm}>
+            {confirmLabel}
+          </CustomButton>
+          <CustomButton
+            bgColor={COLORS.WHITE_MEDIUM}
+            textColor={COLORS.BLACK_DARK}
+            height={46}
+            width={'100%'}
+            onPress={onPressDismiss}>
+            {dismissLabel}
+          </CustomButton>
         </View>
       </TouchableOpacity>
     </Modal>
