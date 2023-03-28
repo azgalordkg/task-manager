@@ -32,10 +32,9 @@ export const Input: FC<Props> = ({
   });
   const style = styles(color);
   const dateFormat = isTime ? 'LT' : 'DD MMMM';
-  const formattedValue = formatDate(fieldValue, dateFormat);
 
-  const value =
-    fieldValue && isDateTime ? formattedValue : (fieldValue as string);
+  const formattedValue = isDateTime && formatDate(fieldValue, dateFormat);
+  const value = fieldValue && (formattedValue || (fieldValue as string));
 
   return (
     <View style={style.inputContainer}>
