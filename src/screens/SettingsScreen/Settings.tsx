@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { View } from 'react-native';
 
 import { MainLayout } from '@/components/layouts';
-import { BackButtonHeader } from '@/components/ui';
 import { MenuItem } from '@/components/ui/MenuItem';
 import { ScreenProps } from '@/types';
 
@@ -10,20 +9,17 @@ import styles from './Settings.styles';
 
 export const Settings: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
   // const [isNotification, setIsNotification] = useState(true);
+  // const onNotificationSwitchHandler = (value: boolean) => {
+  //   setIsNotification(value);
+  // };
 
   const onBackPressHandler = () => {
     navigation.goBack();
   };
 
-  // const onNotificationSwitchHandler = (value: boolean) => {
-  //   setIsNotification(value);
-  // };
-
   return (
-    <MainLayout>
+    <MainLayout screenTitle="Settings" onBack={onBackPressHandler}>
       <View style={styles.contentWrapper}>
-        <BackButtonHeader title="Settings" onPress={onBackPressHandler} />
-
         <View style={styles.listWrapper}>
           <MenuItem onPress={() => navigation.navigate('TagsSettings')}>
             Tags

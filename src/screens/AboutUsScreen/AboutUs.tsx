@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Text, View } from 'react-native';
 
 import { MainLayout } from '@/components/layouts';
-import { BackButtonHeader, BreakLine, MenuItem } from '@/components/ui';
+import { BreakLine, MenuItem } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
@@ -18,10 +18,8 @@ export const AboutUs: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
   const handleClose = () => goBack();
 
   return (
-    <MainLayout>
+    <MainLayout screenTitle="About Us" onBack={handleClose}>
       <View style={style.contentWrapper}>
-        <BackButtonHeader title="About Us" onPress={handleClose} />
-
         <View style={style.contentContainer}>
           <Text style={style.screenTitle}>Simplify. Organize. Conquer.</Text>
 

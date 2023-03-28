@@ -10,7 +10,7 @@ const styles = (theme: SchemeType) =>
       flex: 1,
     },
     buttonWrapper: {
-      backgroundColor: theme.BUTTONS_ACCENT,
+      backgroundColor: theme.BUTTONS_PRIMARY,
       width: 70,
       height: 70,
       borderRadius: 35,

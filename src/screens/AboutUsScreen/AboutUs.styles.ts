@@ -6,11 +6,12 @@ const styles = (theme: SchemeType) =>
   StyleSheet.create({
     contentWrapper: {
       paddingHorizontal: 20,
-      paddingTop: 10,
+      flex: 1,
     },
     contentContainer: {
-      marginTop: 40,
+      marginTop: 30,
       rowGap: 20,
+      flex: 1,
     },
     screenTitle: {
       fontWeight: '600',

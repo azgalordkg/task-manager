@@ -17,7 +17,7 @@ import {
   PurchaseScreen,
   Settings,
   TagsSettingsScreen,
-  Theme,
+  ThemeScreen,
 } from '@/screens';
 import { RootStackParamList } from '@/types/navigation';
 
@@ -43,7 +43,7 @@ const App: FC = () => {
                   name="TagsSettings"
                   component={TagsSettingsScreen}
                 />
-                <Stack.Screen name="Theme" component={Theme} />
+                <Stack.Screen name="Theme" component={ThemeScreen} />
               </Stack.Group>
               <Stack.Group
                 screenOptions={{

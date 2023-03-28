@@ -3,14 +3,14 @@ import { View } from 'react-native';
 
 import { Checkmark } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
-import { BackButtonHeader, MenuItem } from '@/components/ui';
+import { MenuItem } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks/useThemeContext';
 import { ScreenProps } from '@/types';
 
-import styles from './Theme.styles';
+import styles from './ThemeScreen.styles';
 
-export const Theme: FC<ScreenProps<'Theme'>> = ({ navigation }) => {
+export const ThemeScreen: FC<ScreenProps<'Theme'>> = ({ navigation }) => {
   const { activeTheme, themeHandleChange } = useThemeContext();
 
   const onBackPressHandler = () => {
@@ -22,10 +22,8 @@ export const Theme: FC<ScreenProps<'Theme'>> = ({ navigation }) => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout onBack={onBackPressHandler} screenTitle="Theme">
       <View style={styles.themeWrapper}>
-        <BackButtonHeader title="Theme" onPress={onBackPressHandler} />
-
         <View style={styles.themeContainer}>
           <MenuItem
             color={colorHandler('dark')}

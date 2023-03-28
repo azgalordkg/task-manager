@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 
-import { Logo, Setting } from '@/components/icons';
+import { Setting } from '@/components/icons';
+import { ProgressBar } from '@/components/ui';
 import { useThemeContext } from '@/context/hooks';
 
 import styles from './Header.styles';
@@ -12,7 +13,7 @@ export const Header: FC<Props> = ({ onSettingsPress }) => {
 
   return (
     <View style={styles.header}>
-      <Logo height={30} width={145} />
+      <ProgressBar />
       <TouchableOpacity onPress={onSettingsPress}>
         <Setting color={theme.BACKGROUND_NEUTRAL} width={32} height={32} />
       </TouchableOpacity>
