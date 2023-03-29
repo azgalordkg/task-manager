@@ -18,7 +18,7 @@ export const ThemeProviderContext = createContext<ThemeProviderType>(
 
 export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
   const scheme = Appearance.getColorScheme();
-  const [activeTheme, setActiveTheme] = useState<themeValue>('');
+  const [activeTheme, setActiveTheme] = useState<themeValue>('dark');
 
   const themeHandleChange = async (value: themeValue) => {
     value && setActiveTheme(value);
@@ -27,7 +27,10 @@ export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const getCurrentTheme = async () => {
     const currentTheme = await Storage.getData('theme');
-    setActiveTheme(currentTheme);
+
+    if (currentTheme) {
+      setActiveTheme(currentTheme);
+    }
   };
 
   useEffect(() => {
