@@ -5,6 +5,7 @@ import { Trash } from '@/components/icons';
 import { CustomButton } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
+import { vibrate } from '@/utils';
 
 import styles from './FormContentWrapper.styles';
 import { Props } from './FormContentWrapper.types';
@@ -26,7 +27,12 @@ export const FormContentWrapper: FC<PropsWithChildren<Props>> = ({
       <View style={style.titleWrapper}>
         {title && <Text style={style.title}>{title}</Text>}
         {onDeletePress && (
-          <TouchableOpacity onPress={onDeletePress} style={style.deleteButton}>
+          <TouchableOpacity
+            onPress={() => {
+              vibrate('selection');
+              onDeletePress();
+            }}
+            style={style.deleteButton}>
             <Trash color={COLORS.GREY_LIGHT} height={22} width={20} />
           </TouchableOpacity>
         )}

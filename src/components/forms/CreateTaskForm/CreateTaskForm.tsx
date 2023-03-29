@@ -31,6 +31,7 @@ export const CreateTaskForm: FC<Props> = ({
   onSubmit,
   editItemId,
   onAddPress,
+  onClose,
 }) => {
   const [taskForEdit, setTaskForEdit] = useState({} as TasksResponseItem);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
@@ -135,8 +136,9 @@ export const CreateTaskForm: FC<Props> = ({
     if (editItemId) {
       deleteOneTask(editItemId);
     }
-    fetchList();
+    onClose();
     handleShowModal();
+    fetchList();
   };
 
   return (

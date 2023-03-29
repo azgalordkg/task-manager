@@ -110,6 +110,7 @@ export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
                 <ColorSelect
                   active={color.toLowerCase() === watch('color')?.toLowerCase()}
                   onPress={() => {
+                    vibrate('selection');
                     setValue('color', color.toLowerCase());
                   }}
                   key={color}

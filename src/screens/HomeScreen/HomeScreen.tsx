@@ -13,7 +13,7 @@ import {
 } from '@/context/hooks';
 import { updateRecurringTasks } from '@/services';
 import { ScreenProps } from '@/types';
-import { isDateToday, sortTasksForRender } from '@/utils';
+import { isDateToday, sortTasksForRender, vibrate } from '@/utils';
 
 import styles from './HomeScreen.styles';
 
@@ -45,10 +45,12 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
   }, []);
 
   const handleItemPress = (id: string) => {
+    vibrate('rigid');
     navigation.navigate('CreateTask', { id });
   };
 
   const handleCreatePress = () => {
+    vibrate('selection');
     navigation.navigate('CreateTask');
   };
 
