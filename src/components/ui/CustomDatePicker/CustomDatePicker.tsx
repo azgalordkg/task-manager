@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { FC, useState } from 'react';
 import { useController } from 'react-hook-form';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Appearance, Text, TouchableOpacity, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import { Calendar, Clock } from '@/components/icons';
@@ -20,7 +20,7 @@ export const CustomDatePicker: FC<Props> = ({
   setValue,
   ...props
 }) => {
-  const { theme } = useThemeContext();
+  const { theme, activeTheme } = useThemeContext();
   const style = styles(theme, inputWidth);
   const [open, setOpen] = useState(false);
 
@@ -29,6 +29,7 @@ export const CustomDatePicker: FC<Props> = ({
     defaultValue,
     name,
   });
+  const scheme = Appearance.getColorScheme();
 
   const changeOppositeDate = (currentDate: Date) => {
     const isStartDate = name === 'startDate';
@@ -61,6 +62,8 @@ export const CustomDatePicker: FC<Props> = ({
     changeOppositeDate(currentDate);
   };
 
+  const datePickerBackground = activeTheme === 'light' && scheme === 'dark';
+
   return (
     <>
       <View style={style.container}>
@@ -88,6 +91,8 @@ export const CustomDatePicker: FC<Props> = ({
         isVisible={open}
         date={field.value as Date}
         minuteInterval={15}
+        isDarkModeEnabled={!datePickerBackground}
+        textColor={theme.TEXT_PRIMARY}
         onConfirm={currentDate => onConfirm(currentDate)}
         onCancel={() => {
           setOpen(false);
