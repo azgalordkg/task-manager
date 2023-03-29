@@ -4,7 +4,7 @@ import { Animated, Text, View } from 'react-native';
 import styles from './ProgressBar.styles';
 import { Props } from './ProgressBar.types';
 
-export const ProgressBar: FC<Props> = ({ current, total }) => {
+export const ProgressBar: FC<Props> = ({ current, total = 0 }) => {
   const [animatedProgress] = useState(new Animated.Value(0));
 
   const progress = useMemo(() => {
@@ -31,15 +31,17 @@ export const ProgressBar: FC<Props> = ({ current, total }) => {
   });
 
   const style = styles(progress);
-
   return (
     <View style={style.container}>
       <View style={style.wrapper}>
+        <View style={style.progressBackground} />
         <Animated.View style={[style.progress, { width: widthInterpolated }]} />
       </View>
-      <Text style={style.text}>
-        {current}/{total}
-      </Text>
+      {total > 0 && (
+        <Text style={style.text}>
+          {current}/{total}
+        </Text>
+      )}
     </View>
   );
 };

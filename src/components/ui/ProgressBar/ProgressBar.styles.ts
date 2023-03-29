@@ -25,6 +25,17 @@ const styles = (progress: number) =>
       borderBottomEndRadius: progress >= 100 ? 4 : 0,
       backgroundColor: COLORS.WHITE,
     },
+    progressBackground: {
+      height: 8,
+      borderRadius: 4,
+      width: '100%',
+      backgroundColor: COLORS.WHITE,
+      opacity: 0.25,
+      position: 'absolute',
+      zIndex: -1,
+      top: 2,
+      left: 2,
+    },
     text: {
       color: COLORS.WHITE,
       fontWeight: '600',

@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.taskmanager"
+    namespace "com.taskninja"
     defaultConfig {
-        applicationId "com.taskmanager"
+        applicationId "com.taskninja"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
