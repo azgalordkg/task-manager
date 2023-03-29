@@ -1,6 +1,6 @@
-import { TasksList } from '@/types';
+import { TaskSection } from '@/types';
 
 export interface Props {
-  list?: TasksList;
+  sections?: TaskSection[];
   onItemPress: (id: string) => void;
 }

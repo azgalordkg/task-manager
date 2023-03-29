@@ -4,10 +4,9 @@ const styles = StyleSheet.create({
   contentWrapper: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingTop: 10,
   },
   listWrapper: {
-    paddingTop: 30,
+    paddingTop: 20,
   },
 });
 

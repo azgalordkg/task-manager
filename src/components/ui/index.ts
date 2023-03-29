@@ -21,6 +21,7 @@ export * from './ListItem';
 export * from './Loader';
 export * from './MenuItem';
 export * from './ModalWrapper';
+export * from './ProgressBar';
 export * from './PurchaseItem';
 export * from './PurchasePlan';
 export * from './Select';
