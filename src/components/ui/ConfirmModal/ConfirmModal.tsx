@@ -38,7 +38,7 @@ export const ConfirmModal: FC<Props> = ({
           </CustomButton>
           <CustomButton
             bgColor={theme.BUTTONS_SECONDARY}
-            textColor={COLORS.WHITE}
+            textColor={theme.TEXT_SECONDARY}
             height={46}
             width={'100%'}
             onPress={onPressDismiss}>
