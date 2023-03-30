@@ -95,6 +95,11 @@ export const CreateTaskForm: FC<Props> = ({
     }
   }, [editItemId, taskForEdit]);
 
+  const repeatListWithColor = REPEAT_LIST.map(repeatItem => ({
+    ...repeatItem,
+    color: theme.TEXT_PRIMARY,
+  }));
+
   const isInitialDataChanged = (
     initialTaskValue: Partial<TasksResponseItem>,
     formValue: CreateTaskData,
@@ -176,7 +181,8 @@ export const CreateTaskForm: FC<Props> = ({
           <Select
             name="repeat"
             control={control}
-            items={REPEAT_LIST}
+            items={repeatListWithColor}
+            setValue={setValue}
             label="Repeat"
           />
         </View>

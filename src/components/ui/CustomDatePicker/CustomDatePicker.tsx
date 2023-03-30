@@ -62,7 +62,9 @@ export const CustomDatePicker: FC<Props> = ({
     changeOppositeDate(currentDate);
   };
 
-  const datePickerBackground = activeTheme === 'light' && scheme === 'dark';
+  const datePickerBackground =
+    (activeTheme !== 'light' && scheme !== 'dark') ||
+    (activeTheme === 'dark' && scheme === 'light');
 
   return (
     <>
@@ -91,7 +93,7 @@ export const CustomDatePicker: FC<Props> = ({
         isVisible={open}
         date={field.value as Date}
         minuteInterval={15}
-        isDarkModeEnabled={!datePickerBackground}
+        isDarkModeEnabled={datePickerBackground}
         textColor={theme.TEXT_PRIMARY}
         onConfirm={currentDate => onConfirm(currentDate)}
         onCancel={() => {
