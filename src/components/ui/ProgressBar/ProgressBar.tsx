@@ -30,7 +30,7 @@ export const ProgressBar: FC<Props> = ({ current, total = 0 }) => {
     outputRange: ['0%', '100%'],
   });
 
-  const style = styles(progress);
+  const style = styles(progress, total === 0);
   return (
     <View style={style.container}>
       <View style={style.wrapper}>

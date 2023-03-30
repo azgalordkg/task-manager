@@ -2,11 +2,12 @@ import { StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
 
-const styles = (progress: number) =>
+const styles = (progress: number, isEmptyList: boolean) =>
   StyleSheet.create({
     container: {
       flexDirection: 'row',
       alignItems: 'center',
+      opacity: isEmptyList ? 0 : 1,
     },
     wrapper: {
       marginRight: 8,
