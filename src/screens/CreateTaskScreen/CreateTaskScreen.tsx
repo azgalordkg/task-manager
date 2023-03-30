@@ -36,13 +36,14 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   };
 
   const addTagsHandler = () => {
-    navigation.navigate('ManageTags');
     vibrate('selection');
+    navigation.navigate('ManageTags');
   };
 
   return (
     <ModalWrapper onRequestClose={closeModal}>
       <CreateTaskForm
+        onClose={closeModal}
         onAddPress={addTagsHandler}
         editItemId={taskId}
         onSubmit={createTaskHandler}

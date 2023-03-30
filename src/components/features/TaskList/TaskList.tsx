@@ -52,9 +52,13 @@ export const TaskList: FC<Props> = ({ sections = [], onItemPress }) => {
     setConfirmModalVisible(!confirmModalVisible);
   };
 
-  const handleDeletePress = (id: string) => {
-    handleShowModal();
-    setDeleteId(id);
+  const handleDeletePress = (id: string, isQuick?: boolean) => {
+    if (isQuick) {
+      deleteOneTask(id);
+    } else {
+      handleShowModal();
+      setDeleteId(id);
+    }
   };
 
   const handleDeleteTask = () => {

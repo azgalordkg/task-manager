@@ -57,7 +57,10 @@ export const ManageTagsForm: FC<Props> = ({
           color={theme.TEXT_SECONDARY}
           icon={Plus}
           variant="large"
-          onPress={onCreateTagPress}>
+          onPress={() => {
+            onCreateTagPress();
+            vibrate('selection');
+          }}>
           Create a tag
         </DashedButton>
         <Text style={style.message}>
@@ -72,11 +75,11 @@ export const ManageTagsForm: FC<Props> = ({
                 checked={currentSelectedTags.includes(_id)}
                 onPress={() => {
                   selectTagHandler(_id);
-                  vibrate();
+                  vibrate('selection');
                 }}
                 onEditPress={() => {
                   onEditTagPress(_id);
-                  vibrate();
+                  vibrate('selection');
                 }}
                 title={name}
                 color={color}

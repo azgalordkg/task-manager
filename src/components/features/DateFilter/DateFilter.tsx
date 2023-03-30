@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
 
-import { formatDate, getDateFromToday, getToday } from '@/utils';
+import { formatDate, getDateFromToday, getToday, vibrate } from '@/utils';
 
 import { CustomButton } from '../../ui';
 import styles from './DateFilter.styles';
@@ -23,6 +23,7 @@ export const DateFilter: FC<Props> = ({
         const isCurrent = currentStartDate.getDate() === startDate.getDate();
 
         const onDateChange = () => {
+          vibrate('selection');
           startDate.setHours(
             currentStartDate.getHours(),
             currentStartDate.getMinutes(),

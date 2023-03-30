@@ -4,5 +4,5 @@ export interface Props {
   content: TasksResponseItem[];
   title: string;
   onItemPress: (id: string) => void;
-  onDeletePress: (id: string) => void;
+  onDeletePress: (id: string, isQuick?: boolean) => void;
 }
