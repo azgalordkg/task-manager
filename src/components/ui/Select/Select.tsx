@@ -17,7 +17,6 @@ export const Select: FC<Props> = ({
   items,
   control,
   name,
-  // setValue,
 }) => {
   const { field } = useController({
     control,
@@ -40,17 +39,8 @@ export const Select: FC<Props> = ({
       style={{
         modalViewBottom: { backgroundColor: theme.BACKGROUND_MODAL },
         modalViewMiddle: { backgroundColor: theme.BACKGROUND_TASK },
+        chevronContainer: { opacity: 0 },
       }}
-      // onUpArrow={() => {
-      //   const currentIndex = items.findIndex(
-      //     item => item.value === field.value,
-      //   );
-      //
-      //   if (currentIndex > 0) {
-      //     const previousItem = items[currentIndex - 1];
-      //     setValue('repeat', previousItem.value);
-      //   }
-      // }}
       items={items}>
       <InputWrapper
         backgroundColor={theme.INPUT_DEFAULT}

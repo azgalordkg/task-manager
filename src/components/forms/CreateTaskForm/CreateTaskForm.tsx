@@ -182,7 +182,6 @@ export const CreateTaskForm: FC<Props> = ({
             name="repeat"
             control={control}
             items={repeatListWithColor}
-            setValue={setValue}
             label="Repeat"
           />
         </View>
