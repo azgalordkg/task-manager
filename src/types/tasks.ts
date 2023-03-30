@@ -37,4 +37,10 @@ export interface TasksList {
   [key: string]: TasksResponseItem[];
 }
 
+export interface TaskSection {
+  id: number;
+  title: string;
+  content: TasksResponseItem[];
+}
+
 export type CreateTaskKey = keyof CreateTaskData;

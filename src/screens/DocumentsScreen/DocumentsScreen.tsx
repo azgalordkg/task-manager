@@ -3,11 +3,7 @@ import { ScrollView, Text, TouchableWithoutFeedback, View } from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
 
 import { MainLayout } from '@/components/layouts';
-import {
-  BackButtonHeader,
-  DocumentsContent,
-  DocumentsHeader,
-} from '@/components/ui';
+import { DocumentsContent, DocumentsHeader } from '@/components/ui';
 import {
   PRIVACY_POLICY,
   PRIVACY_POLICY_DESCRIPTION,
@@ -33,10 +29,8 @@ export const DocumentsScreen: FC<ScreenProps<'Documents'>> = ({
   const screenContent = isPrivacyPolicy ? PRIVACY_POLICY : TERMS_OF_USE;
 
   return (
-    <MainLayout>
+    <MainLayout screenTitle={screenTitle} onBack={onClose}>
       <View style={style.contentWrapper}>
-        <BackButtonHeader onPress={onClose} title={screenTitle} />
-
         <View style={style.container}>
           <Text style={style.update}>
             Last updated {screenContent.LAST_UPDATED}

@@ -1,4 +1,5 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import moment from 'moment';
+import React, { FC, useEffect, useState } from 'react';
 import Accordion from 'react-native-collapsible/Accordion';
 
 import {
@@ -9,12 +10,12 @@ import {
 } from '@/components/ui';
 import { useTaskModalContext } from '@/context/hooks';
 import { deleteOneTask } from '@/services';
-import { sortTasksForRender } from '@/utils';
+import { isDateToday } from '@/utils';
 
 import styles from './TaskList.styles';
 import { Props } from './TaskList.types';
 
-export const TaskList: FC<Props> = ({ list = {}, onItemPress }) => {
+export const TaskList: FC<Props> = ({ sections = [], onItemPress }) => {
   const [activeSection, setActiveSection] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
@@ -22,22 +23,11 @@ export const TaskList: FC<Props> = ({ list = {}, onItemPress }) => {
 
   const { fetchList } = useTaskModalContext();
 
-  const sectionsList = useMemo(
-    () =>
-      sortTasksForRender(list).map((date, index) => ({
-        id: index,
-        title: date,
-        content: list[date].sort((a, b) => +a.isDone - +b.isDone),
-      })),
-    [list],
-  );
-
   const fillActiveSection = () => {
-    return sectionsList?.forEach((sectionsItem, index) => {
-      const itemDate = new Date(+sectionsItem.title).getDay();
-      const isToday = itemDate === new Date().getDay();
+    return sections?.forEach((sectionsItem, index) => {
+      const date = moment(new Date(+sectionsItem.title));
 
-      if (isToday) {
+      if (isDateToday(date)) {
         setActiveSection(prevState => [...prevState, index]);
       }
     });
@@ -45,7 +35,7 @@ export const TaskList: FC<Props> = ({ list = {}, onItemPress }) => {
 
   useEffect(() => {
     fillActiveSection();
-  }, [list]);
+  }, [sections]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -78,7 +68,7 @@ export const TaskList: FC<Props> = ({ list = {}, onItemPress }) => {
   return (
     <>
       <Accordion
-        sections={sectionsList}
+        sections={sections}
         activeSections={activeSection}
         renderHeader={section => (
           <AccordionHeader
