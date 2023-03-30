@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>TaskNinja.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>bitcode</key>
+			<false/>
+			<key>buildNumber</key>
+			<string>1</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>9ABAED8CA0EF1627FDEDF3D3D24F236BBE8A3585</string>
+				<key>dateExpires</key>
+				<string>29/3/24</string>
+				<key>type</key>
+				<string>Cloud Managed Apple Distribution</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>bitcode</key>
+					<false/>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>9ABAED8CA0EF1627FDEDF3D3D24F236BBE8A3585</string>
+						<key>dateExpires</key>
+						<string>29/3/24</string>
+						<key>type</key>
+						<string>Cloud Managed Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>hermes.framework</string>
+					<key>symbols</key>
+					<true/>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>5XH7JCJ6CW</string>
+						<key>name</key>
+						<string>Azamat Altymyshev</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>0.1.0</string>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>5XH7JCJ6CW.com.lumos.TaskNinja</string>
+				<key>beta-reports-active</key>
+				<true/>
+				<key>com.apple.developer.team-identifier</key>
+				<string>5XH7JCJ6CW</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>TaskNinja.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>a8f6496f-1b7c-4249-b62b-e432182e97db</string>
+				<key>dateExpires</key>
+				<string>29/3/24</string>
+				<key>name</key>
+				<string>iOS Team Store Provisioning Profile: com.lumos.TaskNinja</string>
+			</dict>
+			<key>symbols</key>
+			<true/>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>5XH7JCJ6CW</string>
+				<key>name</key>
+				<string>Azamat Altymyshev</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>0.1.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>
