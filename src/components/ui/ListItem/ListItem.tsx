@@ -83,7 +83,7 @@ export const ListItem: FC<ListItemProps> = ({
 
   const onEasyRemovePress = () => {
     vibrate();
-    onDeletePress(id);
+    onDeletePress(id, true);
     fetchList();
   };
 

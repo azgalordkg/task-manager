@@ -4,6 +4,7 @@ import { Modal, TouchableOpacity, View } from 'react-native';
 import { CustomButton } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
+import { vibrate } from '@/utils';
 
 import styles from './ConfirmModal.styles';
 import { Props } from './ConfirmModal.types';
@@ -16,6 +17,11 @@ export const ConfirmModal: FC<Props> = ({
   onPressDismiss,
 }) => {
   const { theme } = useThemeContext();
+
+  const handleConfirmPress = () => {
+    vibrate();
+    onPressConfirm();
+  };
 
   return (
     <Modal
@@ -33,7 +39,7 @@ export const ConfirmModal: FC<Props> = ({
             textColor={COLORS.RED}
             height={46}
             width={'100%'}
-            onPress={onPressConfirm}>
+            onPress={handleConfirmPress}>
             {confirmLabel}
           </CustomButton>
           <CustomButton

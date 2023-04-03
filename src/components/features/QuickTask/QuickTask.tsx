@@ -6,6 +6,7 @@ import { QuickTaskForm } from '@/components/forms';
 import { Plus } from '@/components/icons';
 import { CustomButton } from '@/components/ui';
 import { useThemeContext } from '@/context/hooks';
+import { vibrate } from '@/utils';
 
 import styles from './QuickTask.styles';
 import { Props } from './QuickTask.types';
@@ -16,6 +17,7 @@ export const QuickTask: FC<Props> = ({ date }) => {
   const { theme } = useThemeContext();
 
   const handleShowInput = () => {
+    vibrate();
     setShowInput(!showInput);
   };
 

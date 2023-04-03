@@ -31,7 +31,16 @@ export const Select: FC<Props> = ({
     <RNPickerSelect
       value={field.value}
       onValueChange={field.onChange}
-      placeholder={{ label: 'Never', value: 'Never' }}
+      placeholder={{
+        label: 'Never',
+        value: 'Never',
+        color: theme.TEXT_PRIMARY,
+      }}
+      style={{
+        modalViewBottom: { backgroundColor: theme.BACKGROUND_MODAL },
+        modalViewMiddle: { backgroundColor: theme.BACKGROUND_TASK },
+        chevronContainer: { opacity: 0 },
+      }}
       items={items}>
       <InputWrapper
         backgroundColor={theme.INPUT_DEFAULT}

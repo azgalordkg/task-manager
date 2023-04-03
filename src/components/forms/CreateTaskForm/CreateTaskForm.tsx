@@ -32,6 +32,7 @@ export const CreateTaskForm: FC<Props> = ({
   onSubmit,
   editItemId,
   onAddPress,
+  onClose,
 }) => {
   const [taskForEdit, setTaskForEdit] = useState({} as TasksResponseItem);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
@@ -97,6 +98,11 @@ export const CreateTaskForm: FC<Props> = ({
     }
   }, [editItemId, taskForEdit]);
 
+  const repeatListWithColor = REPEAT_LIST.map(repeatItem => ({
+    ...repeatItem,
+    color: theme.TEXT_PRIMARY,
+  }));
+
   const isInitialDataChanged = (
     initialTaskValue: Partial<TasksResponseItem>,
     formValue: CreateTaskData,
@@ -137,8 +143,9 @@ export const CreateTaskForm: FC<Props> = ({
     if (editItemId) {
       deleteOneTask(editItemId);
     }
-    fetchList();
+    onClose();
     handleShowModal();
+    fetchList();
   };
 
   return (
@@ -178,7 +185,7 @@ export const CreateTaskForm: FC<Props> = ({
           <Select
             name="repeat"
             control={control}
-            items={REPEAT_LIST}
+            items={repeatListWithColor}
             label={`${t('REPEAT')}`}
           />
         </View>

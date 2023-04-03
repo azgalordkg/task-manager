@@ -6,7 +6,7 @@ export interface ListItemProps {
   startDate?: number;
   endDate?: number;
   onCheckPress: (id: string, isDone: boolean) => void;
-  onDeletePress: (id: string) => void;
+  onDeletePress: (id: string, isQuick?: boolean) => void;
   isLast?: boolean;
   onItemPress: (id: string) => void;
   hasDeadline?: boolean;
