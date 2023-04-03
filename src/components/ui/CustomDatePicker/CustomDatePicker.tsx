@@ -20,7 +20,7 @@ export const CustomDatePicker: FC<Props> = ({
   setValue,
   ...props
 }) => {
-  const { theme } = useThemeContext();
+  const { theme, activeTheme } = useThemeContext();
   const style = styles(theme, inputWidth);
   const [open, setOpen] = useState(false);
 
@@ -88,6 +88,8 @@ export const CustomDatePicker: FC<Props> = ({
         isVisible={open}
         date={field.value as Date}
         minuteInterval={15}
+        isDarkModeEnabled={activeTheme === 'dark'}
+        textColor={theme.TEXT_PRIMARY}
         onConfirm={currentDate => onConfirm(currentDate)}
         onCancel={() => {
           setOpen(false);
