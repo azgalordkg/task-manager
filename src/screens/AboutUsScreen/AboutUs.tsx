@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
 import { MainLayout } from '@/components/layouts';
@@ -14,32 +15,26 @@ export const AboutUs: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
   const { theme } = useThemeContext();
   const style = styles(theme);
   const { goBack } = useNavigation();
+  const { t } = useTranslation();
 
   const handleClose = () => goBack();
 
   return (
-    <MainLayout screenTitle="About Us" onBack={handleClose}>
+    <MainLayout
+      screenTitle={`${t('ABOUT_US_SCREEN_TITLE')}`}
+      onBack={handleClose}>
       <View style={style.contentWrapper}>
         <View style={style.contentContainer}>
-          <Text style={style.screenTitle}>Simplify. Organize. Conquer.</Text>
+          <Text style={style.screenTitle}>{t('ABOUT_US_TITLE')}</Text>
 
           <BreakLine color={COLORS.GREY_DARK} />
 
           <Text style={style.screenDescription}>
-            Lumos Engineering is a software development company dedicated to
-            creating innovative and user-friendly applications. Our goal is to
-            make technology work for you, not the other way around. That's why
-            we're excited to introduce Tasker, our new to-do list application
-            that strikes the perfect balance between functionality and design.
+            {t('ABOUT_US_DESCRIPTION_PART_ONE')}
           </Text>
 
           <Text style={style.screenDescription}>
-            At Lumos Engineering, we believe that productivity should be simple
-            and accessible. That's why we designed Tracker to be both easy to
-            use and visually appealing. With its clean, intuitive interface,
-            Tracker makes it simple to keep track of your tasks, deadlines, and
-            daily to-dos. Whether you're at work, home, or on the go, Tracker is
-            always with you, helping you stay organized and on top of your game.
+            {t('ABOUT_US_DESCRIPTION_PART_ONE')}
           </Text>
 
           <View style={style.footerContainer}>
@@ -47,10 +42,10 @@ export const AboutUs: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
               onPress={() =>
                 navigation.navigate('Documents', { isPrivacyPolicy: true })
               }>
-              Privacy Policy
+              {t('PRIVACY_POLICY')}
             </MenuItem>
             <MenuItem onPress={() => navigation.navigate('Documents')}>
-              Terms of use
+              {t('TERMS_OF_USE')}
             </MenuItem>
           </View>
         </View>

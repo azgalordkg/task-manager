@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
 import { DismissKeyboard } from '@/components/features';
@@ -42,6 +43,7 @@ export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const { fetchTags } = useTagManageContext();
+  const { t } = useTranslation();
 
   const onSubmit = (data: CreateTagData) => {
     if (editItemId) {
@@ -91,20 +93,22 @@ export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
         isSubmitDisabled={!isValid}
         onSubmitPress={handleSubmit(onSubmit)}
         onDeletePress={editItemId ? handleShowModal : undefined}
-        submitTitle={editItemId ? 'Edit' : 'Create'}
-        title={`${editItemId ? 'Edit' : 'Create'} a tag`}>
+        submitTitle={editItemId ? `${t('EDIT')}` : `${t('CREATE')}`}
+        title={`${editItemId ? `${t('EDIT')}` : `${t('CREATE')}`} ${t(
+          'A_TAG',
+        )}`}>
         <View>
           <Input
             control={control}
             name="name"
-            placeholder="Tag name *"
+            placeholder={`${t('TAG_NAME_INPUT_PLACEHOLDER')}`}
             backgroundColor={theme.INPUT_DEFAULT}
             borderColor={theme.INPUT_DEFAULT}
             color={theme.TEXT_PRIMARY}
             errorMessage={errors.name?.message}
           />
           <View style={style.colorContainer}>
-            <Text style={style.colorTitle}>Select a color</Text>
+            <Text style={style.colorTitle}>{t('SELECT_COLOR')}</Text>
             <View style={style.colorList}>
               {AVAILABLE_COLORS.map(color => (
                 <ColorSelect
@@ -122,7 +126,7 @@ export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
       </FormContentWrapper>
 
       <ConfirmModal
-        confirmLabel="Delete"
+        confirmLabel={`${t('CONFIRM_MODAL_DELETE')}`}
         visible={confirmModalVisible}
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowModal}

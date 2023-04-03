@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import { Checkmark } from '@/components/icons';
@@ -12,6 +13,7 @@ import styles from './ThemeScreen.styles';
 
 export const ThemeScreen: FC<ScreenProps<'Theme'>> = ({ navigation }) => {
   const { activeTheme, themeHandleChange } = useThemeContext();
+  const { t } = useTranslation();
 
   const onBackPressHandler = () => {
     navigation.goBack();
@@ -22,27 +24,29 @@ export const ThemeScreen: FC<ScreenProps<'Theme'>> = ({ navigation }) => {
   };
 
   return (
-    <MainLayout onBack={onBackPressHandler} screenTitle="Theme">
+    <MainLayout
+      onBack={onBackPressHandler}
+      screenTitle={`${t('THEME_SCREEN_TITLE')}`}>
       <View style={styles.themeWrapper}>
         <View style={styles.themeContainer}>
           <MenuItem
             color={colorHandler('dark')}
             onPress={() => themeHandleChange('dark')}
             icon={Checkmark}>
-            Dark Theme
+            {t('DARK_THEME')}
           </MenuItem>
 
           <MenuItem
             color={colorHandler('light')}
             onPress={() => themeHandleChange('light')}
             icon={Checkmark}>
-            Light Theme
+            {t('LIGHT_THEME')}
           </MenuItem>
           <MenuItem
             color={colorHandler('system')}
             onPress={() => themeHandleChange('system')}
             icon={Checkmark}>
-            System Theme
+            {t('SYSTEM_THEME')}
           </MenuItem>
         </View>
       </View>

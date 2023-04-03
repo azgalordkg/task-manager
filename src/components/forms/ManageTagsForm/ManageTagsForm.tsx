@@ -1,4 +1,5 @@
 import React, { FC, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ScrollView, Text, View } from 'react-native';
 
 import { Plus } from '@/components/icons';
@@ -28,6 +29,8 @@ export const ManageTagsForm: FC<Props> = ({
     tags,
     fetchTags,
   } = useTagManageContext();
+  const { t } = useTranslation();
+
   const isLimit = tags?.length >= TAGS_CREATION_LIMITS;
   const style = styles(theme, isLimit);
 
@@ -37,8 +40,8 @@ export const ManageTagsForm: FC<Props> = ({
 
   return (
     <FormContentWrapper
-      submitTitle="Done"
-      title={isSettings ? '' : 'Manage Tags'}
+      submitTitle={t('SUBMIT_TITLE')}
+      title={isSettings ? '' : `${t('MANAGE_TAGS')}`}
       onSubmitPress={() => {
         if (!isSettings) {
           acceptSelectedTags();
@@ -47,7 +50,7 @@ export const ManageTagsForm: FC<Props> = ({
       }}>
       <View style={style.container}>
         <Text style={style.total}>
-          Total tags:{' '}
+          {t('TOTAL_TAGS')}:{' '}
           <Text style={style.totalCount}>
             {tags.length}/{TAGS_CREATION_LIMITS}
           </Text>
@@ -58,11 +61,9 @@ export const ManageTagsForm: FC<Props> = ({
           icon={Plus}
           variant="large"
           onPress={onCreateTagPress}>
-          Create a tag
+          {t('CREATE_TAG')}
         </DashedButton>
-        <Text style={style.message}>
-          You can select only 3 tags to be active
-        </Text>
+        <Text style={style.message}>{t('TAGS_LIMIT')}</Text>
         <ScrollView style={style.itemsWrapper}>
           {tags.map(({ _id, name, color }) => {
             return (

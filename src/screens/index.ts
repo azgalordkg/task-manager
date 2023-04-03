@@ -3,6 +3,7 @@ export * from './CreateTagScreen';
 export * from './CreateTaskScreen';
 export * from './DocumentsScreen';
 export * from './HomeScreen';
+export * from './LanguageScreen';
 export * from './ManageTagsScreen';
 export * from './PurchaseScreen';
 export * from './SettingsScreen';

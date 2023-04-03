@@ -12,6 +12,7 @@ export type RootStackParamList = {
   CreateTask?: { id?: string };
   Task: { id: string };
   Theme: undefined;
+  Language: undefined;
 };
 
 export type ScreenProps<T extends keyof RootStackParamList> =

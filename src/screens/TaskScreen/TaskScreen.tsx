@@ -1,4 +1,5 @@
 import React, { FC, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
 import {
@@ -27,6 +28,7 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
   const { fetchList } = useTaskModalContext();
   const { tags: allTags } = useTagManageContext();
   const { theme } = useThemeContext();
+  const { t } = useTranslation();
 
   const style = styles(theme);
 
@@ -118,7 +120,7 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
 
       <ConfirmModal
         visible={confirmModalVisible}
-        confirmLabel="Delete"
+        confirmLabel={`${t('CONFIRM_MODAL_DELETE')}`}
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowModal}
       />
