@@ -128,6 +128,7 @@ export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
 
       <ConfirmModal
         confirmLabel={`${t('CONFIRM_MODAL_DELETE')}`}
+        dismissLabel={`${t('CANCEL_BUTTON')}`}
         visible={confirmModalVisible}
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowModal}

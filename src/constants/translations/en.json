@@ -139,5 +139,10 @@
   "SETTINGS_SCREEN_TITLE": "Settings",
   "TAGS_SCREEN_TITLE": "Tags",
   "THEME_SCREEN_TITLE": "Theme",
-  "LAST_UPDATED": "Last updated"
+  "LAST_UPDATED": "Last updated",
+  "DAILY": "Daily",
+  "WEEKLY": "Weekly",
+  "MONTHLY": "Monthly",
+  "YEARLY": "Yearly",
+  "NEVER": "Never"
 }

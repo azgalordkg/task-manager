@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useController } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 
@@ -25,14 +26,30 @@ export const Select: FC<Props> = ({
   const Icon = icon;
 
   const { theme } = useThemeContext();
+  const { t } = useTranslation();
   const style = styles(theme);
+
+  const formatFrequencyValue = (value: string) => {
+    switch (value) {
+      case 'Daily':
+        return t('DAILY');
+      case 'Weekly':
+        return t('WEEKLY');
+      case 'Monthly':
+        return t('MONTHLY');
+      case 'Yearly':
+        return t('YEARLY');
+      default:
+        return t('NEVER');
+    }
+  };
 
   return (
     <RNPickerSelect
       value={field.value}
       onValueChange={field.onChange}
       placeholder={{
-        label: 'Never',
+        label: t('NEVER'),
         value: 'Never',
         color: theme.TEXT_PRIMARY,
       }}
@@ -51,7 +68,9 @@ export const Select: FC<Props> = ({
             <Text style={style.label}>{label}</Text>
           </View>
           <View style={style.row}>
-            <Text style={style.input}>{field.value as string}</Text>
+            <Text style={style.input}>
+              {formatFrequencyValue(field.value as string)}
+            </Text>
             <ArrowAngle color={COLORS.GREY_LIGHT} />
           </View>
         </View>

@@ -121,6 +121,7 @@ export const TaskScreen: FC<ScreenProps<'Task'>> = ({ route, navigation }) => {
       <ConfirmModal
         visible={confirmModalVisible}
         confirmLabel={`${t('CONFIRM_MODAL_DELETE')}`}
+        dismissLabel={`${t('CANCEL_BUTTON')}`}
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowModal}
       />

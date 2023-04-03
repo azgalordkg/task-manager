@@ -14,7 +14,7 @@ import {
   Input,
   Select,
 } from '@/components/ui';
-import { REPEAT_LIST } from '@/constants';
+import { getRepeatList } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
 import {
   useTagManageContext,
@@ -98,11 +98,6 @@ export const CreateTaskForm: FC<Props> = ({
     }
   }, [editItemId, taskForEdit]);
 
-  const repeatListWithColor = REPEAT_LIST.map(repeatItem => ({
-    ...repeatItem,
-    color: theme.TEXT_PRIMARY,
-  }));
-
   const isInitialDataChanged = (
     initialTaskValue: Partial<TasksResponseItem>,
     formValue: CreateTaskData,
@@ -185,7 +180,7 @@ export const CreateTaskForm: FC<Props> = ({
           <Select
             name="repeat"
             control={control}
-            items={repeatListWithColor}
+            items={getRepeatList(t, theme.TEXT_PRIMARY)}
             label={`${t('REPEAT')}`}
           />
         </View>
@@ -239,6 +234,7 @@ export const CreateTaskForm: FC<Props> = ({
 
       <ConfirmModal
         confirmLabel={`${t('CONFIRM_MODAL_DELETE')}`}
+        dismissLabel={`${t('CANCEL_BUTTON')}`}
         visible={confirmModalVisible}
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowModal}

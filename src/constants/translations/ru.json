@@ -139,5 +139,10 @@
   "SETTINGS_SCREEN_TITLE": "Настройки",
   "TAGS_SCREEN_TITLE": "Теги",
   "THEME_SCREEN_TITLE": "Тема",
-  "LAST_UPDATED": "Последнее обновление"
+  "LAST_UPDATED": "Последнее обновление",
+  "DAILY": "Ежедневно",
+  "WEEKLY": "Еженедельно",
+  "MONTHLY": "Ежемесячно",
+  "YEARLY": "Ежегодно",
+  "NEVER": "Никогда"
 }
