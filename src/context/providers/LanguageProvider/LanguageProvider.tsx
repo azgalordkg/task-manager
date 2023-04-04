@@ -31,11 +31,24 @@ export const LanguageProvider: FC<PropsWithChildren> = ({ children }) => {
     return NativeModules.I18nManager.localeIdentifier;
   };
 
+  const handleChangeLocale = (value: string) => {
+    moment.locale(value);
+    moment.updateLocale(value, {
+      monthsShort: localeShortDate[value].monthsShort,
+      weekdaysShort: localeShortDate[value].weekdaysShort,
+    });
+  };
+
   const getCurrentLanguage = async () => {
     const selectedLanguage = await Storage.getData('language');
-    const systemLanguage = await getSystemLanguage().split('_')[0];
+    const systemLanguage = (await getSystemLanguage()).split('_')[0];
+    const supportedLanguages = ['de', 'fr', 'es', 'ru'];
+    const languageToUse = supportedLanguages.includes(selectedLanguage)
+      ? selectedLanguage
+      : systemLanguage || 'en';
 
-    await i18n.changeLanguage(selectedLanguage || systemLanguage);
+    await handleChangeLocale(languageToUse);
+    await i18n.changeLanguage(languageToUse);
   };
 
   useEffect(() => {
@@ -45,11 +58,7 @@ export const LanguageProvider: FC<PropsWithChildren> = ({ children }) => {
   const languageHandleChange = async (value: string) => {
     await Storage.storeData('language', value);
     await i18n.changeLanguage(value);
-    moment.locale(value);
-    moment.updateLocale(value, {
-      monthsShort: localeShortDate[value].monthsShort,
-      weekdaysShort: localeShortDate[value].weekdaysShort,
-    });
+    await handleChangeLocale(value);
   };
 
   return (
