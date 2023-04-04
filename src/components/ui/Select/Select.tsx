@@ -7,6 +7,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import { ArrowAngle, Repeat } from '@/components/icons';
 import { InputWrapper } from '@/components/ui';
 import { COLORS } from '@/constants';
+import { FREQUENCY_VALUES } from '@/constants/translations';
 import { useThemeContext } from '@/context/hooks';
 
 import styles from './Select.styles';
@@ -30,18 +31,7 @@ export const Select: FC<Props> = ({
   const style = styles(theme);
 
   const formatFrequencyValue = (value: string) => {
-    switch (value) {
-      case 'Daily':
-        return t('DAILY');
-      case 'Weekly':
-        return t('WEEKLY');
-      case 'Monthly':
-        return t('MONTHLY');
-      case 'Yearly':
-        return t('YEARLY');
-      default:
-        return t('NEVER');
-    }
+    return t(FREQUENCY_VALUES[value] || 'NEVER');
   };
 
   return (

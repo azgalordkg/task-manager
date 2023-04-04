@@ -32,11 +32,6 @@ export const DayBlock: FC<PropsWithChildren<Props>> = ({
                 {formatDate(currentDate, 'MMM/ddd')}
               </Text>
             )}
-            {/*{currentDate && (*/}
-            {/*  <Text style={style.dayOfWeek}>*/}
-            {/*    / {formatDate(currentDate, 'ddd')}*/}
-            {/*  </Text>*/}
-            {/*)}*/}
           </View>
         </View>
 
