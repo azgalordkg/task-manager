@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import { formatDate, getDateFromToday, getToday, vibrate } from '@/utils';
@@ -12,6 +13,8 @@ export const DateFilter: FC<Props> = ({
   currentEndDate,
   onPressHandler,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.dateButtonsWrapper}>
       {Array.from({ length: 5 }).map((_, index) => {
@@ -50,8 +53,8 @@ export const DateFilter: FC<Props> = ({
               {index > 1
                 ? `${startDate.getDate()} ${formatDate(startDate, 'MMM')}`
                 : index === 0
-                ? 'Today'
-                : 'Tomorrow'}
+                ? t('TODAY')
+                : t('TOMORROW')}
             </CustomButton>
           </View>
         );

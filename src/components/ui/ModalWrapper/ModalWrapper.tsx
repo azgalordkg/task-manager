@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import { useThemeContext } from '@/context/hooks';
@@ -11,10 +12,11 @@ import { Props } from './ModalWrapper.types';
 export const ModalWrapper: FC<Props> = ({
   onRequestClose,
   children,
-  closeText = 'Cancel',
+  closeText,
   responsiveHeight,
 }) => {
   const { theme } = useThemeContext();
+  const { t } = useTranslation();
   const style = styles(theme, responsiveHeight);
 
   return (
@@ -30,7 +32,7 @@ export const ModalWrapper: FC<Props> = ({
             textColor={theme.TEXT_PRIMARY}
             fullWidth
             onPress={onRequestClose}>
-            {closeText}
+            {closeText || t('CANCEL_BUTTON')}
           </CustomButton>
         </View>
       </View>

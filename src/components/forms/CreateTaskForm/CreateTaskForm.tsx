@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { isEqual } from 'lodash';
 import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Dimensions, View } from 'react-native';
 
 import { DateFilter, DismissKeyboard, TagsField } from '@/components/features';
@@ -13,7 +14,7 @@ import {
   Input,
   Select,
 } from '@/components/ui';
-import { REPEAT_LIST } from '@/constants';
+import { getRepeatList } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
 import {
   useTagManageContext,
@@ -39,6 +40,7 @@ export const CreateTaskForm: FC<Props> = ({
   const { startDate, endDate } = roundAndExtendTimeRange();
   const { setTagsForEdit, tags: allTags } = useTagManageContext();
   const { fetchList } = useTaskModalContext();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (editItemId) {
@@ -96,11 +98,6 @@ export const CreateTaskForm: FC<Props> = ({
     }
   }, [editItemId, taskForEdit]);
 
-  const repeatListWithColor = REPEAT_LIST.map(repeatItem => ({
-    ...repeatItem,
-    color: theme.TEXT_PRIMARY,
-  }));
-
   const isInitialDataChanged = (
     initialTaskValue: Partial<TasksResponseItem>,
     formValue: CreateTaskData,
@@ -131,7 +128,7 @@ export const CreateTaskForm: FC<Props> = ({
 
   const isDisabled = !isInitialDataChanged(taskForEdit, watch()) && isValid;
   const timeInputWidth = Dimensions.get('window').width / 2 - 30;
-  const title = editItemId ? 'Edit' : 'Create';
+  const title = editItemId ? t('EDIT') : t('CREATE');
 
   const handleShowModal = () => {
     setConfirmModalVisible(!confirmModalVisible);
@@ -153,7 +150,7 @@ export const CreateTaskForm: FC<Props> = ({
         isSubmitDisabled={!isDisabled}
         onDeletePress={editItemId ? handleShowModal : undefined}
         submitTitle={title}
-        title={`${title} task`}>
+        title={`${title} ${t('TASK')}`}>
         <View style={styles.inputWrapper}>
           <Input
             control={control}
@@ -161,7 +158,7 @@ export const CreateTaskForm: FC<Props> = ({
             borderColor={theme.INPUT_DEFAULT}
             color={theme.TEXT_PRIMARY}
             name="name"
-            placeholder="Name *"
+            placeholder={`${t('NAME_INPUT_PLACEHOLDER')}`}
             errorMessage={errors.name?.message}
             maxLength={30}
           />
@@ -175,7 +172,7 @@ export const CreateTaskForm: FC<Props> = ({
             multiline={true}
             numberOfLines={4}
             name="description"
-            placeholder="Description (optional)"
+            placeholder={`${t('DESCRIPTION_INPUT_PLACEHOLDER')}`}
             maxLength={255}
           />
         </View>
@@ -183,17 +180,17 @@ export const CreateTaskForm: FC<Props> = ({
           <Select
             name="repeat"
             control={control}
-            items={repeatListWithColor}
-            label="Repeat"
+            items={getRepeatList(t, theme.TEXT_PRIMARY)}
+            label={`${t('REPEAT')}`}
           />
         </View>
         <View style={styles.dateContainer}>
           <View style={styles.inputWrapper}>
             <CustomDatePicker
-              label="Date *"
+              label={`${t('DATE_INPUT_LABEL')}`}
               control={control}
               name="startDate"
-              title="Choose date"
+              title={`${t('DATE_INPUT_PLACEHOLDER')}`}
               mode="date"
             />
           </View>
@@ -208,25 +205,25 @@ export const CreateTaskForm: FC<Props> = ({
           control={control}
           name="hasDeadline"
           onValueChange={value => setValue('hasDeadline', value)}
-          label="Set due time"
+          label={`${t('SET_DUE_TIME')}`}
         />
         {watch('hasDeadline') && (
           <View style={styles.timeContainer}>
             <CustomDatePicker
               inputWidth={timeInputWidth}
-              label="Start Time"
+              label={`${t('START_TIME_INPUT_LABEL')}`}
               control={control}
               name="startDate"
-              title="Choose date"
+              title={`${t('CHOOSE_DATE_INPUT_PLACEHOLDER')}`}
               mode="time"
               setValue={setValue}
             />
             <CustomDatePicker
               inputWidth={timeInputWidth}
-              label="End Time"
+              label={`${t('END_TIME_INPUT_LABEL')}`}
               control={control}
               name="endDate"
-              title="Choose date"
+              title={`${t('CHOOSE_DATE_INPUT_PLACEHOLDER')}`}
               mode="time"
               setValue={setValue}
             />
@@ -236,7 +233,8 @@ export const CreateTaskForm: FC<Props> = ({
       </FormContentWrapper>
 
       <ConfirmModal
-        confirmLabel="Delete"
+        confirmLabel={`${t('CONFIRM_MODAL_DELETE')}`}
+        dismissLabel={`${t('CANCEL_BUTTON')}`}
         visible={confirmModalVisible}
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowModal}

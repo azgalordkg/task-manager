@@ -1,5 +1,6 @@
 import moment from 'moment';
 import React, { FC, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import Accordion from 'react-native-collapsible/Accordion';
 
 import {
@@ -22,6 +23,7 @@ export const TaskList: FC<Props> = ({ sections = [], onItemPress }) => {
   const [deleteId, setDeleteId] = useState('');
 
   const { fetchList } = useTaskModalContext();
+  const { t } = useTranslation();
 
   const fillActiveSection = () => {
     return sections?.forEach((sectionsItem, index) => {
@@ -96,7 +98,8 @@ export const TaskList: FC<Props> = ({ sections = [], onItemPress }) => {
       />
 
       <ConfirmModal
-        confirmLabel="Delete"
+        confirmLabel={`${t('CONFIRM_MODAL_DELETE')}`}
+        dismissLabel={`${t('CANCEL_BUTTON')}`}
         visible={confirmModalVisible}
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowModal}

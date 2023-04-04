@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
 import { DashedButton } from '@/components/ui';
@@ -12,6 +13,7 @@ import { Props } from './TagsField.types';
 
 export const TagsField: FC<Props> = ({ onAddPress }) => {
   const { theme } = useThemeContext();
+  const { t } = useTranslation();
 
   const style = styles(theme);
   const [tags, setTags] = useState<TagsResponseItem[]>([]);
@@ -33,7 +35,7 @@ export const TagsField: FC<Props> = ({ onAddPress }) => {
 
   return (
     <View style={style.container}>
-      <Text style={style.label}>Tags: </Text>
+      <Text style={style.label}>{t('TAGS')}: </Text>
       <View style={style.tagsWrapper}>
         {tags?.map(({ name, color, _id }) => (
           <Tag
@@ -47,7 +49,7 @@ export const TagsField: FC<Props> = ({ onAddPress }) => {
           />
         ))}
         {tags?.length < 3 && (
-          <DashedButton onPress={onAddPress}>Add</DashedButton>
+          <DashedButton onPress={onAddPress}>{t('ADD_BUTTON')}</DashedButton>
         )}
       </View>
     </View>

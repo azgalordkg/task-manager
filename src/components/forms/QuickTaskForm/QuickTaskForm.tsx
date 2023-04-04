@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
 import React, { FC } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import { DismissKeyboard } from '@/components/features';
@@ -19,6 +20,7 @@ import { Props } from './QuickTaskForm.types';
 
 export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
   const createDateTime = new Date();
+  const { t } = useTranslation();
 
   const combineStartDate = (dateDay: Date, dateTime: Date) => {
     const day = moment(dateDay);
@@ -78,7 +80,7 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
             <Input
               control={control}
               name="name"
-              placeholder="Name *"
+              placeholder={`${t('NAME_INPUT_PLACEHOLDER')}`}
               errorMessage={errors.name?.message}
               borderColor={theme.INPUT_QUICK_TASK}
               backgroundColor={theme.INPUT_QUICK_TASK}
@@ -92,11 +94,11 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
                 bgColor={theme.INPUT_QUICK_TASK}
                 textColor={COLORS.RED}
                 onPress={handleShowInput}>
-                Cancel
+                {t('CANCEL_BUTTON')}
               </CustomButton>
 
               <CustomButton width="48%" onPress={handleSubmit(onSubmit)}>
-                Create
+                {t('CREATE_BUTTON')}
               </CustomButton>
             </View>
           </View>
