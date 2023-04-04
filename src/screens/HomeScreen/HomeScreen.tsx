@@ -1,5 +1,4 @@
 import { useIsFocused } from '@react-navigation/native';
-import moment from 'moment';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 
@@ -13,7 +12,7 @@ import {
 } from '@/context/hooks';
 import { updateRecurringTasks } from '@/services';
 import { ScreenProps } from '@/types';
-import { isDateToday, sortTasksForRender, vibrate } from '@/utils';
+import { sortTasksForRender, vibrate } from '@/utils';
 
 import styles from './HomeScreen.styles';
 
@@ -64,28 +63,27 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
     [taskList],
   );
 
-  const todayTasks = useMemo(
-    () =>
-      sections?.find(sectionsItem => {
-        const date = moment(new Date(+sectionsItem.title));
-        return isDateToday(date);
-      }),
-    [sections],
-  );
-
-  const totalTasks = todayTasks?.content.length;
-
-  const doneTasks = useMemo(
-    () => todayTasks?.content.filter(({ isDone }) => isDone).length,
-    [todayTasks],
-  );
+  // const todayTasks = useMemo(
+  //   () =>
+  //     sections?.find(sectionsItem => {
+  //       const date = moment(new Date(+sectionsItem.title));
+  //       return isDateToday(date);
+  //     }),
+  //   [sections],
+  // );
+  //
+  // const totalTasks = todayTasks?.content.length;
+  //
+  // const doneTasks = useMemo(
+  //   () => todayTasks?.content.filter(({ isDone }) => isDone).length,
+  //   [todayTasks],
+  // );
 
   return (
     <MainLayout
-      tasksTotal={totalTasks}
-      tasksCurrent={doneTasks}
-      withHeader
-      navigation={navigation}>
+      screenTitle="Today"
+      onBack={() => navigation.navigate('CreateTag')}
+      isFilter>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={style.contentWrapper}>
           <TaskList onItemPress={handleItemPress} sections={sections} />

@@ -1,5 +1,8 @@
-export interface Props {
-  onSettingsPress: () => void;
-  current?: number;
-  total?: number;
+import { ScreenProps } from '@/types';
+
+export interface Props extends Partial<ScreenProps<'Home'>> {
+  screenTitle: any;
+  onBack: any;
+  isFilter?: boolean;
+  isSettings?: boolean;
 }

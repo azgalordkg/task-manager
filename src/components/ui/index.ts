@@ -1,7 +1,6 @@
 export * from './AccordionContent';
 export * from './AccordionHeader';
 export * from './ActionButton';
-export * from './BackButtonHeader';
 export * from './BreakLine';
 export * from './Checkbox';
 export * from './ColorSelect';
