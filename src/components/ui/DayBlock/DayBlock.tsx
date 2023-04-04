@@ -28,13 +28,15 @@ export const DayBlock: FC<PropsWithChildren<Props>> = ({
           </View>
           <View style={style.monthWrapper}>
             {currentDate && (
-              <Text style={style.month}>{formatDate(currentDate, 'MMM')}</Text>
-            )}
-            {currentDate && (
-              <Text style={style.dayOfWeek}>
-                / {formatDate(currentDate, 'ddd')}
+              <Text style={style.month}>
+                {formatDate(currentDate, 'MMM/ddd')}
               </Text>
             )}
+            {/*{currentDate && (*/}
+            {/*  <Text style={style.dayOfWeek}>*/}
+            {/*    / {formatDate(currentDate, 'ddd')}*/}
+            {/*  </Text>*/}
+            {/*)}*/}
           </View>
         </View>
 

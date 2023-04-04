@@ -1,7 +1,14 @@
+import 'moment/locale/ru';
+import 'moment/locale/fr';
+import 'moment/locale/de';
+import 'moment/locale/it';
+
+import moment from 'moment';
 import React, { createContext, FC, PropsWithChildren, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NativeModules, Platform } from 'react-native';
 
+import { localeShortDate } from '@/constants/translations';
 import { Storage } from '@/utils';
 
 import { LanguageProviderType } from './LanguageProvider.types';
@@ -38,6 +45,11 @@ export const LanguageProvider: FC<PropsWithChildren> = ({ children }) => {
   const languageHandleChange = async (value: string) => {
     await Storage.storeData('language', value);
     await i18n.changeLanguage(value);
+    moment.locale(value);
+    moment.updateLocale(value, {
+      monthsShort: localeShortDate[value].monthsShort,
+      weekdaysShort: localeShortDate[value].weekdaysShort,
+    });
   };
 
   return (
