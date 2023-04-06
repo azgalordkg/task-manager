@@ -22,6 +22,9 @@
   "ADD_BUTTON": "Añadir",
   "LANGUAGE": "Idioma",
   "THEME": "Tema",
+  "APP_ICON": "Icono de la aplicación",
+  "CONTACT_US": "Contacte con nosotros",
+  "RATE_US": "Valora TaskNinja",
   "ABOUT_US": "Sobre nosotros",
   "NOTIFICATIONS": "Notificaciones",
   "CREATE_TAG": "Crear una etiqueta",
@@ -144,5 +147,5 @@
   "WEEKLY": "Semanal",
   "MONTHLY": "Mensual",
   "YEARLY": "Anual",
-  "NEVER": "Nunca",
+  "NEVER": "Nunca"
 }

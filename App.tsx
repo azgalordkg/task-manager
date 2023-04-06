@@ -12,7 +12,7 @@ import {
   ThemeProvider,
 } from '@/context/providers';
 import {
-  AboutUs,
+  AboutUsScreen,
   CreateTagScreen,
   CreateTaskScreen,
   DocumentsScreen,
@@ -20,7 +20,7 @@ import {
   LanguageScreen,
   ManageTagsScreen,
   PurchaseScreen,
-  Settings,
+  SettingsScreen,
   TagsSettingsScreen,
   ThemeScreen,
 } from '@/screens';
@@ -43,8 +43,8 @@ const App: FC = () => {
                   }}>
                   <Stack.Group>
                     <Stack.Screen name="Home" component={HomeScreen} />
-                    <Stack.Screen name="AboutUs" component={AboutUs} />
-                    <Stack.Screen name="Settings" component={Settings} />
+                    <Stack.Screen name="AboutUs" component={AboutUsScreen} />
+                    <Stack.Screen name="Settings" component={SettingsScreen} />
                     <Stack.Screen
                       name="Documents"
                       component={DocumentsScreen}
