@@ -7,6 +7,7 @@ import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { TaskList } from '@/components/features';
 import { Plus } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
+import { COLORS } from '@/constants';
 import {
   useTagManageContext,
   useTaskModalContext,
@@ -89,7 +90,7 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
 
       <TouchableOpacity onPress={handleCreatePress} activeOpacity={0.75}>
         <View style={style.buttonWrapper}>
-          <Plus color={theme.BACKGROUND_PRIMARY} width={20} height={20} />
+          <Plus color={COLORS.WHITE} width={20} height={20} />
         </View>
       </TouchableOpacity>
     </MainLayout>
