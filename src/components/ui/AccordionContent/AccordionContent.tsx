@@ -17,7 +17,7 @@ export const AccordionContent: FC<Props> = ({
 }) => {
   return (
     <>
-      {content.map(
+      {content?.map(
         (
           {
             hasDeadline,

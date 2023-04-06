@@ -24,7 +24,7 @@ export const DoneTaskAccordion: FC<Props> = ({
     content: completeTasks,
   };
 
-  if (sections.content.length === 0) {
+  if (sections.content?.length === 0) {
     return null;
   }
 
