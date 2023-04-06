@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { TaskSchema } from '@/constants';
 import {
   CreateTaskData,
+  RealmTaskType,
   RecurringTypes,
   TasksList,
   TasksResponseItem,
@@ -216,7 +217,9 @@ export const updateRecurringDates = (
   }
 };
 
-export const updateRecurringTasks = (tasksByDays: TasksList) => {
+export const updateRecurringTasks = (
+  tasksByDays: TasksList | RealmTaskType,
+) => {
   const dailyTasks = getRecurringTasks(
     'Daily',
   ) as unknown as TasksResponseItem[];

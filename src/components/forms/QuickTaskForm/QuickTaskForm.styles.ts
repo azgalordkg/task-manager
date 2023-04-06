@@ -8,19 +8,19 @@ const styles = (theme: SchemeType) =>
       height: 126,
     },
     container: {
-      padding: 12,
+      padding: 8,
       borderRadius: 12,
       backgroundColor: theme.BACKGROUND_TASK,
       flexDirection: 'row',
       columnGap: 14,
     },
     inputContainer: {
-      width: '84%',
+      width: '100%',
     },
     buttonWrapper: {
       flexDirection: 'row',
       columnGap: 12,
-      marginTop: 14,
+      marginTop: 8,
     },
   });
 

@@ -1,6 +1,4 @@
-import { TaskSection } from '@/types';
-
 export interface Props {
-  sections?: TaskSection[];
+  date: Date;
   onItemPress: (id: string) => void;
 }

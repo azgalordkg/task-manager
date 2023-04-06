@@ -1,39 +1,27 @@
 import moment from 'moment';
-import Realm from 'realm';
 
-import { TasksList } from '@/types';
+import { TasksResponseItem } from '@/types';
 
-// TODO replace any
-export const sortTasksByDate = (tasks: Realm.Results<Realm.Object> | any[]) => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const tomorrow = +moment(today.getTime()).add(1, 'day');
+export const getTodayTask = (
+  realmTasks: TasksResponseItem[] | Realm.Results<Realm.Object<unknown, never>>,
+) => {
+  const tasks = realmTasks as TasksResponseItem[];
+  const today = moment().startOf('day');
+  const filteredTasks = tasks?.filter(task =>
+    moment(task.createdAt).isSame(today, 'd'),
+  );
 
-  const tasksByDays: TasksList = {
-    [today.getTime()]: [],
-    [tomorrow]: [],
-  };
-
-  tasks.forEach(task => {
-    const date = new Date(task.startDate);
-    date.setHours(0, 0, 0, 0);
-    const day = date.getTime();
-
-    if (tasksByDays[day]) {
-      tasksByDays[day].push(task);
-    } else {
-      tasksByDays[day] = [task];
-    }
-  });
-
-  return tasksByDays;
+  return filteredTasks.sort((a, b) => b.createdAt + a.createdAt);
 };
 
-export const sortTasksForRender = (tasks?: TasksList) => {
-  if (!tasks) {
-    return [];
+export const filterTasks = (
+  tasks: TasksResponseItem[],
+  filterType: 'incomplete' | 'complete',
+) => {
+  if (filterType === 'incomplete') {
+    return tasks.filter(task => !task.isDone);
   }
-  return Object.keys(tasks).sort(
-    (a, b) => new Date(Number(a)).getTime() - new Date(Number(b)).getTime(),
-  );
+  if (filterType === 'complete') {
+    return tasks.filter(task => task.isDone);
+  }
 };

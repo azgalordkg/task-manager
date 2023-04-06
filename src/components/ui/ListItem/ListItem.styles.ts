@@ -24,7 +24,7 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
       marginHorizontal: 20,
     },
     container: {
-      padding: 12,
+      padding: 8,
       borderRadius: 12,
       borderBottomColor: COLORS.GREY,
       backgroundColor: theme.BACKGROUND_TASK,
@@ -32,23 +32,34 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
     textWrapper: {
       width: '80%',
       justifyContent: 'center',
+      rowGap: 4,
     },
     checkmarkWrapper: {
-      marginRight: 15,
+      marginRight: 14,
     },
     title: {
+      fontWeight: '400',
       fontSize: 18,
-      fontWeight: '600',
+      lineHeight: 22,
       color: theme.TEXT_PRIMARY,
     },
     description: {
+      fontWeight: '400',
       fontSize: 12,
+      lineHeight: 15,
       color: theme.TEXT_SECONDARY,
     },
-    time: {
+    timeContainer: {
+      flexDirection: 'row',
+      columnGap: 4,
+      alignItems: 'center',
       marginTop: 6,
-      fontSize: 14,
-      color: theme.TEXT_SECONDARY,
+    },
+    time: {
+      color: COLORS.GREEN,
+      fontWeight: '400',
+      fontSize: 12,
+      lineHeight: 15,
     },
     contentWrapper: {
       flexDirection: 'row',
@@ -87,13 +98,13 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
     },
     tagsWrapper: {
       flexDirection: 'row',
-      columnGap: 6,
-      marginBottom: 8,
+      columnGap: 4,
+      marginTop: 4,
     },
-    tag: {
-      height: 6,
-      width: 16,
-      borderRadius: 3,
+    tagText: {
+      fontWeight: '400',
+      fontSize: 10,
+      lineHeight: 12,
     },
   });
 

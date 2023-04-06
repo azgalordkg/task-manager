@@ -4,8 +4,9 @@ import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import OutsidePressHandler from 'react-native-outside-press';
 
-import { Cross, Trash } from '@/components/icons';
+import { Calendar, Cross, Trash } from '@/components/icons';
 import { ActionButton, CustomCheckbox } from '@/components/ui';
+import { COLORS } from '@/constants';
 import {
   useTagManageContext,
   useTaskModalContext,
@@ -31,7 +32,6 @@ export const ListItem: FC<ListItemProps> = ({
   onCheckPress,
   onDeletePress,
   startDate,
-  endDate,
   isLast,
   onItemPress,
   hasDeadline,
@@ -88,7 +88,6 @@ export const ListItem: FC<ListItemProps> = ({
   };
 
   const deadlineStart = startDate && formatDate(startDate, 'LT');
-  const deadlineEnd = endDate && formatDate(endDate, 'LT');
 
   const tagsForRender: TagsResponseItem[] = useMemo(
     () => prepareTagsForRender(tags, allTags),
@@ -119,22 +118,15 @@ export const ListItem: FC<ListItemProps> = ({
             <View style={style.contentWrapper}>
               <View style={style.checkmarkWrapper}>
                 <CustomCheckbox
-                  defaultColor={theme.TEXT_INFO}
+                  defaultColor={COLORS.RED}
+                  checkedColor={COLORS.RED}
                   onPress={onCheckPressHandler}
                   checked={checked}
+                  size={24}
+                  type="filled"
                 />
               </View>
               <View style={style.textWrapper}>
-                {Boolean(tagsForRender.length) && (
-                  <View style={style.tagsWrapper}>
-                    {tagsForRender.map(({ color, _id }) => (
-                      <View
-                        key={_id}
-                        style={{ ...style.tag, backgroundColor: color }}
-                      />
-                    ))}
-                  </View>
-                )}
                 <Text style={[style.title, style.crossedTextStyles]}>
                   {name}
                 </Text>
@@ -146,9 +138,25 @@ export const ListItem: FC<ListItemProps> = ({
                   </Text>
                 )}
                 {hasDeadline && (
-                  <Text style={[style.time, style.crossedTextStyles]}>
-                    {deadlineStart} - {deadlineEnd}
-                  </Text>
+                  <View style={style.timeContainer}>
+                    <Calendar height={14} width={14} color={COLORS.GREEN} />
+
+                    <Text style={[style.time, style.crossedTextStyles]}>
+                      {deadlineStart}
+                    </Text>
+                  </View>
+                )}
+
+                {Boolean(tagsForRender.length) && (
+                  <View style={style.tagsWrapper}>
+                    {tagsForRender.map(({ color, name: tagTitle, _id }) => (
+                      <Text
+                        key={_id}
+                        style={{ ...style.tagText, color: color }}>
+                        {tagTitle}
+                      </Text>
+                    ))}
+                  </View>
                 )}
               </View>
             </View>

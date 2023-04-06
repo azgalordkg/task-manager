@@ -11,14 +11,16 @@ const styles = (
     wrapper: {
       borderWidth: 1,
       borderColor: errorMessage ? COLORS.RED : borderColor,
-      padding: 11,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
       backgroundColor: backgroundColor,
       borderRadius: 12,
       width: '100%',
       flexDirection: 'row',
+      height: 40,
     },
     icon: {
-      marginRight: 10,
+      marginRight: 8,
     },
   });
 

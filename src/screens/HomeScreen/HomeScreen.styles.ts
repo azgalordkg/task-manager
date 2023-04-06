@@ -5,7 +5,6 @@ import { SchemeType } from '@/types';
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
     contentWrapper: {
-      paddingTop: 30,
       paddingBottom: 50,
       flex: 1,
     },
@@ -19,6 +18,15 @@ const styles = (theme: SchemeType) =>
       position: 'absolute',
       bottom: 20,
       right: 15,
+    },
+    dayTitle: {
+      marginHorizontal: 20,
+      marginTop: 30,
+      marginBottom: 20,
+      fontWeight: '600',
+      fontSize: 14,
+      lineHeight: 17,
+      color: theme.TEXT_PRIMARY,
     },
   });
 

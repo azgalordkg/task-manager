@@ -4,4 +4,5 @@ export interface Props {
   checkedColor?: string;
   defaultColor?: string;
   size?: number;
+  type?: 'filled' | 'outline';
 }

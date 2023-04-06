@@ -1,53 +1,33 @@
-import moment from 'moment';
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Accordion from 'react-native-collapsible/Accordion';
+import { View } from 'react-native';
 
-import {
-  AccordionHeader,
-  ConfirmModal,
-  Loader,
-  MemoizedAccordionContent,
-} from '@/components/ui';
-import { useTaskModalContext } from '@/context/hooks';
-import { deleteOneTask } from '@/services';
-import { isDateToday } from '@/utils';
+import { DoneTaskAccordion, QuickTask } from '@/components/features';
+import { ConfirmModal, ListItem, Loader } from '@/components/ui';
+import { useTaskModalContext, useThemeContext } from '@/context/hooks';
+import { deleteOneTask, markTaskAsDone } from '@/services';
+import { filterTasks } from '@/utils';
 
 import styles from './TaskList.styles';
 import { Props } from './TaskList.types';
 
-export const TaskList: FC<Props> = ({ sections = [], onItemPress }) => {
-  const [activeSection, setActiveSection] = useState<number[]>([]);
+export const TaskList: FC<Props> = ({ onItemPress, date }) => {
+  const { t } = useTranslation();
+  const { theme } = useThemeContext();
+  const { taskList, fetchList } = useTaskModalContext();
+
   const [loading, setLoading] = useState(true);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [deleteId, setDeleteId] = useState('');
 
-  const { fetchList } = useTaskModalContext();
-  const { t } = useTranslation();
-
-  const fillActiveSection = () => {
-    return sections?.forEach((sectionsItem, index) => {
-      const date = moment(new Date(+sectionsItem.title));
-
-      if (isDateToday(date)) {
-        setActiveSection(prevState => [...prevState, index]);
-      }
-    });
-  };
-
-  useEffect(() => {
-    fillActiveSection();
-  }, [sections]);
+  const style = styles(theme);
+  const incompleteTasks = filterTasks(taskList, 'incomplete');
 
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 500);
   }, []);
-
-  if (loading) {
-    return <Loader />;
-  }
 
   const handleShowModal = () => {
     setDeleteId('');
@@ -71,30 +51,40 @@ export const TaskList: FC<Props> = ({ sections = [], onItemPress }) => {
     handleShowModal();
   };
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <>
-      <Accordion
-        sections={sections}
-        activeSections={activeSection}
-        renderHeader={section => (
-          <AccordionHeader
-            tasksCurrent={section.content.length}
-            activeSection={activeSection}
-            id={section.id}
-            title={section.title}
-          />
-        )}
-        renderContent={section => (
-          <MemoizedAccordionContent
-            title={section.title}
-            content={section.content}
+      {incompleteTasks.map((task: any) => {
+        const { description, _id, isDone, name, tags, startDate, hasDeadline } =
+          task;
+        return (
+          <ListItem
+            key={_id}
+            description={description}
+            checked={isDone}
+            id={_id}
+            name={name}
+            onCheckPress={markTaskAsDone}
             onDeletePress={handleDeletePress}
+            isDone={isDone}
             onItemPress={onItemPress}
+            tags={tags}
+            startDate={startDate}
+            hasDeadline={hasDeadline}
           />
-        )}
-        onChange={setActiveSection}
-        expandMultiple={true}
-        containerStyle={styles.containerStyle}
+        );
+      })}
+
+      <View style={style.buttonContainer}>
+        <QuickTask date={date.toString()} />
+      </View>
+
+      <DoneTaskAccordion
+        onItemPress={onItemPress}
+        onDeletePress={handleDeletePress}
       />
 
       <ConfirmModal

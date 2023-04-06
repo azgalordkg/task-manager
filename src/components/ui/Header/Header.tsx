@@ -33,8 +33,8 @@ export const Header: FC<Props> = ({
     <View style={style.header}>
       <View style={style.iconContainer}>
         {onBack && (
-          <TouchableOpacity>
-            <ArrowBack color={theme.TEXT_PRIMARY} onPress={onBack} />
+          <TouchableOpacity onPress={onBack}>
+            <ArrowBack color={theme.TEXT_PRIMARY} />
           </TouchableOpacity>
         )}
         <Text style={style.screenTitle}>{screenTitle}</Text>

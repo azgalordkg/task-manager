@@ -1,6 +1,8 @@
 import { useIsFocused } from '@react-navigation/native';
-import React, { FC, useEffect, useMemo, useState } from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import { t } from 'i18next';
+import moment from 'moment';
+import React, { FC, useEffect, useState } from 'react';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import { TaskList } from '@/components/features';
 import { Plus } from '@/components/icons';
@@ -12,7 +14,7 @@ import {
 } from '@/context/hooks';
 import { updateRecurringTasks } from '@/services';
 import { ScreenProps } from '@/types';
-import { sortTasksForRender, vibrate } from '@/utils';
+import { formatDate, vibrate } from '@/utils';
 
 import styles from './HomeScreen.styles';
 
@@ -53,31 +55,24 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
     navigation.navigate('CreateTask');
   };
 
-  const sections = useMemo(
-    () =>
-      sortTasksForRender(taskList).map((date, index) => ({
-        id: index,
-        title: date,
-        content: taskList[date].sort((a, b) => +a.isDone - +b.isDone),
-      })),
-    [taskList],
-  );
+  const getDayTitle = (date: Date) => {
+    const momentDate = moment(date);
+    const formattedDate = formatDate(date, 'D MMM');
+    const today = moment().startOf('day');
+    const tomorrow = moment().add(1, 'day').startOf('day');
+    const dayOfWeek = formatDate(date, 'dddd');
+    let todayOrTomorrow = '';
 
-  // const todayTasks = useMemo(
-  //   () =>
-  //     sections?.find(sectionsItem => {
-  //       const date = moment(new Date(+sectionsItem.title));
-  //       return isDateToday(date);
-  //     }),
-  //   [sections],
-  // );
-  //
-  // const totalTasks = todayTasks?.content.length;
-  //
-  // const doneTasks = useMemo(
-  //   () => todayTasks?.content.filter(({ isDone }) => isDone).length,
-  //   [todayTasks],
-  // );
+    if (momentDate.isSame(today, 'day')) {
+      todayOrTomorrow = `• ${t('TODAY')}`;
+    } else if (moment(date).isSame(tomorrow, 'day')) {
+      todayOrTomorrow = `• ${t('TOMORROW')}`;
+    }
+
+    return `${formattedDate} ${todayOrTomorrow} • ${dayOfWeek}`;
+  };
+
+  const dayTitle = getDayTitle(new Date());
 
   return (
     <MainLayout
@@ -85,8 +80,10 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
       onBack={() => navigation.navigate('CreateTag')}
       isFilter>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
+        <Text style={style.dayTitle}>{dayTitle}</Text>
+
         <View style={style.contentWrapper}>
-          <TaskList onItemPress={handleItemPress} sections={sections} />
+          <TaskList date={new Date()} onItemPress={handleItemPress} />
         </View>
       </ScrollView>
 

@@ -1,9 +1,13 @@
 import { StyleSheet } from 'react-native';
 
-const styles = StyleSheet.create({
-  containerStyle: {
-    rowGap: 30,
-  },
-});
+import { SchemeType } from '@/types';
+
+const styles = (theme: SchemeType) =>
+  StyleSheet.create({
+    buttonContainer: {
+      paddingHorizontal: 20,
+      paddingBottom: 14,
+    },
+  });
 
 export default styles;
