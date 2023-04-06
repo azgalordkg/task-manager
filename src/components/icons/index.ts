@@ -2,6 +2,7 @@ export * from './Alarm';
 export * from './ArrowAngle';
 export * from './ArrowBack';
 export * from './ArrowDown';
+export * from './ArrowForward';
 export * from './ArrowUp';
 export * from './Calendar';
 export * from './Checkbox';

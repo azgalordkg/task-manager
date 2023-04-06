@@ -27,6 +27,9 @@ export const QuickTask: FC<Props> = ({ date }) => {
       ) : (
         <View style={styles.buttonWrapper}>
           <CustomButton
+            fullWidth
+            paddingHorizontal={12}
+            orientation="flex-start"
             bgColor="transparent"
             onPress={handleShowInput}
             fontSize={14}

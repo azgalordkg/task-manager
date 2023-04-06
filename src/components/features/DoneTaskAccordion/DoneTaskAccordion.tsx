@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
 
-import { ArrowDown, ArrowUp } from '@/components/icons';
+import { ArrowDown, ArrowForward } from '@/components/icons';
 import { MemoizedAccordionContent } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useTaskModalContext } from '@/context/hooks';
@@ -38,9 +38,9 @@ export const DoneTaskAccordion: FC<Props> = ({
           <Text style={styles.title}>{title}</Text>
 
           {activeSection.length ? (
-            <ArrowDown color={COLORS.GREY_LIGHT} />
+            <ArrowDown color={COLORS.GREY_ICONS} />
           ) : (
-            <ArrowUp color={COLORS.GREY_LIGHT} />
+            <ArrowForward color={COLORS.GREY_ICONS} />
           )}
         </View>
       )}

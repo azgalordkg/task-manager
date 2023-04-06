@@ -15,6 +15,7 @@ const styles = ({
   textColor,
   borderWidth,
   disabled,
+  orientation,
 }: Partial<Props>) => {
   const isFilled = type === 'filled';
   const isOutlined = type === 'outlined';
@@ -25,7 +26,7 @@ const styles = ({
       borderRadius: 10,
       flexDirection: 'row',
       columnGap: 10,
-      justifyContent: 'center',
+      justifyContent: orientation,
       alignItems: 'center',
       maxWidth: '100%',
       width: fullWidth ? '100%' : width,

@@ -37,7 +37,7 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
   };
 
   const { startDate, endDate } = roundAndExtendTimeRange(
-    combineStartDate(new Date(+date), createDateTime),
+    combineStartDate(new Date(date), createDateTime),
   );
 
   const { fetchList } = useTaskModalContext();

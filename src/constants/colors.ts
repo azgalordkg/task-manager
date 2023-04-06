@@ -44,6 +44,7 @@ export const COLORS = {
   WHITE_MEDIUM: '#F5F5F5',
   WHITE_DARK: '#DCDCDC',
   GREY_LIGHT: '#b9b9b9',
+  GREY_ICONS: '#989898',
   GREY: '#6a6a6a',
   GREY_MEDIUM: '#3F3F3F',
   GREY_DARK: '#353535',
