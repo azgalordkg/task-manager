@@ -1,7 +1,6 @@
 export * from './AccordionContent';
 export * from './AccordionHeader';
 export * from './ActionButton';
-export * from './BackButtonHeader';
 export * from './BreakLine';
 export * from './Checkbox';
 export * from './ColorSelect';
@@ -13,6 +12,7 @@ export * from './DashedButton';
 export * from './DayBlock';
 export * from './DocumentsContent';
 export * from './DocumentsHeader';
+export * from './EmptyTaskList';
 export * from './FormContentWrapper';
 export * from './Header';
 export * from './Input';

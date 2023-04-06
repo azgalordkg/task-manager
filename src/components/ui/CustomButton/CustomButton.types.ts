@@ -16,4 +16,6 @@ export interface Props {
   disabled?: boolean;
   icon?: FC<DefaultSvgProps>;
   iconColor?: string;
+  iconWidth?: number;
+  iconHeight?: number;
 }

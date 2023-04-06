@@ -1,6 +1,6 @@
-import { TasksList } from '@/types';
+import { TasksResponseItem } from '@/types';
 
 export interface TaskListContextType {
-  taskList: TasksList;
+  taskList: TasksResponseItem[];
   fetchList: () => void;
 }

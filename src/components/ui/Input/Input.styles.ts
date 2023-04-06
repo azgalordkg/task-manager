@@ -8,6 +8,7 @@ const styles = (color?: string) =>
       display: 'flex',
       flexDirection: 'column',
       rowGap: 8,
+      width: '100%',
     },
     input: {
       width: '100%',

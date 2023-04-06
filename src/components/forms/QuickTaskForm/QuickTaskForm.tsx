@@ -74,8 +74,6 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
     <View style={style.contentWrapper}>
       <DismissKeyboard>
         <View style={style.container}>
-          <Checkbox width={28} height={28} color={theme.TEXT_INFO} />
-
           <View style={style.inputContainer}>
             <Input
               control={control}
@@ -86,18 +84,25 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
               backgroundColor={theme.INPUT_QUICK_TASK}
               maxLength={30}
               color={theme.TEXT_PRIMARY}
+              icon={
+                <Checkbox checked width={24} height={24} color={COLORS.GREEN} />
+              }
             />
 
             <View style={style.buttonWrapper}>
               <CustomButton
                 width="48%"
-                bgColor={theme.INPUT_QUICK_TASK}
-                textColor={COLORS.RED}
+                height={32}
+                bgColor={COLORS.BLACK_DARK}
+                textColor={COLORS.WHITE}
                 onPress={handleShowInput}>
                 {t('CANCEL_BUTTON')}
               </CustomButton>
 
-              <CustomButton width="48%" onPress={handleSubmit(onSubmit)}>
+              <CustomButton
+                height={32}
+                width="48%"
+                onPress={handleSubmit(onSubmit)}>
                 {t('CREATE_BUTTON')}
               </CustomButton>
             </View>

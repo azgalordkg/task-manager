@@ -1,9 +1,8 @@
 import React, { createContext, FC, PropsWithChildren, useState } from 'react';
-import Realm from 'realm';
 
 import { getTasks } from '@/services';
-import { TasksList } from '@/types';
-import { sortTasksByDate } from '@/utils';
+import { RealmTaskType, TasksResponseItem } from '@/types';
+import { getTodayTask } from '@/utils';
 
 import { TaskListContextType } from './TaskModalProvider.types';
 
@@ -12,14 +11,14 @@ export const TaskListContext = createContext<TaskListContextType>(
 );
 
 export const TaskListProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [taskList, setTaskList] = useState<TasksList>({});
+  const [taskList, setTaskList] = useState<TasksResponseItem[]>([]);
 
   const fetchList = () => {
-    const tasks: Realm.Results<Realm.Object> | any[] = getTasks();
-    const tasksByDays = sortTasksByDate(tasks);
+    const tasks: RealmTaskType = getTasks();
+    const todayTasks: RealmTaskType = getTodayTask(tasks);
 
     if (tasks) {
-      setTaskList(tasksByDays);
+      setTaskList(todayTasks);
     }
   };
 

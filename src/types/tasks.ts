@@ -1,3 +1,5 @@
+import Realm from 'realm';
+
 export type RecurringTypes =
   | 'Never'
   | 'Daily'
@@ -44,3 +46,5 @@ export interface TaskSection {
 }
 
 export type CreateTaskKey = keyof CreateTaskData;
+
+export type RealmTaskType = Realm.Results<Realm.Object> | any[];

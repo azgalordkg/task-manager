@@ -1,8 +1,7 @@
 import { TasksResponseItem } from '@/types';
 
 export interface Props {
-  content: TasksResponseItem[];
-  title: string;
+  content?: TasksResponseItem[];
   onItemPress: (id: string) => void;
   onDeletePress: (id: string, isQuick?: boolean) => void;
 }

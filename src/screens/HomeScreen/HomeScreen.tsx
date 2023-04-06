@@ -1,11 +1,14 @@
 import { useIsFocused } from '@react-navigation/native';
+import { t } from 'i18next';
 import moment from 'moment';
-import React, { FC, useEffect, useMemo, useState } from 'react';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import React, { FC, useEffect, useState } from 'react';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import { TaskList } from '@/components/features';
 import { Plus } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
+import { EmptyTaskList } from '@/components/ui';
+import { COLORS } from '@/constants';
 import {
   useTagManageContext,
   useTaskModalContext,
@@ -13,7 +16,7 @@ import {
 } from '@/context/hooks';
 import { updateRecurringTasks } from '@/services';
 import { ScreenProps } from '@/types';
-import { isDateToday, sortTasksForRender, vibrate } from '@/utils';
+import { formatDate, vibrate } from '@/utils';
 
 import styles from './HomeScreen.styles';
 
@@ -54,47 +57,45 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
     navigation.navigate('CreateTask');
   };
 
-  const sections = useMemo(
-    () =>
-      sortTasksForRender(taskList).map((date, index) => ({
-        id: index,
-        title: date,
-        content: taskList[date].sort((a, b) => +a.isDone - +b.isDone),
-      })),
-    [taskList],
-  );
+  const getDayTitle = (date: Date) => {
+    const momentDate = moment(date);
+    const formattedDate = formatDate(date, 'D MMM');
+    const today = moment().startOf('day');
+    const tomorrow = moment().add(1, 'day').startOf('day');
+    const dayOfWeek = formatDate(date, 'dddd');
+    let todayOrTomorrow = '';
 
-  const todayTasks = useMemo(
-    () =>
-      sections?.find(sectionsItem => {
-        const date = moment(new Date(+sectionsItem.title));
-        return isDateToday(date);
-      }),
-    [sections],
-  );
+    if (momentDate.isSame(today, 'day')) {
+      todayOrTomorrow = `• ${t('TODAY')}`;
+    } else if (moment(date).isSame(tomorrow, 'day')) {
+      todayOrTomorrow = `• ${t('TOMORROW')}`;
+    }
 
-  const totalTasks = todayTasks?.content.length;
+    return `${formattedDate} ${todayOrTomorrow} • ${dayOfWeek}`;
+  };
 
-  const doneTasks = useMemo(
-    () => todayTasks?.content.filter(({ isDone }) => isDone).length,
-    [todayTasks],
-  );
+  const dayTitle = getDayTitle(new Date());
 
   return (
     <MainLayout
-      tasksTotal={totalTasks}
-      tasksCurrent={doneTasks}
-      withHeader
-      navigation={navigation}>
+      screenTitle="Today"
+      onBack={() => navigation.navigate('CreateTag')}
+      isFilter>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View style={style.contentWrapper}>
-          <TaskList onItemPress={handleItemPress} sections={sections} />
-        </View>
+        <Text style={style.dayTitle}>{dayTitle}</Text>
+
+        {taskList.length ? (
+          <View style={style.contentWrapper}>
+            <TaskList date={new Date()} onItemPress={handleItemPress} />
+          </View>
+        ) : (
+          <EmptyTaskList handleCreatePress={handleCreatePress} />
+        )}
       </ScrollView>
 
       <TouchableOpacity onPress={handleCreatePress} activeOpacity={0.75}>
         <View style={style.buttonWrapper}>
-          <Plus color={theme.BACKGROUND_PRIMARY} width={20} height={20} />
+          <Plus color={COLORS.WHITE} width={20} height={20} />
         </View>
       </TouchableOpacity>
     </MainLayout>

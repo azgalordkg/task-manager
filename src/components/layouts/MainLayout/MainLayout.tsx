@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren } from 'react';
 import { SafeAreaView, StatusBar, View } from 'react-native';
 
-import { BackButtonHeader, Header } from '@/components/ui';
+import { Header } from '@/components/ui';
 import { useThemeContext } from '@/context/hooks';
 
 import styles from './MainLayout.styles';
@@ -9,19 +9,13 @@ import { Props } from './MainLayout.types';
 
 export const MainLayout: FC<PropsWithChildren<Props>> = ({
   children,
-  navigation,
-  withHeader,
   onBack,
-  screenTitle = '',
-  tasksTotal,
-  tasksCurrent,
+  screenTitle,
+  isFilter,
+  isSettings,
 }) => {
   const { theme } = useThemeContext();
   const style = styles(theme);
-
-  const onMenuPress = () => {
-    navigation?.navigate('Settings');
-  };
 
   return (
     <>
@@ -32,14 +26,13 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
           backgroundColor={theme.BACKGROUND_PRIMARY}
         />
         <View style={style.mainWrapper}>
-          {onBack && <BackButtonHeader title={screenTitle} onPress={onBack} />}
-          {withHeader && (
-            <Header
-              current={tasksCurrent}
-              total={tasksTotal}
-              onSettingsPress={onMenuPress}
-            />
-          )}
+          <Header
+            isFilter={isFilter}
+            isSettings={isSettings}
+            onBack={onBack}
+            screenTitle={screenTitle}
+          />
+
           <View style={style.contentWrapper}>{children}</View>
         </View>
       </SafeAreaView>

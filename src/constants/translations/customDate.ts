@@ -2,10 +2,37 @@ type LocaleShortDate = {
   [key: string]: {
     monthsShort: string[];
     weekdaysShort: string[];
+    weekdays: string[];
   };
 };
 
-export const localeShortDate: LocaleShortDate = {
+export const localeCustomDate: LocaleShortDate = {
+  en: {
+    monthsShort: [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ],
+    weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    weekdays: [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ],
+  },
   ru: {
     monthsShort: [
       'Янв',
@@ -22,6 +49,15 @@ export const localeShortDate: LocaleShortDate = {
       'Дек',
     ],
     weekdaysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+    weekdays: [
+      'Воскресенье',
+      'Понедельник',
+      'Вторник',
+      'Среда',
+      'Четверг',
+      'Пятница',
+      'Суббота',
+    ],
   },
   fr: {
     monthsShort: [
@@ -39,6 +75,15 @@ export const localeShortDate: LocaleShortDate = {
       'Déc',
     ],
     weekdaysShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+    weekdays: [
+      'Dimanche',
+      'Lundi',
+      'Mardi',
+      'Mercredi',
+      'Jeudi',
+      'Vendredi',
+      'Samedi',
+    ],
   },
   es: {
     monthsShort: [
@@ -56,6 +101,15 @@ export const localeShortDate: LocaleShortDate = {
       'Dic',
     ],
     weekdaysShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+    weekdays: [
+      'Domingo',
+      'Lunes',
+      'Martes',
+      'Miércoles',
+      'Jueves',
+      'Viernes',
+      'sábado',
+    ],
   },
   de: {
     monthsShort: [
@@ -73,5 +127,14 @@ export const localeShortDate: LocaleShortDate = {
       'Dez',
     ],
     weekdaysShort: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'],
+    weekdays: [
+      'Sonntag',
+      'Montag',
+      'Dienstag',
+      'Mittwoch',
+      'Donnerstag',
+      'Freitag',
+      'Samstag',
+    ],
   },
 };
