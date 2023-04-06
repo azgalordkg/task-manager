@@ -85,12 +85,7 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
               maxLength={30}
               color={theme.TEXT_PRIMARY}
               icon={
-                <Checkbox
-                  checked={true}
-                  width={24}
-                  height={24}
-                  color={COLORS.GREEN}
-                />
+                <Checkbox checked width={24} height={24} color={COLORS.GREEN} />
               }
             />
 

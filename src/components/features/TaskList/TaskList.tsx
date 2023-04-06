@@ -4,7 +4,7 @@ import { View } from 'react-native';
 
 import { DoneTaskAccordion, QuickTask } from '@/components/features';
 import { ConfirmModal, ListItem, Loader } from '@/components/ui';
-import { useTaskModalContext, useThemeContext } from '@/context/hooks';
+import { useTaskModalContext } from '@/context/hooks';
 import { deleteOneTask, markTaskAsDone } from '@/services';
 import { filterTasks } from '@/utils';
 
@@ -13,14 +13,12 @@ import { Props } from './TaskList.types';
 
 export const TaskList: FC<Props> = ({ onItemPress, date }) => {
   const { t } = useTranslation();
-  const { theme } = useThemeContext();
   const { taskList, fetchList } = useTaskModalContext();
 
   const [loading, setLoading] = useState(true);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [deleteId, setDeleteId] = useState('');
 
-  const style = styles(theme);
   const incompleteTasks = filterTasks(taskList, 'incomplete');
 
   useEffect(() => {
@@ -78,7 +76,7 @@ export const TaskList: FC<Props> = ({ onItemPress, date }) => {
         );
       })}
 
-      <View style={style.buttonContainer}>
+      <View style={styles.buttonContainer}>
         <QuickTask date={date.toString()} />
       </View>
 

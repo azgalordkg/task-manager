@@ -30,24 +30,28 @@ export const AccordionContent: FC<Props> = ({
             description,
           },
           index,
-        ) => (
-          <MemoizedListItem
-            tags={tags}
-            key={_id}
-            description={description}
-            hasDeadline={Boolean(hasDeadline)}
-            onItemPress={onItemPress}
-            startDate={startDate}
-            onCheckPress={markTaskAsDone}
-            onDeletePress={onDeletePress}
-            isDone={isDone}
-            id={_id}
-            repeat={repeat}
-            name={name}
-            checked={Boolean(isDone)}
-            isLast={index + 1 === content.length}
-          />
-        ),
+        ) => {
+          const isLast = index + 1 === content.length;
+
+          return (
+            <MemoizedListItem
+              tags={tags}
+              key={_id}
+              description={description}
+              hasDeadline={Boolean(hasDeadline)}
+              onItemPress={onItemPress}
+              startDate={startDate}
+              onCheckPress={markTaskAsDone}
+              onDeletePress={onDeletePress}
+              isDone={isDone}
+              id={_id}
+              repeat={repeat}
+              name={name}
+              checked={Boolean(isDone)}
+              isLast={isLast}
+            />
+          );
+        },
       )}
     </>
   );

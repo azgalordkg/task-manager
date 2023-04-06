@@ -24,7 +24,7 @@ export const DoneTaskAccordion: FC<Props> = ({
     content: completeTasks,
   };
 
-  if (sections.content?.length === 0) {
+  if (!sections.content?.length) {
     return null;
   }
 
@@ -52,7 +52,6 @@ export const DoneTaskAccordion: FC<Props> = ({
         />
       )}
       onChange={setActiveSection}
-      expandMultiple={true}
     />
   );
 };
