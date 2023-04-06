@@ -12,6 +12,7 @@ export * from './DashedButton';
 export * from './DayBlock';
 export * from './DocumentsContent';
 export * from './DocumentsHeader';
+export * from './EmptyTaskList';
 export * from './FormContentWrapper';
 export * from './Header';
 export * from './Input';

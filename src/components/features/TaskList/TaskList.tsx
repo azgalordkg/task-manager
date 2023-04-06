@@ -57,7 +57,7 @@ export const TaskList: FC<Props> = ({ onItemPress, date }) => {
 
   return (
     <>
-      {incompleteTasks?.map((task: any) => {
+      {incompleteTasks?.map(task => {
         const { description, _id, isDone, name, tags, startDate, hasDeadline } =
           task;
         return (

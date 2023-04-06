@@ -7,6 +7,7 @@ import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { TaskList } from '@/components/features';
 import { Plus } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
+import { EmptyTaskList } from '@/components/ui';
 import { COLORS } from '@/constants';
 import {
   useTagManageContext,
@@ -83,9 +84,13 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <Text style={style.dayTitle}>{dayTitle}</Text>
 
-        <View style={style.contentWrapper}>
-          <TaskList date={new Date()} onItemPress={handleItemPress} />
-        </View>
+        {taskList.length ? (
+          <View style={style.contentWrapper}>
+            <TaskList date={new Date()} onItemPress={handleItemPress} />
+          </View>
+        ) : (
+          <EmptyTaskList handleCreatePress={handleCreatePress} />
+        )}
       </ScrollView>
 
       <TouchableOpacity onPress={handleCreatePress} activeOpacity={0.75}>

@@ -10,6 +10,7 @@ export * from './Clock';
 export * from './Cross';
 export * from './Crown';
 export * from './Edit';
+export * from './EmptyTasksPlaceholder';
 export * from './Filter';
 export * from './HashTag';
 export * from './Info';
