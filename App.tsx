@@ -37,7 +37,7 @@ const App: FC = () => {
             <ThemeProvider>
               <NavigationContainer>
                 <Stack.Navigator
-                  initialRouteName="Settings"
+                  initialRouteName="Home"
                   screenOptions={{
                     headerShown: false,
                   }}>
