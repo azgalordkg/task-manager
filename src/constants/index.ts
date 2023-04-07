@@ -1,5 +1,6 @@
 export * from './colors';
 export * from './documents';
+export * from './languages';
 export * from './limits';
 export * from './purchase';
 export * from './realm';

@@ -2,10 +2,10 @@ import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import { Checkmark } from '@/components/icons';
+import { CheckMark } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { MenuItem } from '@/components/ui';
-import { COLORS } from '@/constants';
+import { COLORS, LANGUAGES_LIST } from '@/constants';
 import { useLanguageContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
 
@@ -29,36 +29,17 @@ export const LanguageScreen: FC<ScreenProps<'Language'>> = ({ navigation }) => {
       onBack={onBackPressHandler}>
       <View style={styles.contentWrapper}>
         <View style={styles.listWrapper}>
-          <MenuItem
-            onPress={() => languageHandleChange('en')}
-            color={languageColorHandler('en')}
-            icon={Checkmark}>
-            English
-          </MenuItem>
-          <MenuItem
-            onPress={() => languageHandleChange('ru')}
-            color={languageColorHandler('ru')}
-            icon={Checkmark}>
-            Русский
-          </MenuItem>
-          <MenuItem
-            onPress={() => languageHandleChange('es')}
-            color={languageColorHandler('es')}
-            icon={Checkmark}>
-            Español
-          </MenuItem>
-          <MenuItem
-            onPress={() => languageHandleChange('fr')}
-            color={languageColorHandler('fr')}
-            icon={Checkmark}>
-            Français
-          </MenuItem>
-          <MenuItem
-            onPress={() => languageHandleChange('de')}
-            color={languageColorHandler('de')}
-            icon={Checkmark}>
-            Deutsch
-          </MenuItem>
+          {LANGUAGES_LIST.map(({ value, label }, index) => (
+            <MenuItem
+              key={value}
+              isLast={index === LANGUAGES_LIST.length - 1}
+              isFirst={index === 0}
+              onPress={() => languageHandleChange(value)}
+              color={languageColorHandler(value)}
+              icon={CheckMark}>
+              {label}
+            </MenuItem>
+          ))}
         </View>
       </View>
     </MainLayout>

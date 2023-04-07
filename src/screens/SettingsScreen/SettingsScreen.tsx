@@ -4,7 +4,7 @@ import { View } from 'react-native';
 
 import { MainLayout } from '@/components/layouts';
 import { MenuItem } from '@/components/ui/MenuItem';
-import { ITEMS_LIST } from '@/constants';
+import { SETTINGS_LIST } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
 
@@ -24,22 +24,24 @@ export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
       onBack={onBackPressHandler}>
       <View style={styles.contentWrapper}>
         <View style={styles.listWrapper}>
-          {ITEMS_LIST.map(({ prependIcon, title, navigationName }, index) => (
-            <MenuItem
-              key={title}
-              isLast={index === ITEMS_LIST.length - 1}
-              isFirst={index === 0}
-              prependIconColor={theme.BUTTONS_PRIMARY}
-              prependIcon={prependIcon}
-              onPress={() => {
-                if (navigationName !== 'RateUs') {
-                  // @ts-ignore TODO solve later
-                  navigation.navigate(navigationName);
-                }
-              }}>
-              {t(title)}
-            </MenuItem>
-          ))}
+          {SETTINGS_LIST.map(
+            ({ prependIcon, title, navigationName }, index) => (
+              <MenuItem
+                key={title}
+                isLast={index === SETTINGS_LIST.length - 1}
+                isFirst={index === 0}
+                prependIconColor={theme.BUTTONS_PRIMARY}
+                prependIcon={prependIcon}
+                onPress={() => {
+                  if (navigationName !== 'RateUs') {
+                    // @ts-ignore TODO solve later
+                    navigation.navigate(navigationName);
+                  }
+                }}>
+                {t(title)}
+              </MenuItem>
+            ),
+          )}
         </View>
       </View>
     </MainLayout>
