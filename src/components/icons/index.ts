@@ -7,7 +7,7 @@ export * from './ArrowUp';
 export * from './Calendar';
 export * from './Chat';
 export * from './Checkbox';
-export * from './Checkmark';
+export * from './CheckMark';
 export * from './Clock';
 export * from './Cross';
 export * from './Crown';
