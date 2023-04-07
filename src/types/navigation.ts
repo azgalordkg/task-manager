@@ -1,7 +1,8 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type RootStackParamList = {
-  Home: undefined;
+  Dashboard: undefined;
+  TaskDay: undefined;
   AboutUs: undefined;
   Settings: undefined;
   ManageTags: undefined;

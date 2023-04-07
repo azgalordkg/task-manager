@@ -7,8 +7,8 @@ import RNPickerSelect from 'react-native-picker-select';
 import { ArrowAngle, Repeat } from '@/components/icons';
 import { InputWrapper } from '@/components/ui';
 import { COLORS } from '@/constants';
-import { FREQUENCY_VALUES } from '@/constants/translations';
 import { useThemeContext } from '@/context/hooks';
+import { FREQUENCY_VALUES } from '@/translations';
 
 import styles from './Select.styles';
 import { Props } from './Select.types';

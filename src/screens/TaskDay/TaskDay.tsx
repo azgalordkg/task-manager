@@ -18,9 +18,10 @@ import { updateRecurringTasks } from '@/services';
 import { ScreenProps } from '@/types';
 import { formatDate, vibrate } from '@/utils';
 
-import styles from './HomeScreen.styles';
+import styles from './TaskDay.styles';
 
-export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
+export const TaskDay: FC<ScreenProps<'TaskDay'>> = ({ navigation }) => {
+  console.log(navigation, 'navigation');
   const { taskList, fetchList } = useTaskModalContext();
   const { fetchTags } = useTagManageContext();
   const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);
@@ -80,7 +81,7 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
   return (
     <MainLayout
       screenTitle="Today"
-      onBack={() => navigation.navigate('CreateTag')}
+      onBack={() => navigation.navigate('Dashboard')}
       isFilter>
       <Text style={style.dayTitle}>{dayTitle}</Text>
       {taskList.length ? (

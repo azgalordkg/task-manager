@@ -13,7 +13,6 @@ import {
   TasksResponseItem,
   UpdateTaskData,
 } from '@/types';
-import { getDateFromToday } from '@/utils';
 
 const realm = new Realm({
   path: 'realm-files/taskManager',
@@ -28,18 +27,20 @@ export const getRecurringTasks = (type: RecurringTypes = 'Daily') => {
   return [];
 };
 
-export const getTasks = () => {
+export const getTasks = (targetDate: number) => {
   if (realm) {
-    const today = getDateFromToday(-1);
-    today.setHours(0, 0, 0, 0);
-    const end = getDateFromToday(3);
+    const targetDateStart = new Date(targetDate);
+    targetDateStart.setHours(0, 0, 0, 0);
+
+    const targetDateEnd = new Date(targetDate);
+    targetDateEnd.setHours(23, 59, 59, 999);
 
     return realm
       .objects('Task')
       .filtered(
         'startDate >= $0 && startDate <= $1',
-        today.getTime(),
-        end.getTime(),
+        targetDateStart.getTime(),
+        targetDateEnd.getTime(),
       );
   }
   return [];

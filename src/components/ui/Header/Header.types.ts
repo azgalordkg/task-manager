@@ -1,6 +1,4 @@
-import { ScreenProps } from '@/types';
-
-export interface Props extends Partial<ScreenProps<'Home'>> {
+export interface Props {
   screenTitle: any;
   onBack: any;
   isFilter?: boolean;
