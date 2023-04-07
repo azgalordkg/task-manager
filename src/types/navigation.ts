@@ -6,6 +6,9 @@ export type RootStackParamList = {
   Settings: undefined;
   ManageTags: undefined;
   TagsSettings: undefined;
+  AppIcon: undefined;
+  ContactUs: undefined;
+  RateUs: undefined;
   Purchase: undefined;
   Documents?: { isPrivacyPolicy?: boolean };
   CreateTag?: { id?: string };

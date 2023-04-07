@@ -28,6 +28,7 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
 
   const { theme } = useThemeContext();
   const style = styles(theme);
+  const todayDate = new Date();
 
   useEffect(() => {
     if (isFocused) {
@@ -81,21 +82,22 @@ export const HomeScreen: FC<ScreenProps<'Home'>> = ({ navigation }) => {
       screenTitle="Today"
       onBack={() => navigation.navigate('CreateTag')}
       isFilter>
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <Text style={style.dayTitle}>{dayTitle}</Text>
-
-        {taskList.length ? (
+      <Text style={style.dayTitle}>{dayTitle}</Text>
+      {taskList.length ? (
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
           <View style={style.contentWrapper}>
-            <TaskList date={new Date()} onItemPress={handleItemPress} />
+            <TaskList date={todayDate} onItemPress={handleItemPress} />
           </View>
-        ) : (
+        </ScrollView>
+      ) : (
+        <View style={style.container}>
           <EmptyTaskList handleCreatePress={handleCreatePress} />
-        )}
-      </ScrollView>
+        </View>
+      )}
 
       <TouchableOpacity onPress={handleCreatePress} activeOpacity={0.75}>
         <View style={style.buttonWrapper}>
-          <Plus color={COLORS.WHITE} width={20} height={20} />
+          <Plus color={COLORS.WHITE} width={18} height={18} />
         </View>
       </TouchableOpacity>
     </MainLayout>

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { ArrowBack, Filter, Search, Setting } from '@/components/icons';
+import { ArrowBack, Search, Setting } from '@/components/icons';
 import { useThemeContext } from '@/context/hooks';
 
 import styles from './Header.styles';
@@ -19,10 +19,6 @@ export const Header: FC<Props> = ({
 
   const onSearchPress = () => {
     console.log('search clicked');
-  };
-
-  const onFilterPress = () => {
-    console.log('filter clicked');
   };
 
   const onSettingPress = () => {
@@ -47,9 +43,9 @@ export const Header: FC<Props> = ({
               <Search color={theme.TEXT_PRIMARY} />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={onFilterPress}>
+            {/*<TouchableOpacity onPress={onFilterPress}>
               <Filter color={theme.TEXT_PRIMARY} />
-            </TouchableOpacity>
+            </TouchableOpacity>*/}
           </>
         )}
         {isSettings && (

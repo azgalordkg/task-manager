@@ -6,9 +6,9 @@ const styles = StyleSheet.create({
   contentWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: '100%',
     rowGap: 20,
-    flex: 0,
+    flex: 1,
+    flexGrow: 1,
   },
   textContainer: {
     alignItems: 'center',

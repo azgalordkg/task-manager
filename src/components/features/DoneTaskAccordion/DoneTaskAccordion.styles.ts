@@ -5,7 +5,7 @@ import { COLORS } from '@/constants';
 const styles = StyleSheet.create({
   titleContainer: {
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
+    paddingHorizontal: 22,
     paddingVertical: 6,
     flexDirection: 'row',
     alignItems: 'center',

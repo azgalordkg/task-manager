@@ -9,9 +9,9 @@ import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
 
-import styles from './AboutUs.styles';
+import styles from './AboutUsScreen.styles';
 
-export const AboutUs: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
+export const AboutUsScreen: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
   const { theme } = useThemeContext();
   const style = styles(theme);
   const { goBack } = useNavigation();

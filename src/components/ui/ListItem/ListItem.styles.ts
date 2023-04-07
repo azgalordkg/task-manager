@@ -20,7 +20,6 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
       ...(isLast ? { transform: [{ scale: scale as unknown as number }] } : {}),
     },
     outerContainer: {
-      marginBottom: 14,
       marginHorizontal: 20,
     },
     container: {
@@ -75,14 +74,6 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
     crossedTextStyles: {
       textDecorationLine: checked ? 'line-through' : 'none',
     },
-    deleteBtn: {
-      borderRadius: 10,
-      width: 20,
-      height: 20,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: theme.BUTTONS_ADDITIONAL,
-    },
     outsideBackground: {
       position: 'absolute',
       height: '100%',
@@ -92,8 +83,8 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
     },
     deleteBtnWrapper: {
       position: 'absolute',
-      right: 2,
-      top: 2,
+      right: 0,
+      top: 0,
       padding: 10,
     },
     tagsWrapper: {

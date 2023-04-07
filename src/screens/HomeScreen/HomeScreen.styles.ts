@@ -4,20 +4,25 @@ import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
+    container: {
+      flex: 1,
+      flexDirection: 'row',
+    },
     contentWrapper: {
-      paddingBottom: 50,
+      paddingBottom: 100,
+      rowGap: 6,
       flex: 1,
     },
     buttonWrapper: {
       backgroundColor: theme.BUTTONS_PRIMARY,
-      width: 70,
-      height: 70,
-      borderRadius: 35,
+      width: 60,
+      height: 60,
+      borderRadius: 30,
       alignItems: 'center',
       justifyContent: 'center',
       position: 'absolute',
       bottom: 20,
-      right: 15,
+      right: 20,
     },
     dayTitle: {
       marginHorizontal: 20,
@@ -25,7 +30,6 @@ const styles = (theme: SchemeType) =>
       marginBottom: 20,
       fontWeight: '600',
       fontSize: 14,
-      lineHeight: 17,
       color: theme.TEXT_PRIMARY,
     },
   });

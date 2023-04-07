@@ -1,10 +1,12 @@
 import { isEqual } from 'lodash';
 import React, { FC, memo } from 'react';
+import { View } from 'react-native';
 
 import { MemoizedListItem } from '@/components/ui';
 import { markTaskAsDone } from '@/services';
 
 import { Props } from './AccordionContent.types';
+import styles from './AccourdionContent.styles';
 
 const customComparator = (prevProps: Props, nextProps: Props) => {
   return isEqual(prevProps, nextProps);
@@ -16,7 +18,7 @@ export const AccordionContent: FC<Props> = ({
   onDeletePress,
 }) => {
   return (
-    <>
+    <View style={styles.container}>
       {content?.map(
         (
           {
@@ -53,7 +55,7 @@ export const AccordionContent: FC<Props> = ({
           );
         },
       )}
-    </>
+    </View>
   );
 };
 

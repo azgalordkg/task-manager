@@ -6,9 +6,8 @@ import { SchemeType } from '@/types';
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
     header: {
-      paddingHorizontal: 12,
-      height: 40,
-      paddingBottom: 10,
+      paddingHorizontal: 16,
+      paddingBottom: 8,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -21,7 +20,7 @@ const styles = (theme: SchemeType) =>
     },
     screenTitle: {
       color: theme.TEXT_PRIMARY,
-      fontSize: 22,
+      fontSize: 18,
       fontWeight: '500',
     },
   });

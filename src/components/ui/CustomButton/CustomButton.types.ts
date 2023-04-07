@@ -18,4 +18,5 @@ export interface Props {
   iconColor?: string;
   iconWidth?: number;
   iconHeight?: number;
+  orientation?: 'flex-start' | 'center' | 'flex-end';
 }

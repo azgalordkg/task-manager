@@ -4,7 +4,7 @@ import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import OutsidePressHandler from 'react-native-outside-press';
 
-import { Calendar, Cross, Trash } from '@/components/icons';
+import { Calendar, Trash } from '@/components/icons';
 import { ActionButton, CustomCheckbox } from '@/components/ui';
 import { COLORS } from '@/constants';
 import {
@@ -162,10 +162,8 @@ export const ListItem: FC<ListItemProps> = ({
             </View>
             {checked && !isRecurring && (
               <View style={style.deleteBtnWrapper}>
-                <TouchableOpacity
-                  onPress={onEasyRemovePress}
-                  style={style.deleteBtn}>
-                  <Cross width={8} height={8} />
+                <TouchableOpacity onPress={onEasyRemovePress}>
+                  <Trash color={COLORS.GREY_ICONS} width={20} height={20} />
                 </TouchableOpacity>
               </View>
             )}

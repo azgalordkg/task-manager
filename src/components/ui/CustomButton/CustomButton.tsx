@@ -23,6 +23,7 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
   icon,
   iconWidth = 14,
   iconHeight = 14,
+  orientation = 'center',
 }) => {
   const Icon = icon;
   const style = styles({
@@ -36,6 +37,7 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
     textColor,
     borderWidth,
     disabled,
+    orientation,
   });
 
   return (
