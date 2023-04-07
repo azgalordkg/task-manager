@@ -14,6 +14,7 @@ export const ModalWrapper: FC<Props> = ({
   children,
   closeText,
   responsiveHeight,
+  onBottomButtonPress,
 }) => {
   const { theme } = useThemeContext();
   const { t } = useTranslation();
@@ -26,15 +27,17 @@ export const ModalWrapper: FC<Props> = ({
           <View style={style.closer} />
         </View>
         {children}
-        <View style={style.footer}>
-          <CustomButton
-            bgColor={theme.BUTTONS_SECONDARY}
-            textColor={theme.TEXT_PRIMARY}
-            fullWidth
-            onPress={onRequestClose}>
-            {closeText || t('CANCEL_BUTTON')}
-          </CustomButton>
-        </View>
+        {onBottomButtonPress && (
+          <View style={style.footer}>
+            <CustomButton
+              bgColor={theme.BUTTONS_SECONDARY}
+              textColor={theme.TEXT_PRIMARY}
+              fullWidth
+              onPress={onRequestClose}>
+              {closeText || t('CANCEL_BUTTON')}
+            </CustomButton>
+          </View>
+        )}
       </View>
     </View>
   );

@@ -5,14 +5,12 @@ import { View } from 'react-native';
 import { MainLayout } from '@/components/layouts';
 import { MenuItem } from '@/components/ui/MenuItem';
 import { SETTINGS_LIST } from '@/constants';
-import { useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
 
 import styles from './SettingsScreen.styles';
 
 export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
   const { t } = useTranslation();
-  const { theme } = useThemeContext();
 
   const onBackPressHandler = () => {
     navigation.goBack();
@@ -30,7 +28,6 @@ export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
                 key={title}
                 isLast={index === SETTINGS_LIST.length - 1}
                 isFirst={index === 0}
-                prependIconColor={theme.BUTTONS_PRIMARY}
                 prependIcon={prependIcon}
                 onPress={() => {
                   if (navigationName !== 'RateUs') {

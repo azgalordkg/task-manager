@@ -37,18 +37,13 @@ const App: FC = () => {
             <ThemeProvider>
               <NavigationContainer>
                 <Stack.Navigator
-                  initialRouteName="Language"
+                  initialRouteName="Settings"
                   screenOptions={{
                     headerShown: false,
                   }}>
                   <Stack.Group>
                     <Stack.Screen name="Home" component={HomeScreen} />
-                    <Stack.Screen name="AboutUs" component={AboutUsScreen} />
                     <Stack.Screen name="Settings" component={SettingsScreen} />
-                    <Stack.Screen
-                      name="Documents"
-                      component={DocumentsScreen}
-                    />
                     <Stack.Screen
                       name="TagsSettings"
                       component={TagsSettingsScreen}
@@ -73,6 +68,11 @@ const App: FC = () => {
                       name="CreateTag"
                       component={CreateTagScreen}
                     />
+                    <Stack.Screen
+                      name="Documents"
+                      component={DocumentsScreen}
+                    />
+                    <Stack.Screen name="AboutUs" component={AboutUsScreen} />
                     <Stack.Screen name="Purchase" component={PurchaseScreen} />
                   </Stack.Group>
                 </Stack.Navigator>
