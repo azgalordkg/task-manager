@@ -15,13 +15,14 @@ import {
   AboutUsScreen,
   CreateTagScreen,
   CreateTaskScreen,
+  DashboardScreen,
   DocumentsScreen,
-  HomeScreen,
   LanguageScreen,
   ManageTagsScreen,
   PurchaseScreen,
   SettingsScreen,
   TagsSettingsScreen,
+  TaskDay,
   ThemeScreen,
 } from '@/screens';
 import { RootStackParamList } from '@/types/navigation';
@@ -37,14 +38,18 @@ const App: FC = () => {
             <ThemeProvider>
               <NavigationContainer>
                 <Stack.Navigator
-                  initialRouteName="Home"
+                  initialRouteName="TaskDay"
                   screenOptions={{
                     headerShown: false,
                   }}>
                   <Stack.Group>
-                    <Stack.Screen name="Home" component={HomeScreen} />
+                    <Stack.Screen name="TaskDay" component={TaskDay} />
                     <Stack.Screen name="AboutUs" component={AboutUsScreen} />
                     <Stack.Screen name="Settings" component={SettingsScreen} />
+                    <Stack.Screen
+                      name="Dashboard"
+                      component={DashboardScreen}
+                    />
                     <Stack.Screen
                       name="Documents"
                       component={DocumentsScreen}

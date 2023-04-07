@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { FC } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
@@ -9,7 +10,6 @@ import { Props } from './Header.types';
 
 export const Header: FC<Props> = ({
   screenTitle,
-  navigation,
   onBack,
   isFilter,
   isSettings,
@@ -17,12 +17,14 @@ export const Header: FC<Props> = ({
   const { theme } = useThemeContext();
   const style = styles(theme);
 
+  const { navigate } = useNavigation();
+
   const onSearchPress = () => {
     console.log('search clicked');
   };
 
   const onSettingPress = () => {
-    navigation?.navigate('Settings');
+    navigate('Settings' as never);
   };
 
   return (

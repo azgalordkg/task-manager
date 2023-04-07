@@ -50,7 +50,7 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
             value={value}
           />
         ) : (
-          <Icon color={color || COLORS.GREY_ICONS} />
+          !!Icon && <Icon color={color || COLORS.GREY_ICONS} />
         )}
       </View>
     </TouchableOpacity>
