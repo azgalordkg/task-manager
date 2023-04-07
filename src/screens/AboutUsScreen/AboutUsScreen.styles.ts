@@ -5,24 +5,22 @@ import { SchemeType } from '@/types';
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
     contentWrapper: {
-      paddingHorizontal: 20,
       flex: 1,
     },
     contentContainer: {
       marginTop: 30,
-      rowGap: 20,
+      rowGap: 12,
       flex: 1,
     },
     screenTitle: {
       fontWeight: '600',
-      fontSize: 24,
-      lineHeight: 28,
+      fontSize: 18,
       color: theme.TEXT_PRIMARY,
     },
     screenDescription: {
       fontWeight: '500',
-      fontSize: 14,
-      lineHeight: 26,
+      fontSize: 12,
+      lineHeight: 21,
       color: theme.TEXT_PRIMARY,
     },
     footerContainer: {

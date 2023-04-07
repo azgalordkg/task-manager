@@ -5,17 +5,15 @@ import { SchemeType } from '@/types';
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
     contentWrapper: {
-      paddingHorizontal: 20,
-      paddingTop: 10,
       flex: 1,
     },
     container: {
-      paddingVertical: 20,
+      paddingVertical: 30,
       flex: 1,
     },
     update: {
       paddingBottom: 20,
-      color: theme.TEXT_PRIMARY,
+      color: theme.TEXT_INFO,
       fontSize: 12,
     },
   });

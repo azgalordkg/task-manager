@@ -11,9 +11,10 @@ const styles = (theme: SchemeType, responsiveHeight?: boolean) =>
     },
     contentWrapper: {
       flex: responsiveHeight ? 0 : 1,
-      backgroundColor: theme.BACKGROUND_MODAL,
-      padding: 20,
+      backgroundColor: theme.BACKGROUND_PRIMARY,
+      paddingHorizontal: 20,
       paddingTop: 15,
+      paddingBottom: 37,
       borderTopRightRadius: 25,
       borderTopLeftRadius: 25,
     },

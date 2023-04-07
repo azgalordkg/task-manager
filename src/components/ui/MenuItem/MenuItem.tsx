@@ -37,7 +37,7 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
         {PrependIcon && (
           <PrependIcon
             style={style.prependIcon}
-            color={prependIconColor || color || theme.TEXT_PRIMARY}
+            color={prependIconColor || theme.BUTTONS_PRIMARY}
           />
         )}
         <Text style={style.text}>{children}</Text>
