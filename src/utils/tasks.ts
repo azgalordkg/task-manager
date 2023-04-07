@@ -7,11 +7,7 @@ export const getTodayTask = (
 ) => {
   const tasks = realmTasks as TasksResponseItem[];
   const today = moment().startOf('day');
-  const filteredTasks = tasks?.filter(task =>
-    moment(task.createdAt).isSame(today, 'd'),
-  );
-
-  return filteredTasks.sort((a, b) => b.createdAt + a.createdAt);
+  return tasks?.filter(task => moment(task.createdAt).isSame(today, 'd'));
 };
 
 export const filterTasks = (
