@@ -21,6 +21,7 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
   isFirst,
   isLast,
   prependIconColor,
+  count,
 }) => {
   const Icon = icon;
   const PrependIcon = prependIcon;
@@ -41,7 +42,9 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
           />
         )}
         <Text style={style.text}>{children}</Text>
-        {isSwitcher ? (
+
+        {count !== undefined && <Text style={style.count}>{count}</Text>}
+        {isSwitcher && (
           <Switch
             trackColor={{ false: COLORS.GREY_LIGHT, true: COLORS.GREEN }}
             thumbColor={COLORS.WHITE}
@@ -49,9 +52,8 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
             onValueChange={onValueChangePress}
             value={value}
           />
-        ) : (
-          !!Icon && <Icon color={color || COLORS.GREY_ICONS} />
         )}
+        {Icon && <Icon color={color || COLORS.GREY_ICONS} />}
       </View>
     </TouchableOpacity>
   );

@@ -6,29 +6,29 @@ import {
 } from '@/components/icons';
 import { COLORS } from '@/constants/colors';
 
-export const ITEMS_LIST = [
+export const DASHBOARD_LIST = [
   {
     navigationName: 'Unscheduled',
     prependIcon: TimeCircle,
-    title: 'Unscheduled',
+    title: 'UNSCHEDULED',
     color: COLORS.RED,
   },
   {
     navigationName: 'TaskDay',
     prependIcon: ArrowDownSquare,
-    title: 'Today',
+    title: 'TODAY',
     color: COLORS.GREEN,
   },
   {
     navigationName: 'Upcoming',
     prependIcon: Calendar,
-    title: 'Upcoming',
+    title: 'UPCOMING',
     color: COLORS.BLUE,
   },
   {
     navigationName: 'Labels',
     prependIcon: Label,
-    title: 'Labels',
+    title: 'LABELS',
     color: COLORS.YELLOW,
   },
 ];

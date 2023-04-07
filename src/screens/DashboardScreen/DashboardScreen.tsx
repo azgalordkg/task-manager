@@ -1,61 +1,53 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import { MainLayout } from '@/components/layouts';
 import { MenuItem } from '@/components/ui';
-import { ITEMS_LIST } from '@/constants/dashboard';
-import { useThemeContext } from '@/context/hooks';
+import { DASHBOARD_LIST } from '@/constants/dashboard';
+import { useTaskModalContext } from '@/context/hooks';
+import { ScreenProps } from '@/types';
 
 import styles from './DashboardScreen.styles';
 
-export const DashboardScreen = () => {
+export const DashboardScreen: FC<ScreenProps<'Dashboard'>> = ({
+  navigation,
+}) => {
   const { t } = useTranslation();
   const { navigate } = useNavigation();
-  const { theme } = useThemeContext();
+
+  const { taskList, fetchList } = useTaskModalContext();
+
+  useEffect(() => {
+    fetchList();
+    navigation.navigate('TaskDay');
+  }, []);
+
+  const getCount = (title: string) => {
+    if (title === 'TODAY') {
+      return taskList.length;
+    }
+  };
 
   return (
     <MainLayout screenTitle="Dashboard" isSettings>
       <View style={styles.contentWrapper}>
         <View style={styles.listWrapper}>
-          {ITEMS_LIST.map(
+          {DASHBOARD_LIST.map(
             ({ prependIcon, title, navigationName, color }, index) => (
               <MenuItem
                 key={title}
-                isLast={index === ITEMS_LIST.length - 1}
+                isLast={index === DASHBOARD_LIST.length - 1}
                 isFirst={index === 0}
                 icon={null}
+                count={getCount(title)}
                 prependIconColor={color}
                 prependIcon={prependIcon}
                 onPress={() => {
                   navigate(navigationName as never);
                 }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignContent: 'center',
-                    backgroundColor: 'red',
-                    width: '100%',
-                  }}>
-                  <Text
-                    style={{
-                      color: theme.TEXT_PRIMARY,
-                      fontSize: 18,
-                      alignContent: 'center',
-                    }}>
-                    {t(title)}
-                  </Text>
-                  <Text
-                    style={{
-                      color: theme.TEXT_PRIMARY,
-                      fontSize: 18,
-                      alignContent: 'center',
-                    }}>
-                    count
-                  </Text>
-                </View>
+                {t(title)}
               </MenuItem>
             ),
           )}

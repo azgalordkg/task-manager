@@ -28,6 +28,10 @@ const styles = (theme: SchemeType, isFirst?: boolean, isLast?: boolean) =>
       color: theme.TEXT_PRIMARY,
       fontSize: 18,
     },
+    count: {
+      color: COLORS.GREY_ICONS,
+      fontSize: 16,
+    },
   });
 
 export default styles;

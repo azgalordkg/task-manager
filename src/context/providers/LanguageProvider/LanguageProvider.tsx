@@ -8,7 +8,7 @@ import React, { createContext, FC, PropsWithChildren, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NativeModules, Platform } from 'react-native';
 
-import { localeCustomDate } from '@/constants/translations';
+import { localeCustomDate } from '@/translations';
 import { Storage } from '@/utils';
 
 import { LanguageProviderType } from './LanguageProvider.types';

@@ -13,4 +13,5 @@ export interface Props {
   prependIconColor?: string;
   icon?: FC<DefaultSvgProps> | null;
   prependIcon?: FC<DefaultSvgProps>;
+  count?: number;
 }

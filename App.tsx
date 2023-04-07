@@ -1,4 +1,4 @@
-import './src/i18n.config';
+import '@/i18n.config';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -30,29 +30,26 @@ import { RootStackParamList } from '@/types/navigation';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App: FC = () => {
+  const eventProviderStyles = { flex: 1 };
   return (
-    <EventProvider style={{ flex: 1 }}>
+    <EventProvider style={eventProviderStyles}>
       <LanguageProvider>
         <TaskListProvider>
           <TagManageProvider>
             <ThemeProvider>
               <NavigationContainer>
                 <Stack.Navigator
-                  initialRouteName="TaskDay"
+                  initialRouteName="Dashboard"
                   screenOptions={{
                     headerShown: false,
                   }}>
                   <Stack.Group>
-                    <Stack.Screen name="TaskDay" component={TaskDay} />
-                    <Stack.Screen name="Settings" component={SettingsScreen} />
                     <Stack.Screen
                       name="Dashboard"
                       component={DashboardScreen}
                     />
-                    <Stack.Screen
-                      name="Documents"
-                      component={DocumentsScreen}
-                    />
+                    <Stack.Screen name="TaskDay" component={TaskDay} />
+                    <Stack.Screen name="Settings" component={SettingsScreen} />
                     <Stack.Screen
                       name="TagsSettings"
                       component={TagsSettingsScreen}
@@ -77,7 +74,6 @@ const App: FC = () => {
                       name="CreateTag"
                       component={CreateTagScreen}
                     />
-                    <Stack.Screen name="AboutUs" component={AboutUsScreen} />
                     <Stack.Screen
                       name="Documents"
                       component={DocumentsScreen}
