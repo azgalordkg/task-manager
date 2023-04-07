@@ -1,3 +1,4 @@
+export * from './AccentButton';
 export * from './AccordionContent';
 export * from './AccordionHeader';
 export * from './ActionButton';
@@ -20,6 +21,7 @@ export * from './InputWrapper';
 export * from './ListItem';
 export * from './Loader';
 export * from './MenuItem';
+export * from './ModalContentWrapper';
 export * from './ModalWrapper';
 export * from './ProgressBar';
 export * from './PurchaseItem';

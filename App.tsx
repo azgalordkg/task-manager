@@ -44,7 +44,6 @@ const App: FC = () => {
                   }}>
                   <Stack.Group>
                     <Stack.Screen name="TaskDay" component={TaskDay} />
-                    <Stack.Screen name="AboutUs" component={AboutUsScreen} />
                     <Stack.Screen name="Settings" component={SettingsScreen} />
                     <Stack.Screen
                       name="Dashboard"
@@ -78,6 +77,12 @@ const App: FC = () => {
                       name="CreateTag"
                       component={CreateTagScreen}
                     />
+                    <Stack.Screen name="AboutUs" component={AboutUsScreen} />
+                    <Stack.Screen
+                      name="Documents"
+                      component={DocumentsScreen}
+                    />
+                    <Stack.Screen name="AboutUs" component={AboutUsScreen} />
                     <Stack.Screen name="Purchase" component={PurchaseScreen} />
                   </Stack.Group>
                 </Stack.Navigator>

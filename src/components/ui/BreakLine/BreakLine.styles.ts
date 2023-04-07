@@ -12,7 +12,7 @@ const styles = ({ theme, marginBottom, color }: StylesProps) =>
   StyleSheet.create({
     brakeLine: {
       width: '100%',
-      height: 2,
+      height: 1,
       backgroundColor: color || theme?.TEXT_INFO,
       marginBottom: marginBottom || 0,
       alignItems: 'flex-end',
