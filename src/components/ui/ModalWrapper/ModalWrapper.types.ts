@@ -5,6 +5,11 @@ export interface CustomProps {
   closeText?: string;
   responsiveHeight?: boolean;
   onBottomButtonPress?: () => void;
+  onCancelPress?: () => void;
+  onDonePress?: () => void;
+  cancelText?: string;
+  doneText?: string;
+  title: string;
 }
 
 export type Props = PropsWithChildren<CustomProps>;

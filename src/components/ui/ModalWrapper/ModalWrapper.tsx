@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 
+import { AccentButton } from '@/components/ui';
 import { useThemeContext } from '@/context/hooks';
 
 import { CustomButton } from '../CustomButton';
@@ -15,6 +16,11 @@ export const ModalWrapper: FC<Props> = ({
   closeText,
   responsiveHeight,
   onBottomButtonPress,
+  onCancelPress = onRequestClose,
+  onDonePress,
+  cancelText = 'Close',
+  doneText,
+  title,
 }) => {
   const { theme } = useThemeContext();
   const { t } = useTranslation();
@@ -25,6 +31,13 @@ export const ModalWrapper: FC<Props> = ({
       <View style={style.contentWrapper}>
         <View style={style.closerWrapper}>
           <View style={style.closer} />
+        </View>
+        <View style={style.header}>
+          <AccentButton onPress={onCancelPress}>{cancelText}</AccentButton>
+          <Text style={style.title}>{title}</Text>
+          {onDonePress && (
+            <AccentButton onPress={onDonePress}>{doneText}</AccentButton>
+          )}
         </View>
         {children}
         {onBottomButtonPress && (

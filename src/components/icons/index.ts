@@ -22,7 +22,6 @@ export * from './Info';
 export * from './Label';
 export * from './Lock';
 export * from './Logo';
-export * from './Minus';
 export * from './Paper';
 export * from './Plus';
 export * from './Repeat';
