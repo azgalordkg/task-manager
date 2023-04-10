@@ -21,7 +21,6 @@ import { formatDate, vibrate } from '@/utils';
 import styles from './TaskDay.styles';
 
 export const TaskDay: FC<ScreenProps<'TaskDay'>> = ({ navigation }) => {
-  console.log(navigation, 'navigation');
   const { taskList, fetchList } = useTaskModalContext();
   const { fetchTags } = useTagManageContext();
   const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);

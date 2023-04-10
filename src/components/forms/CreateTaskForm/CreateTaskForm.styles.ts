@@ -3,8 +3,9 @@ import { StyleSheet } from 'react-native';
 import { COLORS } from '@/constants';
 
 const styles = StyleSheet.create({
-  inputWrapper: {
-    marginBottom: 16,
+  inputsWrapper: {
+    rowGap: 6,
+    marginBottom: 40,
   },
   dateTitle: {
     fontSize: 18,
@@ -18,8 +19,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  dateContainer: {
-    marginBottom: 40,
+  dateWrapper: {
+    rowGap: 12,
   },
 });
 

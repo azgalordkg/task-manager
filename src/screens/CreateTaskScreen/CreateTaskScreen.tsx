@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import { FieldValues } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
+import { ContextMenuButton } from '@/components/features';
 import { CreateTaskForm } from '@/components/forms';
 import { ModalWrapper } from '@/components/ui';
 import { useTagManageContext, useTaskModalContext } from '@/context/hooks';
@@ -12,6 +14,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   navigation,
   route,
 }) => {
+  const { t } = useTranslation();
   const { fetchList } = useTaskModalContext();
   const { selectedTags, clearSelectedTags } = useTagManageContext();
   const taskId = route?.params?.id;
@@ -40,8 +43,13 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
     navigation.navigate('ManageTags');
   };
 
+  const title = taskId ? t('EDIT') : t('CREATE');
+
   return (
-    <ModalWrapper onRequestClose={closeModal}>
+    <ModalWrapper
+      rightActionComponent={<ContextMenuButton />}
+      title={`${title} ${t('TASK')}`}
+      onRequestClose={closeModal}>
       <CreateTaskForm
         onClose={closeModal}
         onAddPress={addTagsHandler}

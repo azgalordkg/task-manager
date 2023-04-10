@@ -1,10 +1,10 @@
+import { TFunction } from 'i18next';
 import moment, { Moment } from 'moment';
 
 export const getToday = () => {
   return new Date();
 };
 
-// TODO remove later
 export const getDateFromToday = (count: number) => {
   return new Date(getToday().getTime() + count * 24 * 60 * 60 * 1000);
 };
@@ -32,5 +32,23 @@ export const roundAndExtendTimeRange = (
 };
 
 export const isDateToday = (date: Moment) => {
-  return date.isSame(new Date(), 'day');
+  return date.isSame(getToday(), 'day');
+};
+
+export const getValueForDateInput = (
+  date: Date,
+  t: TFunction,
+  dateFormat: string,
+  isTime?: boolean,
+) => {
+  if (!isTime) {
+    if (isDateToday(moment(date))) {
+      return t('TODAY');
+    }
+    if (moment(date).isSame(getDateFromToday(1), 'day')) {
+      return t('TOMORROW');
+    }
+  }
+
+  return formatDate(date, dateFormat);
 };

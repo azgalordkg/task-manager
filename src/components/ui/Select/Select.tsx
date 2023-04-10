@@ -54,7 +54,7 @@ export const Select: FC<Props> = ({
         borderColor={theme.INPUT_DEFAULT}>
         <View style={style.container}>
           <View style={style.row}>
-            <Icon />
+            <Icon color={COLORS.BLUE} />
             <Text style={style.label}>{label}</Text>
           </View>
           <View style={style.row}>

@@ -24,9 +24,9 @@ const styles = (theme: SchemeType, responsiveHeight?: boolean) =>
       marginBottom: 20,
     },
     closer: {
-      height: 5,
-      width: 65,
-      backgroundColor: COLORS.GREY_LIGHT,
+      height: 3,
+      width: 35,
+      backgroundColor: COLORS.GREY_ICONS,
       borderRadius: 3,
     },
     footer: {
@@ -36,10 +36,13 @@ const styles = (theme: SchemeType, responsiveHeight?: boolean) =>
     },
     header: {
       flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
     },
     title: {
       width: '100%',
       color: theme.TEXT_PRIMARY,
+      fontWeight: '600',
       zIndex: -1,
       position: 'absolute',
       top: 0,

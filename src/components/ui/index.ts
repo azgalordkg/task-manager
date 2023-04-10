@@ -2,6 +2,7 @@ export * from './AccentButton';
 export * from './AccordionContent';
 export * from './AccordionHeader';
 export * from './ActionButton';
+export * from './ActionModalWrapper';
 export * from './BreakLine';
 export * from './Checkbox';
 export * from './ColorSelect';

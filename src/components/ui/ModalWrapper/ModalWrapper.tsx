@@ -21,6 +21,7 @@ export const ModalWrapper: FC<Props> = ({
   cancelText = 'Close',
   doneText,
   title,
+  rightActionComponent,
 }) => {
   const { theme } = useThemeContext();
   const { t } = useTranslation();
@@ -35,9 +36,11 @@ export const ModalWrapper: FC<Props> = ({
         <View style={style.header}>
           <AccentButton onPress={onCancelPress}>{cancelText}</AccentButton>
           <Text style={style.title}>{title}</Text>
-          {onDonePress && (
-            <AccentButton onPress={onDonePress}>{doneText}</AccentButton>
-          )}
+          {rightActionComponent
+            ? rightActionComponent
+            : onDonePress && (
+                <AccentButton onPress={onDonePress}>{doneText}</AccentButton>
+              )}
         </View>
         {children}
         {onBottomButtonPress && (

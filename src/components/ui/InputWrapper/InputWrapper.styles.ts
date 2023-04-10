@@ -6,18 +6,19 @@ const styles = (
   errorMessage?: string,
   borderColor?: string,
   backgroundColor?: string,
+  multiline?: boolean,
 ) =>
   StyleSheet.create({
     wrapper: {
       borderWidth: 1,
       borderColor: errorMessage ? COLORS.RED : borderColor,
-      paddingHorizontal: 12,
-      paddingVertical: 8,
+      padding: 12,
       backgroundColor: backgroundColor,
       borderRadius: 12,
       width: '100%',
       flexDirection: 'row',
-      height: 40,
+      alignItems: multiline ? 'flex-start' : 'center',
+      minHeight: 48,
     },
     icon: {
       marginRight: 8,
