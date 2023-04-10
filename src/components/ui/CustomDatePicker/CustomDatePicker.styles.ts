@@ -7,7 +7,6 @@ const styles = (theme: SchemeType, inputWidth?: string | number) =>
   StyleSheet.create({
     container: {
       width: inputWidth || 'auto',
-      paddingTop: 12,
       borderRadius: 12,
       backgroundColor: theme.INPUT_DEFAULT,
     },

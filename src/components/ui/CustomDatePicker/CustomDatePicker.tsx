@@ -1,10 +1,11 @@
 import moment from 'moment';
 import React, { FC, useState } from 'react';
 import { useController } from 'react-hook-form';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import { Calendar, Clock } from '@/components/icons';
+import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 
 import { Input } from '../Input';
@@ -15,7 +16,7 @@ export const CustomDatePicker: FC<Props> = ({
   control,
   defaultValue,
   name,
-  label,
+  // label,
   inputWidth,
   setValue,
   ...props
@@ -64,7 +65,6 @@ export const CustomDatePicker: FC<Props> = ({
   return (
     <>
       <View style={style.container}>
-        {label && <Text style={style.label}>{label}</Text>}
         <View>
           <TouchableOpacity
             style={style.button}
@@ -79,7 +79,13 @@ export const CustomDatePicker: FC<Props> = ({
             borderColor={theme.INPUT_DEFAULT}
             control={control}
             name={name}
-            icon={props.mode === 'time' ? Clock : Calendar}
+            icon={
+              props.mode === 'time' ? (
+                <Clock color={COLORS.GREEN} />
+              ) : (
+                <Calendar color={COLORS.GREEN} />
+              )
+            }
           />
         </View>
       </View>

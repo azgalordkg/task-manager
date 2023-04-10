@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
 import { useController } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Text, TextInput, View } from 'react-native';
 
 import { InputWrapper } from '@/components/ui';
 import { COLORS } from '@/constants';
-import { formatDate } from '@/utils';
+import { getValueForDateInput } from '@/utils';
 
 import styles from './Input.styles';
 import { Props } from './Input.types';
@@ -22,8 +23,10 @@ export const Input: FC<Props> = ({
   backgroundColor,
   maxLength,
   color = COLORS.BLACK_DARK,
+  multiline,
   ...props
 }) => {
+  const { t } = useTranslation();
   const {
     field: { value: fieldValue, onChange, onBlur },
   } = useController({
@@ -31,15 +34,18 @@ export const Input: FC<Props> = ({
     defaultValue,
     name,
   });
-  const style = styles(color);
+  const style = styles(color, multiline);
   const dateFormat = isTime ? 'LT' : 'DD MMMM';
 
-  const formattedValue = isDateTime && formatDate(fieldValue, dateFormat);
+  const formattedValue =
+    isDateTime &&
+    (getValueForDateInput(fieldValue as Date, t, dateFormat, isTime) as string);
   const value = fieldValue && (formattedValue || (fieldValue as string));
 
   return (
     <View style={style.inputContainer}>
       <InputWrapper
+        multiline={multiline}
         borderColor={borderColor}
         backgroundColor={backgroundColor}
         errorMessage={errorMessage}
@@ -52,6 +58,7 @@ export const Input: FC<Props> = ({
           value={value}
           onChangeText={onChange}
           onBlur={onBlur}
+          multiline={multiline}
           {...props}
         />
       </InputWrapper>

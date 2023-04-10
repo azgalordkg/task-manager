@@ -5,7 +5,6 @@ import { TextInputProps } from 'react-native';
 import { CreateTaskKey, DefaultSvgProps } from '@/types';
 
 export interface Props extends TextInputProps {
-  // TODO Find solution for this any
   control: Control<any>;
   defaultValue?: string;
   name: CreateTaskKey;

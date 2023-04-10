@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Text, View } from 'react-native';
 
-import { Minus, Plus } from '@/components/icons';
+import { ArrowDown, ArrowForward } from '@/components/icons';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 
@@ -16,9 +16,9 @@ export const DocumentsHeader: FC<Props> = ({ title, active }) => {
     <View style={style.titleWrapper}>
       <Text style={style.title}>{title}</Text>
       {active ? (
-        <Minus color={COLORS.WHITE} width={14} height={14} />
+        <ArrowDown color={COLORS.WHITE} width={14} height={14} />
       ) : (
-        <Plus color={COLORS.WHITE} width={14} height={14} />
+        <ArrowForward color={COLORS.WHITE} width={14} height={14} />
       )}
     </View>
   );

@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { Dimensions, View } from 'react-native';
 
 import { DateFilter, DismissKeyboard, TagsField } from '@/components/features';
+import { Checkbox as CheckboxIcon } from '@/components/icons';
+import { Document } from '@/components/icons/Document';
 import {
   Checkbox,
   ConfirmModal,
@@ -14,7 +16,7 @@ import {
   Input,
   Select,
 } from '@/components/ui';
-import { getRepeatList } from '@/constants';
+import { COLORS, getRepeatList } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
 import {
   useTagManageContext,
@@ -149,10 +151,10 @@ export const CreateTaskForm: FC<Props> = ({
         onSubmitPress={handleSubmit(onSubmit)}
         isSubmitDisabled={!isDisabled}
         onDeletePress={editItemId ? handleShowModal : undefined}
-        submitTitle={title}
-        title={`${title} ${t('TASK')}`}>
-        <View style={styles.inputWrapper}>
+        submitTitle={title}>
+        <View style={styles.inputsWrapper}>
           <Input
+            icon={<CheckboxIcon type="outline" color={COLORS.GREEN} checked />}
             control={control}
             backgroundColor={theme.INPUT_DEFAULT}
             borderColor={theme.INPUT_DEFAULT}
@@ -162,9 +164,8 @@ export const CreateTaskForm: FC<Props> = ({
             errorMessage={errors.name?.message}
             maxLength={30}
           />
-        </View>
-        <View style={styles.inputWrapper}>
           <Input
+            icon={<Document color={COLORS.YELLOW} />}
             control={control}
             backgroundColor={theme.INPUT_DEFAULT}
             borderColor={theme.INPUT_DEFAULT}
@@ -175,30 +176,28 @@ export const CreateTaskForm: FC<Props> = ({
             placeholder={`${t('DESCRIPTION_INPUT_PLACEHOLDER')}`}
             maxLength={255}
           />
-        </View>
-        <View style={styles.inputWrapper}>
           <Select
             name="repeat"
             control={control}
             items={getRepeatList(t, theme.TEXT_PRIMARY)}
             label={`${t('REPEAT')}`}
           />
-        </View>
-        <View style={styles.dateContainer}>
-          <View style={styles.inputWrapper}>
-            <CustomDatePicker
-              label={`${t('DATE_INPUT_LABEL')}`}
-              control={control}
-              name="startDate"
-              title={`${t('DATE_INPUT_PLACEHOLDER')}`}
-              mode="date"
+          <View style={styles.dateWrapper}>
+            <View>
+              <CustomDatePicker
+                label={`${t('DATE_INPUT_LABEL')}`}
+                control={control}
+                name="startDate"
+                title={`${t('DATE_INPUT_PLACEHOLDER')}`}
+                mode="date"
+              />
+            </View>
+            <DateFilter
+              currentStartDate={watch('startDate')}
+              currentEndDate={watch('endDate')}
+              onPressHandler={setValue}
             />
           </View>
-          <DateFilter
-            currentStartDate={watch('startDate')}
-            currentEndDate={watch('endDate')}
-            onPressHandler={setValue}
-          />
         </View>
 
         <Checkbox

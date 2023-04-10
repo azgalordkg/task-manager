@@ -3,12 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
 import { Lock, Paper } from '@/components/icons';
-import {
-  BreakLine,
-  MenuItem,
-  ModalContentWrapper,
-  ModalWrapper,
-} from '@/components/ui';
+import { BreakLine, MenuItem, ModalWrapper } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
@@ -23,43 +18,41 @@ export const AboutUsScreen: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
   const handleClose = () => navigation.goBack();
 
   return (
-    <ModalWrapper onRequestClose={handleClose}>
-      <ModalContentWrapper
-        title={`${t('ABOUT_US_SCREEN_TITLE')}`}
-        onCancelPress={handleClose}>
-        <View style={style.contentWrapper}>
-          <View style={style.contentContainer}>
-            <Text style={style.screenTitle}>{t('ABOUT_US_TITLE')}</Text>
+    <ModalWrapper
+      title={`${t('ABOUT_US_SCREEN_TITLE')}`}
+      onRequestClose={handleClose}>
+      <View style={style.contentWrapper}>
+        <View style={style.contentContainer}>
+          <Text style={style.screenTitle}>{t('ABOUT_US_TITLE')}</Text>
 
-            <BreakLine color={COLORS.BLACK_MEDIUM} />
+          <BreakLine color={COLORS.BLACK_MEDIUM} />
 
-            <Text style={style.screenDescription}>
-              {t('ABOUT_US_DESCRIPTION_PART_ONE')}
-            </Text>
+          <Text style={style.screenDescription}>
+            {t('ABOUT_US_DESCRIPTION_PART_ONE')}
+          </Text>
 
-            <Text style={style.screenDescription}>
-              {t('ABOUT_US_DESCRIPTION_PART_ONE')}
-            </Text>
+          <Text style={style.screenDescription}>
+            {t('ABOUT_US_DESCRIPTION_PART_ONE')}
+          </Text>
 
-            <View style={style.footerContainer}>
-              <MenuItem
-                prependIcon={Lock}
-                isFirst
-                onPress={() =>
-                  navigation.navigate('Documents', { isPrivacyPolicy: true })
-                }>
-                {t('PRIVACY_POLICY')}
-              </MenuItem>
-              <MenuItem
-                prependIcon={Paper}
-                isLast
-                onPress={() => navigation.navigate('Documents')}>
-                {t('TERMS_OF_USE')}
-              </MenuItem>
-            </View>
+          <View style={style.footerContainer}>
+            <MenuItem
+              prependIcon={Lock}
+              isFirst
+              onPress={() =>
+                navigation.navigate('Documents', { isPrivacyPolicy: true })
+              }>
+              {t('PRIVACY_POLICY')}
+            </MenuItem>
+            <MenuItem
+              prependIcon={Paper}
+              isLast
+              onPress={() => navigation.navigate('Documents')}>
+              {t('TERMS_OF_USE')}
+            </MenuItem>
           </View>
         </View>
-      </ModalContentWrapper>
+      </View>
     </ModalWrapper>
   );
 };
