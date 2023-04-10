@@ -3,4 +3,5 @@ export interface Props {
   errorMessage?: string;
   borderColor?: string;
   backgroundColor?: string;
+  multiline?: boolean;
 }

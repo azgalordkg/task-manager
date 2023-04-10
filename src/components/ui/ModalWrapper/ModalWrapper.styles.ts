@@ -24,15 +24,33 @@ const styles = (theme: SchemeType, responsiveHeight?: boolean) =>
       marginBottom: 20,
     },
     closer: {
-      height: 5,
-      width: 65,
-      backgroundColor: COLORS.GREY_LIGHT,
+      height: 3,
+      width: 35,
+      backgroundColor: COLORS.GREY_ICONS,
       borderRadius: 3,
     },
     footer: {
       paddingVertical: 15,
       width: '100%',
       alignItems: 'center',
+    },
+    header: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    title: {
+      width: '100%',
+      color: theme.TEXT_PRIMARY,
+      fontWeight: '600',
+      zIndex: -1,
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      textAlign: 'center',
+      fontSize: 16,
     },
   });
 

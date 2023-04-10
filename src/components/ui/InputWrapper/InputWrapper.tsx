@@ -12,9 +12,10 @@ export const InputWrapper: FC<PropsWithChildren<Props>> = ({
   children,
   borderColor = COLORS.WHITE_MEDIUM,
   backgroundColor = COLORS.WHITE_MEDIUM,
+  multiline,
 }) => {
   const Icon = icon;
-  const style = styles(errorMessage, borderColor, backgroundColor);
+  const style = styles(errorMessage, borderColor, backgroundColor, multiline);
 
   return (
     <View style={style.wrapper}>

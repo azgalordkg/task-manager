@@ -7,6 +7,9 @@ const styles = (theme: SchemeType) =>
     text: {
       color: theme.BUTTONS_PRIMARY,
     },
+    container: {
+      padding: 4,
+    },
   });
 
 export default styles;

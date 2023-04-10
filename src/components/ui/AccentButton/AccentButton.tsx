@@ -13,7 +13,7 @@ export const AccentButton: FC<PropsWithChildren<Props>> = ({
   const { theme } = useThemeContext();
   const style = styles(theme);
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity style={style.container} onPress={onPress}>
       <Text style={style.text}>{children}</Text>
     </TouchableOpacity>
   );

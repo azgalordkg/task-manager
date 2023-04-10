@@ -6,7 +6,6 @@ import Accordion from 'react-native-collapsible/Accordion';
 import {
   DocumentsContent,
   DocumentsHeader,
-  ModalContentWrapper,
   ModalWrapper,
 } from '@/components/ui';
 import { useThemeContext } from '@/context/hooks';
@@ -33,39 +32,37 @@ export const DocumentsScreen: FC<ScreenProps<'Documents'>> = ({
     : getTermsOfUse(t);
 
   return (
-    <ModalWrapper onRequestClose={onClose}>
-      <ModalContentWrapper title={screenTitle} onCancelPress={onClose}>
-        <View style={style.contentWrapper}>
-          <View style={style.container}>
-            <Text style={style.update}>
-              {t('LAST_UPDATED')} {screenContent.LAST_UPDATED}
-            </Text>
-            <ScrollView>
-              {isPrivacyPolicy && (
-                <DocumentsContent content={t('PRIVACY_POLICY_DESCRIPTION')} />
+    <ModalWrapper title={screenTitle} onRequestClose={onClose}>
+      <View style={style.contentWrapper}>
+        <View style={style.container}>
+          <Text style={style.update}>
+            {t('LAST_UPDATED')} {screenContent.LAST_UPDATED}
+          </Text>
+          <ScrollView>
+            {isPrivacyPolicy && (
+              <DocumentsContent content={t('PRIVACY_POLICY_DESCRIPTION')} />
+            )}
+            <Accordion
+              touchableComponent={TouchableWithoutFeedback}
+              sections={screenContent.DATA}
+              activeSections={activeSection}
+              renderHeader={({ title, id }) => (
+                <View>
+                  <DocumentsHeader
+                    title={title}
+                    active={activeSection.includes(id)}
+                  />
+                </View>
               )}
-              <Accordion
-                touchableComponent={TouchableWithoutFeedback}
-                sections={screenContent.DATA}
-                activeSections={activeSection}
-                renderHeader={({ title, id }) => (
-                  <View>
-                    <DocumentsHeader
-                      title={title}
-                      active={activeSection.includes(id)}
-                    />
-                  </View>
-                )}
-                renderContent={({ content }) => (
-                  <DocumentsContent content={content} />
-                )}
-                onChange={setActiveSection}
-                expandMultiple={true}
-              />
-            </ScrollView>
-          </View>
+              renderContent={({ content }) => (
+                <DocumentsContent content={content} />
+              )}
+              onChange={setActiveSection}
+              expandMultiple={true}
+            />
+          </ScrollView>
         </View>
-      </ModalContentWrapper>
+      </View>
     </ModalWrapper>
   );
 };

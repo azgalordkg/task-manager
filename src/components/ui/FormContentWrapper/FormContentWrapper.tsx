@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 
 import { Trash } from '@/components/icons';
 import { CustomButton } from '@/components/ui';
@@ -12,7 +12,6 @@ import { Props } from './FormContentWrapper.types';
 
 export const FormContentWrapper: FC<PropsWithChildren<Props>> = ({
   children,
-  title,
   onSubmitPress,
   isSubmitDisabled,
   submitTitle,
@@ -25,7 +24,6 @@ export const FormContentWrapper: FC<PropsWithChildren<Props>> = ({
   return (
     <View style={style.contentWrapper}>
       <View style={style.titleWrapper}>
-        {title && <Text style={style.title}>{title}</Text>}
         {onDeletePress && (
           <TouchableOpacity
             onPress={() => {
