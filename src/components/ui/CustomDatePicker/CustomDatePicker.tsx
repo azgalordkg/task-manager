@@ -5,6 +5,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import { Calendar, Clock } from '@/components/icons';
+import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 
 import { Input } from '../Input';
@@ -79,7 +80,13 @@ export const CustomDatePicker: FC<Props> = ({
             borderColor={theme.INPUT_DEFAULT}
             control={control}
             name={name}
-            icon={props.mode === 'time' ? Clock : Calendar}
+            icon={
+              props.mode === 'time' ? (
+                <Clock color={COLORS.GREEN} />
+              ) : (
+                <Calendar color={COLORS.GREEN} />
+              )
+            }
           />
         </View>
       </View>
