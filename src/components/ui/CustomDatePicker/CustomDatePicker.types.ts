@@ -8,6 +8,7 @@ export interface Props extends Partial<DateTimePickerProps> {
   control: Control<CreateTaskData>;
   defaultValue?: string;
   name: CreateTaskKey;
+  placeholder?: string;
   label?: string;
   inputWidth?: string | number;
   setValue?: UseFormSetValue<CreateTaskData>;

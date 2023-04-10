@@ -36,7 +36,7 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
     });
   };
 
-  const { startDate, endDate } = roundAndExtendTimeRange(
+  const startDate = roundAndExtendTimeRange(
     combineStartDate(new Date(date), createDateTime),
   );
 
@@ -58,7 +58,6 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
     createTask({
       ...data,
       startDate,
-      endDate,
       repeat: 'Never',
       hasDeadline: false,
       description: '',

@@ -35,7 +35,6 @@ export const QuickTask: FC<Props> = ({ date }) => {
             fontSize={14}
             icon={Plus}
             textColor={COLORS.GREEN}
-            iconColor={COLORS.GREEN}
             iconHeight={8}
             iconWidth={8}>
             {t('ADD_QUICK_TASK')}

@@ -18,7 +18,6 @@ export const TaskSchema = {
     description: 'string?',
     startDate: 'int?',
     createdAt: 'int',
-    endDate: 'int?',
     hasDeadline: 'bool?',
     repeat: 'string?',
     tags: 'string[]',

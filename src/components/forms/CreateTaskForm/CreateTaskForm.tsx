@@ -39,7 +39,7 @@ export const CreateTaskForm: FC<Props> = ({
   const [taskForEdit, setTaskForEdit] = useState({} as TasksResponseItem);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
 
-  const { startDate, endDate } = roundAndExtendTimeRange();
+  const startDate = roundAndExtendTimeRange();
   const { setTagsForEdit, tags: allTags } = useTagManageContext();
   const { fetchList } = useTaskModalContext();
   const { t } = useTranslation();
@@ -60,7 +60,6 @@ export const CreateTaskForm: FC<Props> = ({
   } = useForm<CreateTaskData>({
     defaultValues: {
       startDate,
-      endDate,
       repeat: 'Never',
       hasDeadline: false,
     },
@@ -76,9 +75,8 @@ export const CreateTaskForm: FC<Props> = ({
     if (description) {
       setValue('description', description);
     }
-    if (task.startDate && task.endDate) {
+    if (task.startDate) {
       setValue('startDate', new Date(task.startDate));
-      setValue('endDate', new Date(task.endDate));
     }
     if (hasDeadline) {
       setValue('hasDeadline', true);
@@ -185,6 +183,7 @@ export const CreateTaskForm: FC<Props> = ({
           <View style={styles.dateWrapper}>
             <View>
               <CustomDatePicker
+                placeholder="Due date"
                 label={`${t('DATE_INPUT_LABEL')}`}
                 control={control}
                 name="startDate"
@@ -194,8 +193,10 @@ export const CreateTaskForm: FC<Props> = ({
             </View>
             <DateFilter
               currentStartDate={watch('startDate')}
-              currentEndDate={watch('endDate')}
-              onPressHandler={setValue}
+              onPressHandler={(key, value) => {
+                console.log(value, ' value');
+                setValue(key, value);
+              }}
             />
           </View>
         </View>
@@ -213,15 +214,6 @@ export const CreateTaskForm: FC<Props> = ({
               label={`${t('START_TIME_INPUT_LABEL')}`}
               control={control}
               name="startDate"
-              title={`${t('CHOOSE_DATE_INPUT_PLACEHOLDER')}`}
-              mode="time"
-              setValue={setValue}
-            />
-            <CustomDatePicker
-              inputWidth={timeInputWidth}
-              label={`${t('END_TIME_INPUT_LABEL')}`}
-              control={control}
-              name="endDate"
               title={`${t('CHOOSE_DATE_INPUT_PLACEHOLDER')}`}
               mode="time"
               setValue={setValue}

@@ -2,59 +2,79 @@ import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import { formatDate, getDateFromToday, getToday, vibrate } from '@/utils';
+import { CloseCircle } from '@/components/icons';
+import { COLORS } from '@/constants';
+import {
+  getDateFromToday,
+  getNextSaturday,
+  getThisSaturday,
+  getToday,
+  isTodayWeekend,
+  vibrate,
+} from '@/utils';
+import { renderTitle } from '@/utils/date-filters';
 
 import { CustomButton } from '../../ui';
 import styles from './DateFilter.styles';
 import { Props } from './DateFilter.types';
 
-export const DateFilter: FC<Props> = ({
-  currentStartDate,
-  currentEndDate,
-  onPressHandler,
-}) => {
+export const DateFilter: FC<Props> = ({ currentStartDate, onPressHandler }) => {
   const { t } = useTranslation();
+
+  const getCurrentValue = (startDate: Date | null) => {
+    if (!currentStartDate && !startDate) {
+      return true;
+    }
+    return currentStartDate?.getDate() === startDate?.getDate();
+  };
 
   return (
     <View style={styles.dateButtonsWrapper}>
-      {Array.from({ length: 5 }).map((_, index) => {
-        let startDate = getToday();
-        if (index > 0) {
-          startDate = getDateFromToday(index);
+      {Array.from({ length: 4 }).map((_, index) => {
+        let startDate: Date | null = null;
+        if (index === 0) {
+          startDate = getToday();
+        } else if (index === 1) {
+          startDate = getDateFromToday(1);
+        } else if (index === 2) {
+          startDate = isTodayWeekend() ? getNextSaturday() : getThisSaturday();
         }
-        index === 0 ? getToday() : getDateFromToday(index + 2);
-        const isCurrent = currentStartDate.getDate() === startDate.getDate();
+
+        const isCurrent = getCurrentValue(startDate);
 
         const onDateChange = () => {
           vibrate('selection');
-          startDate.setHours(
-            currentStartDate.getHours(),
-            currentStartDate.getMinutes(),
-          );
-
-          const endDate = new Date(startDate);
-          endDate.setHours(
-            currentEndDate.getHours(),
-            currentEndDate.getMinutes(),
-          );
+          if (currentStartDate) {
+            startDate?.setHours(
+              currentStartDate.getHours(),
+              currentStartDate.getMinutes(),
+            );
+          }
 
           onPressHandler('startDate', startDate);
         };
 
+        const { title, color } = renderTitle(t, index);
+        const isNoDate = color === COLORS.WHITE;
+        const textColor = isNoDate ? COLORS.BLACK_DARK : COLORS.WHITE;
+
         return (
-          <View key={startDate.getDay()} style={styles.dateButtonContainer}>
+          <View
+            key={startDate?.getDay() || 'no_date'}
+            style={styles.dateButtonContainer}>
             <CustomButton
+              icon={isNoDate ? CloseCircle : undefined}
+              textColor={textColor}
+              bgColor={color}
               height={30}
+              iconHeight={16}
+              iconWidth={16}
               type={isCurrent ? 'filled' : 'outlined'}
               borderWidth={1}
               paddingHorizontal={5}
               fontSize={14}
               onPress={onDateChange}>
-              {index > 1
-                ? `${startDate.getDate()} ${formatDate(startDate, 'MMM')}`
-                : index === 0
-                ? t('TODAY')
-                : t('TOMORROW')}
+              {title}
             </CustomButton>
           </View>
         );

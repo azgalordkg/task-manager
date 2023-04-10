@@ -19,6 +19,7 @@ export const CustomDatePicker: FC<Props> = ({
   // label,
   inputWidth,
   setValue,
+  placeholder,
   ...props
 }) => {
   const { theme, activeTheme } = useThemeContext();
@@ -32,8 +33,7 @@ export const CustomDatePicker: FC<Props> = ({
   });
 
   const changeOppositeDate = (currentDate: Date) => {
-    const isStartDate = name === 'startDate';
-    const fieldName = isStartDate ? 'endDate' : 'startDate';
+    const fieldName = 'startDate';
     const oppositeDate = control._fields[fieldName]?._f.value;
     const momentDate = moment(+currentDate);
 
@@ -41,12 +41,8 @@ export const CustomDatePicker: FC<Props> = ({
       oppositeDate,
       'hour' && 'minute',
     );
-    const isSameOrBeforeDate = momentDate.isSameOrBefore(oppositeDate);
 
-    const addMethod = isStartDate && isSameOrAfterDate && 'add';
-    const subtractMethod = !isStartDate && isSameOrBeforeDate && 'subtract';
-
-    const momentMethod = addMethod || subtractMethod;
+    const momentMethod = isSameOrAfterDate && 'add';
 
     if (momentMethod && setValue) {
       const changedOppositeDate = momentDate[momentMethod](15, 'minutes');
@@ -71,6 +67,7 @@ export const CustomDatePicker: FC<Props> = ({
             onPress={() => setOpen(true)}
           />
           <Input
+            placeholder={placeholder}
             color={theme.TEXT_PRIMARY}
             editable={false}
             isDateTime
@@ -92,7 +89,7 @@ export const CustomDatePicker: FC<Props> = ({
       <DateTimePickerModal
         {...props}
         isVisible={open}
-        date={field.value as Date}
+        date={(field.value as Date) || new Date()}
         minuteInterval={15}
         isDarkModeEnabled={activeTheme === 'dark'}
         textColor={theme.TEXT_PRIMARY}
