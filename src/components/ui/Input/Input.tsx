@@ -17,7 +17,6 @@ export const Input: FC<Props> = ({
   isDateTime,
   isTime,
   icon,
-  iconColor,
   errorMessage,
   borderColor,
   backgroundColor,
@@ -49,8 +48,7 @@ export const Input: FC<Props> = ({
         borderColor={borderColor}
         backgroundColor={backgroundColor}
         errorMessage={errorMessage}
-        icon={icon}
-        iconColor={iconColor}>
+        icon={icon}>
         <TextInput
           placeholderTextColor={COLORS.GREY_LIGHT}
           maxLength={maxLength}

@@ -98,10 +98,7 @@ export const CreateLabelForm: FC<Props> = ({ onClose, editItemId }) => {
         isSubmitDisabled={!isValid}
         onSubmitPress={handleSubmit(onSubmit)}
         onDeletePress={editItemId ? handleShowModal : undefined}
-        submitTitle={editItemId ? `${t('EDIT')}` : `${t('CREATE')}`}
-        title={`${editItemId ? `${t('EDIT')}` : `${t('CREATE')}`} ${t(
-          'A_LABEL',
-        )}`}>
+        submitTitle={editItemId ? `${t('EDIT')}` : `${t('CREATE')}`}>
         <View>
           <Input
             control={control}
@@ -111,8 +108,7 @@ export const CreateLabelForm: FC<Props> = ({ onClose, editItemId }) => {
             borderColor={theme.INPUT_DEFAULT}
             color={theme.TEXT_PRIMARY}
             errorMessage={errors.name?.message}
-            icon={Label}
-            iconColor={watch().color || theme.TEXT_SECONDARY}
+            icon={<Label color={watch().color || theme.TEXT_SECONDARY} />}
           />
           <View style={style.colorContainer}>
             <Text style={style.colorTitle}>{t('SELECT_COLOR')}</Text>

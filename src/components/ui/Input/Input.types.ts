@@ -1,8 +1,7 @@
-import { FC } from 'react';
 import { Control } from 'react-hook-form/dist/types';
 import { TextInputProps } from 'react-native';
 
-import { CreateTaskKey, DefaultSvgProps } from '@/types';
+import { CreateTaskKey } from '@/types';
 
 export interface Props extends TextInputProps {
   control: Control<any>;
@@ -10,8 +9,7 @@ export interface Props extends TextInputProps {
   name: CreateTaskKey;
   isDateTime?: boolean;
   isTime?: boolean;
-  icon?: FC<DefaultSvgProps>;
-  iconColor?: string;
+  icon?: JSX.Element;
   errorMessage?: string;
   borderColor?: string;
   backgroundColor?: string;

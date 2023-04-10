@@ -2,7 +2,7 @@ import React, { FC, PropsWithChildren } from 'react';
 import { Switch, Text, TouchableOpacity, View } from 'react-native';
 
 import { ArrowAngle } from '@/components/icons';
-import { Checkbox, CustomCheckbox } from '@/components/ui';
+import { CustomCheckbox } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 import { vibrate } from '@/utils';

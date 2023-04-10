@@ -9,7 +9,6 @@ import { Props } from './InputWrapper.types';
 export const InputWrapper: FC<PropsWithChildren<Props>> = ({
   errorMessage,
   icon,
-  iconColor,
   children,
   borderColor = COLORS.WHITE_MEDIUM,
   backgroundColor = COLORS.WHITE_MEDIUM,
@@ -20,7 +19,7 @@ export const InputWrapper: FC<PropsWithChildren<Props>> = ({
 
   return (
     <View style={style.wrapper}>
-      {Icon && <View style={style.icon}>{<Icon color={iconColor} />}</View>}
+      {Icon && <View style={style.icon}>{Icon}</View>}
       {children}
     </View>
   );

@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { ManageTagsForm } from '@/components/forms';
 import { ModalWrapper } from '@/components/ui';
@@ -10,13 +11,15 @@ export const ManageTagsScreen: FC<ScreenProps<'ManageTags'>> = ({
 }) => {
   const { updateCurrentSelectedTags } = useTagManageContext();
   const handleCloseModal = () => navigation.goBack();
+  const { t } = useTranslation();
 
   return (
     <ModalWrapper
       onRequestClose={() => {
         handleCloseModal();
         updateCurrentSelectedTags();
-      }}>
+      }}
+      title={`${t('SELECT_LABELS')}`}>
       <ManageTagsForm
         onClose={handleCloseModal}
         onEditTagPress={id => navigation.navigate('CreateTag', { id })}

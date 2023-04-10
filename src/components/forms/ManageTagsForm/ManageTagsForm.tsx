@@ -3,12 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, Text, View } from 'react-native';
 
 import { Label, Plus } from '@/components/icons';
-import {
-  CustomButton,
-  DashedButton,
-  FormContentWrapper,
-  MenuItem,
-} from '@/components/ui';
+import { CustomButton, FormContentWrapper, MenuItem } from '@/components/ui';
 import { TAGS_CREATION_LIMITS } from '@/constants';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { vibrate } from '@/utils';
@@ -42,7 +37,6 @@ export const ManageTagsForm: FC<Props> = ({
   return (
     <FormContentWrapper
       submitTitle={t('SUBMIT_TITLE')}
-      title={isSettings ? '' : `${t('SELECT_LABELS')}`}
       onSubmitPress={() => {
         if (!isSettings) {
           acceptSelectedTags();
