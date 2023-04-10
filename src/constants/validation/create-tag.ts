@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const createTagFormSchema = yup.object().shape({
+export const createLabelFormSchema = yup.object().shape({
   name: yup
     .string()
     .min(2, 'Name must be at least 2 characters long')

@@ -2,11 +2,12 @@ import React, { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, Text, View } from 'react-native';
 
-import { Plus } from '@/components/icons';
+import { Label, Plus } from '@/components/icons';
 import {
+  CustomButton,
   DashedButton,
   FormContentWrapper,
-  SelectTagItem,
+  MenuItem,
 } from '@/components/ui';
 import { TAGS_CREATION_LIMITS } from '@/constants';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';
@@ -41,7 +42,7 @@ export const ManageTagsForm: FC<Props> = ({
   return (
     <FormContentWrapper
       submitTitle={t('SUBMIT_TITLE')}
-      title={isSettings ? '' : `${t('MANAGE_TAGS')}`}
+      title={isSettings ? '' : `${t('SELECT_LABELS')}`}
       onSubmitPress={() => {
         if (!isSettings) {
           acceptSelectedTags();
@@ -50,41 +51,47 @@ export const ManageTagsForm: FC<Props> = ({
       }}>
       <View style={style.container}>
         <Text style={style.total}>
-          {t('TOTAL_TAGS')}:{' '}
+          {t('TOTAL_LABELS')}:{' '}
           <Text style={style.totalCount}>
             {tags.length}/{TAGS_CREATION_LIMITS}
           </Text>
         </Text>
-        <DashedButton
+        <CustomButton
           disabled={tags.length >= TAGS_CREATION_LIMITS}
-          color={theme.TEXT_SECONDARY}
           icon={Plus}
-          variant="large"
+          height={32}
+          type="clean"
+          textColor={theme.CLEAN_BUTTON_TEXT}
+          iconColor={theme.CLEAN_BUTTON_TEXT}
           onPress={() => {
             onCreateTagPress();
             vibrate('selection');
           }}>
-          {t('CREATE_TAG')}
-        </DashedButton>
-        <Text style={style.message}>{t('TAGS_LIMIT')}</Text>
+          {t('CREATE_A_LABEL')}
+        </CustomButton>
+        <Text style={style.message}>{t('LABEL_LIMIT')}</Text>
         <ScrollView style={style.itemsWrapper}>
-          {tags.map(({ _id, name, color }) => {
+          {tags.map(({ _id, name, color }, index) => {
             return (
-              <SelectTagItem
-                isSettings={isSettings}
-                key={_id}
+              <MenuItem
+                isLast={index === tags.length - 1}
+                isFirst={index === 0}
+                prependIconColor={color}
+                prependIcon={Label}
+                icon={null}
+                isCheckbox
                 checked={currentSelectedTags.includes(_id)}
-                onPress={() => {
+                onToggleCheckbox={() => {
                   selectTagHandler(_id);
                   vibrate('selection');
                 }}
-                onEditPress={() => {
+                onPress={() => {
                   onEditTagPress(_id);
                   vibrate('selection');
                 }}
-                title={name}
-                color={color}
-              />
+                key={_id}>
+                {name}
+              </MenuItem>
             );
           })}
         </ScrollView>

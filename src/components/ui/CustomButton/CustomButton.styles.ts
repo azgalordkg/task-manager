@@ -43,7 +43,7 @@ const styles = ({
       color:
         (isFilled && textColor) ||
         (isOutlined && bgColor) ||
-        (isClean && COLORS.BLACK_DARK) ||
+        (isClean && textColor) ||
         'transparent',
     },
   });

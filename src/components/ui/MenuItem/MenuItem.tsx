@@ -2,6 +2,7 @@ import React, { FC, PropsWithChildren } from 'react';
 import { Switch, Text, TouchableOpacity, View } from 'react-native';
 
 import { ArrowAngle } from '@/components/icons';
+import { Checkbox, CustomCheckbox } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 import { vibrate } from '@/utils';
@@ -20,6 +21,9 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
   prependIcon,
   isFirst,
   isLast,
+  isCheckbox,
+  checked,
+  onToggleCheckbox,
   prependIconColor,
   count,
 }) => {
@@ -27,6 +31,7 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
   const PrependIcon = prependIcon;
   const { theme } = useThemeContext();
   const style = styles(theme, isFirst, isLast);
+  const isShowCheckbox = isCheckbox && onToggleCheckbox;
   const onValueChangePress = (currentValue: boolean) => {
     vibrate();
     onToggleSwitch?.(currentValue);
@@ -51,6 +56,15 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
             ios_backgroundColor={COLORS.GREY_LIGHT}
             onValueChange={onValueChangePress}
             value={value}
+          />
+        )}
+        {isShowCheckbox && (
+          <CustomCheckbox
+            onPress={onToggleCheckbox}
+            type="filled"
+            checked={!!checked}
+            defaultColor={COLORS.GREY_LIGHT}
+            backgroundOpacity={0}
           />
         )}
         {Icon && <Icon color={color || COLORS.GREY_ICONS} />}

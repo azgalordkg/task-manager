@@ -14,4 +14,7 @@ export interface Props {
   icon?: FC<DefaultSvgProps> | null;
   prependIcon?: FC<DefaultSvgProps>;
   count?: number;
+  isCheckbox?: boolean;
+  checked?: boolean;
+  onToggleCheckbox?: () => void;
 }

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import { CreateTagForm } from '@/components/forms';
+import { CreateLabelForm } from '@/components/forms';
 import { ModalWrapper } from '@/components/ui';
 import { ScreenProps } from '@/types';
 
@@ -13,7 +13,7 @@ export const CreateTagScreen: FC<ScreenProps<'CreateTag'>> = ({
 
   return (
     <ModalWrapper onRequestClose={handleCloseModal}>
-      <CreateTagForm editItemId={taskId} onClose={handleCloseModal} />
+      <CreateLabelForm editItemId={taskId} onClose={handleCloseModal} />
     </ModalWrapper>
   );
 };

@@ -5,23 +5,28 @@ import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
 import { DismissKeyboard } from '@/components/features';
+import { Label } from '@/components/icons';
 import {
   ColorSelect,
   ConfirmModal,
   FormContentWrapper,
   Input,
 } from '@/components/ui';
-import { AVAILABLE_COLORS } from '@/constants';
-import { createTagFormSchema } from '@/constants/validation';
+import {
+  AVAILABLE_COLORS,
+  COLORS,
+  COLORS_FOR_BLACK_CHECKMARK,
+} from '@/constants';
+import { createLabelFormSchema } from '@/constants/validation';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { createTag, deleteOneTag, findOneTag, updateTag } from '@/services';
 import { CreateTagData, TagsResponseItem } from '@/types';
 import { vibrate } from '@/utils';
 
-import styles from './CreateTagForm.styles';
-import { Props } from './CreateTagForm.types';
+import styles from './CreateLabelForm.styles';
+import { Props } from './CreateLabelForm.types';
 
-export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
+export const CreateLabelForm: FC<Props> = ({ onClose, editItemId }) => {
   const { theme } = useThemeContext();
 
   const style = styles(theme);
@@ -38,7 +43,7 @@ export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
       color: AVAILABLE_COLORS[0].toLowerCase(),
     },
     mode: 'onBlur',
-    resolver: yupResolver(createTagFormSchema),
+    resolver: yupResolver(createLabelFormSchema),
   });
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
@@ -95,17 +100,19 @@ export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
         onDeletePress={editItemId ? handleShowModal : undefined}
         submitTitle={editItemId ? `${t('EDIT')}` : `${t('CREATE')}`}
         title={`${editItemId ? `${t('EDIT')}` : `${t('CREATE')}`} ${t(
-          'A_TAG',
+          'A_LABEL',
         )}`}>
         <View>
           <Input
             control={control}
             name="name"
-            placeholder={`${t('TAG_NAME_INPUT_PLACEHOLDER')}`}
+            placeholder={`${t('LABEL_NAME_INPUT_PLACEHOLDER')}`}
             backgroundColor={theme.INPUT_DEFAULT}
             borderColor={theme.INPUT_DEFAULT}
             color={theme.TEXT_PRIMARY}
             errorMessage={errors.name?.message}
+            icon={Label}
+            iconColor={watch().color || theme.TEXT_SECONDARY}
           />
           <View style={style.colorContainer}>
             <Text style={style.colorTitle}>{t('SELECT_COLOR')}</Text>
@@ -119,6 +126,11 @@ export const CreateTagForm: FC<Props> = ({ onClose, editItemId }) => {
                   }}
                   key={color}
                   color={color}
+                  checkMarkColor={
+                    COLORS_FOR_BLACK_CHECKMARK.includes(color.toLowerCase())
+                      ? COLORS.BLACK_DARK
+                      : COLORS.WHITE
+                  }
                 />
               ))}
             </View>

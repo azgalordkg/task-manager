@@ -7,17 +7,17 @@ const styles = (theme: SchemeType) =>
     colorTitle: {
       color: theme.TEXT_PRIMARY,
       fontSize: 16,
-      marginBottom: 18,
+      marginBottom: 19,
     },
     colorContainer: {
       paddingVertical: 30,
     },
     colorList: {
-      justifyContent: 'space-between',
+      // justifyContent: 'space-between',
       flexDirection: 'row',
       flexWrap: 'wrap',
       rowGap: 18,
-      columnGap: 10,
+      columnGap: 21,
     },
   });
 

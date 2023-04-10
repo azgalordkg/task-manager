@@ -6,7 +6,13 @@ import { COLORS } from '@/constants';
 
 import { Props } from './Checkbox.types';
 
-export const Checkbox: FC<Props> = ({ color, checked, type, ...props }) => {
+export const Checkbox: FC<Props> = ({
+  color,
+  checked,
+  backgroundOpacity,
+  type,
+  ...props
+}) => {
   const isTypeFilled = type === 'filled';
   const fillOpacity = isTypeFilled ? '0.15' : '0.05';
 
@@ -34,7 +40,9 @@ export const Checkbox: FC<Props> = ({ color, checked, type, ...props }) => {
       <Path
         d="M7.66537 3.50018H16.3344C18.8849 3.50018 20.5004 5.23515 20.5004 7.91618V16.0842C20.5004 18.7653 18.8847 20.5002 16.3334 20.5002H7.66537C5.11513 20.5002 3.50037 18.7655 3.50037 16.0842V7.91618C3.50037 5.23856 5.12071 3.50018 7.66537 3.50018Z"
         fill={color || COLORS.WHITE}
-        fillOpacity={fillOpacity}
+        fillOpacity={
+          backgroundOpacity === undefined ? fillOpacity : backgroundOpacity
+        }
       />
       {checked && (
         <Path
