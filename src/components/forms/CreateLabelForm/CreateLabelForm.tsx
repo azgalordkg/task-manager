@@ -4,7 +4,8 @@ import { Text, View } from 'react-native';
 
 import { DismissKeyboard } from '@/components/features';
 import { Label } from '@/components/icons';
-import { ColorSelect, ConfirmModal, Input } from '@/components/ui';
+import { ConfirmModal } from '@/components/modals';
+import { ColorSelect, Input } from '@/components/ui';
 import {
   AVAILABLE_COLORS,
   COLORS,

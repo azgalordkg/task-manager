@@ -1,12 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
-import { DashedButton } from '@/components/ui';
-import { Tag } from '@/components/ui/Tag';
+import { Label as LabelIcon } from '@/components/icons';
+import { InputWrapper, Label } from '@/components/ui';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { TagsResponseItem } from '@/types';
-import { vibrate } from '@/utils';
 
 import styles from './TagsField.styles';
 import { Props } from './TagsField.types';
@@ -17,12 +16,7 @@ export const TagsField: FC<Props> = ({ onAddPress }) => {
 
   const style = styles(theme);
   const [tags, setTags] = useState<TagsResponseItem[]>([]);
-  const {
-    selectedTags,
-    removeTag,
-    tags: allTags,
-    fetchTags,
-  } = useTagManageContext();
+  const { selectedTags, tags: allTags, fetchTags } = useTagManageContext();
 
   useEffect(() => {
     if (selectedTags) {
@@ -34,24 +28,22 @@ export const TagsField: FC<Props> = ({ onAddPress }) => {
   }, [selectedTags]);
 
   return (
-    <View style={style.container}>
-      <Text style={style.label}>{t('TAGS')}: </Text>
-      <View style={style.tagsWrapper}>
-        {tags?.map(({ name, color, _id }) => (
-          <Tag
-            onPress={() => {
-              vibrate('selection');
-              removeTag(_id);
-            }}
-            key={name}
-            name={name}
-            bgColor={color}
-          />
-        ))}
-        {tags?.length < 3 && (
-          <DashedButton onPress={onAddPress}>{t('ADD_BUTTON')}</DashedButton>
+    <View>
+      <TouchableOpacity style={style.button} onPress={onAddPress} />
+      <InputWrapper
+        borderColor={theme.INPUT_DEFAULT}
+        backgroundColor={theme.INPUT_DEFAULT}
+        icon={<LabelIcon />}>
+        {tags?.length ? (
+          <View style={style.tagsWrapper}>
+            {tags?.map(({ name, color, _id }) => (
+              <Label key={name} name={name} bgColor={color} />
+            ))}
+          </View>
+        ) : (
+          <Text style={style.label}>{t('LABELS')}</Text>
         )}
-      </View>
+      </InputWrapper>
     </View>
   );
 };

@@ -3,20 +3,20 @@ export const RED_COLORS = {
   SECOND: '#DE4D26',
   THIRD: '#F44336',
   FORTH: '#DE2658',
-  FIFTH: '#FA2BCB',
+  FIFTH: '#ff3fd2',
 };
 
 export const PURPLE_COLORS = {
-  FIRST: '#CE36F4',
-  SECOND: '#8726DE',
-  THIRD: '#5F2BFA',
+  FIRST: '#da4dff',
+  SECOND: '#a344ff',
+  THIRD: '#7041ff',
 };
 
 export const BLUE_COLORS = {
-  FIRST: '#0D4BFF',
-  SECOND: '#0C7EE8',
-  THIRD: '#00C8FF',
-  FORTH: '#0CE8DD',
+  FIRST: '#3167ff',
+  SECOND: '#2094ff',
+  THIRD: '#2ed3ff',
+  FORTH: '#1ffff5',
 };
 
 export const GREEN_COLORS = {

@@ -1,4 +1,4 @@
-import { Control, UseFormSetValue } from 'react-hook-form/dist/types';
+import { Control } from 'react-hook-form/dist/types';
 import { DateTimePickerProps } from 'react-native-modal-datetime-picker';
 
 import { CreateTaskData, CreateTaskKey } from '@/types';
@@ -9,7 +9,5 @@ export interface Props extends Partial<DateTimePickerProps> {
   defaultValue?: string;
   name: CreateTaskKey;
   placeholder?: string;
-  label?: string;
   inputWidth?: string | number;
-  setValue?: UseFormSetValue<CreateTaskData>;
 }

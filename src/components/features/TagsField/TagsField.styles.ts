@@ -4,21 +4,24 @@ import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
-    container: {
-      height: 28,
-      flexDirection: 'row',
-      alignItems: 'flex-start',
+    button: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      zIndex: 2,
     },
     label: {
       paddingVertical: 3,
       marginRight: 10,
-      fontSize: 16,
-      color: theme.TEXT_PRIMARY,
+      fontSize: 18,
+      color: theme.TEXT_SECONDARY,
     },
     tagsWrapper: {
       flexDirection: 'row',
-      columnGap: 10,
-      rowGap: 10,
+      columnGap: 8,
+      rowGap: 8,
       flexWrap: 'wrap',
       flex: 1,
     },

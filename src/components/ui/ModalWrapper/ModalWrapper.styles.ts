@@ -5,6 +5,9 @@ import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType, responsiveHeight?: boolean) =>
   StyleSheet.create({
+    rightAction: {
+      zIndex: 1,
+    },
     container: {
       flex: 1,
       justifyContent: 'flex-end',
