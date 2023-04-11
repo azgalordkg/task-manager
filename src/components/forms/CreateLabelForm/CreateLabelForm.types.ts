@@ -5,5 +5,5 @@ import { CreateTagData } from '@/types';
 export interface Props {
   onClose: () => void;
   editItemId?: string;
-  formMethods: UseFormReturn<CreateTagData, any>;
+  formHandler: UseFormReturn<CreateTagData, any>;
 }

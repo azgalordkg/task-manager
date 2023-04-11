@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { isEqual } from 'lodash';
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
@@ -22,10 +22,13 @@ export const CreateLabelScreen: FC<ScreenProps<'CreateLabel'>> = ({
   const labelId = route?.params?.id;
   const handleCloseModal = () => navigation.goBack();
 
-  const formMethods = useForm<CreateTagData>({
+  const formHandler = useForm<CreateTagData>({
     mode: 'onBlur',
     resolver: yupResolver(createLabelFormSchema),
   });
+
+  const formValue = formHandler.watch();
+  const isValid = formHandler.formState.isValid;
 
   const onSubmit = (data: CreateTagData) => {
     if (labelId) {
@@ -39,29 +42,26 @@ export const CreateLabelScreen: FC<ScreenProps<'CreateLabel'>> = ({
     handleCloseModal();
   };
 
-  const editInitialLabelValue = (data: CreateTagData, id?: string) => {
-    if (id) {
-      const stringifyValue = JSON.stringify(findOneTag(id));
+  const isDisabled = useMemo(() => {
+    if (labelId) {
+      const stringifyValue = JSON.stringify(findOneTag(labelId));
       const { name, color } = JSON.parse(stringifyValue);
       const label = { name, color };
-
-      return isEqual(data, label);
+      return !isEqual(formValue, label) && isValid;
     }
-  };
 
-  const isDisabled =
-    !editInitialLabelValue(formMethods.watch(), labelId) &&
-    formMethods.formState.isValid;
+    return isValid;
+  }, [labelId, formValue, isValid]);
 
   return (
     <ModalWrapper
       title={`${labelId ? `${t('EDIT')}` : `${t('CREATE')}`} ${t('A_LABEL')}`}
-      onDonePress={formMethods.handleSubmit(onSubmit)}
+      onDonePress={formHandler.handleSubmit(onSubmit)}
       isDoneDisabled={!isDisabled}
       doneText="Done"
       onRequestClose={handleCloseModal}>
       <CreateLabelForm
-        formMethods={formMethods}
+        formHandler={formHandler}
         editItemId={labelId}
         onClose={handleCloseModal}
       />

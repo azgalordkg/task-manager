@@ -21,7 +21,7 @@ import { Props } from './CreateLabelForm.types';
 export const CreateLabelForm: FC<Props> = ({
   onClose,
   editItemId,
-  formMethods,
+  formHandler,
 }) => {
   const { theme } = useThemeContext();
 
@@ -30,11 +30,11 @@ export const CreateLabelForm: FC<Props> = ({
     setValue,
     watch,
     reset,
+    trigger,
     formState: { errors },
-  } = formMethods;
+  } = formHandler;
 
   const isColorError = errors.color?.message;
-
   const style = styles(theme, isColorError);
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
@@ -99,6 +99,7 @@ export const CreateLabelForm: FC<Props> = ({
                 active={color.toLowerCase() === watch('color')?.toLowerCase()}
                 onPress={() => {
                   vibrate('selection');
+                  void trigger('color');
                   setValue('color', color.toLowerCase());
                 }}
                 key={color}
