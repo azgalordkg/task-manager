@@ -76,6 +76,7 @@ export const updateTask = ({
   name,
   startDate,
   description,
+  priority,
   hasDeadline,
   repeat,
   tags,
@@ -89,6 +90,7 @@ export const updateTask = ({
       task.startDate = startDate?.getTime();
 
       task.hasDeadline = hasDeadline;
+      task.priority = priority;
       task.isDone = Boolean(isDone);
       task.repeat = repeat;
       task.tags = tags;
@@ -100,12 +102,13 @@ export const prepareUpdateRecurringData = (task: TasksResponseItem) => {
   const start = moment(new Date(Number(task.startDate)));
   const today = moment();
 
-  const { _id, name, repeat, description, hasDeadline, tags } = task;
+  const { _id, name, repeat, description, hasDeadline, tags, priority } = task;
   const updateData = {
     _id,
     name,
     tags,
     repeat,
+    priority,
     description,
     hasDeadline,
     isDone: false,

@@ -1,5 +1,5 @@
 {
-  "ADD_QUICK_TASK": "Add Quick Task",
+  "ADD_QUICK_TASK": "Add Task",
   "HIDE_DAY": "Hide",
   "SHOW_DAY": "Show",
   "NAME_INPUT_PLACEHOLDER": "Task Name",
@@ -10,6 +10,7 @@
   "TASK": "task",
   "DESCRIPTION_INPUT_PLACEHOLDER": "Description",
   "REPEAT": "Repeat",
+  "PRIORITY": "Priority",
   "DATE_INPUT_LABEL": "Date *",
   "DATE_INPUT_PLACEHOLDER": "Choose date",
   "UNSCHEDULED": "Unscheduled",
@@ -20,7 +21,7 @@
   "THIS_WEEKEND": "This Weekend",
   "NEXT_WEEKEND": "Next Weekend",
   "NO_DATE": "No Date",
-  "SET_DUE_TIME": "Set due time",
+  "DUE_TIME": "Due time",
   "START_TIME_INPUT_LABEL": "Start Time",
   "CHOOSE_DATE_INPUT_PLACEHOLDER": "Choose date",
   "END_TIME_INPUT_LABEL": "End Time",

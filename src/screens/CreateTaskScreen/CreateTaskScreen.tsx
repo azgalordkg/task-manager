@@ -47,7 +47,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
 
   return (
     <ModalWrapper
-      rightActionComponent={<ContextMenuButton />}
+      rightActionComponent={taskId && <ContextMenuButton />}
       title={`${title} ${t('TASK')}`}
       onRequestClose={closeModal}>
       <CreateTaskForm

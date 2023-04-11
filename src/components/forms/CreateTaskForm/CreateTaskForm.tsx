@@ -1,19 +1,21 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { isEqual } from 'lodash';
+import moment from 'moment';
 import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Dimensions, View } from 'react-native';
+import { View } from 'react-native';
 
 import { DateFilter, DismissKeyboard, TagsField } from '@/components/features';
-import { Checkbox as CheckboxIcon } from '@/components/icons';
+import { ArrowUpSquare, Checkbox as CheckboxIcon } from '@/components/icons';
 import { Document } from '@/components/icons/Document';
+import { ConfirmModal, PriorityModal } from '@/components/modals';
 import {
   Checkbox,
-  ConfirmModal,
   CustomDatePicker,
   FormContentWrapper,
   Input,
+  InputButton,
   Select,
 } from '@/components/ui';
 import { COLORS, getRepeatList } from '@/constants';
@@ -25,7 +27,11 @@ import {
 } from '@/context/hooks';
 import { deleteOneTask, findOneTask } from '@/services/realm';
 import { CreateTaskData, TasksResponseItem } from '@/types';
-import { prepareTagsForRender, roundAndExtendTimeRange } from '@/utils';
+import {
+  getPriorityObject,
+  prepareTagsForRender,
+  roundAndExtendTimeRange,
+} from '@/utils';
 
 import styles from './CreateTaskForm.styles';
 import { Props } from './CreateTaskForm.types';
@@ -38,6 +44,7 @@ export const CreateTaskForm: FC<Props> = ({
 }) => {
   const [taskForEdit, setTaskForEdit] = useState({} as TasksResponseItem);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [priorityModalVisible, setPriorityModalVisible] = useState(false);
 
   const startDate = roundAndExtendTimeRange();
   const { setTagsForEdit, tags: allTags } = useTagManageContext();
@@ -61,6 +68,7 @@ export const CreateTaskForm: FC<Props> = ({
     defaultValues: {
       startDate,
       repeat: 'Never',
+      priority: 4,
       hasDeadline: false,
     },
     mode: 'onBlur',
@@ -72,6 +80,7 @@ export const CreateTaskForm: FC<Props> = ({
   const prepareEditData = (task: TasksResponseItem) => {
     const { name, description, hasDeadline, tags, repeat } = task;
     setValue('name', name);
+
     if (description) {
       setValue('description', description);
     }
@@ -80,7 +89,16 @@ export const CreateTaskForm: FC<Props> = ({
     }
     if (hasDeadline) {
       setValue('hasDeadline', true);
+    } else {
+      const now = new Date();
+
+      if (task.startDate) {
+        const currentTime = new Date(task.startDate);
+        currentTime.setHours(now.getHours(), now.getMinutes(), 0, 0);
+        setValue('startDate', roundAndExtendTimeRange(moment(currentTime)));
+      }
     }
+
     if (tags?.length) {
       const tagsForEdit = prepareTagsForRender(tags, allTags);
       setTagsForEdit(tagsForEdit.map(({ _id }) => _id));
@@ -127,11 +145,14 @@ export const CreateTaskForm: FC<Props> = ({
   };
 
   const isDisabled = !isInitialDataChanged(taskForEdit, watch()) && isValid;
-  const timeInputWidth = Dimensions.get('window').width / 2 - 30;
   const title = editItemId ? t('EDIT') : t('CREATE');
 
-  const handleShowModal = () => {
+  const handleShowConfirmModal = () => {
     setConfirmModalVisible(!confirmModalVisible);
+  };
+
+  const handleShowPriorityModal = () => {
+    setPriorityModalVisible(!priorityModalVisible);
   };
 
   const handleDeleteTask = () => {
@@ -139,8 +160,18 @@ export const CreateTaskForm: FC<Props> = ({
       deleteOneTask(editItemId);
     }
     onClose();
-    handleShowModal();
+    handleShowConfirmModal();
     fetchList();
+  };
+
+  const activePriority = watch('priority');
+
+  const { label: priorityLabel, color: priorityColor } =
+    getPriorityObject(activePriority);
+
+  const handleChangePriority = (priority: number) => {
+    setValue('priority', priority);
+    handleShowPriorityModal();
   };
 
   return (
@@ -148,7 +179,7 @@ export const CreateTaskForm: FC<Props> = ({
       <FormContentWrapper
         onSubmitPress={handleSubmit(onSubmit)}
         isSubmitDisabled={!isDisabled}
-        onDeletePress={editItemId ? handleShowModal : undefined}
+        onDeletePress={editItemId ? handleShowConfirmModal : undefined}
         submitTitle={title}>
         <View style={styles.inputsWrapper}>
           <Input
@@ -180,6 +211,18 @@ export const CreateTaskForm: FC<Props> = ({
             items={getRepeatList(t, theme.TEXT_PRIMARY)}
             label={`${t('REPEAT')}`}
           />
+          <InputButton
+            value={
+              activePriority < 4
+                ? `${t('PRIORITY')} ${priorityLabel}`
+                : undefined
+            }
+            placeholder={`${t('PRIORITY')}`}
+            onPress={handleShowPriorityModal}
+            name="priority"
+            control={control}
+            icon={<ArrowUpSquare color={priorityColor} />}
+          />
           <View style={styles.dateWrapper}>
             <View>
               <CustomDatePicker
@@ -205,12 +248,11 @@ export const CreateTaskForm: FC<Props> = ({
           control={control}
           name="hasDeadline"
           onValueChange={value => setValue('hasDeadline', value)}
-          label={`${t('SET_DUE_TIME')}`}
+          label={`${t('DUE_TIME')}`}
         />
         {watch('hasDeadline') && (
           <View style={styles.timeContainer}>
             <CustomDatePicker
-              inputWidth={timeInputWidth}
               label={`${t('START_TIME_INPUT_LABEL')}`}
               control={control}
               name="startDate"
@@ -228,7 +270,13 @@ export const CreateTaskForm: FC<Props> = ({
         dismissLabel={`${t('CANCEL_BUTTON')}`}
         visible={confirmModalVisible}
         onPressConfirm={handleDeleteTask}
-        onPressDismiss={handleShowModal}
+        onPressDismiss={handleShowConfirmModal}
+      />
+      <PriorityModal
+        onValueChange={handleChangePriority}
+        activePriorityId={activePriority}
+        onPressDismiss={handleShowPriorityModal}
+        visible={priorityModalVisible}
       />
     </DismissKeyboard>
   );

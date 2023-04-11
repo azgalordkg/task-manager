@@ -16,7 +16,7 @@ export const formatDate = (date: Date | number, format: string) => {
 export const roundAndExtendTimeRange = (defaultStartDate?: moment.Moment) => {
   const startDate = defaultStartDate || moment();
 
-  const minuteRemainder = 15 - (startDate.minute() % 15);
+  const minuteRemainder = 10 - (startDate.minute() % 10);
 
   startDate.add(minuteRemainder, 'minutes');
 

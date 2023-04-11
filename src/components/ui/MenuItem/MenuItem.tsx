@@ -33,7 +33,10 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
   };
 
   return (
-    <TouchableOpacity disabled={!onPress} onPress={onPress}>
+    <TouchableOpacity
+      activeOpacity={0.75}
+      disabled={!onPress}
+      onPress={onPress}>
       <View style={style.contentWrapper}>
         {PrependIcon && (
           <PrependIcon

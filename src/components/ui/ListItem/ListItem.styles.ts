@@ -52,13 +52,11 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
       flexDirection: 'row',
       columnGap: 4,
       alignItems: 'center',
-      marginTop: 6,
     },
     time: {
       color: COLORS.GREEN,
       fontWeight: '400',
       fontSize: 12,
-      lineHeight: 15,
     },
     contentWrapper: {
       flexDirection: 'row',

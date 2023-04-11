@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import { DoneTaskAccordion, QuickTask } from '@/components/features';
-import { ConfirmModal, ListItem, Loader } from '@/components/ui';
+import { ConfirmModal } from '@/components/modals';
+import { ListItem, Loader } from '@/components/ui';
 import { useTaskModalContext } from '@/context/hooks';
 import { deleteOneTask, markTaskAsDone } from '@/services';
 import { filterTasks } from '@/utils';

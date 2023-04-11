@@ -5,12 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
 import { DismissKeyboard } from '@/components/features';
-import {
-  ColorSelect,
-  ConfirmModal,
-  FormContentWrapper,
-  Input,
-} from '@/components/ui';
+import { ConfirmModal } from '@/components/modals';
+import { ColorSelect, FormContentWrapper, Input } from '@/components/ui';
 import { AVAILABLE_COLORS } from '@/constants';
 import { createTagFormSchema } from '@/constants/validation';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';

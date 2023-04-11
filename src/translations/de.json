@@ -1,5 +1,5 @@
 {
-  "ADD_QUICK_TASK": "Schnelle Aufgabe hinzufügen",
+  "ADD_QUICK_TASK": "Eine Aufgabe hinzufügen",
   "HIDE_DAY": "Verstecken",
   "SHOW_DAY": "Anzeigen",
   "NAME_INPUT_PLACEHOLDER": "Name der Aufgabe",
@@ -10,6 +10,7 @@
   "TASK": "aufgabe",
   "DESCRIPTION_INPUT_PLACEHOLDER": "Beschreibung",
   "REPEAT": "Wiederholen",
+  "PRIORITY": "Priorität",
   "DATE_INPUT_LABEL": "Datum *",
   "DATE_INPUT_PLACEHOLDER": "Datum auswählen",
   "UNSCHEDULED": "Außerplanmäßig",
@@ -20,7 +21,7 @@
   "NEXT_WEEKEND": "Nächstes Wochenende",
   "NO_DATE": "Kein Datum",
   "TOMORROW": "Morgen",
-  "SET_DUE_TIME": "Fälligkeitszeitpunkt einstellen",
+  "DUE_TIME": "Fällige Zeit",
   "START_TIME_INPUT_LABEL": "Startzeit",
   "CHOOSE_DATE_INPUT_PLACEHOLDER": "Datum auswählen",
   "END_TIME_INPUT_LABEL": "Endzeit",

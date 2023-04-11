@@ -59,6 +59,7 @@ export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
       ...data,
       startDate,
       repeat: 'Never',
+      priority: 4,
       hasDeadline: false,
       description: '',
     } as CreateTaskData);

@@ -15,9 +15,6 @@ const styles = StyleSheet.create({
   },
   timeContainer: {
     marginBottom: 14,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   dateWrapper: {
     rowGap: 12,

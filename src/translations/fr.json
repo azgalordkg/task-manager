@@ -1,5 +1,5 @@
 {
-  "ADD_QUICK_TASK": "Ajouter une tâche rapide",
+  "ADD_QUICK_TASK": "Ajouter une tâche",
   "HIDE_DAY": "Cacher",
   "SHOW_DAY": "Afficher",
   "NAME_INPUT_PLACEHOLDER": "Nom de la tâche",
@@ -10,6 +10,7 @@
   "TASK": "tâche",
   "DESCRIPTION_INPUT_PLACEHOLDER": "Description",
   "REPEAT": "Répéter",
+  "PRIORITY": "Priorité",
   "DATE_INPUT_LABEL": "Date *",
   "DATE_INPUT_PLACEHOLDER": "Choisir une date",
   "UNSCHEDULED": "Non programmé",
@@ -20,7 +21,7 @@
   "THIS_WEEKEND": "Ce week-end",
   "NEXT_WEEKEND": "Week-end suivant",
   "NO_DATE": "Pas de date",
-  "SET_DUE_TIME": "Définir une heure d'échéance",
+  "DUE_TIME": "Date d'échéance",
   "START_TIME_INPUT_LABEL": "Heure de début",
   "CHOOSE_DATE_INPUT_PLACEHOLDER": "Choisir une date",
   "END_TIME_INPUT_LABEL": "Heure de fin",
