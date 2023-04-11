@@ -5,14 +5,14 @@ export type RootStackParamList = {
   TaskDay: undefined;
   AboutUs: undefined;
   Settings: undefined;
-  ManageTags: undefined;
-  TagsSettings: undefined;
+  ManageLabels: undefined;
+  LabelSettings: undefined;
   AppIcon: undefined;
   ContactUs: undefined;
   RateUs: undefined;
   Purchase: undefined;
   Documents?: { isPrivacyPolicy?: boolean };
-  CreateTag?: { id?: string };
+  CreateLabel?: { id?: string };
   CreateTask?: { id?: string };
   Task: { id: string };
   Theme: undefined;

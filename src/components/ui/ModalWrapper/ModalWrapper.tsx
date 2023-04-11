@@ -18,6 +18,7 @@ export const ModalWrapper: FC<Props> = ({
   onBottomButtonPress,
   onCancelPress = onRequestClose,
   onDonePress,
+  isDoneDisabled,
   cancelText = 'Close',
   doneText,
   title,
@@ -39,7 +40,11 @@ export const ModalWrapper: FC<Props> = ({
           {rightActionComponent
             ? rightActionComponent
             : onDonePress && (
-                <AccentButton onPress={onDonePress}>{doneText}</AccentButton>
+                <AccentButton
+                  isDoneDisabled={isDoneDisabled}
+                  onPress={onDonePress}>
+                  {doneText}
+                </AccentButton>
               )}
         </View>
         {children}

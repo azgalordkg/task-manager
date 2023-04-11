@@ -18,6 +18,7 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
   value,
   color,
   icon = ArrowAngle,
+  onPressIcon,
   prependIcon,
   isFirst,
   isLast,
@@ -36,6 +37,8 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
     vibrate();
     onToggleSwitch?.(currentValue);
   };
+
+  const activeOpacity = onPressIcon && 1;
 
   return (
     <TouchableOpacity disabled={!onPress} onPress={onPress}>
@@ -67,7 +70,9 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
             backgroundOpacity={0}
           />
         )}
-        {Icon && <Icon color={color || COLORS.GREY_ICONS} />}
+        <TouchableOpacity activeOpacity={activeOpacity} onPress={onPressIcon}>
+          {Icon && <Icon color={color || COLORS.GREY_ICONS} />}
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );

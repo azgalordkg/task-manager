@@ -40,7 +40,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
 
   const addTagsHandler = () => {
     vibrate('selection');
-    navigation.navigate('ManageTags');
+    navigation.navigate('ManageLabels');
   };
 
   const title = taskId ? t('EDIT') : t('CREATE');

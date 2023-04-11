@@ -12,6 +12,7 @@ export interface Props {
   color?: string;
   prependIconColor?: string;
   icon?: FC<DefaultSvgProps> | null;
+  onPressIcon?: () => void;
   prependIcon?: FC<DefaultSvgProps>;
   count?: number;
   isCheckbox?: boolean;

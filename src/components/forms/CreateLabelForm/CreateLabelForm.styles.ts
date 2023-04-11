@@ -1,19 +1,28 @@
 import { StyleSheet } from 'react-native';
 
+import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
 
-const styles = (theme: SchemeType) =>
+const styles = (theme: SchemeType, errorMessage?: string) =>
   StyleSheet.create({
-    colorTitle: {
-      color: theme.TEXT_PRIMARY,
-      fontSize: 16,
+    contentWrapper: {
+      marginTop: 30,
+    },
+    textContainer: {
       marginBottom: 19,
+      rowGap: 4,
+    },
+    colorTitle: {
+      color: errorMessage ? COLORS.RED : theme.TEXT_PRIMARY,
+      fontSize: 16,
+    },
+    errorMessage: {
+      color: COLORS.RED,
     },
     colorContainer: {
       paddingVertical: 30,
     },
     colorList: {
-      // justifyContent: 'space-between',
       flexDirection: 'row',
       flexWrap: 'wrap',
       rowGap: 18,
