@@ -78,7 +78,7 @@ export const CreateTaskForm: FC<Props> = ({
   const { theme } = useThemeContext();
 
   const prepareEditData = (task: TasksResponseItem) => {
-    const { name, description, hasDeadline, tags, repeat } = task;
+    const { name, description, hasDeadline, tags, repeat, priority } = task;
     setValue('name', name);
 
     if (description) {
@@ -104,6 +104,7 @@ export const CreateTaskForm: FC<Props> = ({
       setTagsForEdit(tagsForEdit.map(({ _id }) => _id));
     }
     setValue('repeat', repeat);
+    setValue('priority', priority);
   };
 
   useEffect(() => {
@@ -236,10 +237,7 @@ export const CreateTaskForm: FC<Props> = ({
             </View>
             <DateFilter
               currentStartDate={watch('startDate')}
-              onPressHandler={(key, value) => {
-                console.log(value, ' value');
-                setValue(key, value);
-              }}
+              onPressHandler={(key, value) => setValue(key, value)}
             />
           </View>
         </View>

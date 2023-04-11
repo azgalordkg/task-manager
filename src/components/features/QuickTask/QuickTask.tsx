@@ -32,6 +32,7 @@ export const QuickTask: FC<Props> = ({ date }) => {
             orientation="flex-start"
             bgColor="transparent"
             onPress={handleShowInput}
+            height={32}
             fontSize={14}
             icon={Plus}
             textColor={COLORS.GREEN}

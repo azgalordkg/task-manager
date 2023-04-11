@@ -34,7 +34,7 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
       rowGap: 4,
     },
     checkmarkWrapper: {
-      marginRight: 14,
+      marginRight: 8,
     },
     title: {
       fontWeight: '400',

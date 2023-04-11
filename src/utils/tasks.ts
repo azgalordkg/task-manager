@@ -13,6 +13,9 @@ export const filterTasks = (
   }
 };
 
-export const getPriorityObject = (priorityId: number): Priority => {
+export const getPriorityObject = (priorityId?: number): Priority => {
+  if (!priorityId) {
+    return PRIORITIES[3];
+  }
   return PRIORITIES.find(priority => priority.id === priorityId) as Priority;
 };

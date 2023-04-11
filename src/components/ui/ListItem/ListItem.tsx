@@ -13,7 +13,12 @@ import {
   useThemeContext,
 } from '@/context/hooks';
 import { TagsResponseItem } from '@/types';
-import { formatDate, prepareTagsForRender, vibrate } from '@/utils';
+import {
+  formatDate,
+  getPriorityObject,
+  prepareTagsForRender,
+  vibrate,
+} from '@/utils';
 
 import styles from './ListItem.styles';
 import { ListItemProps } from './ListItem.types';
@@ -39,6 +44,7 @@ export const ListItem: FC<ListItemProps> = ({
   isDone,
   repeat,
   description,
+  priority,
 }) => {
   const { theme } = useThemeContext();
   const style = styles({ isLast, checked, theme });
@@ -94,6 +100,8 @@ export const ListItem: FC<ListItemProps> = ({
     [allTags, tags],
   );
 
+  const { color: priorityColor } = getPriorityObject(priority);
+
   return (
     <View style={style.outerContainer}>
       <OutsidePressHandler
@@ -118,8 +126,13 @@ export const ListItem: FC<ListItemProps> = ({
             <View style={style.contentWrapper}>
               <View style={style.checkmarkWrapper}>
                 <CustomCheckbox
-                  defaultColor={COLORS.RED}
-                  checkedColor={COLORS.RED}
+                  defaultColor={priorityColor}
+                  checkedColor={priorityColor}
+                  checkmarkColor={
+                    priorityColor === COLORS.WHITE
+                      ? COLORS.BLACK_DARK
+                      : undefined
+                  }
                   onPress={onCheckPressHandler}
                   checked={checked}
                   size={24}

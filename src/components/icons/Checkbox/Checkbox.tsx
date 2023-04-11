@@ -6,7 +6,13 @@ import { COLORS } from '@/constants';
 
 import { Props } from './Checkbox.types';
 
-export const Checkbox: FC<Props> = ({ color, checked, type, ...props }) => {
+export const Checkbox: FC<Props> = ({
+  color,
+  checkmarkColor,
+  checked,
+  type,
+  ...props
+}) => {
   const isTypeFilled = type === 'filled';
   const fillOpacity = isTypeFilled ? '0.15' : '0.05';
 
@@ -39,7 +45,7 @@ export const Checkbox: FC<Props> = ({ color, checked, type, ...props }) => {
       {checked && (
         <Path
           d="M15.3397 9.21967C15.6326 8.92678 16.1074 8.92678 16.4003 9.21967C16.6666 9.48594 16.6908 9.9026 16.4729 10.1962L16.4003 10.2803L11.6543 15.0263C11.3881 15.2926 10.9715 15.3168 10.6779 15.099L10.5938 15.0264L8.21978 12.6534C7.92683 12.3606 7.92673 11.8857 8.21956 11.5928C8.48577 11.3265 8.90243 11.3022 9.19608 11.52L9.28022 11.5926L11.1231 13.4348L15.3397 9.21967Z"
-          fill={isTypeFilled ? COLORS.WHITE : color}
+          fill={isTypeFilled ? checkmarkColor || COLORS.WHITE : color}
         />
       )}
     </Svg>

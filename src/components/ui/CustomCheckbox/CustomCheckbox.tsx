@@ -13,10 +13,12 @@ export const CustomCheckbox: FC<Props> = ({
   defaultColor = COLORS.WHITE,
   size = 28,
   type,
+  checkmarkColor,
 }) => {
   return (
     <TouchableOpacity onPress={onPress}>
       <Checkbox
+        checkmarkColor={checkmarkColor}
         color={checked ? checkedColor : defaultColor}
         checked={checked}
         width={size}
