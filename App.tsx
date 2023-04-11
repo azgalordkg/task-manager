@@ -13,15 +13,15 @@ import {
 } from '@/context/providers';
 import {
   AboutUsScreen,
-  CreateTagScreen,
+  CreateLabelScreen,
   CreateTaskScreen,
   DashboardScreen,
   DocumentsScreen,
+  LabelSettingsScreen,
   LanguageScreen,
-  ManageTagsScreen,
+  ManageLabelsScreen,
   PurchaseScreen,
   SettingsScreen,
-  TagsSettingsScreen,
   TaskDay,
   ThemeScreen,
 } from '@/screens';
@@ -51,8 +51,8 @@ const App: FC = () => {
                     <Stack.Screen name="TaskDay" component={TaskDay} />
                     <Stack.Screen name="Settings" component={SettingsScreen} />
                     <Stack.Screen
-                      name="TagsSettings"
-                      component={TagsSettingsScreen}
+                      name="LabelSettings"
+                      component={LabelSettingsScreen}
                     />
                     <Stack.Screen name="Theme" component={ThemeScreen} />
                     <Stack.Screen name="Language" component={LanguageScreen} />
@@ -67,12 +67,12 @@ const App: FC = () => {
                       component={CreateTaskScreen}
                     />
                     <Stack.Screen
-                      name="ManageTags"
-                      component={ManageTagsScreen}
+                      name="ManageLabels"
+                      component={ManageLabelsScreen}
                     />
                     <Stack.Screen
-                      name="CreateTag"
-                      component={CreateTagScreen}
+                      name="CreateLabel"
+                      component={CreateLabelScreen}
                     />
                     <Stack.Screen
                       name="Documents"

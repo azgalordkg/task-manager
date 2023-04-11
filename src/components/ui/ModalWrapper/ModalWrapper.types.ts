@@ -7,6 +7,7 @@ export interface CustomProps {
   onBottomButtonPress?: () => void;
   onCancelPress?: () => void;
   onDonePress?: () => void;
+  isDoneDisabled?: boolean;
   cancelText?: string;
   doneText?: string;
   title: string;

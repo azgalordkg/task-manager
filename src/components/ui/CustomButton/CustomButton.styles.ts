@@ -1,7 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
-
 import { Props } from './CustomButton.types';
 
 const styles = ({
@@ -43,7 +41,7 @@ const styles = ({
       color:
         (isFilled && textColor) ||
         (isOutlined && bgColor) ||
-        (isClean && COLORS.BLACK_DARK) ||
+        (isClean && textColor) ||
         'transparent',
     },
   });

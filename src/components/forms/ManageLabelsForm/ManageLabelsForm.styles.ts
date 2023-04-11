@@ -7,6 +7,7 @@ const styles = (theme: SchemeType, isLimit?: boolean) =>
   StyleSheet.create({
     container: {
       flex: 1,
+      marginTop: 30,
     },
     itemsWrapper: {
       paddingVertical: 8,
@@ -27,6 +28,9 @@ const styles = (theme: SchemeType, isLimit?: boolean) =>
     totalCount: {
       fontWeight: isLimit ? '700' : '400',
       color: isLimit ? COLORS.GREEN : theme.TEXT_PRIMARY,
+    },
+    buttonContainer: {
+      marginBottom: 20,
     },
   });
 
