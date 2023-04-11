@@ -38,7 +38,7 @@ export const createDefaultTags = async () => {
 
     if (!isDefaultCreated) {
       createTag({ isDefault: true, color: RED_COLORS.THIRD, name: 'Home' });
-      createTag({ isDefault: true, color: YELLOW_COLORS.THIRD, name: 'Work' });
+      createTag({ isDefault: true, color: YELLOW_COLORS.SECOND, name: 'Work' });
       await Storage.storeData('defaultTags', 'true');
     }
   }

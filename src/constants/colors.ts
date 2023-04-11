@@ -7,9 +7,9 @@ export const RED_COLORS = {
 };
 
 export const PURPLE_COLORS = {
-  THIRD: '#CE36F4',
-  FOURTH: '#8726DE',
-  FIFTH: '#5F2BFA',
+  FIRST: '#CE36F4',
+  SECOND: '#8726DE',
+  THIRD: '#5F2BFA',
 };
 
 export const BLUE_COLORS = {
@@ -20,13 +20,13 @@ export const BLUE_COLORS = {
 };
 
 export const GREEN_COLORS = {
-  THIRD: '#36F482',
+  FIRST: '#36F482',
 };
 
 export const YELLOW_COLORS = {
   FIRST: '#FFEE30',
-  THIRD: '#FFC93D',
-  FIFTH: '#FF9530',
+  SECOND: '#E9A537',
+  THIRD: '#FF9530',
 };
 
 export const COLORS = {
@@ -43,7 +43,7 @@ export const COLORS = {
   BLACK_DARK: '#1F1F1F',
   GREEN: '#3DB39E',
   RED: RED_COLORS.THIRD,
-  YELLOW: YELLOW_COLORS.FIFTH,
+  YELLOW: YELLOW_COLORS.SECOND,
   BLUE: BLUE_COLORS.THIRD,
 };
 
@@ -107,8 +107,8 @@ export const AVAILABLE_COLORS = [
 
 export const COLORS_FOR_BLACK_CHECKMARK = [
   YELLOW_COLORS.FIRST.toLowerCase(),
-  YELLOW_COLORS.THIRD.toLowerCase(),
+  YELLOW_COLORS.SECOND.toLowerCase(),
   BLUE_COLORS.THIRD.toLowerCase(),
   BLUE_COLORS.FORTH.toLowerCase(),
-  GREEN_COLORS.THIRD.toLowerCase(),
+  GREEN_COLORS.FIRST.toLowerCase(),
 ];
