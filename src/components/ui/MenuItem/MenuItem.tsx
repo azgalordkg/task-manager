@@ -2,6 +2,7 @@ import React, { FC, PropsWithChildren } from 'react';
 import { Switch, Text, TouchableOpacity, View } from 'react-native';
 
 import { ArrowAngle } from '@/components/icons';
+import { CustomCheckbox } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 import { vibrate } from '@/utils';
@@ -17,9 +18,13 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
   value,
   color,
   icon = ArrowAngle,
+  onPressIcon,
   prependIcon,
   isFirst,
   isLast,
+  isCheckbox,
+  checked,
+  onToggleCheckbox,
   prependIconColor,
   count,
 }) => {
@@ -27,10 +32,13 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
   const PrependIcon = prependIcon;
   const { theme } = useThemeContext();
   const style = styles(theme, isFirst, isLast);
+  const isShowCheckbox = isCheckbox && onToggleCheckbox;
   const onValueChangePress = (currentValue: boolean) => {
     vibrate();
     onToggleSwitch?.(currentValue);
   };
+
+  const activeOpacity = onPressIcon && 1;
 
   return (
     <TouchableOpacity
@@ -56,7 +64,18 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
             value={value}
           />
         )}
-        {Icon && <Icon color={color || COLORS.GREY_ICONS} />}
+        {isShowCheckbox && (
+          <CustomCheckbox
+            onPress={onToggleCheckbox}
+            type="filled"
+            checked={!!checked}
+            defaultColor={COLORS.GREY_LIGHT}
+            backgroundOpacity={0}
+          />
+        )}
+        <TouchableOpacity activeOpacity={activeOpacity} onPress={onPressIcon}>
+          {Icon && <Icon color={color || COLORS.GREY_ICONS} />}
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );

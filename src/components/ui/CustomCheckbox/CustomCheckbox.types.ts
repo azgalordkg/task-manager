@@ -5,5 +5,6 @@ export interface Props {
   defaultColor?: string;
   size?: number;
   type?: 'filled' | 'outline';
+  backgroundOpacity?: number;
   checkmarkColor?: string;
 }

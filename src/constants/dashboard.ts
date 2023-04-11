@@ -26,7 +26,7 @@ export const DASHBOARD_LIST = [
     color: COLORS.BLUE,
   },
   {
-    navigationName: 'Labels',
+    navigationName: 'LabelSettings',
     prependIcon: Label,
     title: 'LABELS',
     color: COLORS.YELLOW,
