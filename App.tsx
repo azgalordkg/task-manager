@@ -24,6 +24,7 @@ import {
   SettingsScreen,
   TaskDay,
   ThemeScreen,
+  UpcomingScreen,
 } from '@/screens';
 import { RootStackParamList } from '@/types/navigation';
 
@@ -39,7 +40,7 @@ const App: FC = () => {
             <ThemeProvider>
               <NavigationContainer>
                 <Stack.Navigator
-                  initialRouteName="Dashboard"
+                  initialRouteName="Upcoming"
                   screenOptions={{
                     headerShown: false,
                   }}>
@@ -56,6 +57,7 @@ const App: FC = () => {
                     />
                     <Stack.Screen name="Theme" component={ThemeScreen} />
                     <Stack.Screen name="Language" component={LanguageScreen} />
+                    <Stack.Screen name="Upcoming" component={UpcomingScreen} />
                   </Stack.Group>
                   <Stack.Group
                     screenOptions={{
