@@ -1,5 +1,9 @@
+import { t } from 'i18next';
+import moment from 'moment/moment';
+
 import { PRIORITIES } from '@/constants/tasks';
 import { Priority, TasksResponseItem } from '@/types';
+import { formatDate } from '@/utils/date';
 
 export const filterTasks = (
   tasks: TasksResponseItem[],
@@ -18,4 +22,21 @@ export const getPriorityObject = (priorityId?: number): Priority => {
     return PRIORITIES[3];
   }
   return PRIORITIES.find(priority => priority.id === priorityId) as Priority;
+};
+
+export const getDayTitle = (date: Date) => {
+  const momentDate = moment(date);
+  const formattedDate = formatDate(date, 'D MMM');
+  const today = moment().startOf('day');
+  const tomorrow = moment().add(1, 'day').startOf('day');
+  const dayOfWeek = formatDate(date, 'dddd');
+  let todayOrTomorrow = '';
+
+  if (momentDate.isSame(today, 'day')) {
+    todayOrTomorrow = `• ${t('TODAY')}`;
+  } else if (moment(date).isSame(tomorrow, 'day')) {
+    todayOrTomorrow = `• ${t('TOMORROW')}`;
+  }
+
+  return `${formattedDate} ${todayOrTomorrow} • ${dayOfWeek}`;
 };

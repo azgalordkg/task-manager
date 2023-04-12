@@ -9,9 +9,8 @@ import { COLORS } from '@/constants';
 import { vibrate } from '@/utils';
 
 import styles from './QuickTask.styles';
-import { Props } from './QuickTask.types';
 
-export const QuickTask: FC<Props> = ({ date }) => {
+export const QuickTask: FC = () => {
   const [showInput, setShowInput] = useState(false);
   const { t } = useTranslation();
 
@@ -23,7 +22,7 @@ export const QuickTask: FC<Props> = ({ date }) => {
   return (
     <>
       {showInput ? (
-        <QuickTaskForm date={date} handleShowInput={handleShowInput} />
+        <QuickTaskForm handleShowInput={handleShowInput} />
       ) : (
         <View style={styles.buttonWrapper}>
           <CustomButton

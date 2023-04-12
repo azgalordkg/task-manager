@@ -8,13 +8,13 @@ import { COLORS } from '@/constants/colors';
 
 export const DASHBOARD_LIST = [
   {
-    navigationName: 'Unscheduled',
+    navigationName: 'Tasks',
     prependIcon: TimeCircle,
     title: 'UNSCHEDULED',
     color: COLORS.RED,
   },
   {
-    navigationName: 'TaskDay',
+    navigationName: 'Tasks',
     prependIcon: ArrowDownSquare,
     title: 'TODAY',
     color: COLORS.GREEN,

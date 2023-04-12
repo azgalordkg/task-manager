@@ -18,27 +18,10 @@ import { roundAndExtendTimeRange, vibrate } from '@/utils';
 import styles from './QuickTaskForm.styles';
 import { Props } from './QuickTaskForm.types';
 
-export const QuickTaskForm: FC<Props> = ({ date, handleShowInput }) => {
-  const createDateTime = new Date();
+export const QuickTaskForm: FC<Props> = ({ handleShowInput }) => {
   const { t } = useTranslation();
 
-  const combineStartDate = (dateDay: Date, dateTime: Date) => {
-    const day = moment(dateDay);
-    const time = moment(dateTime);
-
-    return moment({
-      year: day.year(),
-      month: day.month(),
-      day: day.date(),
-      hour: time.hour(),
-      minute: time.minute(),
-      second: time.second(),
-    });
-  };
-
-  const startDate = roundAndExtendTimeRange(
-    combineStartDate(new Date(date), createDateTime),
-  );
+  const startDate = roundAndExtendTimeRange(moment());
 
   const { fetchList } = useTaskModalContext();
   const { theme } = useThemeContext();

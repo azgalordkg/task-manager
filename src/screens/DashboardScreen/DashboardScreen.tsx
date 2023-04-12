@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
@@ -7,7 +6,7 @@ import { MainLayout } from '@/components/layouts';
 import { MenuItem } from '@/components/ui';
 import { DASHBOARD_LIST } from '@/constants/dashboard';
 import { useTaskModalContext } from '@/context/hooks';
-import { ScreenProps } from '@/types';
+import { RootStackParamList, ScreenProps } from '@/types';
 
 import styles from './DashboardScreen.styles';
 
@@ -15,18 +14,30 @@ export const DashboardScreen: FC<ScreenProps<'Dashboard'>> = ({
   navigation,
 }) => {
   const { t } = useTranslation();
-  const { navigate } = useNavigation();
 
-  const { taskList, fetchList } = useTaskModalContext();
+  const { taskList, unscheduledTaskList, fetchList } = useTaskModalContext();
 
   useEffect(() => {
     fetchList();
-    navigation.navigate('TaskDay');
+    navigation.navigate('Tasks');
   }, []);
 
   const getCount = (title: string) => {
-    if (title === 'TODAY') {
-      return taskList.length;
+    switch (title) {
+      case 'TODAY':
+        return taskList.length;
+      case 'UNSCHEDULED':
+        return unscheduledTaskList.length;
+      default:
+        return undefined;
+    }
+  };
+
+  const onDashboardItemPress = (title: string, navigationName: string) => {
+    if (title === 'UNSCHEDULED') {
+      navigation.navigate('Tasks', { isUnscheduled: true });
+    } else {
+      navigation.navigate(navigationName as keyof RootStackParamList);
     }
   };
 
@@ -44,9 +55,7 @@ export const DashboardScreen: FC<ScreenProps<'Dashboard'>> = ({
                 count={getCount(title)}
                 prependIconColor={color}
                 prependIcon={prependIcon}
-                onPress={() => {
-                  navigate(navigationName as never);
-                }}>
+                onPress={() => onDashboardItemPress(title, navigationName)}>
                 {t(title)}
               </MenuItem>
             ),
