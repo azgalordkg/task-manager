@@ -13,22 +13,14 @@ export const formatDate = (date: Date | number, format: string) => {
   return moment(date).format(format);
 };
 
-export const roundAndExtendTimeRange = (
-  defaultStartDate?: moment.Moment,
-  defaultEndDate?: moment.Moment,
-) => {
+export const roundAndExtendTimeRange = (defaultStartDate?: moment.Moment) => {
   const startDate = defaultStartDate || moment();
-  const endDate = defaultEndDate || moment();
 
-  const minuteRemainder = 15 - (startDate.minute() % 15);
+  const minuteRemainder = 10 - (startDate.minute() % 10);
 
   startDate.add(minuteRemainder, 'minutes');
-  endDate.add(minuteRemainder, 'minutes').add(1, 'hours');
 
-  return {
-    startDate: startDate.toDate(),
-    endDate: endDate.toDate(),
-  };
+  return startDate.toDate();
 };
 
 export const isDateToday = (date: Moment) => {
@@ -51,4 +43,21 @@ export const getValueForDateInput = (
   }
 
   return formatDate(date, dateFormat);
+};
+
+export const isTodayWeekend = () => {
+  const today = getToday();
+  return today.getDay() === 0 || today.getDay() === 6;
+};
+
+export const getThisSaturday = () => {
+  const today = getToday();
+  const day = today.getDay();
+  const diff = today.getDate() - day + (day === 0 ? -6 : 6);
+  return new Date(today.setDate(diff));
+};
+
+export const getNextSaturday = () => {
+  const thisSaturday = getThisSaturday();
+  return new Date(thisSaturday.setDate(thisSaturday.getDate() + 7));
 };

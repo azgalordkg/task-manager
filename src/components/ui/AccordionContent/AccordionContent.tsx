@@ -30,6 +30,7 @@ export const AccordionContent: FC<Props> = ({
             tags,
             repeat,
             description,
+            priority,
           },
           index,
         ) => {
@@ -37,6 +38,7 @@ export const AccordionContent: FC<Props> = ({
 
           return (
             <MemoizedListItem
+              priority={priority}
               tags={tags}
               key={_id}
               description={description}

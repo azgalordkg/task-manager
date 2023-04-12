@@ -1,7 +1,6 @@
 import { CreateTaskKey } from '@/types';
 
 export interface Props {
-  currentStartDate: Date;
-  currentEndDate: Date;
-  onPressHandler: (name: CreateTaskKey, day: Date) => void;
+  currentStartDate: Date | null;
+  onPressHandler: (name: CreateTaskKey, day: Date | null) => void;
 }

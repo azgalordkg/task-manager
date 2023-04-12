@@ -1,10 +1,9 @@
-import moment from 'moment';
 import React, { FC, useState } from 'react';
 import { useController } from 'react-hook-form';
 import { TouchableOpacity, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-import { Calendar, Clock } from '@/components/icons';
+import { Calendar, TimeCircle } from '@/components/icons';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 
@@ -16,9 +15,8 @@ export const CustomDatePicker: FC<Props> = ({
   control,
   defaultValue,
   name,
-  // label,
   inputWidth,
-  setValue,
+  placeholder,
   ...props
 }) => {
   const { theme, activeTheme } = useThemeContext();
@@ -31,35 +29,9 @@ export const CustomDatePicker: FC<Props> = ({
     name,
   });
 
-  const changeOppositeDate = (currentDate: Date) => {
-    const isStartDate = name === 'startDate';
-    const fieldName = isStartDate ? 'endDate' : 'startDate';
-    const oppositeDate = control._fields[fieldName]?._f.value;
-    const momentDate = moment(+currentDate);
-
-    const isSameOrAfterDate = momentDate.isSameOrAfter(
-      oppositeDate,
-      'hour' && 'minute',
-    );
-    const isSameOrBeforeDate = momentDate.isSameOrBefore(oppositeDate);
-
-    const addMethod = isStartDate && isSameOrAfterDate && 'add';
-    const subtractMethod = !isStartDate && isSameOrBeforeDate && 'subtract';
-
-    const momentMethod = addMethod || subtractMethod;
-
-    if (momentMethod && setValue) {
-      const changedOppositeDate = momentDate[momentMethod](15, 'minutes');
-
-      setValue(fieldName, new Date(+changedOppositeDate));
-    }
-  };
-
   const onConfirm = (currentDate: Date) => {
     setOpen(false);
     field.onChange(currentDate);
-
-    changeOppositeDate(currentDate);
   };
 
   return (
@@ -71,6 +43,7 @@ export const CustomDatePicker: FC<Props> = ({
             onPress={() => setOpen(true)}
           />
           <Input
+            placeholder={placeholder}
             color={theme.TEXT_PRIMARY}
             editable={false}
             isDateTime
@@ -81,7 +54,7 @@ export const CustomDatePicker: FC<Props> = ({
             name={name}
             icon={
               props.mode === 'time' ? (
-                <Clock color={COLORS.GREEN} />
+                <TimeCircle color={COLORS.BLUE} />
               ) : (
                 <Calendar color={COLORS.GREEN} />
               )
@@ -92,8 +65,8 @@ export const CustomDatePicker: FC<Props> = ({
       <DateTimePickerModal
         {...props}
         isVisible={open}
-        date={field.value as Date}
-        minuteInterval={15}
+        date={(field.value as Date) || new Date()}
+        minuteInterval={10}
         isDarkModeEnabled={activeTheme === 'dark'}
         textColor={theme.TEXT_PRIMARY}
         onConfirm={currentDate => onConfirm(currentDate)}

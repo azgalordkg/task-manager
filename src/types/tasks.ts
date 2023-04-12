@@ -11,12 +11,12 @@ export interface TaskBase {
   name: string;
   description?: string;
   hasDeadline?: boolean;
+  priority: number;
   repeat?: RecurringTypes;
 }
 
 export interface CreateTaskData extends TaskBase {
-  startDate: Date;
-  endDate: Date;
+  startDate: Date | null;
   createdAt: Date;
   tags: string[];
 }
@@ -29,8 +29,8 @@ export interface UpdateTaskData extends CreateTaskData {
 export interface TasksResponseItem extends TaskBase {
   _id: string;
   isDone: boolean;
+  priority: number;
   startDate?: number;
-  endDate?: number;
   createdAt: number;
   tags: string[];
 }
@@ -48,3 +48,9 @@ export interface TaskSection {
 export type CreateTaskKey = keyof CreateTaskData;
 
 export type RealmTaskType = Realm.Results<Realm.Object> | any[];
+
+export type Priority = {
+  label: string;
+  id: number;
+  color: string;
+};

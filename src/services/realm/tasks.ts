@@ -13,6 +13,7 @@ import {
   TasksResponseItem,
   UpdateTaskData,
 } from '@/types';
+import { getToday } from '@/utils';
 
 const realm = new Realm({
   path: 'realm-files/taskManager',
@@ -53,9 +54,8 @@ export const createTask = (data: CreateTaskData) => {
         ...data,
         _id: uuidv4().slice(0, 8),
         isDone: false,
-        startDate: data.startDate.getTime(),
-        endDate: data.endDate.getTime(),
-        createdAt: data.startDate.getTime(),
+        startDate: data?.startDate?.getTime(),
+        createdAt: getToday().getTime(),
       });
     });
   }
@@ -75,8 +75,8 @@ export const updateTask = ({
   _id,
   name,
   startDate,
-  endDate,
   description,
+  priority,
   hasDeadline,
   repeat,
   tags,
@@ -87,11 +87,10 @@ export const updateTask = ({
     realm.write(() => {
       task.name = name;
       task.description = description;
-      if (startDate && endDate) {
-        task.startDate = startDate.getTime();
-        task.endDate = endDate.getTime();
-      }
+      task.startDate = startDate?.getTime();
+
       task.hasDeadline = hasDeadline;
+      task.priority = priority;
       task.isDone = Boolean(isDone);
       task.repeat = repeat;
       task.tags = tags;
@@ -101,30 +100,26 @@ export const updateTask = ({
 
 export const prepareUpdateRecurringData = (task: TasksResponseItem) => {
   const start = moment(new Date(Number(task.startDate)));
-  const end = moment(new Date(Number(task.endDate)));
   const today = moment();
 
-  const { _id, name, repeat, description, hasDeadline, tags } = task;
+  const { _id, name, repeat, description, hasDeadline, tags, priority } = task;
   const updateData = {
     _id,
     name,
     tags,
     repeat,
+    priority,
     description,
     hasDeadline,
     isDone: false,
   } as unknown as UpdateTaskData;
 
-  if (task.startDate && task.endDate) {
+  if (task.startDate) {
     start.set('year', today.year());
     start.set('month', today.month());
     start.set('date', today.date());
-    end.set('year', today.year());
-    end.set('month', today.month());
-    end.set('date', today.date());
 
     updateData.startDate = start.toDate();
-    updateData.endDate = end.toDate();
   }
 
   return updateData;

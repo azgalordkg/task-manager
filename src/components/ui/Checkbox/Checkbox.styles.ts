@@ -7,7 +7,7 @@ const styles = (theme: SchemeType) =>
     container: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: 16,
+      marginBottom: 12,
     },
     text: {
       marginLeft: 10,

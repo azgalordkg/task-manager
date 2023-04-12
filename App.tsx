@@ -22,7 +22,7 @@ import {
   ManageLabelsScreen,
   PurchaseScreen,
   SettingsScreen,
-  TaskDay,
+  TasksScreen,
   ThemeScreen,
   UpcomingScreen,
 } from '@/screens';
@@ -49,7 +49,7 @@ const App: FC = () => {
                       name="Dashboard"
                       component={DashboardScreen}
                     />
-                    <Stack.Screen name="TaskDay" component={TaskDay} />
+                    <Stack.Screen name="TaskDay" component={TasksScreen} />
                     <Stack.Screen name="Settings" component={SettingsScreen} />
                     <Stack.Screen
                       name="LabelSettings"

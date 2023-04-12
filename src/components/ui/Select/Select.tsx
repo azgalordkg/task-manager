@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 
-import { ArrowAngle, Repeat } from '@/components/icons';
+import { ArrowForward, Repeat } from '@/components/icons';
 import { InputWrapper } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
@@ -61,7 +61,7 @@ export const Select: FC<Props> = ({
             <Text style={style.input}>
               {formatFrequencyValue(field.value as string)}
             </Text>
-            <ArrowAngle color={COLORS.GREY_LIGHT} />
+            <ArrowForward width={20} height={20} color={COLORS.GREY_ICONS} />
           </View>
         </View>
       </InputWrapper>

@@ -19,7 +19,6 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
   fontSize = 18,
   borderWidth = 2,
   disabled,
-  iconColor = COLORS.WHITE,
   icon,
   iconWidth = 14,
   iconHeight = 14,
@@ -40,13 +39,21 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
     orientation,
   });
 
+  const isFilled = type === 'filled';
+
   return (
     <TouchableOpacity
       activeOpacity={0.5}
       style={style.button}
       onPress={onPress}
       disabled={disabled}>
-      {Icon && <Icon color={iconColor} width={iconWidth} height={iconHeight} />}
+      {Icon && (
+        <Icon
+          color={isFilled ? textColor : bgColor}
+          width={iconWidth}
+          height={iconHeight}
+        />
+      )}
       <Text style={style.text}>{children}</Text>
     </TouchableOpacity>
   );
