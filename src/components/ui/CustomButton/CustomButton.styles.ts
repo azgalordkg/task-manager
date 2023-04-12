@@ -23,7 +23,7 @@ const styles = ({
     button: {
       borderRadius: 10,
       flexDirection: 'row',
-      columnGap: 10,
+      columnGap: 6,
       justifyContent: orientation,
       alignItems: 'center',
       maxWidth: '100%',

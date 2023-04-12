@@ -1,10 +1,11 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, Text, View } from 'react-native';
 
 import { Label, Plus, Trash } from '@/components/icons';
+import { ConfirmModal } from '@/components/modals';
 import { CustomButton, DashedButton, MenuItem } from '@/components/ui';
-import { TAGS_CREATION_LIMITS } from '@/constants';
+import { COLORS, TAGS_CREATION_LIMITS } from '@/constants';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { deleteOneTag } from '@/services';
 import { vibrate } from '@/utils';
@@ -17,16 +18,29 @@ export const ManageLabelsForm: FC<Props> = ({
   onEditTagPress,
   isSettings,
 }) => {
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [deleteId, setDeleteId] = useState('');
   const { theme } = useThemeContext();
   const { currentSelectedTags, selectTagHandler, tags, fetchTags } =
     useTagManageContext();
   const { t } = useTranslation();
 
-  const handleDeleteTask = (id: string) => {
-    if (id) {
-      deleteOneTag(id);
+  const handleDeletePress = (id: string) => {
+    handleShowModal();
+    setDeleteId(id);
+  };
+
+  const handleShowModal = () => {
+    setDeleteId('');
+    setConfirmModalVisible(!confirmModalVisible);
+  };
+
+  const handleDeleteTask = () => {
+    if (deleteId) {
+      deleteOneTag(deleteId);
       fetchTags();
     }
+    handleShowModal();
   };
 
   const isLimit = tags?.length >= TAGS_CREATION_LIMITS;
@@ -35,6 +49,11 @@ export const ManageLabelsForm: FC<Props> = ({
   useEffect(() => {
     fetchTags();
   }, []);
+
+  const onCreateLabelPress = () => {
+    onCreateTagPress();
+    vibrate('selection');
+  };
 
   return (
     <View style={style.container}>
@@ -52,25 +71,23 @@ export const ManageLabelsForm: FC<Props> = ({
             color={theme.TEXT_SECONDARY}
             icon={Plus}
             variant="large"
-            onPress={() => {
-              onCreateTagPress();
-              vibrate('selection');
-            }}>
+            onPress={onCreateLabelPress}>
             {t('CREATE_A_LABEL')}
           </DashedButton>
         </View>
       ) : (
         <CustomButton
+          fullWidth
+          paddingHorizontal={12}
+          bgColor="transparent"
+          onPress={onCreateLabelPress}
           disabled={tags.length >= TAGS_CREATION_LIMITS}
-          icon={Plus}
           height={32}
-          type="clean"
-          textColor={theme.CLEAN_BUTTON_TEXT}
-          iconColor={theme.CLEAN_BUTTON_TEXT}
-          onPress={() => {
-            onCreateTagPress();
-            vibrate('selection');
-          }}>
+          fontSize={16}
+          icon={Plus}
+          textColor={COLORS.GREEN}
+          iconHeight={8}
+          iconWidth={8}>
           {t('CREATE_A_LABEL')}
         </CustomButton>
       )}
@@ -88,7 +105,7 @@ export const ManageLabelsForm: FC<Props> = ({
               icon={isSettings ? Trash : null}
               isCheckbox={!isSettings}
               checked={currentSelectedTags.includes(_id)}
-              onPressIcon={() => handleDeleteTask(_id)}
+              onPressIcon={() => handleDeletePress(_id)}
               onToggleCheckbox={() => {
                 selectTagHandler(_id);
                 vibrate('selection');
@@ -103,6 +120,14 @@ export const ManageLabelsForm: FC<Props> = ({
           );
         })}
       </ScrollView>
+
+      <ConfirmModal
+        confirmLabel={`${t('CONFIRM_MODAL_DELETE')}`}
+        dismissLabel={`${t('CANCEL_BUTTON')}`}
+        visible={confirmModalVisible}
+        onPressConfirm={handleDeleteTask}
+        onPressDismiss={handleShowModal}
+      />
     </View>
   );
 };

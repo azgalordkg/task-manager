@@ -10,9 +10,10 @@ export const AccentButton: FC<PropsWithChildren<Props>> = ({
   children,
   onPress,
   isDoneDisabled,
+  isBold,
 }) => {
   const { theme } = useThemeContext();
-  const style = styles(theme, isDoneDisabled);
+  const style = styles(theme, isDoneDisabled, isBold);
 
   return (
     <TouchableOpacity

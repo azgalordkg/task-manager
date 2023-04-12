@@ -1,10 +1,14 @@
 import { StyleSheet } from 'react-native';
 
 import { SchemeType } from '@/types';
-
-const styles = (theme: SchemeType, isDoneDisabled?: boolean) =>
+const styles = (
+  theme: SchemeType,
+  isDoneDisabled?: boolean,
+  isBold?: boolean,
+) =>
   StyleSheet.create({
     text: {
+      fontWeight: isBold ? '700' : '500',
       color: theme.BUTTONS_PRIMARY,
       opacity: (isDoneDisabled && 0.3) || 1,
     },

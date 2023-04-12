@@ -18,9 +18,9 @@ import { updateRecurringTasks } from '@/services';
 import { ScreenProps } from '@/types';
 import { formatDate, vibrate } from '@/utils';
 
-import styles from './TaskDay.styles';
+import styles from './TasksScreen.styles';
 
-export const TaskDay: FC<ScreenProps<'TaskDay'>> = ({ navigation }) => {
+export const TasksScreen: FC<ScreenProps<'TaskDay'>> = ({ navigation }) => {
   const { taskList, fetchList } = useTaskModalContext();
   const { fetchTags } = useTagManageContext();
   const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);

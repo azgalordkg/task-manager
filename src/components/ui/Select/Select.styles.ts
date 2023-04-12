@@ -6,9 +6,9 @@ import { SchemeType } from '@/types';
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
     input: {
-      fontSize: 18,
-      color: theme.TEXT_SECONDARY,
-      marginRight: 8,
+      fontSize: 16,
+      color: theme.TEXT_PRIMARY,
+      marginRight: 4,
     },
     label: {
       fontSize: 16,
