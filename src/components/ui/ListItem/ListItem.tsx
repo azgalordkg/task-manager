@@ -101,6 +101,8 @@ export const ListItem: FC<ListItemProps> = ({
   );
 
   const { color: priorityColor } = getPriorityObject(priority);
+  const checkmarkColor =
+    priorityColor === COLORS.WHITE ? COLORS.BLACK_DARK : undefined;
 
   return (
     <View style={style.outerContainer}>
@@ -128,11 +130,7 @@ export const ListItem: FC<ListItemProps> = ({
                 <CustomCheckbox
                   defaultColor={priorityColor}
                   checkedColor={priorityColor}
-                  checkmarkColor={
-                    priorityColor === COLORS.WHITE
-                      ? COLORS.BLACK_DARK
-                      : undefined
-                  }
+                  checkmarkColor={checkmarkColor}
                   onPress={onCheckPressHandler}
                   checked={checked}
                   size={24}

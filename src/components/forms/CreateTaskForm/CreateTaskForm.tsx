@@ -156,13 +156,15 @@ export const CreateTaskForm: FC<Props> = ({
   const handleHasDeadlineChange = (value: boolean) => {
     setValue('hasDeadline', value);
     if (editItemId) {
-      const now = new Date();
-
       const currentStartDate = watch('startDate');
       if (currentStartDate) {
-        const currentTime = new Date(currentStartDate);
-        currentTime.setHours(now.getHours(), now.getMinutes(), 0, 0);
-        setValue('startDate', roundAndExtendTimeRange(moment(currentTime)));
+        const currentTime = moment(currentStartDate).set({
+          hours: moment().hours(),
+          minutes: moment().minutes(),
+          seconds: 0,
+          milliseconds: 0,
+        });
+        setValue('startDate', roundAndExtendTimeRange(currentTime));
       }
     }
   };
@@ -219,7 +221,7 @@ export const CreateTaskForm: FC<Props> = ({
           <View style={styles.dateWrapper}>
             <View>
               <CustomDatePicker
-                placeholder="Due date"
+                placeholder={`${t('DUE_DATE')}`}
                 control={control}
                 name="startDate"
                 title={`${t('DATE_INPUT_PLACEHOLDER')}`}
