@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { Text, TouchableOpacity, View } from 'react-native';
 import CalendarPicker from 'react-native-calendar-picker';
 
-import { MonthPicker } from '@/components/features';
 import { ArrowDown } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
+import { MonthPicker } from '@/components/modals';
 import { useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
 import { formatDate } from '@/utils';
