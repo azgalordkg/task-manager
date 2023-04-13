@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
 
 import { useThemeContext } from '@/context/hooks';
 
@@ -10,9 +10,5 @@ export const DocumentsContent: FC<Props> = ({ content }) => {
   const { theme } = useThemeContext();
   const style = styles(theme);
 
-  return (
-    <View>
-      <Text style={style.content}>{content}</Text>
-    </View>
-  );
+  return <Text style={style.content}>{content}</Text>;
 };

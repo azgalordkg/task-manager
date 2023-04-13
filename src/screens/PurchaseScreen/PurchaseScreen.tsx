@@ -22,7 +22,7 @@ export const PurchaseScreen: FC<ScreenProps<'Purchase'>> = ({ navigation }) => {
   const onSubmitPress = () => {};
 
   return (
-    <ModalWrapper onRequestClose={closeModal}>
+    <ModalWrapper title="Purchase" onRequestClose={closeModal}>
       <View style={style.container}>
         <View style={style.contentWrapper}>
           <Text style={style.title}>Unlock Premium Features:</Text>

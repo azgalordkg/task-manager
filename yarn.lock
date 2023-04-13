@@ -1895,11 +1895,6 @@
   resolved "https://registry.npmjs.org/@react-native-community/eslint-plugin/-/eslint-plugin-1.3.0.tgz"
   integrity sha512-+zDZ20NUnSWghj7Ku5aFphMzuM9JulqCW+aPXT6IfIXFbb8tzYTTOSeRFOtuekJ99ibW2fUCSsjuKNlwDIbHFg==
 
-"@react-native-picker/picker@^1.8.3":
-  version "1.16.8"
-  resolved "https://registry.npmjs.org/@react-native-picker/picker/-/picker-1.16.8.tgz"
-  integrity sha512-pacdQDX6V6EmjF+HoiIh6u++qx4mTK0WnhgUHRc01B+Qt5eoeUwseBqmqfTSXTx/aHDEd6PiIw7UGvKgFoqgFQ==
-
 "@react-native-picker/picker@^2.4.8":
   version "2.4.8"
   resolved "https://registry.npmjs.org/@react-native-picker/picker/-/picker-2.4.8.tgz"
@@ -7257,14 +7252,6 @@ react-native-outside-press@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/react-native-outside-press/-/react-native-outside-press-1.1.0.tgz"
   integrity sha512-uapMDdhd+sWc1BtShGOLvOA210cFsVcnbyIjXqoNSKUjmb1Aekb8wO1mIMd0MawHjaMgFLj2ynrPgrfg6Z3Ang==
-
-react-native-picker-select@^8.0.4:
-  version "8.0.4"
-  resolved "https://registry.npmjs.org/react-native-picker-select/-/react-native-picker-select-8.0.4.tgz"
-  integrity sha512-orBjPIwBkV5oipyVw263YNMI56f6Kj3p/ejabZoCYYNSG3AiLVVhC2RqsxMgDA7IayyURAW+AlV+mDJyVqLBkg==
-  dependencies:
-    "@react-native-picker/picker" "^1.8.3"
-    lodash.isequal "^4.5.0"
 
 react-native-reanimated@^2.14.4:
   version "2.15.0"

@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType) =>
@@ -9,13 +8,13 @@ const styles = (theme: SchemeType) =>
       alignItems: 'center',
       flexDirection: 'row',
       borderBottomWidth: 1,
-      borderColor: COLORS.GREY_LIGHT,
+      borderColor: theme.BORDERS.PRIMARY,
       paddingVertical: 20,
     },
     title: {
       flexGrow: 1,
       maxWidth: '95%',
-      color: theme.TEXT_PRIMARY,
+      color: theme.TEXT.PRIMARY,
       fontSize: 16,
       fontWeight: '600',
     },

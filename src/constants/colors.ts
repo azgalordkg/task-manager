@@ -31,9 +31,6 @@ export const YELLOW_COLORS = {
 
 export const COLORS = {
   WHITE: '#FFFFFF',
-  WHITE_LIGHT: '#E9E9E9',
-  WHITE_MEDIUM: '#F5F5F5',
-  WHITE_DARK: '#DCDCDC',
   GREY_LIGHT: '#989898',
   GREY: '#6a6a6a',
   GREY_MEDIUM: '#3F3F3F',

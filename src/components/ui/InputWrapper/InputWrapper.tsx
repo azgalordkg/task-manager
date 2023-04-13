@@ -10,7 +10,7 @@ export const InputWrapper: FC<PropsWithChildren<Props>> = ({
   errorMessage,
   icon,
   children,
-  backgroundColor = COLORS.WHITE_MEDIUM,
+  backgroundColor = COLORS.WHITE,
   borderColor = backgroundColor,
   multiline,
   borderRadius = 12,
