@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 
-import { DEFAULT_THEME } from '@/constants';
+import { THEMES } from '@/constants';
 import { ThemeName } from '@/types';
 import { Storage } from '@/utils';
 
@@ -17,7 +17,6 @@ export const ThemeProviderContext = createContext<ThemeProviderType>(
 );
 
 export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
-  // const scheme = Appearance.getColorScheme();
   const [activeTheme, setActiveTheme] = useState<ThemeName>('default');
 
   const themeHandleChange = async (value: ThemeName) => {
@@ -37,16 +36,9 @@ export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
     void getCurrentTheme();
   }, []);
 
-  const theme = () => {
-    switch (activeTheme) {
-      default:
-        return DEFAULT_THEME;
-    }
-  };
-
   return (
     <ThemeProviderContext.Provider
-      value={{ activeTheme, themeHandleChange, theme: theme() }}>
+      value={{ activeTheme, themeHandleChange, theme: THEMES[activeTheme] }}>
       {children}
     </ThemeProviderContext.Provider>
   );

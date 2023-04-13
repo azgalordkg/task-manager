@@ -72,7 +72,7 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
       )}
       {tasks.length ? (
         <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <View style={style.contentWrapper}>
+          <View style={style.mainWrapper}>
             <TaskList
               isUnscheduled={isUnscheduled}
               onItemPress={handleItemPress}

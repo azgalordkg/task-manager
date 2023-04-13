@@ -20,7 +20,7 @@ export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
     <MainLayout
       screenTitle={`${t('SETTINGS_SCREEN_TITLE')}`}
       onBack={onBackPressHandler}>
-      <View style={styles.contentWrapper}>
+      <View style={styles.mainWrapper}>
         <View style={styles.listWrapper}>
           {SETTINGS_LIST.map(
             ({ prependIcon, title, navigationName }, index) => (

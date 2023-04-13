@@ -8,7 +8,7 @@ const styles = (theme: SchemeType) =>
       flex: 1,
       flexDirection: 'row',
     },
-    contentWrapper: {
+    mainWrapper: {
       marginTop: 30,
       paddingBottom: 100,
       rowGap: 6,

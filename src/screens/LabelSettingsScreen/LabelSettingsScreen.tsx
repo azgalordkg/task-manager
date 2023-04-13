@@ -18,7 +18,7 @@ export const LabelSettingsScreen: FC<ScreenProps<'LabelSettings'>> = ({
     <MainLayout
       onBack={handleClose}
       screenTitle={`${t('LABELS_SCREEN_TITLE')}`}>
-      <View style={styles.contentWrapper}>
+      <View style={styles.mainWrapper}>
         <ManageLabelsForm
           isSettings
           onEditTagPress={id => navigation.navigate('CreateLabel', { id })}

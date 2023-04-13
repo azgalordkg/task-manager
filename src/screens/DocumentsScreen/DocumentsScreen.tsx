@@ -33,7 +33,7 @@ export const DocumentsScreen: FC<ScreenProps<'Documents'>> = ({
 
   return (
     <ModalWrapper title={screenTitle} onRequestClose={onClose}>
-      <View style={style.contentWrapper}>
+      <View style={style.mainWrapper}>
         <View style={style.container}>
           <Text style={style.update}>
             {t('LAST_UPDATED')} {screenContent.LAST_UPDATED}

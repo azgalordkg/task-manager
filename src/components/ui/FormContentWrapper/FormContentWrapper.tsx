@@ -18,7 +18,7 @@ export const FormContentWrapper: FC<PropsWithChildren<Props>> = ({
   const style = styles();
 
   return (
-    <View style={style.contentWrapper}>
+    <View style={style.mainWrapper}>
       <View style={style.fieldsWrapper}>{children}</View>
 
       <CustomButton

@@ -28,4 +28,33 @@ export const DEFAULT_THEME = {
   },
 };
 
+export const JADE_THEME = {
+  ...DEFAULT_THEME,
+  BACKGROUND: {
+    ...DEFAULT_THEME.BACKGROUND,
+    PRIMARY: COLORS.GREEN,
+    ACCENT: COLORS.GREEN,
+  },
+  BUTTONS: {
+    ...DEFAULT_THEME.BUTTONS,
+    PRIMARY: COLORS.GREEN,
+  },
+};
+
+export const THEMES = {
+  default: DEFAULT_THEME,
+  jade: JADE_THEME,
+};
+
 export const DARK_THEMES_LIST: ThemeName[] = ['default', 'jade'];
+
+export const THEMES_MENU_ITEMS = [
+  {
+    label: 'default',
+    color: COLORS.RED,
+  },
+  {
+    label: 'jade',
+    color: COLORS.GREEN,
+  },
+];

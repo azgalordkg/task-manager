@@ -28,7 +28,7 @@ export const LanguageScreen: FC<ScreenProps<'Language'>> = ({ navigation }) => {
     <MainLayout
       screenTitle={`${t('LANGUAGES_SCREEN_TITLE')}`}
       onBack={onBackPressHandler}>
-      <View style={styles.contentWrapper}>
+      <View style={styles.mainWrapper}>
         <View style={styles.listWrapper}>
           {LANGUAGES_LIST.map(({ value, label }, index) => (
             <MenuItem

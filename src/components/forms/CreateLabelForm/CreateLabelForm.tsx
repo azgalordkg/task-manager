@@ -75,7 +75,7 @@ export const CreateLabelForm: FC<Props> = ({
 
   return (
     <DismissKeyboard>
-      <View style={style.contentWrapper}>
+      <View style={style.mainWrapper}>
         <Input
           control={control}
           name="name"

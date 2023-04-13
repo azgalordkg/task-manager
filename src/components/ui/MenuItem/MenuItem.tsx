@@ -45,7 +45,7 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
       activeOpacity={0.75}
       disabled={!onPress}
       onPress={onPress}>
-      <View style={style.contentWrapper}>
+      <View style={style.mainWrapper}>
         {PrependIcon && (
           <PrependIcon
             style={style.prependIcon}

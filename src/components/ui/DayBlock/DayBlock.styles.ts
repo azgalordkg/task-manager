@@ -13,7 +13,7 @@ const styles = ({ isToday, theme }: StyleProps) =>
       paddingVertical: 20,
       backgroundColor: theme.BACKGROUND_SECONDARY,
     },
-    contentWrapper: {
+    mainWrapper: {
       paddingHorizontal: 20,
     },
     dateWrapper: {

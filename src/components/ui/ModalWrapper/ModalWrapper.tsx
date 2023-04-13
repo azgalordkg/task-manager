@@ -19,13 +19,14 @@ export const ModalWrapper: FC<Props> = ({
   doneText,
   title,
   rightActionComponent,
+  contentBackgroundColor,
 }) => {
   const { theme } = useThemeContext();
-  const style = styles(theme, responsiveHeight);
+  const style = styles(theme, responsiveHeight, contentBackgroundColor);
 
   return (
     <View style={style.container}>
-      <View style={style.contentWrapper}>
+      <View style={style.mainWrapper}>
         <View style={style.closerWrapper}>
           <View style={style.closer} />
         </View>
@@ -42,7 +43,7 @@ export const ModalWrapper: FC<Props> = ({
             </AccentButton>
           )}
         </View>
-        {children}
+        <View style={style.contentWrapper}>{children}</View>
       </View>
     </View>
   );

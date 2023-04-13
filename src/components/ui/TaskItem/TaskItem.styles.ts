@@ -53,7 +53,7 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
       fontWeight: '400',
       fontSize: 12,
     },
-    contentWrapper: {
+    mainWrapper: {
       flexDirection: 'row',
       columnGap: 10,
     },

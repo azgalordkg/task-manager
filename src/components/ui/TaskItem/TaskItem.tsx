@@ -20,8 +20,8 @@ import {
   vibrate,
 } from '@/utils';
 
-import styles from './ListItem.styles';
-import { ListItemProps } from './ListItem.types';
+import styles from './TaskItem.styles';
+import { ListItemProps } from './TaskItem.types';
 
 const customComparator = (
   prevProps: ListItemProps,
@@ -30,7 +30,7 @@ const customComparator = (
   return isEqual(prevProps, nextProps);
 };
 
-export const ListItem: FC<ListItemProps> = ({
+export const TaskItem: FC<ListItemProps> = ({
   name,
   tags,
   checked,
@@ -123,7 +123,7 @@ export const ListItem: FC<ListItemProps> = ({
               }
             }}
             style={style.container}>
-            <View style={style.contentWrapper}>
+            <View style={style.mainWrapper}>
               <CustomCheckbox
                 defaultColor={priorityColor}
                 checkedColor={priorityColor}
@@ -182,4 +182,4 @@ export const ListItem: FC<ListItemProps> = ({
   );
 };
 
-export const MemoizedListItem = React.memo(ListItem, customComparator);
+export const MemoizedListItem = React.memo(TaskItem, customComparator);

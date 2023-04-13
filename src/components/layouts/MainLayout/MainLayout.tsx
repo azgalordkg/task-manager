@@ -30,7 +30,7 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
             screenTitle={screenTitle}
           />
 
-          <View style={style.contentWrapper}>{children}</View>
+          <View style={style.mainWrapper}>{children}</View>
         </View>
       </SafeAreaView>
     </>
