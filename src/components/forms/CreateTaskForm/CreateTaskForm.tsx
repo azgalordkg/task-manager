@@ -22,7 +22,7 @@ import { COLORS, getRepeatList } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { findOneTask } from '@/services/realm';
-import { CreateTaskData, TasksResponseItem } from '@/types';
+import { CreateTaskData, CreateTaskKey, TasksResponseItem } from '@/types';
 import {
   getPriorityObject,
   prepareTagsForRender,
@@ -36,6 +36,7 @@ export const CreateTaskForm: FC<Props> = ({
   onSubmit,
   editItemId,
   onAddPress,
+  isUnscheduled,
 }) => {
   const [taskForEdit, setTaskForEdit] = useState({} as TasksResponseItem);
   const [priorityModalVisible, setPriorityModalVisible] = useState(false);
@@ -64,7 +65,7 @@ export const CreateTaskForm: FC<Props> = ({
     reset,
   } = useForm<CreateTaskData>({
     defaultValues: {
-      startDate,
+      startDate: isUnscheduled ? null : startDate,
       repeat: 'Never',
       priority: 4,
       hasDeadline: false,
@@ -153,10 +154,11 @@ export const CreateTaskForm: FC<Props> = ({
     handleShowPriorityModal();
   };
 
+  const currentStartDate = watch('startDate');
+
   const handleHasDeadlineChange = (value: boolean) => {
     setValue('hasDeadline', value);
     if (editItemId) {
-      const currentStartDate = watch('startDate');
       if (currentStartDate) {
         const currentTime = moment(currentStartDate).set({
           hours: moment().hours(),
@@ -167,6 +169,13 @@ export const CreateTaskForm: FC<Props> = ({
         setValue('startDate', roundAndExtendTimeRange(currentTime));
       }
     }
+  };
+
+  const onDateFilterChange = (key: CreateTaskKey, value: Date | null) => {
+    if (!value) {
+      setValue('repeat', 'Never');
+    }
+    setValue(key, value);
   };
 
   return (
@@ -199,12 +208,14 @@ export const CreateTaskForm: FC<Props> = ({
             placeholder={`${t('DESCRIPTION_INPUT_PLACEHOLDER')}`}
             maxLength={255}
           />
-          <Select
-            name="repeat"
-            control={control}
-            items={getRepeatList(t, theme.TEXT_PRIMARY)}
-            label={`${t('REPEAT')}`}
-          />
+          {currentStartDate && (
+            <Select
+              name="repeat"
+              control={control}
+              items={getRepeatList(t, theme.TEXT_PRIMARY)}
+              label={`${t('REPEAT')}`}
+            />
+          )}
           <InputButton
             value={
               activePriority < 4
@@ -229,18 +240,20 @@ export const CreateTaskForm: FC<Props> = ({
               />
             </View>
             <DateFilter
-              currentStartDate={watch('startDate')}
-              onPressHandler={(key, value) => setValue(key, value)}
+              currentStartDate={currentStartDate}
+              onPressHandler={onDateFilterChange}
             />
           </View>
         </View>
 
-        <Checkbox
-          control={control}
-          name="hasDeadline"
-          onValueChange={handleHasDeadlineChange}
-          label={`${t('DUE_TIME')}`}
-        />
+        {currentStartDate && (
+          <Checkbox
+            control={control}
+            name="hasDeadline"
+            onValueChange={handleHasDeadlineChange}
+            label={`${t('DUE_TIME')}`}
+          />
+        )}
         {watch('hasDeadline') && (
           <CustomDatePicker
             control={control}

@@ -1,15 +1,18 @@
 import React, { FC } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { EmptyTasksPlaceholder } from '@/components/icons';
+import { TasksPlaceholder, UnscheduledPlaceholder } from '@/components/icons';
 
 import styles from './EmptyTaskList.styles';
 import { Props } from './EmptyTaskList.types';
 
-export const EmptyTaskList: FC<Props> = ({ handleCreatePress }) => {
+export const EmptyTaskList: FC<Props> = ({
+  handleCreatePress,
+  isUnscheduled,
+}) => {
   return (
     <View style={styles.contentWrapper}>
-      <EmptyTasksPlaceholder />
+      {isUnscheduled ? <UnscheduledPlaceholder /> : <TasksPlaceholder />}
       <View style={styles.textContainer}>
         <Text style={styles.title}>Not much to do yet</Text>
         <TouchableOpacity onPress={handleCreatePress}>

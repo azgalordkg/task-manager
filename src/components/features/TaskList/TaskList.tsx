@@ -12,15 +12,16 @@ import { filterTasks } from '@/utils';
 import styles from './TaskList.styles';
 import { Props } from './TaskList.types';
 
-export const TaskList: FC<Props> = ({ onItemPress, date }) => {
+export const TaskList: FC<Props> = ({ onItemPress, isUnscheduled }) => {
   const { t } = useTranslation();
-  const { taskList, fetchList } = useTaskModalContext();
+  const { taskList, unscheduledTaskList, fetchList } = useTaskModalContext();
 
   const [loading, setLoading] = useState(true);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [deleteId, setDeleteId] = useState('');
 
-  const incompleteTasks = filterTasks(taskList, 'incomplete');
+  const tasks = isUnscheduled ? unscheduledTaskList : taskList;
+  const incompleteTasks = filterTasks(tasks, 'incomplete');
 
   useEffect(() => {
     setTimeout(() => {
@@ -86,11 +87,14 @@ export const TaskList: FC<Props> = ({ onItemPress, date }) => {
         );
       })}
 
-      <View style={styles.buttonContainer}>
-        <QuickTask date={date.toString()} />
-      </View>
+      {!isUnscheduled && (
+        <View style={styles.buttonContainer}>
+          <QuickTask />
+        </View>
+      )}
 
       <DoneTaskAccordion
+        isUnscheduled={isUnscheduled}
         onItemPress={onItemPress}
         onDeletePress={handleDeletePress}
       />

@@ -4,7 +4,7 @@ import Svg, { ClipPath, Defs, G, Path, Rect } from 'react-native-svg';
 
 import { DefaultSvgProps } from '@/types';
 
-export const EmptyTasksPlaceholder: FC<DefaultSvgProps> = ({ ...props }) => (
+export const TasksPlaceholder: FC<DefaultSvgProps> = ({ ...props }) => (
   <Svg
     width="200"
     height="200"
