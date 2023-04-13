@@ -8,7 +8,7 @@ const styles = (theme: SchemeType, inputWidth?: string | number) =>
     container: {
       width: inputWidth || 'auto',
       borderRadius: 12,
-      backgroundColor: theme.INPUT_DEFAULT,
+      backgroundColor: theme.BACKGROUND.NEUTRAL,
     },
     button: {
       position: 'absolute',

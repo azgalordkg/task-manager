@@ -7,7 +7,7 @@ const styles = (theme: SchemeType) =>
   StyleSheet.create({
     input: {
       fontSize: 16,
-      color: theme.TEXT_PRIMARY,
+      color: theme.TEXT.PRIMARY,
       marginRight: 4,
     },
     label: {

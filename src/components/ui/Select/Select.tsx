@@ -41,17 +41,19 @@ export const Select: FC<Props> = ({
       placeholder={{
         label: t('NEVER'),
         value: 'Never',
-        color: theme.TEXT_PRIMARY,
+        color: theme.TEXT.PRIMARY,
       }}
       style={{
-        modalViewBottom: { backgroundColor: theme.BACKGROUND_MODAL },
-        modalViewMiddle: { backgroundColor: theme.BACKGROUND_TASK },
+        modalViewBottom: {
+          backgroundColor: theme.BACKGROUND.INPUT,
+        },
+        modalViewMiddle: {
+          backgroundColor: theme.BACKGROUND.NEUTRAL,
+        },
         chevronContainer: { opacity: 0 },
       }}
       items={items}>
-      <InputWrapper
-        backgroundColor={theme.INPUT_DEFAULT}
-        borderColor={theme.INPUT_DEFAULT}>
+      <InputWrapper backgroundColor={theme.BACKGROUND.INPUT}>
         <View style={style.container}>
           <View style={style.row}>
             <Icon color={COLORS.BLUE} />
@@ -61,7 +63,7 @@ export const Select: FC<Props> = ({
             <Text style={style.input}>
               {formatFrequencyValue(field.value as string)}
             </Text>
-            <ArrowForward width={20} height={20} color={COLORS.GREY_ICONS} />
+            <ArrowForward width={20} height={20} color={theme.ICONS.PRIMARY} />
           </View>
         </View>
       </InputWrapper>

@@ -1,9 +1,7 @@
-import { SchemeType } from '@/types/scheme';
-
-export type themeValue = string | null | undefined;
+import { SchemeType, ThemeName } from '@/types/themes';
 
 export interface ThemeProviderType {
-  activeTheme: themeValue;
-  themeHandleChange: (value: themeValue) => Promise<void>;
+  activeTheme: ThemeName;
+  themeHandleChange: (value: ThemeName) => Promise<void>;
   theme: SchemeType;
 }

@@ -80,11 +80,10 @@ export const CreateLabelForm: FC<Props> = ({
           control={control}
           name="name"
           placeholder={`${t('LABEL_NAME_INPUT_PLACEHOLDER')}`}
-          backgroundColor={theme.INPUT_DEFAULT}
-          borderColor={theme.INPUT_DEFAULT}
-          color={theme.TEXT_PRIMARY}
+          backgroundColor={theme.BACKGROUND.INPUT}
+          color={theme.TEXT.PRIMARY}
           errorMessage={errors.name?.message}
-          icon={<Label color={watch().color || theme.TEXT_SECONDARY} />}
+          icon={<Label color={watch().color || theme.TEXT.SECONDARY} />}
         />
         <View style={style.colorContainer}>
           <View style={style.textContainer}>

@@ -4,7 +4,7 @@ import { TouchableOpacity, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import { Calendar, TimeCircle } from '@/components/icons';
-import { COLORS } from '@/constants';
+import { COLORS, DARK_THEMES_LIST } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 
 import { Input } from '../Input';
@@ -44,12 +44,11 @@ export const CustomDatePicker: FC<Props> = ({
           />
           <Input
             placeholder={placeholder}
-            color={theme.TEXT_PRIMARY}
+            color={theme.TEXT.PRIMARY}
             editable={false}
             isDateTime
             isTime={props.mode === 'time'}
-            backgroundColor={theme.INPUT_DEFAULT}
-            borderColor={theme.INPUT_DEFAULT}
+            backgroundColor={theme.BACKGROUND.INPUT}
             control={control}
             name={name}
             icon={
@@ -67,8 +66,8 @@ export const CustomDatePicker: FC<Props> = ({
         isVisible={open}
         date={(field.value as Date) || new Date()}
         minuteInterval={10}
-        isDarkModeEnabled={activeTheme === 'dark'}
-        textColor={theme.TEXT_PRIMARY}
+        isDarkModeEnabled={DARK_THEMES_LIST.includes(activeTheme)}
+        textColor={theme.TEXT.PRIMARY}
         onConfirm={currentDate => onConfirm(currentDate)}
         onCancel={() => {
           setOpen(false);

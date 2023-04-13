@@ -22,11 +22,11 @@ export const InputButton: FC<Props> = ({
       <TouchableOpacity style={styles.button} onPress={onPress} />
       <Input
         placeholder={placeholder}
-        color={theme.TEXT_PRIMARY}
+        color={theme.TEXT.PRIMARY}
         editable={false}
         value={value}
-        backgroundColor={theme.INPUT_DEFAULT}
-        borderColor={theme.INPUT_DEFAULT}
+        backgroundColor={theme.BACKGROUND.INPUT}
+        borderColor={theme.BACKGROUND.INPUT}
         control={control}
         name={name}
         icon={icon}

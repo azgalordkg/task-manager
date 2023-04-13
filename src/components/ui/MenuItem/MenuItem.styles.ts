@@ -1,13 +1,12 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType, isFirst?: boolean, isLast?: boolean) =>
   StyleSheet.create({
     contentWrapper: {
       paddingHorizontal: 16,
-      backgroundColor: theme.BACKGROUND_MODAL,
+      backgroundColor: theme.BACKGROUND.NEUTRAL,
       flexDirection: 'row',
       width: '100%',
       alignItems: 'center',
@@ -18,18 +17,18 @@ const styles = (theme: SchemeType, isFirst?: boolean, isLast?: boolean) =>
       borderBottomLeftRadius: isLast ? 12 : 0,
       borderBottomRightRadius: isLast ? 12 : 0,
       borderBottomWidth: !isLast ? 1 : 0,
-      borderColor: COLORS.GREY_MEDIUM,
+      borderColor: theme.BORDERS.PRIMARY,
     },
     prependIcon: {
       marginRight: 10,
     },
     text: {
       flexGrow: 1,
-      color: theme.TEXT_PRIMARY,
+      color: theme.TEXT.PRIMARY,
       fontSize: 18,
     },
     count: {
-      color: COLORS.GREY_ICONS,
+      color: theme.ICONS.SECONDARY,
       fontSize: 16,
     },
   });

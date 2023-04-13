@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { QuickTaskForm } from '@/components/forms';
 import { Plus } from '@/components/icons';
 import { CustomButton } from '@/components/ui';
-import { COLORS } from '@/constants';
+import { useThemeContext } from '@/context/hooks';
 import { vibrate } from '@/utils';
 
 import styles from './QuickTask.styles';
@@ -13,6 +13,7 @@ import styles from './QuickTask.styles';
 export const QuickTask: FC = () => {
   const [showInput, setShowInput] = useState(false);
   const { t } = useTranslation();
+  const { theme } = useThemeContext();
 
   const handleShowInput = () => {
     vibrate();
@@ -34,7 +35,7 @@ export const QuickTask: FC = () => {
             height={32}
             fontSize={14}
             icon={Plus}
-            textColor={COLORS.GREEN}
+            textColor={theme.BUTTONS.PRIMARY}
             iconHeight={8}
             iconWidth={8}>
             {t('ADD_QUICK_TASK')}

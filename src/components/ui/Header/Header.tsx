@@ -32,7 +32,7 @@ export const Header: FC<Props> = ({
       <View style={style.iconContainer}>
         {onBack && (
           <TouchableOpacity onPress={onBack}>
-            <ArrowBack color={theme.TEXT_PRIMARY} />
+            <ArrowBack color={theme.ICONS.PRIMARY} />
           </TouchableOpacity>
         )}
         <Text style={style.screenTitle}>{screenTitle}</Text>
@@ -42,17 +42,17 @@ export const Header: FC<Props> = ({
         {isFilter && (
           <>
             <TouchableOpacity onPress={onSearchPress}>
-              <Search color={theme.TEXT_PRIMARY} />
+              <Search color={theme.ICONS.PRIMARY} />
             </TouchableOpacity>
 
             {/*<TouchableOpacity onPress={onFilterPress}>
-              <Filter color={theme.TEXT_PRIMARY} />
+              <Filter color={theme.ICONS.PRIMARY} />
             </TouchableOpacity>*/}
           </>
         )}
         {isSettings && (
           <TouchableOpacity onPress={onSettingPress}>
-            <Setting color={theme.TEXT_PRIMARY} />
+            <Setting color={theme.ICONS.PRIMARY} />
           </TouchableOpacity>
         )}
       </View>

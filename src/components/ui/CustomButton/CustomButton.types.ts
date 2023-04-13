@@ -15,6 +15,7 @@ export interface Props {
   borderWidth?: number;
   disabled?: boolean;
   icon?: FC<DefaultSvgProps>;
+  borderRadius?: number;
   iconWidth?: number;
   iconHeight?: number;
   orientation?: 'flex-start' | 'center' | 'flex-end';

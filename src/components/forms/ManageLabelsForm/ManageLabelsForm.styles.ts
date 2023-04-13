@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType, isLimit?: boolean) =>
@@ -15,19 +14,18 @@ const styles = (theme: SchemeType, isLimit?: boolean) =>
       flexGrow: 1,
     },
     message: {
-      marginTop: 12,
-      marginBottom: 4,
+      marginBottom: 18,
       fontSize: 16,
-      color: COLORS.GREY_LIGHT,
+      color: theme.TEXT.SECONDARY,
     },
     total: {
       fontSize: 16,
-      color: theme.TEXT_PRIMARY,
-      marginBottom: 12,
+      color: isLimit ? theme.TEXT.PRIMARY : theme.TEXT.SECONDARY,
+      marginBottom: 8,
     },
     totalCount: {
       fontWeight: isLimit ? '700' : '400',
-      color: isLimit ? COLORS.GREEN : theme.TEXT_PRIMARY,
+      color: isLimit ? theme.BUTTONS.PRIMARY : theme.TEXT.SECONDARY,
     },
     buttonContainer: {
       marginBottom: 20,

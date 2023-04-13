@@ -16,7 +16,7 @@ const styles = (theme: SchemeType) =>
       paddingVertical: 3,
       marginRight: 10,
       fontSize: 18,
-      color: theme.TEXT_SECONDARY,
+      color: theme.TEXT.SECONDARY,
     },
     tagsWrapper: {
       flexDirection: 'row',

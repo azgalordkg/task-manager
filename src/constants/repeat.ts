@@ -2,12 +2,12 @@ import { TFunction } from 'i18next';
 
 export const getRepeatList = (
   t: TFunction<'translation', undefined, 'translation'>,
-  color: string,
 ) => {
   return [
-    { label: t('DAILY'), value: 'Daily', color },
-    { label: t('WEEKLY'), value: 'Weekly', color },
-    { label: t('MONTHLY'), value: 'Monthly', color },
-    { label: t('YEARLY'), value: 'Yearly', color },
+    { label: t('NEVER'), value: 'Never' },
+    { label: t('DAILY'), value: 'Daily' },
+    { label: t('WEEKLY'), value: 'Weekly' },
+    { label: t('MONTHLY'), value: 'Monthly' },
+    { label: t('YEARLY'), value: 'Yearly' },
   ];
 };

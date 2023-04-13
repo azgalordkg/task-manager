@@ -5,22 +5,22 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { Appearance } from 'react-native';
 
-import { DARK_SCHEMA, LIGHT_SCHEMA } from '@/constants';
+import { DEFAULT_THEME } from '@/constants';
+import { ThemeName } from '@/types';
 import { Storage } from '@/utils';
 
-import { ThemeProviderType, themeValue } from './ThemeProvider.types';
+import { ThemeProviderType } from './ThemeProvider.types';
 
 export const ThemeProviderContext = createContext<ThemeProviderType>(
   {} as ThemeProviderType,
 );
 
 export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
-  const scheme = Appearance.getColorScheme();
-  const [activeTheme, setActiveTheme] = useState<themeValue>('dark');
+  // const scheme = Appearance.getColorScheme();
+  const [activeTheme, setActiveTheme] = useState<ThemeName>('default');
 
-  const themeHandleChange = async (value: themeValue) => {
+  const themeHandleChange = async (value: ThemeName) => {
     value && setActiveTheme(value);
     await Storage.storeData('theme', value);
   };
@@ -38,12 +38,9 @@ export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
   }, []);
 
   const theme = () => {
-    const isSystem = activeTheme === 'system' ? scheme : activeTheme;
-
-    if (isSystem === 'light') {
-      return LIGHT_SCHEMA;
-    } else {
-      return DARK_SCHEMA;
+    switch (activeTheme) {
+      default:
+        return DEFAULT_THEME;
     }
   };
 

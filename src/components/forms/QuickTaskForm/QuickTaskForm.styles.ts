@@ -4,23 +4,21 @@ import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
-    contentWrapper: {
-      height: 126,
-    },
     container: {
-      padding: 8,
+      padding: 10,
       borderRadius: 12,
-      backgroundColor: theme.BACKGROUND_TASK,
+      backgroundColor: theme.BACKGROUND.NEUTRAL,
       flexDirection: 'row',
       columnGap: 14,
+      marginBottom: 10,
     },
     inputContainer: {
       width: '100%',
+      rowGap: 10,
     },
     buttonWrapper: {
       flexDirection: 'row',
       columnGap: 12,
-      marginTop: 8,
     },
   });
 

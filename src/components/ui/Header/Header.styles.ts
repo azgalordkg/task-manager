@@ -1,25 +1,24 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
     header: {
       paddingHorizontal: 16,
-      paddingBottom: 8,
+      paddingBottom: 10,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      backgroundColor: COLORS.GREEN,
+      backgroundColor: theme.BACKGROUND.PRIMARY,
     },
     iconContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-      columnGap: 20,
+      columnGap: 16,
     },
     screenTitle: {
-      color: theme.TEXT_PRIMARY,
+      color: theme.TEXT.PRIMARY,
       fontSize: 18,
       fontWeight: '500',
     },

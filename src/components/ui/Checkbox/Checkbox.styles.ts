@@ -10,8 +10,8 @@ const styles = (theme: SchemeType) =>
       marginBottom: 12,
     },
     text: {
-      marginLeft: 10,
-      color: theme.TEXT_PRIMARY,
+      marginLeft: 8,
+      color: theme.TEXT.PRIMARY,
       fontSize: 16,
     },
   });
