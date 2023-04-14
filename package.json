@@ -29,7 +29,7 @@
     "react-hook-form": "^7.43.0",
     "react-i18next": "^12.2.0",
     "react-native": "0.71.4",
-    "react-native-calendar-picker": "^7.1.4",
+    "react-native-calendars": "^1.1294.0",
     "react-native-collapsible": "^1.6.0",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-get-random-values": "^1.8.0",

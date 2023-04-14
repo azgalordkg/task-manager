@@ -10,7 +10,7 @@ import styles from './MountPickerItem.styles';
 export const MonthPickerItem: FC<Props> = ({
   monthItem,
   handleDatePress,
-  selectedDate,
+  selectedMonth,
 }) => {
   const { theme } = useThemeContext();
   const style = styles(theme);
@@ -24,8 +24,10 @@ export const MonthPickerItem: FC<Props> = ({
 
       <View style={style.monthContainer}>
         {monthItem[+yearTitle].map(({ name, value }) => {
-          const isSelectedDate = selectedDate === value;
-          const momentValue = moment(new Date(value));
+          const isSelectedDate =
+            moment(selectedMonth).isSame(value, 'month') &&
+            moment(selectedMonth).isSame(value, 'year');
+          const momentValue = moment(value);
 
           const isToday =
             today.isSame(momentValue, 'month') &&

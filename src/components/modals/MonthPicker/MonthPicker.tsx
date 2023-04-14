@@ -40,11 +40,11 @@ export const MonthPicker: FC<Props> = ({
   handleChangeMonth,
 }) => {
   const momentDate = moment();
-  const [selectedDate, setSelectedDate] = useState(momentDate.toString());
+  const [selectedMonth, setSelectedMonth] = useState(momentDate.toString());
 
   const isDisabled =
-    momentDate.isSame(moment(selectedDate), 'month') &&
-    momentDate.isSame(moment(selectedDate), 'year');
+    momentDate.isSame(moment(+selectedMonth), 'month') &&
+    momentDate.isSame(moment(+selectedMonth), 'year');
 
   const prepareMonthList = () => {
     const currentYear = momentDate.year();
@@ -63,24 +63,25 @@ export const MonthPicker: FC<Props> = ({
   };
 
   const handleDatePress = (date: string) => {
-    setSelectedDate(date);
+    setSelectedMonth(date);
   };
 
   const handlePressClose = () => {
     handleVisibleModal();
-    handleChangeMonth(selectedDate);
+    handleChangeMonth(moment(selectedMonth).toDate());
   };
 
   const handleDonePress = () => {
     handleVisibleModal();
-    handleChangeMonth(momentDate.toString());
+    handleChangeMonth(moment(moment(), 'DD.MM.YYYY').toDate());
   };
 
   return (
     <GestureRecognizer onSwipeDown={handleVisibleModal}>
       <Modal
         animationType="slide"
-        presentationStyle="formSheet"
+        presentationStyle="overFullScreen"
+        transparent
         visible={isVisibleModal}>
         <ModalWrapper
           title="Select a Month"
@@ -94,7 +95,7 @@ export const MonthPicker: FC<Props> = ({
               key={Object.keys(monthItem)[0]}
               monthItem={monthItem}
               handleDatePress={handleDatePress}
-              selectedDate={selectedDate}
+              selectedMonth={selectedMonth}
             />
           ))}
         </ModalWrapper>

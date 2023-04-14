@@ -28,6 +28,13 @@ export const getRecurringTasks = (type: RecurringTypes = 'Daily') => {
   return [];
 };
 
+export const getAllTasks = () => {
+  if (realm) {
+    return realm.objects('Task');
+  }
+  return [];
+};
+
 export const getTasks = (targetDate: number) => {
   if (realm) {
     const targetDateStart = new Date(targetDate);

@@ -5,14 +5,13 @@ import { SchemeType } from '@/types';
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
     contentWrapper: {
-      paddingHorizontal: 20,
       marginTop: 20,
-      // backgroundColor: 'white',
     },
     headerStyle: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       marginBottom: 20,
+      width: '100%',
     },
     todayText: {
       fontWeight: '500',
@@ -32,8 +31,8 @@ const styles = (theme: SchemeType) =>
       color: theme.TEXT_PRIMARY,
     },
 
-    datePickerHeader: {
-      display: 'none',
+    datePicker: {
+      // backgroundColor: 'transparent',
     },
     datePickerTodayTextStyle: {
       color: theme.TEXT_ACCENT_COLOR,
@@ -50,8 +49,33 @@ const styles = (theme: SchemeType) =>
     datePickerSelectedDayStyle: {
       borderRadius: 4,
       borderStyle: 'solid',
+      backgroundColor: 'transparent',
       borderWidth: 1,
       borderColor: theme.TEXT_ACCENT_COLOR,
+    },
+    dayTitle: {
+      marginHorizontal: 20,
+      marginTop: 30,
+      marginBottom: 20,
+      fontWeight: '600',
+      fontSize: 14,
+      color: theme.TEXT_PRIMARY,
+    },
+    taskListWrapper: {
+      paddingBottom: 100,
+      rowGap: 6,
+      flex: 1,
+    },
+    buttonWrapper: {
+      backgroundColor: theme.BUTTONS_PRIMARY,
+      width: 60,
+      height: 60,
+      borderRadius: 30,
+      alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      bottom: 20,
+      right: 20,
     },
   });
 

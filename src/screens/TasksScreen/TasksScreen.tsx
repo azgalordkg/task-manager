@@ -1,6 +1,4 @@
 import { useIsFocused } from '@react-navigation/native';
-import { t } from 'i18next';
-import moment from 'moment';
 import React, { FC, useEffect, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
@@ -16,7 +14,7 @@ import {
 } from '@/context/hooks';
 import { updateRecurringTasks } from '@/services';
 import { ScreenProps } from '@/types';
-import { formatDate, vibrate } from '@/utils';
+import { getDayTitle, vibrate } from '@/utils';
 
 import styles from './TasksScreen.styles';
 
@@ -56,23 +54,6 @@ export const TasksScreen: FC<ScreenProps<'TaskDay'>> = ({ navigation }) => {
   const handleCreatePress = () => {
     vibrate('selection');
     navigation.navigate('CreateTask');
-  };
-
-  const getDayTitle = (date: Date) => {
-    const momentDate = moment(date);
-    const formattedDate = formatDate(date, 'D MMM');
-    const today = moment().startOf('day');
-    const tomorrow = moment().add(1, 'day').startOf('day');
-    const dayOfWeek = formatDate(date, 'dddd');
-    let todayOrTomorrow = '';
-
-    if (momentDate.isSame(today, 'day')) {
-      todayOrTomorrow = `• ${t('TODAY')}`;
-    } else if (moment(date).isSame(tomorrow, 'day')) {
-      todayOrTomorrow = `• ${t('TOMORROW')}`;
-    }
-
-    return `${formattedDate} ${todayOrTomorrow} • ${dayOfWeek}`;
   };
 
   const dayTitle = getDayTitle(new Date());
