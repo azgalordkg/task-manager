@@ -7,7 +7,7 @@ const styles = (theme: SchemeType) =>
     container: {
       flex: 1,
     },
-    contentWrapper: {
+    mainWrapper: {
       flex: 1,
       alignItems: 'center',
     },

@@ -26,7 +26,7 @@ export const PurchaseScreen: FC<ScreenProps<'Purchase'>> = ({ navigation }) => {
   return (
     <ModalScreenWrapper title={`${t('PURCHASE')}`} onRequestClose={closeModal}>
       <View style={style.container}>
-        <View style={style.contentWrapper}>
+        <View style={style.mainWrapper}>
           <Text style={style.title}>Unlock Premium Features:</Text>
           <Text style={style.subTitle}>
             Upgrade to a Paid Subscription Today!

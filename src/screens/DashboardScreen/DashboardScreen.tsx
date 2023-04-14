@@ -43,7 +43,7 @@ export const DashboardScreen: FC<ScreenProps<'Dashboard'>> = ({
 
   return (
     <MainLayout screenTitle="Dashboard" isSettings>
-      <View style={styles.contentWrapper}>
+      <View style={styles.mainWrapper}>
         <View style={styles.listWrapper}>
           {DASHBOARD_LIST.map(
             ({ prependIcon, title, navigationName, color }, index) => (

@@ -16,9 +16,6 @@ const styles = (theme: SchemeType) =>
     mainWrapper: {
       flex: 1,
     },
-    contentWrapper: {
-      flex: 1,
-    },
   });
 
 export default styles;

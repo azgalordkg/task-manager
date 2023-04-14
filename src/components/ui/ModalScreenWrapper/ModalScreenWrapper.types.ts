@@ -8,6 +8,7 @@ export interface CustomProps {
   isDoneDisabled?: boolean;
   cancelText?: string;
   doneText?: string;
+  contentBackgroundColor?: string;
   title: string;
   rightActionComponent?: ReactNode;
 }

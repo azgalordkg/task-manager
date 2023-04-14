@@ -37,7 +37,7 @@ export const DayBlock: FC<PropsWithChildren<Props>> = ({
 
         <Text style={style.accordionVisibleStatus}>{accordionStatus}</Text>
       </View>
-      <View style={style.contentWrapper}>{children}</View>
+      <View style={style.mainWrapper}>{children}</View>
     </View>
   );
 };

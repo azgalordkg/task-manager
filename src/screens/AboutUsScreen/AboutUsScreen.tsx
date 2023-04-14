@@ -20,7 +20,7 @@ export const AboutUsScreen: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
     <ModalScreenWrapper
       title={`${t('ABOUT_US_SCREEN_TITLE')}`}
       onRequestClose={handleClose}>
-      <View style={style.contentWrapper}>
+      <View style={style.mainWrapper}>
         <View style={style.contentContainer}>
           <Text style={style.screenTitle}>{t('ABOUT_US_TITLE')}</Text>
 

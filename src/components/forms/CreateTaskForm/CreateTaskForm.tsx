@@ -60,7 +60,7 @@ export const CreateTaskForm: FC<Props> = ({
     tags: allTags,
     clearSelectedTags,
   } = useTagManageContext();
-  const { theme } = useThemeContext();
+  const { theme, isDark } = useThemeContext();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -163,8 +163,10 @@ export const CreateTaskForm: FC<Props> = ({
 
   const activePriority = watch('priority');
 
-  const { label: priorityLabel, color: priorityColor } =
-    getPriorityObject(activePriority);
+  const { label: priorityLabel, color: priorityColor } = getPriorityObject(
+    isDark,
+    activePriority,
+  );
 
   const handleChangePriority = (priority: number) => {
     setValue('priority', priority);
@@ -196,6 +198,7 @@ export const CreateTaskForm: FC<Props> = ({
   const onDateFilterChange = (key: CreateTaskKey, value: Date | null) => {
     if (!value) {
       setValue('repeat', 'Never');
+      setValue('hasDeadline', false);
     }
     setValue(key, value);
   };
@@ -270,14 +273,12 @@ export const CreateTaskForm: FC<Props> = ({
           </View>
         </View>
 
-        {currentStartDate && (
-          <Checkbox
-            control={control}
-            name="hasDeadline"
-            onValueChange={handleHasDeadlineChange}
-            label={`${t('DUE_TIME')}`}
-          />
-        )}
+        <Checkbox
+          control={control}
+          name="hasDeadline"
+          onValueChange={handleHasDeadlineChange}
+          label={`${t('DUE_TIME')}`}
+        />
         {watch('hasDeadline') && (
           <CustomDatePicker
             control={control}

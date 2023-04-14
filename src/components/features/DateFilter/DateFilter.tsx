@@ -4,6 +4,7 @@ import { View } from 'react-native';
 
 import { CloseCircle } from '@/components/icons';
 import { COLORS } from '@/constants';
+import { useThemeContext } from '@/context/hooks';
 import {
   getDateFromToday,
   getNextSaturday,
@@ -20,6 +21,7 @@ import { Props } from './DateFilter.types';
 
 export const DateFilter: FC<Props> = ({ currentStartDate, onPressHandler }) => {
   const { t } = useTranslation();
+  const { isDark } = useThemeContext();
 
   const getCurrentValue = (startDate: Date | null) => {
     if (!currentStartDate && !startDate) {
@@ -54,9 +56,12 @@ export const DateFilter: FC<Props> = ({ currentStartDate, onPressHandler }) => {
           onPressHandler('startDate', startDate);
         };
 
-        const { title, color } = renderTitle(t, index);
-        const isNoDate = color === COLORS.WHITE;
-        const textColor = isNoDate ? COLORS.BLACK_DARK : COLORS.WHITE;
+        const { title, color, isNoDate } = renderTitle(t, index, isDark);
+        let textColor = isNoDate ? COLORS.BLACK_DARK : COLORS.WHITE;
+
+        if (!isDark && isNoDate) {
+          textColor = COLORS.WHITE;
+        }
 
         return (
           <View key={index} style={styles.dateButtonContainer}>

@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 const styles = () =>
   StyleSheet.create({
-    contentWrapper: {
+    mainWrapper: {
       marginTop: 20,
       width: '100%',
       flex: 1,

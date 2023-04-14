@@ -20,8 +20,8 @@ import {
   vibrate,
 } from '@/utils';
 
-import styles from './ListItem.styles';
-import { ListItemProps } from './ListItem.types';
+import styles from './TaskItem.styles';
+import { ListItemProps } from './TaskItem.types';
 
 const customComparator = (
   prevProps: ListItemProps,
@@ -30,7 +30,7 @@ const customComparator = (
   return isEqual(prevProps, nextProps);
 };
 
-export const ListItem: FC<ListItemProps> = ({
+export const TaskItem: FC<ListItemProps> = ({
   name,
   tags,
   checked,
@@ -46,7 +46,7 @@ export const ListItem: FC<ListItemProps> = ({
   description,
   priority,
 }) => {
-  const { theme } = useThemeContext();
+  const { theme, isDark } = useThemeContext();
   const style = styles({ isLast, checked, theme });
   const swipeRef = useRef<Swipeable | null>(null);
   const [swiping, setSwiping] = useState(false);
@@ -98,9 +98,8 @@ export const ListItem: FC<ListItemProps> = ({
     [allTags, tags],
   );
 
-  const { color: priorityColor } = getPriorityObject(priority);
-  const checkmarkColor =
-    priorityColor === COLORS.WHITE ? COLORS.BLACK_DARK : undefined;
+  const { color: priorityColor, isLight } = getPriorityObject(isDark, priority);
+  const checkmarkColor = isDark && isLight ? COLORS.BLACK_DARK : undefined;
 
   return (
     <View style={style.outerContainer}>
@@ -123,7 +122,7 @@ export const ListItem: FC<ListItemProps> = ({
               }
             }}
             style={style.container}>
-            <View style={style.contentWrapper}>
+            <View style={style.mainWrapper}>
               <CustomCheckbox
                 defaultColor={priorityColor}
                 checkedColor={priorityColor}
@@ -182,4 +181,4 @@ export const ListItem: FC<ListItemProps> = ({
   );
 };
 
-export const MemoizedListItem = React.memo(ListItem, customComparator);
+export const MemoizedListItem = React.memo(TaskItem, customComparator);

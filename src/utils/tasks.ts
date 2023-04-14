@@ -1,6 +1,7 @@
 import { t } from 'i18next';
 import moment from 'moment/moment';
 
+import { COLORS } from '@/constants';
 import { PRIORITIES } from '@/constants/tasks';
 import { getAllTasks } from '@/services';
 import { Priority, SchemeType, TasksResponseItem } from '@/types';
@@ -18,9 +19,15 @@ export const filterTasks = (
   }
 };
 
-export const getPriorityObject = (priorityId?: number): Priority => {
-  if (!priorityId) {
-    return PRIORITIES[3];
+export const getPriorityObject = (
+  isDark: boolean,
+  priorityId?: number,
+): Priority => {
+  if (!priorityId || priorityId === 4) {
+    return {
+      ...PRIORITIES[3],
+      ...(!isDark ? { color: COLORS.GREY_LIGHT } : {}),
+    };
   }
   return PRIORITIES.find(priority => priority.id === priorityId) as Priority;
 };

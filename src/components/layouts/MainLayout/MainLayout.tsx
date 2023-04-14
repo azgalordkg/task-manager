@@ -14,14 +14,14 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
   isFilter,
   isSettings,
 }) => {
-  const { theme } = useThemeContext();
+  const { theme, isDark } = useThemeContext();
   const style = styles(theme);
 
   return (
     <>
       <SafeAreaView style={style.topView} />
       <SafeAreaView style={style.backgroundStyle}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
         <View style={style.mainWrapper}>
           <Header
             isFilter={isFilter}
@@ -30,7 +30,7 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
             screenTitle={screenTitle}
           />
 
-          <View style={style.contentWrapper}>{children}</View>
+          <View style={style.mainWrapper}>{children}</View>
         </View>
       </SafeAreaView>
     </>

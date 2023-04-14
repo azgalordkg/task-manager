@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { SchemeType } from '@/types';
+import { addShadow } from '@/utils';
 
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
@@ -11,6 +12,13 @@ const styles = (theme: SchemeType) =>
       alignItems: 'center',
       justifyContent: 'space-between',
       backgroundColor: theme.BACKGROUND.PRIMARY,
+      ...addShadow({
+        shadowOpacity: 0.05,
+        width: 1,
+        height: 1,
+        shadowRadius: 1,
+        elevation: 1,
+      }),
     },
     iconContainer: {
       flexDirection: 'row',

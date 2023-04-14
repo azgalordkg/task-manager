@@ -4,7 +4,7 @@ import { View } from 'react-native';
 
 import { DoneTaskAccordion, QuickTask } from '@/components/features';
 import { ConfirmModal } from '@/components/modals';
-import { ListItem } from '@/components/ui';
+import { TaskItem } from '@/components/ui';
 import { useTaskModalContext } from '@/context/hooks';
 import { deleteOneTask, markTaskAsDone } from '@/services';
 import { filterTasks } from '@/utils';
@@ -62,7 +62,7 @@ export const TaskList: FC<Props> = ({
           priority,
         } = task;
         return (
-          <ListItem
+          <TaskItem
             priority={priority}
             key={_id}
             description={description}

@@ -14,7 +14,7 @@ export const PURPLE_COLORS = {
 
 export const BLUE_COLORS = {
   FIRST: '#3167ff',
-  SECOND: '#2094ff',
+  SECOND: '#00A8D7',
   THIRD: '#2ed3ff',
   FORTH: '#1ffff5',
 };
@@ -31,16 +31,21 @@ export const YELLOW_COLORS = {
 
 export const COLORS = {
   WHITE: '#FFFFFF',
+  WHITE_MEDIUM: '#F5F5F5',
+  WHITE_DARK: '#f1f1f1',
+  GREY_LIGHTEST: '#e1e1e1',
   GREY_LIGHT: '#989898',
   GREY: '#6a6a6a',
   GREY_MEDIUM: '#3F3F3F',
   GREY_DARK: '#353535',
   BLACK_MEDIUM: '#2A2A2A',
   BLACK_DARK: '#1F1F1F',
+  DARK: '#000000',
   GREEN: '#3DB39E',
   RED: RED_COLORS.THIRD,
   YELLOW: YELLOW_COLORS.SECOND,
   BLUE: BLUE_COLORS.THIRD,
+  DARK_BLUE: BLUE_COLORS.SECOND,
 };
 
 export const AVAILABLE_COLORS = [
