@@ -25,12 +25,12 @@ export const getPriorityObject = (priorityId?: number): Priority => {
   return PRIORITIES.find(priority => priority.id === priorityId) as Priority;
 };
 
-export const getDayTitle = (date: Date) => {
+export const getDayTitle = (date: Date, locale?: string) => {
   const momentDate = moment(date);
-  const formattedDate = formatDate(date, 'D MMM');
+  const formattedDate = formatDate(date, 'D MMM', locale);
   const today = moment().startOf('day');
   const tomorrow = moment().add(1, 'day').startOf('day');
-  const dayOfWeek = formatDate(date, 'dddd');
+  const dayOfWeek = formatDate(date, 'dddd', locale);
   let todayOrTomorrow = '';
 
   if (momentDate.isSame(today, 'day')) {

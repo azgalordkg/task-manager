@@ -38,6 +38,7 @@
   "LABEL_LIMIT": "Вы можете выбрать только 3 активные метки",
   "TOTAL_LABELS": "Всего меток",
   "SELECT_LABELS": "Выберите метки",
+  "SELECT_MONTH": "Выберите месяц",
   "SUBMIT_TITLE": "Готово",
   "A_LABEL": "метку",
   "LABEL_NAME_INPUT_PLACEHOLDER": "Название метки",

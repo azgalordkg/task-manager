@@ -38,6 +38,7 @@
   "LABEL_LIMIT": "You can choose only 3 active labels",
   "TOTAL_LABELS": "Total Labels",
   "SELECT_LABELS": "Select Labels",
+  "SELECT_MONTH": "Select a Month",
   "SUBMIT_TITLE": "Done",
   "A_LABEL": "a Label",
   "LABEL_NAME_INPUT_PLACEHOLDER": "Label name",

@@ -17,7 +17,10 @@ import styles from './UpcomingScreen.styles';
 
 export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
   const { theme } = useThemeContext();
-  const { t } = useTranslation();
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
   const { fetchList, handleTaskDateChange } = useTaskModalContext();
 
   const [selectedDate, setSelectedDate] = useState(moment().toDate());
@@ -25,7 +28,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
 
   const style = styles(theme);
   const maxDate = moment().add(10, 'years').toDate();
-  const dayTitle = getDayTitle(selectedDate);
+  const dayTitle = getDayTitle(selectedDate, language);
   const dateFormat = formatDate(selectedDate, 'YYYY-MM-DD');
 
   const handleShowMonthModal = () => {
@@ -80,7 +83,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
   const markers = { ...dottedDays, ...selectedDay };
 
   return (
-    <MainLayout onBack={onBack} screenTitle="Upcoming" isFilter>
+    <MainLayout onBack={onBack} screenTitle={`${t('UPCOMING')}`} isFilter>
       <View style={style.contentWrapper}>
         <Calendar
           initialDate={selectedDate.toString()}
@@ -106,7 +109,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
                 onPress={handleShowMonthModal}>
                 <View style={style.selectContainer}>
                   <Text style={style.selectDateText}>
-                    {formatDate(selectedDate, 'MMM YYYY')}
+                    {formatDate(selectedDate, 'MMM YYYY', language)}
                   </Text>
                   <ArrowDown color={theme.TEXT.PRIMARY} />
                 </View>
@@ -123,7 +126,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
         />
 
         <MonthPickerModal
-          selectedMonth={selectedDate.toString()}
+          selectedMonth={selectedDate}
           visible={monthModalVisible}
           onPressDismiss={handleShowMonthModal}
           onDateChange={handleMonthChange}

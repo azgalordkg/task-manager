@@ -9,8 +9,14 @@ export const getDateFromToday = (count: number) => {
   return new Date(getToday().getTime() + count * 24 * 60 * 60 * 1000);
 };
 
-export const formatDate = (date: Date | number, format: string) => {
-  return moment(date).format(format);
+export const formatDate = (
+  date: Date | number,
+  format: string,
+  locale?: string,
+) => {
+  return moment(date)
+    .locale(locale || 'en')
+    .format(format);
 };
 
 export const roundAndExtendTimeRange = (defaultStartDate?: moment.Moment) => {

@@ -9,6 +9,7 @@ import {
   MonthPickerItem,
 } from '@/components/ui';
 
+import styles from './MonthPickerModal.styles';
 import { Props } from './MonthPickerModal.types';
 
 export const MonthPickerModal: FC<Props> = ({
@@ -17,13 +18,16 @@ export const MonthPickerModal: FC<Props> = ({
   onDateChange,
   selectedMonth,
 }) => {
-  const { i18n } = useTranslation();
+  const {
+    i18n: { language },
+    t,
+  } = useTranslation();
   const months = useMemo(
     () =>
       Array.from({ length: 12 }).map((_, index) =>
-        moment().month(index).locale(i18n.language).format('MMM'),
+        moment().month(index).locale(language).format('MMM'),
       ),
-    [i18n.language],
+    [language],
   );
   const today = moment();
 
@@ -57,8 +61,8 @@ export const MonthPickerModal: FC<Props> = ({
         title="Select a Month"
         onRequestClose={onPressDismiss}
         isDoneDisabled={isDisabled}
-        doneText="Today">
-        <View>
+        doneText={`${t('TODAY')}`}>
+        <View style={styles.container}>
           {prepareMonthList.map(monthItem => (
             <MonthPickerItem
               key={Object.keys(monthItem)[0]}

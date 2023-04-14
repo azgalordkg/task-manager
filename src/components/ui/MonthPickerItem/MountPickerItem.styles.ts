@@ -1,6 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType) =>
@@ -30,7 +29,7 @@ const styles = (theme: SchemeType) =>
       paddingVertical: 8,
       borderWidth: 1,
       borderRadius: 10,
-      borderColor: COLORS.GREY,
+      borderColor: theme.BORDERS.PRIMARY,
     },
     monthText: {
       fontSize: 14,
@@ -38,6 +37,7 @@ const styles = (theme: SchemeType) =>
     },
     selectedMonthItem: {
       backgroundColor: theme.BUTTONS.PRIMARY,
+      borderColor: theme.BUTTONS.PRIMARY,
     },
     todayMonthText: {
       color: theme.TEXT.ACCENT,

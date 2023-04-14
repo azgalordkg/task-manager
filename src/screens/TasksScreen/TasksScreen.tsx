@@ -1,6 +1,6 @@
 import { useIsFocused } from '@react-navigation/native';
-import { t } from 'i18next';
 import React, { FC, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import { TaskList } from '@/components/features';
@@ -23,6 +23,10 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
   navigation,
   route,
 }) => {
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
   const isUnscheduled = route?.params?.isUnscheduled;
   const { taskList, unscheduledTaskList, fetchList } = useTaskModalContext();
   const { fetchTags } = useTagManageContext();
@@ -68,7 +72,7 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
       onBack={() => navigation.navigate('Dashboard')}
       isFilter>
       {!isUnscheduled && (
-        <Text style={style.dayTitle}>{getDayTitle(new Date())}</Text>
+        <Text style={style.dayTitle}>{getDayTitle(new Date(), language)}</Text>
       )}
       {tasks.length ? (
         <ScrollView contentInsetAdjustmentBehavior="automatic">

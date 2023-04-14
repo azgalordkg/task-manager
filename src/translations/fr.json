@@ -38,6 +38,7 @@
   "LABEL_LIMIT": "Vous ne pouvez choisir que 3 étiquettes actives",
   "TOTAL_LABELS": "Nombre total d'étiquettes",
   "SELECT_LABELS": "Sélectionner des étiquettes",
+  "SELECT_MONTH": "Sélectionnez un mois",
   "SUBMIT_TITLE": "Terminé",
   "A_LABEL": "une étiquette",
   "LABEL_NAME_INPUT_PLACEHOLDER": "Nom de l'étiquette",
