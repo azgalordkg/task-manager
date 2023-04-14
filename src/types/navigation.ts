@@ -2,7 +2,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type RootStackParamList = {
   Dashboard: undefined;
-  TaskDay: undefined;
+  Tasks?: { isUnscheduled?: boolean };
   AboutUs: undefined;
   Settings: undefined;
   ManageLabels: undefined;
@@ -13,8 +13,7 @@ export type RootStackParamList = {
   Purchase: undefined;
   Documents?: { isPrivacyPolicy?: boolean };
   CreateLabel?: { id?: string };
-  CreateTask?: { id?: string };
-  Task: { id: string };
+  CreateTask?: { id?: string; isUnscheduled?: boolean };
   Theme: undefined;
   Language: undefined;
   Upcoming: undefined;

@@ -1,4 +1,5 @@
 import { useIsFocused } from '@react-navigation/native';
+import { t } from 'i18next';
 import React, { FC, useEffect, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
@@ -18,21 +19,24 @@ import { getDayTitle, vibrate } from '@/utils';
 
 import styles from './TasksScreen.styles';
 
-export const TasksScreen: FC<ScreenProps<'TaskDay'>> = ({ navigation }) => {
-  const { taskList, fetchList } = useTaskModalContext();
+export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
+  navigation,
+  route,
+}) => {
+  const isUnscheduled = route?.params?.isUnscheduled;
+  const { taskList, unscheduledTaskList, fetchList } = useTaskModalContext();
   const { fetchTags } = useTagManageContext();
   const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);
   const isFocused = useIsFocused();
 
   const { theme } = useThemeContext();
   const style = styles(theme);
-  const todayDate = new Date();
 
   useEffect(() => {
     if (isFocused) {
       fetchList();
     }
-  }, [isFocused]);
+  }, [isFocused, isUnscheduled]);
 
   useEffect(() => {
     if (Object.keys(taskList).length && !dailyTasksUpdated) {
@@ -48,31 +52,39 @@ export const TasksScreen: FC<ScreenProps<'TaskDay'>> = ({ navigation }) => {
 
   const handleItemPress = (id: string) => {
     vibrate('rigid');
-    navigation.navigate('CreateTask', { id });
+    navigation.navigate('CreateTask', { id, isUnscheduled });
   };
 
   const handleCreatePress = () => {
     vibrate('selection');
-    navigation.navigate('CreateTask');
+    navigation.navigate('CreateTask', { isUnscheduled });
   };
 
-  const dayTitle = getDayTitle(new Date());
+  const tasks = isUnscheduled ? unscheduledTaskList : taskList;
 
   return (
     <MainLayout
-      screenTitle="Today"
+      screenTitle={`${isUnscheduled ? t('UNSCHEDULED') : t('TODAY')}`}
       onBack={() => navigation.navigate('Dashboard')}
       isFilter>
-      <Text style={style.dayTitle}>{dayTitle}</Text>
-      {taskList.length ? (
+      {!isUnscheduled && (
+        <Text style={style.dayTitle}>{getDayTitle(new Date())}</Text>
+      )}
+      {tasks.length ? (
         <ScrollView contentInsetAdjustmentBehavior="automatic">
           <View style={style.contentWrapper}>
-            <TaskList date={todayDate} onItemPress={handleItemPress} />
+            <TaskList
+              isUnscheduled={isUnscheduled}
+              onItemPress={handleItemPress}
+            />
           </View>
         </ScrollView>
       ) : (
         <View style={style.container}>
-          <EmptyTaskList handleCreatePress={handleCreatePress} />
+          <EmptyTaskList
+            isUnscheduled={isUnscheduled}
+            handleCreatePress={handleCreatePress}
+          />
         </View>
       )}
 

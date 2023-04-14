@@ -19,6 +19,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   const { fetchList } = useTaskModalContext();
   const { selectedTags, clearSelectedTags } = useTagManageContext();
   const taskId = route?.params?.id;
+  const isUnscheduled = route?.params?.isUnscheduled;
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
 
@@ -69,6 +70,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
       title={`${title} ${t('TASK')}`}
       onRequestClose={closeModal}>
       <CreateTaskForm
+        isUnscheduled={isUnscheduled}
         onAddPress={addTagsHandler}
         editItemId={taskId}
         onSubmit={createTaskHandler}

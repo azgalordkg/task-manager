@@ -14,9 +14,11 @@ import { Props } from './DoneTaskAccordion.types';
 export const DoneTaskAccordion: FC<Props> = ({
   onItemPress,
   onDeletePress,
+  isUnscheduled,
 }) => {
-  const { taskList } = useTaskModalContext();
-  const completeTasks = filterTasks(taskList, 'complete');
+  const { taskList, unscheduledTaskList } = useTaskModalContext();
+  const tasks = isUnscheduled ? unscheduledTaskList : taskList;
+  const completeTasks = filterTasks(tasks, 'complete');
   const [activeSection, setActiveSection] = useState([0]);
 
   const sections = {
