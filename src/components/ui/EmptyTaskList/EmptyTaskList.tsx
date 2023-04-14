@@ -15,7 +15,7 @@ export const EmptyTaskList: FC<Props> = ({
   const style = styles(theme);
 
   return (
-    <View style={style.contentWrapper}>
+    <View style={style.mainWrapper}>
       {isUnscheduled ? <UnscheduledPlaceholder /> : <TasksPlaceholder />}
       <View style={style.textContainer}>
         <Text style={style.title}>Not much to do yet</Text>

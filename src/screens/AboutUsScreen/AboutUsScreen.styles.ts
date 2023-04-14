@@ -4,7 +4,7 @@ import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
-    contentWrapper: {
+    mainWrapper: {
       flex: 1,
     },
     contentContainer: {

@@ -4,7 +4,7 @@ import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType, isFirst?: boolean, isLast?: boolean) =>
   StyleSheet.create({
-    contentWrapper: {
+    mainWrapper: {
       paddingHorizontal: 16,
       backgroundColor: theme.BACKGROUND.NEUTRAL,
       flexDirection: 'row',

@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  contentWrapper: {
+  mainWrapper: {
     flex: 1,
     paddingHorizontal: 20,
   },
