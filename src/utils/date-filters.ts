@@ -3,7 +3,7 @@ import { TFunction } from 'i18next';
 import { COLORS } from '@/constants';
 import { isTodayWeekend } from '@/utils/date';
 
-export const renderTitle = (t: TFunction, index: number) => {
+export const renderTitle = (t: TFunction, index: number, isDark: boolean) => {
   switch (index) {
     case 0:
       return {
@@ -29,7 +29,8 @@ export const renderTitle = (t: TFunction, index: number) => {
     default:
       return {
         title: t('NO_DATE'),
-        color: COLORS.WHITE,
+        color: isDark ? COLORS.WHITE : COLORS.GREY_MEDIUM,
+        isNoDate: true,
       };
   }
 };

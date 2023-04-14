@@ -46,7 +46,7 @@ export const TaskItem: FC<ListItemProps> = ({
   description,
   priority,
 }) => {
-  const { theme } = useThemeContext();
+  const { theme, isDark } = useThemeContext();
   const style = styles({ isLast, checked, theme });
   const swipeRef = useRef<Swipeable | null>(null);
   const [swiping, setSwiping] = useState(false);
@@ -98,9 +98,8 @@ export const TaskItem: FC<ListItemProps> = ({
     [allTags, tags],
   );
 
-  const { color: priorityColor } = getPriorityObject(priority);
-  const checkmarkColor =
-    priorityColor === COLORS.WHITE ? COLORS.BLACK_DARK : undefined;
+  const { color: priorityColor, isLight } = getPriorityObject(isDark, priority);
+  const checkmarkColor = isDark && isLight ? COLORS.BLACK_DARK : undefined;
 
   return (
     <View style={style.outerContainer}>

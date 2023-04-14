@@ -1,6 +1,7 @@
 import { Animated, StyleSheet } from 'react-native';
 
 import { SchemeType } from '@/types';
+import { addShadow } from '@/utils';
 
 export interface StyleProps {
   scale?: Animated.AnimatedInterpolation<string>;
@@ -20,6 +21,13 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
     },
     outerContainer: {
       marginHorizontal: 20,
+      ...addShadow({
+        shadowOpacity: 0.05,
+        width: 1,
+        height: 1,
+        shadowRadius: 1,
+        elevation: 1,
+      }),
     },
     container: {
       padding: 10,

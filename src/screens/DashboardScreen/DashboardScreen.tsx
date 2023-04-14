@@ -19,7 +19,7 @@ export const DashboardScreen: FC<ScreenProps<'Dashboard'>> = ({
 
   useEffect(() => {
     fetchList();
-    // navigation.navigate('Tasks');
+    navigation.navigate('Tasks');
   }, []);
 
   const getCount = (title: string) => {

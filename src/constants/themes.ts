@@ -28,6 +28,33 @@ export const DEFAULT_THEME = {
   },
 };
 
+export const NEUTRAL_THEME = {
+  BACKGROUND: {
+    PRIMARY: COLORS.WHITE,
+    SECONDARY: COLORS.WHITE_DARK,
+    ACCENT: COLORS.RED,
+    NEUTRAL: COLORS.WHITE,
+    INPUT: COLORS.WHITE,
+  },
+  TEXT: {
+    PRIMARY: COLORS.BLACK_DARK,
+    SECONDARY: COLORS.GREY_DARK,
+    ACCENT: COLORS.GREEN,
+  },
+  BUTTONS: {
+    PRIMARY: COLORS.RED,
+    SECONDARY: COLORS.BLACK_DARK,
+    TEXT: COLORS.WHITE,
+  },
+  ICONS: {
+    PRIMARY: COLORS.BLACK_DARK,
+    SECONDARY: COLORS.GREY_LIGHT,
+  },
+  BORDERS: {
+    PRIMARY: COLORS.WHITE_DARK,
+  },
+};
+
 export const JADE_THEME = {
   ...DEFAULT_THEME,
   BACKGROUND: {
@@ -41,12 +68,27 @@ export const JADE_THEME = {
   },
 };
 
+export const DARK_THEME = {
+  ...DEFAULT_THEME,
+  BACKGROUND: {
+    ...DEFAULT_THEME.BACKGROUND,
+    PRIMARY: COLORS.DARK,
+    ACCENT: COLORS.RED,
+  },
+  BUTTONS: {
+    ...DEFAULT_THEME.BUTTONS,
+    PRIMARY: COLORS.RED,
+  },
+};
+
 export const THEMES = {
   default: DEFAULT_THEME,
   jade: JADE_THEME,
+  dark: DARK_THEME,
+  neutral: NEUTRAL_THEME,
 };
 
-export const DARK_THEMES_LIST: ThemeName[] = ['default', 'jade'];
+export const DARK_THEMES_LIST: ThemeName[] = ['default', 'jade', 'dark'];
 
 export const THEMES_MENU_ITEMS = [
   {
@@ -56,5 +98,13 @@ export const THEMES_MENU_ITEMS = [
   {
     label: 'jade',
     color: COLORS.GREEN,
+  },
+  {
+    label: 'dark',
+    color: COLORS.DARK,
+  },
+  {
+    label: 'neutral',
+    color: COLORS.WHITE_MEDIUM,
   },
 ];

@@ -1,4 +1,4 @@
-export type ThemeName = 'default' | 'jade';
+export type ThemeName = 'default' | 'jade' | 'dark' | 'neutral';
 
 export interface SchemeType {
   BACKGROUND: {

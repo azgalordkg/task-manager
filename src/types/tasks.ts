@@ -53,4 +53,5 @@ export type Priority = {
   label: string;
   id: number;
   color: string;
+  isLight?: boolean;
 };

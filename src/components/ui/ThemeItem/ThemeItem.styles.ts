@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
-import { addAlpha } from '@/utils';
+import { addAlpha, addShadow } from '@/utils';
 
 import { Props } from './ThemeItem.types';
 
@@ -32,14 +32,7 @@ const styles = ({
       backgroundColor: bodyBackgroundColor || COLORS.BLACK_DARK,
       flexDirection: 'row',
       alignItems: 'center',
-      shadowColor: COLORS.DARK,
-      shadowOffset: {
-        width: 4,
-        height: 4,
-      },
-      shadowOpacity: 0.2,
-      shadowRadius: 3,
-      elevation: 4,
+      ...addShadow({}),
     },
     contentMock: {
       flexGrow: 1,

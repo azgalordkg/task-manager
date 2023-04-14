@@ -26,6 +26,7 @@ export const ThemeScreen: FC<ScreenProps<'Theme'>> = ({ navigation }) => {
       <View style={styles.themeContainer}>
         {THEMES_MENU_ITEMS.map(({ color, label }) => (
           <ThemeItem
+            key={label}
             onPress={() => themeHandleChange(label as ThemeName)}
             isActive={activeTheme === label}
             headerBackgroundColor={color}
