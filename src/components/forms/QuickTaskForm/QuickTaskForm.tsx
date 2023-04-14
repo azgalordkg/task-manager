@@ -20,11 +20,10 @@ import { Props } from './QuickTaskForm.types';
 
 export const QuickTaskForm: FC<Props> = ({ handleShowInput }) => {
   const { t } = useTranslation();
-
-  const startDate = roundAndExtendTimeRange(moment());
-
-  const { fetchList } = useTaskModalContext();
+  const { fetchList, targetDate } = useTaskModalContext();
   const { theme } = useThemeContext();
+
+  const startDate = roundAndExtendTimeRange(moment(targetDate));
   const style = styles(theme);
 
   const {

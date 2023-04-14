@@ -37,7 +37,7 @@ export const MONTH_LIST = [
 export const MonthPicker: FC<Props> = ({
   isVisibleModal,
   handleVisibleModal,
-  handleChangeMonth,
+  handleDateChange,
 }) => {
   const momentDate = moment();
   const [selectedMonth, setSelectedMonth] = useState(momentDate.toString());
@@ -68,12 +68,12 @@ export const MonthPicker: FC<Props> = ({
 
   const handlePressClose = () => {
     handleVisibleModal();
-    handleChangeMonth(moment(selectedMonth).toDate());
+    handleDateChange(moment(selectedMonth).toDate());
   };
 
   const handleDonePress = () => {
     handleVisibleModal();
-    handleChangeMonth(moment(moment(), 'DD.MM.YYYY').toDate());
+    handleDateChange(moment(moment(), 'DD.MM.YYYY').toDate());
   };
 
   return (

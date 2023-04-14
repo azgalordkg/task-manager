@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { createContext, FC, PropsWithChildren, useState } from 'react';
 
 import { getTasks, getUnscheduledTasks } from '@/services';
@@ -11,12 +12,13 @@ export const TaskListContext = createContext<TaskListContextType>(
 
 export const TaskListProvider: FC<PropsWithChildren> = ({ children }) => {
   const [taskList, setTaskList] = useState<TasksResponseItem[]>([]);
+  const [targetDate, setTargetDate] = useState(moment().valueOf());
   const [unscheduledTaskList, setUnscheduledTaskList] = useState<
     TasksResponseItem[]
   >([]);
 
-  const fetchList = (targetDate?: number) => {
-    let tasks: RealmTaskType = getTasks(targetDate || new Date().getTime());
+  const fetchList = () => {
+    let tasks: RealmTaskType = getTasks(targetDate);
     let unscheduledTasks: RealmTaskType = getUnscheduledTasks();
 
     if (tasks) {
@@ -27,12 +29,18 @@ export const TaskListProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
+  const handleTaskDateChange = (date: number) => {
+    setTargetDate(date);
+  };
+
   return (
     <TaskListContext.Provider
       value={{
         unscheduledTaskList,
         taskList,
         fetchList,
+        targetDate,
+        handleTaskDateChange,
       }}>
       {children}
     </TaskListContext.Provider>

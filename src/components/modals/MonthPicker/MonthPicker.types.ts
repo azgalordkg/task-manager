@@ -1,5 +1,5 @@
 export interface Props {
   isVisibleModal: boolean;
   handleVisibleModal: () => void;
-  handleChangeMonth: (date: Date) => void;
+  handleDateChange: (date: Date) => void;
 }

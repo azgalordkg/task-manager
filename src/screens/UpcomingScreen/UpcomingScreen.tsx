@@ -18,7 +18,7 @@ import styles from './UpcomingScreen.styles';
 export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
   const { theme } = useThemeContext();
   const { t } = useTranslation();
-  const { fetchList } = useTaskModalContext();
+  const { fetchList, handleTaskDateChange } = useTaskModalContext();
 
   const [selectedDate, setSelectedDate] = useState(moment().toDate());
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -33,10 +33,14 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
     setIsVisibleModal(!isVisibleModal);
   };
 
-  const onBack = () => navigation.goBack();
-
-  const handleChangeMonth = (date: Date) => {
+  const handleDateChange = (date: Date) => {
     setSelectedDate(date);
+    handleTaskDateChange(moment(date).valueOf());
+  };
+
+  const onBack = () => {
+    navigation.goBack();
+    handleTaskDateChange(moment().valueOf());
   };
 
   const handleItemPress = (id: string) => {
@@ -45,7 +49,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
   };
 
   useEffect(() => {
-    fetchList(+selectedDate);
+    fetchList();
   }, [selectedDate]);
 
   const handleCreatePress = () => {
@@ -82,9 +86,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
           markedDates={markers}
           minDate={minDate.toString()}
           maxDate={maxDate.toString()}
-          onDayPress={day => {
-            setSelectedDate(moment(day.timestamp).toDate());
-          }}
+          onDayPress={day => handleDateChange(moment(day.timestamp).toDate())}
           disableAllTouchEventsForDisabledDays
           theme={{
             calendarBackground: 'transparent',
@@ -107,7 +109,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
 
               <TouchableOpacity
                 onPress={() =>
-                  handleChangeMonth(moment(moment(), 'DD.MM.YYYY').toDate())
+                  handleDateChange(moment(moment(), 'DD.MM.YYYY').toDate())
                 }>
                 <Text style={style.todayText}>{t('TODAY')}</Text>
               </TouchableOpacity>
@@ -118,14 +120,14 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
         <MonthPicker
           isVisibleModal={isVisibleModal}
           handleVisibleModal={handleVisibleModal}
-          handleChangeMonth={handleChangeMonth}
+          handleDateChange={handleDateChange}
         />
       </View>
 
       <Text style={style.dayTitle}>{dayTitle}</Text>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={style.taskListWrapper}>
-          <TaskList date={selectedDate} onItemPress={handleItemPress} />
+          <TaskList onItemPress={handleItemPress} />
         </View>
       </ScrollView>
 
