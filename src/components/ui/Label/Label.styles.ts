@@ -19,19 +19,10 @@ const styles = (bgColor: string) =>
       backgroundColor: addAlpha(bgColor, 0.65),
       borderRadius: 6,
     },
-    tabsTitle: {
+    title: {
       fontWeight: '600',
       fontSize: 12,
       color: COLORS.BLACK_DARK,
-    },
-    close: {
-      marginLeft: 4,
-      width: 12,
-      height: 12,
-      borderRadius: 6,
-      backgroundColor: COLORS.BLACK_DARK,
-      justifyContent: 'center',
-      alignItems: 'center',
     },
   });
 

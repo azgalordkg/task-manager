@@ -27,6 +27,3 @@ export * from './ModalWrapper';
 export * from './ProgressBar';
 export * from './PurchaseItem';
 export * from './PurchasePlan';
-export * from './Select';
-export * from './SelectTagItem';
-export * from './TextBlank';

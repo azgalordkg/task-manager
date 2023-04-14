@@ -75,9 +75,7 @@ export const ListItem: FC<ListItemProps> = ({
     };
 
     return (
-      <>
-        <ActionButton icon={Trash} scale={scale} onPress={handleDeletePress} />
-      </>
+      <ActionButton icon={Trash} scale={scale} onPress={handleDeletePress} />
     );
   };
 
@@ -126,17 +124,15 @@ export const ListItem: FC<ListItemProps> = ({
             }}
             style={style.container}>
             <View style={style.contentWrapper}>
-              <View style={style.checkmarkWrapper}>
-                <CustomCheckbox
-                  defaultColor={priorityColor}
-                  checkedColor={priorityColor}
-                  checkmarkColor={checkmarkColor}
-                  onPress={onCheckPressHandler}
-                  checked={checked}
-                  size={24}
-                  type="filled"
-                />
-              </View>
+              <CustomCheckbox
+                defaultColor={priorityColor}
+                checkedColor={priorityColor}
+                checkmarkColor={checkmarkColor}
+                onPress={onCheckPressHandler}
+                checked={checked}
+                size={24}
+                type="filled"
+              />
               <View style={style.textWrapper}>
                 <Text style={[style.title, style.crossedTextStyles]}>
                   {name}
@@ -174,7 +170,7 @@ export const ListItem: FC<ListItemProps> = ({
             {checked && !isRecurring && (
               <View style={style.deleteBtnWrapper}>
                 <TouchableOpacity onPress={onEasyRemovePress}>
-                  <Trash color={COLORS.GREY_ICONS} width={20} height={20} />
+                  <Trash color={theme.ICONS.SECONDARY} width={20} height={20} />
                 </TouchableOpacity>
               </View>
             )}

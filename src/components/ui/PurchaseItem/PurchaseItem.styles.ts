@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
 
 const styles = (containerWidth: number, theme: SchemeType) =>
@@ -13,7 +12,7 @@ const styles = (containerWidth: number, theme: SchemeType) =>
     iconWrapper: {
       width: 30,
       height: 30,
-      backgroundColor: COLORS.WHITE_MEDIUM,
+      backgroundColor: theme.BACKGROUND.INPUT,
       borderRadius: 15,
       justifyContent: 'center',
       alignItems: 'center',
@@ -22,7 +21,7 @@ const styles = (containerWidth: number, theme: SchemeType) =>
       width: '85%',
       textAlign: 'center',
       fontSize: 12,
-      color: theme.TEXT_PRIMARY,
+      color: theme.TEXT.PRIMARY,
     },
   });
 

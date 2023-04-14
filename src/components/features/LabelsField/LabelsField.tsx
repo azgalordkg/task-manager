@@ -7,10 +7,10 @@ import { InputWrapper, Label } from '@/components/ui';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { TagsResponseItem } from '@/types';
 
-import styles from './TagsField.styles';
-import { Props } from './TagsField.types';
+import styles from './LabelsField.styles';
+import { Props } from './LabelsField.types';
 
-export const TagsField: FC<Props> = ({ onAddPress }) => {
+export const LabelsField: FC<Props> = ({ onAddPress }) => {
   const { theme } = useThemeContext();
   const { t } = useTranslation();
 
@@ -31,8 +31,7 @@ export const TagsField: FC<Props> = ({ onAddPress }) => {
     <View>
       <TouchableOpacity style={style.button} onPress={onAddPress} />
       <InputWrapper
-        borderColor={theme.INPUT_DEFAULT}
-        backgroundColor={theme.INPUT_DEFAULT}
+        backgroundColor={theme.BACKGROUND.INPUT}
         icon={<LabelIcon />}>
         {tags?.length ? (
           <View style={style.tagsWrapper}>

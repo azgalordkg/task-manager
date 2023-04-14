@@ -9,13 +9,14 @@ import { Props } from './CustomButton.types';
 export const CustomButton: FC<PropsWithChildren<Props>> = ({
   children,
   onPress,
-  bgColor = COLORS.GREEN,
+  bgColor = COLORS.RED,
   textColor = COLORS.WHITE,
   type = 'filled',
   height = 40,
   fullWidth,
   width = 'auto',
   paddingHorizontal = 15,
+  borderRadius = 10,
   fontSize = 18,
   borderWidth = 2,
   disabled,
@@ -37,6 +38,7 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
     borderWidth,
     disabled,
     orientation,
+    borderRadius,
   });
 
   const isFilled = type === 'filled';

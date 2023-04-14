@@ -5,7 +5,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { Label, Plus, Trash } from '@/components/icons';
 import { ConfirmModal } from '@/components/modals';
 import { CustomButton, DashedButton, MenuItem } from '@/components/ui';
-import { COLORS, TAGS_CREATION_LIMITS } from '@/constants';
+import { TAGS_CREATION_LIMITS } from '@/constants';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { deleteOneTag } from '@/services';
 import { vibrate } from '@/utils';
@@ -64,11 +64,13 @@ export const ManageLabelsForm: FC<Props> = ({
         </Text>
       </Text>
 
+      {!isSettings && <Text style={style.message}>{t('LABEL_LIMIT')}</Text>}
+
       {isSettings ? (
         <View style={style.buttonContainer}>
           <DashedButton
             disabled={tags.length >= TAGS_CREATION_LIMITS}
-            color={theme.TEXT_SECONDARY}
+            color={theme.TEXT.PRIMARY}
             icon={Plus}
             variant="large"
             onPress={onCreateLabelPress}>
@@ -85,14 +87,12 @@ export const ManageLabelsForm: FC<Props> = ({
           height={32}
           fontSize={16}
           icon={Plus}
-          textColor={COLORS.GREEN}
+          textColor={theme.BUTTONS.PRIMARY}
           iconHeight={8}
           iconWidth={8}>
           {t('CREATE_A_LABEL')}
         </CustomButton>
       )}
-
-      {!isSettings && <Text style={style.message}>{t('LABEL_LIMIT')}</Text>}
 
       <ScrollView style={style.itemsWrapper}>
         {tags.map(({ _id, name, color }, index) => {

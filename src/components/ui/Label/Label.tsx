@@ -1,24 +1,17 @@
 import React, { FC } from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 
-import { Cross } from '@/components/icons';
-
 import styles from './Label.styles';
 import { Props } from './Label.types';
 
-export const Label: FC<Props> = ({ name, bgColor, onPress }) => {
+export const Label: FC<Props> = ({ name, bgColor }) => {
   const style = styles(bgColor);
 
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableWithoutFeedback>
       <View style={style.whiteWrapper}>
         <View style={style.tabsContainer}>
-          <Text style={style.tabsTitle}>{name}</Text>
-          {onPress && (
-            <View style={style.close}>
-              <Cross color={bgColor} width={6} height={6} />
-            </View>
-          )}
+          <Text style={style.title}>{name}</Text>
         </View>
       </View>
     </TouchableWithoutFeedback>

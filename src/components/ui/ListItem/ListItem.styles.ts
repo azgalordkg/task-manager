@@ -1,6 +1,5 @@
 import { Animated, StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
 
 export interface StyleProps {
@@ -23,30 +22,26 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
       marginHorizontal: 20,
     },
     container: {
-      padding: 8,
+      padding: 10,
       borderRadius: 12,
-      borderBottomColor: COLORS.GREY,
-      backgroundColor: theme.BACKGROUND_TASK,
+      backgroundColor: theme.BACKGROUND.NEUTRAL,
     },
     textWrapper: {
       width: '80%',
       justifyContent: 'center',
       rowGap: 4,
     },
-    checkmarkWrapper: {
-      marginRight: 8,
-    },
     title: {
       fontWeight: '400',
       fontSize: 18,
       lineHeight: 22,
-      color: theme.TEXT_PRIMARY,
+      color: theme.TEXT.PRIMARY,
     },
     description: {
       fontWeight: '400',
       fontSize: 12,
       lineHeight: 15,
-      color: theme.TEXT_SECONDARY,
+      color: theme.TEXT.SECONDARY,
     },
     timeContainer: {
       flexDirection: 'row',
@@ -54,17 +49,13 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
       alignItems: 'center',
     },
     time: {
-      color: COLORS.GREEN,
+      color: theme.TEXT.ACCENT,
       fontWeight: '400',
       fontSize: 12,
     },
     contentWrapper: {
       flexDirection: 'row',
-    },
-    buttonsWrapper: {
-      backgroundColor: COLORS.RED,
-      alignItems: 'center',
-      justifyContent: 'center',
+      columnGap: 10,
     },
     contentButton: {
       width: '50%',

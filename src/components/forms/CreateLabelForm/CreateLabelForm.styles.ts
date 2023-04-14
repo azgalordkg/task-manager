@@ -13,7 +13,7 @@ const styles = (theme: SchemeType, errorMessage?: string) =>
       rowGap: 4,
     },
     colorTitle: {
-      color: errorMessage ? COLORS.RED : theme.TEXT_PRIMARY,
+      color: errorMessage ? COLORS.RED : theme.TEXT.SECONDARY,
       fontSize: 16,
     },
     errorMessage: {

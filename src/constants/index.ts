@@ -8,3 +8,4 @@ export * from './repeat';
 export * from './routes';
 export * from './settings';
 export * from './storage';
+export * from './themes';

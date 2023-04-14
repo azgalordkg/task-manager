@@ -15,7 +15,7 @@ const styles = (theme: SchemeType) =>
       flex: 1,
     },
     buttonWrapper: {
-      backgroundColor: theme.BUTTONS_PRIMARY,
+      backgroundColor: theme.BACKGROUND.ACCENT,
       width: 60,
       height: 60,
       borderRadius: 30,
@@ -30,7 +30,7 @@ const styles = (theme: SchemeType) =>
       marginTop: 30,
       fontWeight: '600',
       fontSize: 14,
-      color: theme.TEXT_PRIMARY,
+      color: theme.TEXT.PRIMARY,
     },
   });
 

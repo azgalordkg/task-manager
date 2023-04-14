@@ -28,7 +28,7 @@ export const Checkbox: FC<Props> = ({
       <Switch
         trackColor={{ false: COLORS.GREY_LIGHT, true: COLORS.GREEN }}
         thumbColor={COLORS.WHITE}
-        ios_backgroundColor={COLORS.GREY_LIGHT}
+        ios_backgroundColor={COLORS.GREY}
         value={field.value as boolean}
         onValueChange={onValueChange}
       />

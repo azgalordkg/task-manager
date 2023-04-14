@@ -23,6 +23,7 @@ export const Input: FC<Props> = ({
   maxLength,
   color = COLORS.BLACK_DARK,
   multiline,
+  borderRadius,
   ...props
 }) => {
   const { t } = useTranslation();
@@ -44,6 +45,7 @@ export const Input: FC<Props> = ({
   return (
     <View style={style.inputContainer}>
       <InputWrapper
+        borderRadius={borderRadius}
         multiline={multiline}
         borderColor={borderColor}
         backgroundColor={backgroundColor}

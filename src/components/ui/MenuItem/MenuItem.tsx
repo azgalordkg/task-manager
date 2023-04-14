@@ -49,7 +49,7 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
         {PrependIcon && (
           <PrependIcon
             style={style.prependIcon}
-            color={prependIconColor || theme.BUTTONS_PRIMARY}
+            color={prependIconColor || theme.BUTTONS.PRIMARY}
           />
         )}
         <Text style={style.text}>{children}</Text>
@@ -66,6 +66,7 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
         )}
         {isShowCheckbox && (
           <CustomCheckbox
+            checkedColor={theme.BUTTONS.PRIMARY}
             onPress={onToggleCheckbox}
             type="filled"
             checked={!!checked}
@@ -74,7 +75,7 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
           />
         )}
         <TouchableOpacity activeOpacity={activeOpacity} onPress={onPressIcon}>
-          {Icon && <Icon color={color || COLORS.GREY_ICONS} />}
+          {Icon && <Icon color={color || theme.ICONS.SECONDARY} />}
         </TouchableOpacity>
       </View>
     </TouchableOpacity>

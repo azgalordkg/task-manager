@@ -24,7 +24,7 @@ export const ConfirmModal: FC<Props> = ({
   return (
     <ActionModalWrapper visible={visible} onPressDismiss={onPressDismiss}>
       <CustomButton
-        bgColor={COLORS.WHITE_MEDIUM}
+        bgColor={theme.BUTTONS.SECONDARY}
         textColor={COLORS.RED}
         height={46}
         width={'100%'}
@@ -32,8 +32,8 @@ export const ConfirmModal: FC<Props> = ({
         {confirmLabel}
       </CustomButton>
       <CustomButton
-        bgColor={theme.BUTTONS_SECONDARY}
-        textColor={theme.TEXT_SECONDARY}
+        bgColor={theme.BUTTONS.SECONDARY}
+        textColor={theme.TEXT.PRIMARY}
         height={46}
         width={'100%'}
         onPress={onPressDismiss}>

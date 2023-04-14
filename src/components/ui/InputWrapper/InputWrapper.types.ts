@@ -3,5 +3,6 @@ export interface Props {
   errorMessage?: string;
   borderColor?: string;
   backgroundColor?: string;
+  borderRadius?: number;
   multiline?: boolean;
 }

@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
+import { useThemeContext } from '@/context/hooks';
 import { getPurchaseItemWidth } from '@/utils';
 
 import styles from './PurchasePlan.styles';
@@ -15,7 +16,9 @@ export const PurchasePlan: FC<Props> = ({
   profitable,
 }) => {
   const containerWidth = getPurchaseItemWidth();
-  const style = styles(containerWidth, isActive);
+  const { theme } = useThemeContext();
+  const style = styles(containerWidth, theme, isActive);
+
   return (
     <TouchableOpacity onPress={onPress} style={style.container}>
       {profitable && isActive && (

@@ -7,6 +7,7 @@ const styles = (
   borderColor?: string,
   backgroundColor?: string,
   multiline?: boolean,
+  borderRadius?: number,
 ) =>
   StyleSheet.create({
     wrapper: {
@@ -14,7 +15,7 @@ const styles = (
       borderColor: errorMessage ? COLORS.RED : borderColor,
       padding: 12,
       backgroundColor: backgroundColor,
-      borderRadius: 12,
+      borderRadius,
       width: '100%',
       flexDirection: 'row',
       alignItems: multiline ? 'flex-start' : 'center',

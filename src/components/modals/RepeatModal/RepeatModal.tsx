@@ -2,35 +2,36 @@ import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import { ArrowUpSquare, CheckMark } from '@/components/icons';
+import { CheckMark } from '@/components/icons';
 import { ActionModalWrapper, CustomButton, MenuItem } from '@/components/ui';
-import { PRIORITIES } from '@/constants/tasks';
+import { getRepeatList } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
+import { RecurringTypes } from '@/types';
 
-import { Props } from './PriorityModal.types';
+import { Props } from './RepeatModal.types';
 
-export const PriorityModal: FC<Props> = ({
+export const RepeatModal: FC<Props> = ({
   visible,
   onPressDismiss,
-  activePriorityId,
+  activeValue,
   onValueChange,
 }) => {
   const { t } = useTranslation();
   const { theme } = useThemeContext();
+  const list = getRepeatList(t);
+
   return (
     <ActionModalWrapper visible={visible} onPressDismiss={onPressDismiss}>
       <View>
-        {PRIORITIES.map(({ id, label, color }, index) => (
+        {list.map(({ value, label }, index) => (
           <MenuItem
-            onPress={() => onValueChange(id)}
-            prependIcon={ArrowUpSquare}
-            prependIconColor={color}
+            onPress={() => onValueChange(value as RecurringTypes)}
             isFirst={index === 0}
-            isLast={index === PRIORITIES.length - 1}
+            isLast={index === list.length - 1}
             color={theme.BUTTONS.PRIMARY}
-            icon={activePriorityId === id ? CheckMark : null}
-            key={id}>
-            {`${t('PRIORITY')} ${t(label)}`}
+            icon={activeValue === value ? CheckMark : null}
+            key={value}>
+            {label}
           </MenuItem>
         ))}
       </View>

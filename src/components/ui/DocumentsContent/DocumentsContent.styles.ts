@@ -5,7 +5,8 @@ import { SchemeType } from '@/types';
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
     content: {
-      color: theme.TEXT_PRIMARY,
+      paddingVertical: 12,
+      color: theme.TEXT.PRIMARY,
     },
   });
 

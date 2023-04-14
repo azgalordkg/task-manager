@@ -1,12 +1,16 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
+import { SchemeType } from '@/types';
 
-const styles = (containerWidth: number, isActive?: boolean) =>
+const styles = (
+  containerWidth: number,
+  theme: SchemeType,
+  isActive?: boolean,
+) =>
   StyleSheet.create({
     container: {
       borderWidth: 2,
-      borderColor: isActive ? COLORS.BLUE : 'transparent',
+      borderColor: isActive ? theme.BUTTONS.PRIMARY : 'transparent',
       width: containerWidth,
       alignItems: 'center',
       rowGap: 4,
@@ -15,23 +19,23 @@ const styles = (containerWidth: number, isActive?: boolean) =>
       borderRadius: 10,
     },
     duration: {
-      color: COLORS.BLACK_DARK,
+      color: theme.TEXT.PRIMARY,
       fontSize: 12,
       textAlign: 'center',
     },
     price: {
-      color: COLORS.BLACK_DARK,
+      color: theme.TEXT.PRIMARY,
       fontSize: 16,
       fontWeight: '600',
       textAlign: 'center',
     },
     description: {
-      color: COLORS.BLACK_DARK,
+      color: theme.TEXT.SECONDARY,
       fontSize: 12,
       textAlign: 'center',
     },
     saveWrapper: {
-      backgroundColor: COLORS.RED,
+      backgroundColor: theme.BACKGROUND.PRIMARY,
       borderRadius: 4,
       paddingVertical: 2,
       paddingHorizontal: 6,
@@ -41,7 +45,7 @@ const styles = (containerWidth: number, isActive?: boolean) =>
       transform: [{ translateX: -23 }],
     },
     save: {
-      color: COLORS.WHITE,
+      color: theme.TEXT.PRIMARY,
       fontWeight: '600',
       fontSize: 8,
     },
