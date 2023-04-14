@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
 import {
@@ -14,6 +15,7 @@ import { ScreenProps } from '@/types';
 import styles from './PurchaseScreen.styles';
 
 export const PurchaseScreen: FC<ScreenProps<'Purchase'>> = ({ navigation }) => {
+  const { t } = useTranslation();
   const closeModal = () => navigation.goBack();
   const [activePlan, setActivePlan] = useState(1);
   const { theme } = useThemeContext();
@@ -22,7 +24,7 @@ export const PurchaseScreen: FC<ScreenProps<'Purchase'>> = ({ navigation }) => {
   const onSubmitPress = () => {};
 
   return (
-    <ModalWrapper title="Purchase" onRequestClose={closeModal}>
+    <ModalWrapper title={`${t('PURCHASE')}`} onRequestClose={closeModal}>
       <View style={style.container}>
         <View style={style.contentWrapper}>
           <Text style={style.title}>Unlock Premium Features:</Text>

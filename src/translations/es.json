@@ -155,5 +155,6 @@
   "WEEKLY": "Semanal",
   "MONTHLY": "Mensual",
   "YEARLY": "Anual",
-  "NEVER": "Nunca"
+  "NEVER": "Nunca",
+  "PURCHASE": "Compra"
 }

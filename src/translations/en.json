@@ -155,5 +155,6 @@
   "WEEKLY": "Weekly",
   "MONTHLY": "Monthly",
   "YEARLY": "Yearly",
-  "NEVER": "Never"
+  "NEVER": "Never",
+  "PURCHASE": "Purchase"
 }
