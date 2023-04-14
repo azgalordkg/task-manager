@@ -34,7 +34,7 @@ export const ThemeItem: FC<Props> = ({
         <View style={style.contentMock}>
           <View style={style.contentMockItem} />
           <View style={style.contentMockItem} />
-          <View style={{ ...style.contentMockItem, width: '50%' }} />
+          <View style={[style.contentMockItem, style.shortItem]} />
         </View>
         {isActive && <CheckMark color={theme.BUTTONS.PRIMARY} />}
       </View>

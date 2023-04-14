@@ -8,6 +8,7 @@ import styles from './ModalHeader.styles';
 import { Props } from './ModalHeader.types';
 
 export const ModalHeader: FC<Props> = ({
+  withPadding,
   onCancelPress,
   cancelText = 'Close',
   rightActionComponent,
@@ -15,9 +16,10 @@ export const ModalHeader: FC<Props> = ({
   isDoneDisabled,
   doneText,
   title,
+  contentBackgroundColor,
 }) => {
   const { theme } = useThemeContext();
-  const style = styles(theme);
+  const style = styles(theme, contentBackgroundColor, withPadding);
 
   return (
     <>

@@ -11,8 +11,8 @@ import { Props } from './ModalScreenWrapper.types';
 export const ModalScreenWrapper: FC<Props> = ({
   onRequestClose,
   children,
-  responsiveHeight,
   onCancelPress = onRequestClose,
+  contentBackgroundColor,
   onDonePress,
   isDoneDisabled,
   cancelText = 'Close',
@@ -21,12 +21,14 @@ export const ModalScreenWrapper: FC<Props> = ({
   rightActionComponent,
 }) => {
   const { theme } = useThemeContext();
-  const style = styles(theme, responsiveHeight);
+  const style = styles(theme, contentBackgroundColor);
 
   return (
     <View style={style.container}>
-      <View style={style.contentWrapper}>
+      <View style={style.mainWrapper}>
         <ModalHeader
+          withPadding
+          contentBackgroundColor={contentBackgroundColor}
           title={title}
           rightActionComponent={rightActionComponent}
           onCancelPress={onCancelPress}
@@ -35,7 +37,7 @@ export const ModalScreenWrapper: FC<Props> = ({
           cancelText={cancelText}
           doneText={doneText}
         />
-        {children}
+        <View style={style.contentWrapper}>{children}</View>
       </View>
     </View>
   );

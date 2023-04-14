@@ -8,4 +8,6 @@ export interface Props {
   doneText?: string;
   rightActionComponent?: ReactNode;
   title: string;
+  contentBackgroundColor?: string;
+  withPadding?: boolean;
 }
