@@ -59,7 +59,7 @@ export const getDottedDays = (theme: SchemeType) => {
     return {
       [dateItem]: {
         marked: true,
-        dotColor: theme.TEXT_ACCENT_COLOR,
+        dotColor: theme.TEXT.ACCENT,
       },
     };
   });

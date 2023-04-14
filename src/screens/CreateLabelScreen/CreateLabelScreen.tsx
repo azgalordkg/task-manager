@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { CreateLabelForm } from '@/components/forms';
-import { ModalWrapper } from '@/components/ui';
+import { ModalScreenWrapper } from '@/components/ui';
 import { createLabelFormSchema } from '@/constants/validation';
 import { useTagManageContext } from '@/context/hooks';
 import { createTag, findOneTag, updateTag } from '@/services';
@@ -54,7 +54,7 @@ export const CreateLabelScreen: FC<ScreenProps<'CreateLabel'>> = ({
   }, [labelId, formValue, isValid]);
 
   return (
-    <ModalWrapper
+    <ModalScreenWrapper
       title={`${labelId ? `${t('EDIT')}` : `${t('CREATE')}`} ${t('A_LABEL')}`}
       onDonePress={formHandler.handleSubmit(onSubmit)}
       isDoneDisabled={!isDisabled}
@@ -65,6 +65,6 @@ export const CreateLabelScreen: FC<ScreenProps<'CreateLabel'>> = ({
         editItemId={labelId}
         onClose={handleCloseModal}
       />
-    </ModalWrapper>
+    </ModalScreenWrapper>
   );
 };

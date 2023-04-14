@@ -4,7 +4,7 @@ import { Text, View } from 'react-native';
 
 import {
   CustomButton,
-  ModalWrapper,
+  ModalScreenWrapper,
   PurchaseItem,
   PurchasePlan,
 } from '@/components/ui';
@@ -24,7 +24,7 @@ export const PurchaseScreen: FC<ScreenProps<'Purchase'>> = ({ navigation }) => {
   const onSubmitPress = () => {};
 
   return (
-    <ModalWrapper title={`${t('PURCHASE')}`} onRequestClose={closeModal}>
+    <ModalScreenWrapper title={`${t('PURCHASE')}`} onRequestClose={closeModal}>
       <View style={style.container}>
         <View style={style.contentWrapper}>
           <Text style={style.title}>Unlock Premium Features:</Text>
@@ -63,6 +63,6 @@ export const PurchaseScreen: FC<ScreenProps<'Purchase'>> = ({ navigation }) => {
           Continue
         </CustomButton>
       </View>
-    </ModalWrapper>
+    </ModalScreenWrapper>
   );
 };

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
 import { Lock, Paper } from '@/components/icons';
-import { BreakLine, MenuItem, ModalWrapper } from '@/components/ui';
+import { BreakLine, MenuItem, ModalScreenWrapper } from '@/components/ui';
 import { useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
 
@@ -17,7 +17,7 @@ export const AboutUsScreen: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
   const handleClose = () => navigation.goBack();
 
   return (
-    <ModalWrapper
+    <ModalScreenWrapper
       title={`${t('ABOUT_US_SCREEN_TITLE')}`}
       onRequestClose={handleClose}>
       <View style={style.contentWrapper}>
@@ -52,6 +52,6 @@ export const AboutUsScreen: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
           </View>
         </View>
       </View>
-    </ModalWrapper>
+    </ModalScreenWrapper>
   );
 };

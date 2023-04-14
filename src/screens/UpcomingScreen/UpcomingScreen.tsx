@@ -7,7 +7,7 @@ import { Calendar } from 'react-native-calendars';
 import { TaskList } from '@/components/features';
 import { ArrowDown, Plus } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
-import { MonthPicker } from '@/components/modals';
+import { MonthPickerModal } from '@/components/modals';
 import { COLORS } from '@/constants';
 import { useTaskModalContext, useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
@@ -21,21 +21,25 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
   const { fetchList, handleTaskDateChange } = useTaskModalContext();
 
   const [selectedDate, setSelectedDate] = useState(moment().toDate());
-  const [isVisibleModal, setIsVisibleModal] = useState(false);
+  const [monthModalVisible, setMonthModalVisible] = useState(false);
 
   const style = styles(theme);
-  const minDate = moment().toDate();
   const maxDate = moment().add(10, 'years').toDate();
   const dayTitle = getDayTitle(selectedDate);
   const dateFormat = formatDate(selectedDate, 'YYYY-MM-DD');
 
-  const handleVisibleModal = () => {
-    setIsVisibleModal(!isVisibleModal);
+  const handleShowMonthModal = () => {
+    setMonthModalVisible(!monthModalVisible);
   };
 
   const handleDateChange = (date: Date) => {
     setSelectedDate(date);
     handleTaskDateChange(moment(date).valueOf());
+  };
+
+  const handleMonthChange = (date: Date) => {
+    handleDateChange(date);
+    setMonthModalVisible(false);
   };
 
   const onBack = () => {
@@ -84,7 +88,6 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
           markingType="custom"
           style={style.datePicker}
           markedDates={markers}
-          minDate={minDate.toString()}
           maxDate={maxDate.toString()}
           onDayPress={day => handleDateChange(moment(day.timestamp).toDate())}
           disableAllTouchEventsForDisabledDays
@@ -98,7 +101,9 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
           }}
           renderHeader={() => (
             <View style={style.headerStyle}>
-              <TouchableOpacity activeOpacity={1} onPress={handleVisibleModal}>
+              <TouchableOpacity
+                activeOpacity={1}
+                onPress={handleShowMonthModal}>
                 <View style={style.selectContainer}>
                   <Text style={style.selectDateText}>
                     {formatDate(selectedDate, 'MMM YYYY')}
@@ -117,10 +122,11 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
           )}
         />
 
-        <MonthPicker
-          isVisibleModal={isVisibleModal}
-          handleVisibleModal={handleVisibleModal}
-          handleDateChange={handleDateChange}
+        <MonthPickerModal
+          selectedMonth={selectedDate.toString()}
+          visible={monthModalVisible}
+          onPressDismiss={handleShowMonthModal}
+          onDateChange={handleMonthChange}
         />
       </View>
 

@@ -2,24 +2,8 @@ import { StyleSheet } from 'react-native';
 
 import { SchemeType } from '@/types';
 
-const styles = (theme: SchemeType, responsiveHeight?: boolean) =>
+const styles = (theme: SchemeType) =>
   StyleSheet.create({
-    rightAction: {
-      zIndex: 1,
-    },
-    container: {
-      flex: 1,
-      justifyContent: 'flex-end',
-    },
-    contentWrapper: {
-      flex: responsiveHeight ? 0 : 1,
-      backgroundColor: theme.BACKGROUND.SECONDARY,
-      paddingHorizontal: 20,
-      paddingTop: 15,
-      paddingBottom: 37,
-      borderTopRightRadius: 25,
-      borderTopLeftRadius: 25,
-    },
     closerWrapper: {
       width: '100%',
       alignItems: 'center',
@@ -30,11 +14,6 @@ const styles = (theme: SchemeType, responsiveHeight?: boolean) =>
       width: 35,
       backgroundColor: theme.ICONS.SECONDARY,
       borderRadius: 3,
-    },
-    footer: {
-      paddingVertical: 15,
-      width: '100%',
-      alignItems: 'center',
     },
     header: {
       flexDirection: 'row',

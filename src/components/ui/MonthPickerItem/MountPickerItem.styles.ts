@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
@@ -17,20 +17,23 @@ const styles = (theme: SchemeType) =>
       marginTop: 12,
       flexWrap: 'wrap',
       flexDirection: 'row',
-      rowGap: 12,
+      justifyContent: 'space-between',
+      rowGap: 10,
       columnGap: 10,
     },
     monthItem: {
-      height: 32,
+      height: 34,
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: Dimensions.get('window').width / 4 - 20,
       paddingHorizontal: 12,
       paddingVertical: 8,
       borderWidth: 1,
-      borderRadius: 4,
+      borderRadius: 10,
       borderColor: COLORS.GREY,
     },
     monthText: {
-      fontSize: 12,
-      lineHeight: 14,
+      fontSize: 14,
       color: theme.TEXT.PRIMARY,
     },
     selectedMonthItem: {

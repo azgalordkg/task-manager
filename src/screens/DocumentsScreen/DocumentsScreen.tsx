@@ -6,7 +6,7 @@ import Accordion from 'react-native-collapsible/Accordion';
 import {
   DocumentsContent,
   DocumentsHeader,
-  ModalWrapper,
+  ModalScreenWrapper,
 } from '@/components/ui';
 import { useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
@@ -32,7 +32,7 @@ export const DocumentsScreen: FC<ScreenProps<'Documents'>> = ({
     : getTermsOfUse(t);
 
   return (
-    <ModalWrapper title={screenTitle} onRequestClose={onClose}>
+    <ModalScreenWrapper title={screenTitle} onRequestClose={onClose}>
       <View style={style.contentWrapper}>
         <View style={style.container}>
           <Text style={style.update}>
@@ -63,6 +63,6 @@ export const DocumentsScreen: FC<ScreenProps<'Documents'>> = ({
           </ScrollView>
         </View>
       </View>
-    </ModalWrapper>
+    </ModalScreenWrapper>
   );
 };
