@@ -17,7 +17,7 @@ const styles = (theme: SchemeType) =>
       fontWeight: '500',
       fontSize: 18,
       lineHeight: 22,
-      color: theme.TEXT_ACCENT_COLOR,
+      color: theme.TEXT.ACCENT,
     },
     selectContainer: {
       flexDirection: 'row',
@@ -28,17 +28,17 @@ const styles = (theme: SchemeType) =>
       fontWeight: '500',
       fontSize: 18,
       lineHeight: 22,
-      color: theme.TEXT_PRIMARY,
+      color: theme.TEXT.PRIMARY,
     },
 
     datePicker: {
       // backgroundColor: 'transparent',
     },
     datePickerTodayTextStyle: {
-      color: theme.TEXT_ACCENT_COLOR,
+      color: theme.TEXT.ACCENT,
     },
     datePickerTextStyle: {
-      color: theme.TEXT_PRIMARY,
+      color: theme.TEXT.PRIMARY,
       fontWeight: '400',
       fontSize: 14,
       lineHeight: 17,
@@ -51,7 +51,7 @@ const styles = (theme: SchemeType) =>
       borderStyle: 'solid',
       backgroundColor: 'transparent',
       borderWidth: 1,
-      borderColor: theme.TEXT_ACCENT_COLOR,
+      borderColor: theme.TEXT.ACCENT,
     },
     dayTitle: {
       marginHorizontal: 20,
@@ -59,7 +59,7 @@ const styles = (theme: SchemeType) =>
       marginBottom: 20,
       fontWeight: '600',
       fontSize: 14,
-      color: theme.TEXT_PRIMARY,
+      color: theme.TEXT.PRIMARY,
     },
     taskListWrapper: {
       paddingBottom: 100,
@@ -67,7 +67,7 @@ const styles = (theme: SchemeType) =>
       flex: 1,
     },
     buttonWrapper: {
-      backgroundColor: theme.BUTTONS_PRIMARY,
+      backgroundColor: theme.BUTTONS.PRIMARY,
       width: 60,
       height: 60,
       borderRadius: 30,

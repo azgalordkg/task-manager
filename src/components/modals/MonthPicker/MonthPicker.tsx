@@ -49,7 +49,7 @@ export const MonthPicker: FC<Props> = ({
   const prepareMonthList = () => {
     const currentYear = momentDate.year();
 
-    return [...Array(3)].map((_, index) => {
+    return Array.from({ length: 3 }).map((_, index) => {
       const year = currentYear + index;
 
       const monthList = MONTH_LIST.map((monthName, monthIndex) => {

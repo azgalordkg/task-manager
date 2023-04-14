@@ -59,9 +59,7 @@ export const DateFilter: FC<Props> = ({ currentStartDate, onPressHandler }) => {
         const textColor = isNoDate ? COLORS.BLACK_DARK : COLORS.WHITE;
 
         return (
-          <View
-            key={startDate?.getDay() || 'no_date'}
-            style={styles.dateButtonContainer}>
+          <View key={index} style={styles.dateButtonContainer}>
             <CustomButton
               icon={isNoDate ? CloseCircle : undefined}
               textColor={textColor}

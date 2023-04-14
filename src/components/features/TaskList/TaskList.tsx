@@ -12,7 +12,11 @@ import { filterTasks } from '@/utils';
 import styles from './TaskList.styles';
 import { Props } from './TaskList.types';
 
-export const TaskList: FC<Props> = ({ onItemPress, isUnscheduled }) => {
+export const TaskList: FC<Props> = ({
+  onItemPress,
+  isUnscheduled,
+  isUpcoming,
+}) => {
   const { t } = useTranslation();
   const { taskList, unscheduledTaskList, fetchList } = useTaskModalContext();
 
@@ -76,7 +80,7 @@ export const TaskList: FC<Props> = ({ onItemPress, isUnscheduled }) => {
         );
       })}
 
-      {!isUnscheduled && (
+      {!isUnscheduled && !isUpcoming && (
         <View style={styles.buttonContainer}>
           <QuickTask />
         </View>

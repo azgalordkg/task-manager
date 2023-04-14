@@ -11,7 +11,7 @@ const styles = (theme: SchemeType) =>
     yearTitle: {
       fontSize: 14,
       lineHeight: 16,
-      color: theme.TEXT_PRIMARY,
+      color: theme.TEXT.PRIMARY,
     },
     monthContainer: {
       marginTop: 12,
@@ -31,16 +31,16 @@ const styles = (theme: SchemeType) =>
     monthText: {
       fontSize: 12,
       lineHeight: 14,
-      color: theme.TEXT_PRIMARY,
+      color: theme.TEXT.PRIMARY,
     },
     selectedMonthItem: {
-      backgroundColor: COLORS.GREEN,
+      backgroundColor: theme.BUTTONS.PRIMARY,
     },
     todayMonthText: {
-      color: COLORS.GREEN,
+      color: theme.TEXT.ACCENT,
     },
     disabledMonthText: {
-      color: theme.TEXT_SECONDARY,
+      color: theme.TEXT.SECONDARY,
     },
   });
 

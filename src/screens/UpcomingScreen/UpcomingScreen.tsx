@@ -64,7 +64,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
         customStyles: {
           container: style.datePickerSelectedDayStyle,
           text: {
-            color: theme.TEXT_PRIMARY,
+            color: theme.TEXT.PRIMARY,
           },
         },
       },
@@ -90,11 +90,11 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
           disableAllTouchEventsForDisabledDays
           theme={{
             calendarBackground: 'transparent',
-            dayTextColor: theme.TEXT_PRIMARY,
-            textDisabledColor: theme.TEXT_SECONDARY,
-            todayTextColor: theme.TEXT_ACCENT_COLOR,
+            dayTextColor: theme.TEXT.PRIMARY,
+            textDisabledColor: theme.TEXT.SECONDARY,
+            todayTextColor: theme.TEXT.ACCENT,
             textDayFontSize: 14,
-            textSectionTitleColor: COLORS.GREY_ICONS,
+            textSectionTitleColor: COLORS.GREY_LIGHT,
           }}
           renderHeader={() => (
             <View style={style.headerStyle}>
@@ -103,7 +103,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
                   <Text style={style.selectDateText}>
                     {formatDate(selectedDate, 'MMM YYYY')}
                   </Text>
-                  <ArrowDown color={theme.TEXT_PRIMARY} />
+                  <ArrowDown color={theme.TEXT.PRIMARY} />
                 </View>
               </TouchableOpacity>
 
@@ -127,7 +127,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
       <Text style={style.dayTitle}>{dayTitle}</Text>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={style.taskListWrapper}>
-          <TaskList onItemPress={handleItemPress} />
+          <TaskList isUpcoming onItemPress={handleItemPress} />
         </View>
       </ScrollView>
 
