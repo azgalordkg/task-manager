@@ -13,7 +13,7 @@ const styles = (theme: SchemeType) =>
     },
     update: {
       paddingBottom: 20,
-      color: theme.TEXT_INFO,
+      color: theme.TEXT.SECONDARY,
       fontSize: 12,
     },
   });

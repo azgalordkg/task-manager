@@ -4,7 +4,6 @@ import { Text, View } from 'react-native';
 
 import { Lock, Paper } from '@/components/icons';
 import { BreakLine, MenuItem, ModalWrapper } from '@/components/ui';
-import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
 
@@ -25,7 +24,7 @@ export const AboutUsScreen: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
         <View style={style.contentContainer}>
           <Text style={style.screenTitle}>{t('ABOUT_US_TITLE')}</Text>
 
-          <BreakLine color={COLORS.BLACK_MEDIUM} />
+          <BreakLine color={theme.BORDERS.PRIMARY} />
 
           <Text style={style.screenDescription}>
             {t('ABOUT_US_DESCRIPTION_PART_ONE')}

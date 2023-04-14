@@ -14,6 +14,7 @@ const styles = ({
   borderWidth,
   disabled,
   orientation,
+  borderRadius,
 }: Partial<Props>) => {
   const isFilled = type === 'filled';
   const isOutlined = type === 'outlined';
@@ -21,7 +22,7 @@ const styles = ({
 
   return StyleSheet.create({
     button: {
-      borderRadius: 10,
+      borderRadius,
       flexDirection: 'row',
       columnGap: 6,
       justifyContent: orientation,

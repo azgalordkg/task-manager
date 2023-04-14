@@ -1,0 +1,31 @@
+import { COLORS } from '@/constants/colors';
+import { ThemeName } from '@/types';
+
+export const DEFAULT_THEME = {
+  BACKGROUND: {
+    PRIMARY: COLORS.RED,
+    SECONDARY: COLORS.BLACK_DARK,
+    ACCENT: COLORS.RED,
+    NEUTRAL: COLORS.BLACK_MEDIUM,
+    INPUT: COLORS.GREY_DARK,
+  },
+  TEXT: {
+    PRIMARY: COLORS.WHITE,
+    SECONDARY: COLORS.GREY_LIGHT,
+    ACCENT: COLORS.GREEN,
+  },
+  BUTTONS: {
+    PRIMARY: COLORS.RED,
+    SECONDARY: COLORS.BLACK_DARK,
+    TEXT: COLORS.WHITE,
+  },
+  ICONS: {
+    PRIMARY: COLORS.WHITE,
+    SECONDARY: COLORS.GREY_LIGHT,
+  },
+  BORDERS: {
+    PRIMARY: COLORS.GREY_MEDIUM,
+  },
+};
+
+export const DARK_THEMES_LIST: ThemeName[] = ['default', 'jade'];

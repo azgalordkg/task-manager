@@ -6,23 +6,35 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import { DateFilter, DismissKeyboard, TagsField } from '@/components/features';
-import { ArrowUpSquare, Checkbox as CheckboxIcon } from '@/components/icons';
+import {
+  DateFilter,
+  DismissKeyboard,
+  LabelsField,
+} from '@/components/features';
+import {
+  ArrowUpSquare,
+  Checkbox as CheckboxIcon,
+  Repeat,
+} from '@/components/icons';
 import { Document } from '@/components/icons/Document';
-import { PriorityModal } from '@/components/modals';
+import { PriorityModal, RepeatModal } from '@/components/modals';
 import {
   Checkbox,
   CustomDatePicker,
   FormContentWrapper,
   Input,
   InputButton,
-  Select,
 } from '@/components/ui';
-import { COLORS, getRepeatList } from '@/constants';
+import { COLORS } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { findOneTask } from '@/services/realm';
-import { CreateTaskData, CreateTaskKey, TasksResponseItem } from '@/types';
+import {
+  CreateTaskData,
+  CreateTaskKey,
+  RecurringTypes,
+  TasksResponseItem,
+} from '@/types';
 import {
   getPriorityObject,
   prepareTagsForRender,
@@ -39,6 +51,7 @@ export const CreateTaskForm: FC<Props> = ({
   isUnscheduled,
 }) => {
   const [taskForEdit, setTaskForEdit] = useState({} as TasksResponseItem);
+  const [repeatModalVisible, setRepeatModalVisible] = useState(false);
   const [priorityModalVisible, setPriorityModalVisible] = useState(false);
 
   const startDate = roundAndExtendTimeRange();
@@ -144,6 +157,10 @@ export const CreateTaskForm: FC<Props> = ({
     setPriorityModalVisible(!priorityModalVisible);
   };
 
+  const handleShowRepeatModal = () => {
+    setRepeatModalVisible(!repeatModalVisible);
+  };
+
   const activePriority = watch('priority');
 
   const { label: priorityLabel, color: priorityColor } =
@@ -152,6 +169,11 @@ export const CreateTaskForm: FC<Props> = ({
   const handleChangePriority = (priority: number) => {
     setValue('priority', priority);
     handleShowPriorityModal();
+  };
+
+  const handleChangeRepeat = (repeat: RecurringTypes) => {
+    setValue('repeat', repeat);
+    handleShowRepeatModal();
   };
 
   const currentStartDate = watch('startDate');
@@ -178,6 +200,8 @@ export const CreateTaskForm: FC<Props> = ({
     setValue(key, value);
   };
 
+  const repeatValue = watch('repeat');
+
   return (
     <DismissKeyboard>
       <FormContentWrapper
@@ -188,9 +212,8 @@ export const CreateTaskForm: FC<Props> = ({
           <Input
             icon={<CheckboxIcon type="outline" color={COLORS.GREEN} checked />}
             control={control}
-            backgroundColor={theme.INPUT_DEFAULT}
-            borderColor={theme.INPUT_DEFAULT}
-            color={theme.TEXT_PRIMARY}
+            backgroundColor={theme.BACKGROUND.INPUT}
+            color={theme.TEXT.PRIMARY}
             name="name"
             placeholder={`${t('NAME_INPUT_PLACEHOLDER')}`}
             errorMessage={errors.name?.message}
@@ -199,9 +222,8 @@ export const CreateTaskForm: FC<Props> = ({
           <Input
             icon={<Document color={COLORS.YELLOW} />}
             control={control}
-            backgroundColor={theme.INPUT_DEFAULT}
-            borderColor={theme.INPUT_DEFAULT}
-            color={theme.TEXT_PRIMARY}
+            backgroundColor={theme.BACKGROUND.INPUT}
+            color={theme.TEXT.PRIMARY}
             multiline={true}
             numberOfLines={4}
             name="description"
@@ -209,11 +231,13 @@ export const CreateTaskForm: FC<Props> = ({
             maxLength={255}
           />
           {currentStartDate && (
-            <Select
-              name="repeat"
+            <InputButton
+              placeholder={`${t('REPEAT')}`}
+              value={repeatValue !== 'Never' ? repeatValue : undefined}
+              onPress={handleShowRepeatModal}
+              name="priority"
               control={control}
-              items={getRepeatList(t, theme.TEXT_PRIMARY)}
-              label={`${t('REPEAT')}`}
+              icon={<Repeat color={COLORS.BLUE} />}
             />
           )}
           <InputButton
@@ -228,7 +252,7 @@ export const CreateTaskForm: FC<Props> = ({
             control={control}
             icon={<ArrowUpSquare color={priorityColor} />}
           />
-          <TagsField onAddPress={onAddPress} />
+          <LabelsField onAddPress={onAddPress} />
           <View style={styles.dateWrapper}>
             <View>
               <CustomDatePicker
@@ -269,6 +293,12 @@ export const CreateTaskForm: FC<Props> = ({
         activePriorityId={activePriority}
         onPressDismiss={handleShowPriorityModal}
         visible={priorityModalVisible}
+      />
+      <RepeatModal
+        onValueChange={handleChangeRepeat}
+        activeValue={repeatValue || 'Never'}
+        onPressDismiss={handleShowRepeatModal}
+        visible={repeatModalVisible}
       />
     </DismissKeyboard>
   );

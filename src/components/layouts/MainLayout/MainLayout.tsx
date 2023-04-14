@@ -21,10 +21,7 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
     <>
       <SafeAreaView style={style.topView} />
       <SafeAreaView style={style.backgroundStyle}>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor={theme.BACKGROUND_PRIMARY}
-        />
+        <StatusBar barStyle="light-content" />
         <View style={style.mainWrapper}>
           <Header
             isFilter={isFilter}

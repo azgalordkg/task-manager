@@ -4,8 +4,7 @@ import Accordion from 'react-native-collapsible/Accordion';
 
 import { ArrowDown, ArrowForward } from '@/components/icons';
 import { MemoizedAccordionContent } from '@/components/ui';
-import { COLORS } from '@/constants';
-import { useTaskModalContext } from '@/context/hooks';
+import { useTaskModalContext, useThemeContext } from '@/context/hooks';
 import { filterTasks } from '@/utils';
 
 import styles from './DoneTaskAccordion.styles';
@@ -17,9 +16,12 @@ export const DoneTaskAccordion: FC<Props> = ({
   isUnscheduled,
 }) => {
   const { taskList, unscheduledTaskList } = useTaskModalContext();
+  const { theme } = useThemeContext();
+  const [activeSection, setActiveSection] = useState([0]);
+
   const tasks = isUnscheduled ? unscheduledTaskList : taskList;
   const completeTasks = filterTasks(tasks, 'complete');
-  const [activeSection, setActiveSection] = useState([0]);
+  const style = styles(theme);
 
   const sections = {
     title: 'Completed',
@@ -36,13 +38,13 @@ export const DoneTaskAccordion: FC<Props> = ({
       sections={[sections]}
       activeSections={activeSection}
       renderHeader={({ title }) => (
-        <View style={styles.titleContainer}>
-          <Text style={styles.title}>{title}</Text>
+        <View style={style.titleContainer}>
+          <Text style={style.title}>{title}</Text>
 
           {activeSection.length ? (
-            <ArrowDown color={COLORS.GREY_ICONS} />
+            <ArrowDown color={theme.ICONS.SECONDARY} />
           ) : (
-            <ArrowForward color={COLORS.GREY_ICONS} />
+            <ArrowForward color={theme.ICONS.SECONDARY} />
           )}
         </View>
       )}

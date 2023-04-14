@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType, responsiveHeight?: boolean) =>
@@ -14,7 +13,7 @@ const styles = (theme: SchemeType, responsiveHeight?: boolean) =>
     },
     contentWrapper: {
       flex: responsiveHeight ? 0 : 1,
-      backgroundColor: theme.BACKGROUND_PRIMARY,
+      backgroundColor: theme.BACKGROUND.SECONDARY,
       paddingHorizontal: 20,
       paddingTop: 15,
       paddingBottom: 37,
@@ -29,7 +28,7 @@ const styles = (theme: SchemeType, responsiveHeight?: boolean) =>
     closer: {
       height: 3,
       width: 35,
-      backgroundColor: COLORS.GREY_ICONS,
+      backgroundColor: theme.ICONS.SECONDARY,
       borderRadius: 3,
     },
     footer: {
@@ -44,7 +43,7 @@ const styles = (theme: SchemeType, responsiveHeight?: boolean) =>
     },
     title: {
       width: '100%',
-      color: theme.TEXT_PRIMARY,
+      color: theme.TEXT.PRIMARY,
       fontWeight: '600',
       zIndex: -1,
       position: 'absolute',

@@ -12,7 +12,7 @@ export const ContextMenuButton: FC<Props> = ({ icon = Trash, onPress }) => {
 
   return (
     <TouchableOpacity onPress={onPress}>
-      <Icon color={theme.TEXT_PRIMARY} />
+      <Icon color={theme.ICONS.SECONDARY} />
     </TouchableOpacity>
   );
 };

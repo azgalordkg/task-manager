@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import { DoneTaskAccordion, QuickTask } from '@/components/features';
 import { ConfirmModal } from '@/components/modals';
-import { ListItem, Loader } from '@/components/ui';
+import { ListItem } from '@/components/ui';
 import { useTaskModalContext } from '@/context/hooks';
 import { deleteOneTask, markTaskAsDone } from '@/services';
 import { filterTasks } from '@/utils';
@@ -16,18 +16,11 @@ export const TaskList: FC<Props> = ({ onItemPress, isUnscheduled }) => {
   const { t } = useTranslation();
   const { taskList, unscheduledTaskList, fetchList } = useTaskModalContext();
 
-  const [loading, setLoading] = useState(true);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [deleteId, setDeleteId] = useState('');
 
   const tasks = isUnscheduled ? unscheduledTaskList : taskList;
   const incompleteTasks = filterTasks(tasks, 'incomplete');
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
-  }, []);
 
   const handleShowModal = () => {
     setDeleteId('');
@@ -50,10 +43,6 @@ export const TaskList: FC<Props> = ({ onItemPress, isUnscheduled }) => {
     fetchList();
     handleShowModal();
   };
-
-  if (loading) {
-    return <Loader />;
-  }
 
   return (
     <>

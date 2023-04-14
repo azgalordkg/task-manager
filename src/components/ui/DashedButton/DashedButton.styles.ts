@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
+import { SchemeType } from '@/types';
 
 const styles = (
   height: number,
   fontSize: number,
+  theme: SchemeType,
   color?: string,
   disabled?: boolean,
 ) =>
@@ -17,13 +18,13 @@ const styles = (
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,
-      borderColor: COLORS.GREEN,
+      borderColor: theme.BUTTONS.PRIMARY,
       borderRadius: 6,
       borderStyle: 'dashed',
     },
     text: {
       fontSize,
-      fontWeight: '700',
+      fontWeight: '600',
       color,
     },
     icon: {

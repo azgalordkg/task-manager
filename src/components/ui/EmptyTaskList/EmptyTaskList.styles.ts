@@ -1,32 +1,33 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
+import { SchemeType } from '@/types';
 
-const styles = StyleSheet.create({
-  contentWrapper: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    rowGap: 20,
-    flex: 1,
-    flexGrow: 1,
-  },
-  textContainer: {
-    alignItems: 'center',
-    rowGap: 8,
-  },
-  title: {
-    textTransform: 'uppercase',
-    fontWeight: '500',
-    fontSize: 16,
-    lineHeight: 19,
-    color: COLORS.GREY_LIGHT,
-  },
-  link: {
-    fontWeight: '700',
-    fontSize: 16,
-    lineHeight: 19,
-    color: COLORS.GREEN,
-  },
-});
+const styles = (theme: SchemeType) =>
+  StyleSheet.create({
+    contentWrapper: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      rowGap: 16,
+      flex: 1,
+      flexGrow: 1,
+    },
+    textContainer: {
+      alignItems: 'center',
+      rowGap: 8,
+    },
+    title: {
+      textTransform: 'uppercase',
+      fontWeight: '500',
+      fontSize: 16,
+      lineHeight: 19,
+      color: theme.TEXT.PRIMARY,
+    },
+    link: {
+      fontWeight: '700',
+      fontSize: 16,
+      lineHeight: 19,
+      color: theme.BUTTONS.PRIMARY,
+    },
+  });
 
 export default styles;

@@ -1,17 +1,16 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
     topView: {
       flex: 0,
-      backgroundColor: COLORS.GREEN,
+      backgroundColor: theme.BACKGROUND.PRIMARY,
     },
     backgroundStyle: {
       flex: 1,
-      backgroundColor: theme.BACKGROUND_PRIMARY,
+      backgroundColor: theme.BACKGROUND.SECONDARY,
       height: '100%',
     },
     mainWrapper: {
@@ -19,7 +18,6 @@ const styles = (theme: SchemeType) =>
     },
     contentWrapper: {
       flex: 1,
-      backgroundColor: theme.BACKGROUND_PRIMARY,
     },
   });
 

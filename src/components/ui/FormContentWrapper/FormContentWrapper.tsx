@@ -2,7 +2,6 @@ import React, { FC, PropsWithChildren } from 'react';
 import { View } from 'react-native';
 
 import { CustomButton } from '@/components/ui';
-import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 
 import styles from './FormContentWrapper.styles';
@@ -16,7 +15,7 @@ export const FormContentWrapper: FC<PropsWithChildren<Props>> = ({
 }) => {
   const { theme } = useThemeContext();
 
-  const style = styles(theme);
+  const style = styles();
 
   return (
     <View style={style.contentWrapper}>
@@ -25,7 +24,7 @@ export const FormContentWrapper: FC<PropsWithChildren<Props>> = ({
       <CustomButton
         height={46}
         fullWidth
-        bgColor={COLORS.GREEN}
+        bgColor={theme.BUTTONS.PRIMARY}
         onPress={onSubmitPress}
         disabled={isSubmitDisabled}>
         {submitTitle}

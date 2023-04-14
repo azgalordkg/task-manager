@@ -9,7 +9,7 @@ const styles = (
   StyleSheet.create({
     text: {
       fontWeight: isBold ? '700' : '500',
-      color: theme.BUTTONS_PRIMARY,
+      color: theme.BUTTONS.PRIMARY,
       opacity: (isDoneDisabled && 0.3) || 1,
     },
     container: {
