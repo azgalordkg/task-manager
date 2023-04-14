@@ -80,6 +80,8 @@ export const QuickTaskForm: FC<Props> = ({ handleShowInput }) => {
 
             <CustomButton
               borderRadius={8}
+              bgColor={theme.BUTTONS.PRIMARY}
+              textColor={theme.BUTTONS.TEXT}
               height={32}
               fontSize={16}
               width="48%"
