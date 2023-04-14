@@ -34,7 +34,7 @@ export const LanguageProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   const handleChangeLocale = (value: string) => {
-    if (value !== 'en') {
+    if (value) {
       moment.locale(value);
       moment.updateLocale(value, {
         monthsShort: localeCustomDate[value].monthsShort,

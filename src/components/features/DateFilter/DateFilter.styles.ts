@@ -5,9 +5,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     width: '100%',
-  },
-  dateButtonContainer: {
-    marginRight: 6,
+    columnGap: 6,
+    rowGap: 8,
   },
 });
 
