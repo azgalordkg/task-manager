@@ -35,21 +35,21 @@ export const MonthPickerModal: FC<Props> = ({
     today.isSame(moment(+selectedMonth), 'month') &&
     today.isSame(moment(+selectedMonth), 'year');
 
-  const prepareMonthList = useMemo(() => {
+  const monthList = useMemo(() => {
     const currentYear = today.year();
 
     return Array.from({ length: 3 }).map((_, index) => {
       const year = currentYear + index;
 
-      const monthList = months.map((monthName, monthIndex) => {
+      const list = months.map((monthName, monthIndex) => {
         const date = moment(today).year(Number(year)).month(monthIndex).date(1);
 
         return { name: monthName, value: date.toISOString() };
       });
 
-      return { [year]: monthList };
+      return { [year]: list };
     });
-  }, [today]);
+  }, [today.date()]);
 
   const handleDatePress = useCallback((date: string) => {
     onDateChange(moment(date).toDate());
@@ -63,7 +63,7 @@ export const MonthPickerModal: FC<Props> = ({
         isDoneDisabled={isDisabled}
         doneText={`${t('TODAY')}`}>
         <View style={styles.container}>
-          {prepareMonthList.map(monthItem => (
+          {monthList.map(monthItem => (
             <MonthPickerItem
               key={Object.keys(monthItem)[0]}
               monthItem={monthItem}

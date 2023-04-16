@@ -45,7 +45,7 @@ export const MonthPickerItem: FC<Props> = memo(
                   style={[
                     style.monthText,
                     isToday && !isSelectedDate && style.todayMonthText,
-                    isDisabled && style.disabledMonthText,
+                    isDisabled && !isSelectedDate && style.disabledMonthText,
                   ]}>
                   {name}
                 </Text>

@@ -1,6 +1,10 @@
 import React, { FC } from 'react';
 
-import { ActionModalWrapper, CustomButton } from '@/components/ui';
+import {
+  ActionModalWrapper,
+  CustomButton,
+  ExtendedModal,
+} from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 import { vibrate } from '@/utils';
@@ -22,23 +26,25 @@ export const ConfirmModal: FC<Props> = ({
   };
 
   return (
-    <ActionModalWrapper visible={visible} onPressDismiss={onPressDismiss}>
-      <CustomButton
-        bgColor={theme.BUTTONS.SECONDARY}
-        textColor={COLORS.RED}
-        height={46}
-        width={'100%'}
-        onPress={handleConfirmPress}>
-        {confirmLabel}
-      </CustomButton>
-      <CustomButton
-        bgColor={theme.BUTTONS.SECONDARY}
-        textColor={theme.TEXT.PRIMARY}
-        height={46}
-        width={'100%'}
-        onPress={onPressDismiss}>
-        {dismissLabel}
-      </CustomButton>
-    </ActionModalWrapper>
+    <ExtendedModal onModalClose={onPressDismiss} isVisible={visible}>
+      <ActionModalWrapper>
+        <CustomButton
+          bgColor={theme.BUTTONS.SECONDARY}
+          textColor={COLORS.RED}
+          height={46}
+          width={'100%'}
+          onPress={handleConfirmPress}>
+          {confirmLabel}
+        </CustomButton>
+        <CustomButton
+          bgColor={theme.BUTTONS.SECONDARY}
+          textColor={theme.TEXT.PRIMARY}
+          height={46}
+          width={'100%'}
+          onPress={onPressDismiss}>
+          {dismissLabel}
+        </CustomButton>
+      </ActionModalWrapper>
+    </ExtendedModal>
   );
 };

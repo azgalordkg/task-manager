@@ -158,5 +158,7 @@
   "MONTHLY": "Monthly",
   "YEARLY": "Yearly",
   "NEVER": "Never",
-  "PURCHASE": "Purchase"
+  "PURCHASE": "Purchase",
+  "NOT_MUCH": "Not much to do yet",
+  "LETS_CREATE": "Let’s Create a Task"
 }
