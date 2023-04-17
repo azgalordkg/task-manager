@@ -2,7 +2,6 @@ import { PropsWithChildren, ReactNode } from 'react';
 
 export interface CustomProps {
   onRequestClose: () => void;
-  responsiveHeight?: boolean;
   onCancelPress?: () => void;
   onDonePress?: () => void;
   isDoneDisabled?: boolean;

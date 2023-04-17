@@ -18,11 +18,10 @@ import { Props } from './QuickTaskForm.types';
 
 export const QuickTaskForm: FC<Props> = ({ handleShowInput }) => {
   const { t } = useTranslation();
-
-  const startDate = roundAndExtendTimeRange(moment());
-
-  const { fetchList } = useTaskModalContext();
+  const { fetchList, targetDate } = useTaskModalContext();
   const { theme } = useThemeContext();
+
+  const startDate = roundAndExtendTimeRange(moment(targetDate));
   const style = styles(theme);
 
   const {
@@ -81,6 +80,8 @@ export const QuickTaskForm: FC<Props> = ({ handleShowInput }) => {
 
             <CustomButton
               borderRadius={8}
+              bgColor={theme.BUTTONS.PRIMARY}
+              textColor={theme.BUTTONS.TEXT}
               height={32}
               fontSize={16}
               width="48%"

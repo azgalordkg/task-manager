@@ -64,24 +64,21 @@ export const DateFilter: FC<Props> = ({ currentStartDate, onPressHandler }) => {
         }
 
         return (
-          <View
-            key={startDate?.getDay() || 'no_date'}
-            style={styles.dateButtonContainer}>
-            <CustomButton
-              icon={isNoDate ? CloseCircle : undefined}
-              textColor={textColor}
-              bgColor={color}
-              height={30}
-              iconHeight={16}
-              iconWidth={16}
-              type={isCurrent ? 'filled' : 'outlined'}
-              borderWidth={1}
-              paddingHorizontal={5}
-              fontSize={14}
-              onPress={onDateChange}>
-              {title}
-            </CustomButton>
-          </View>
+          <CustomButton
+            key={index}
+            icon={isNoDate ? CloseCircle : undefined}
+            textColor={textColor}
+            bgColor={color}
+            height={30}
+            iconHeight={16}
+            iconWidth={16}
+            type={isCurrent ? 'filled' : 'outlined'}
+            borderWidth={1}
+            paddingHorizontal={5}
+            fontSize={14}
+            onPress={onDateChange}>
+            {title}
+          </CustomButton>
         );
       })}
     </View>

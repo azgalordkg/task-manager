@@ -3,8 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import { CheckMark } from '@/components/icons';
-import { MainLayout } from '@/components/layouts';
-import { MenuItem } from '@/components/ui';
+import { MenuItem, ModalScreenWrapper } from '@/components/ui';
 import { LANGUAGES_LIST } from '@/constants';
 import { useLanguageContext, useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
@@ -25,24 +24,22 @@ export const LanguageScreen: FC<ScreenProps<'Language'>> = ({ navigation }) => {
   };
 
   return (
-    <MainLayout
-      screenTitle={`${t('LANGUAGES_SCREEN_TITLE')}`}
-      onBack={onBackPressHandler}>
-      <View style={styles.mainWrapper}>
-        <View style={styles.listWrapper}>
-          {LANGUAGES_LIST.map(({ value, label }, index) => (
-            <MenuItem
-              key={value}
-              isLast={index === LANGUAGES_LIST.length - 1}
-              isFirst={index === 0}
-              onPress={() => languageHandleChange(value)}
-              color={languageColorHandler(value)}
-              icon={CheckMark}>
-              {label}
-            </MenuItem>
-          ))}
-        </View>
+    <ModalScreenWrapper
+      title={`${t('LANGUAGES_SCREEN_TITLE')}`}
+      onRequestClose={onBackPressHandler}>
+      <View style={styles.listWrapper}>
+        {LANGUAGES_LIST.map(({ value, label }, index) => (
+          <MenuItem
+            key={value}
+            isLast={index === LANGUAGES_LIST.length - 1}
+            isFirst={index === 0}
+            onPress={() => languageHandleChange(value)}
+            color={languageColorHandler(value)}
+            icon={CheckMark}>
+            {label}
+          </MenuItem>
+        ))}
       </View>
-    </MainLayout>
+    </ModalScreenWrapper>
   );
 };

@@ -6,7 +6,7 @@ import { SchemeType } from '@/types';
 const styles = (theme: SchemeType, errorMessage?: string) =>
   StyleSheet.create({
     mainWrapper: {
-      marginTop: 30,
+      marginTop: 15,
     },
     textContainer: {
       marginBottom: 19,

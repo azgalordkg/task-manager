@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { ContextMenuButton } from '@/components/features';
 import { CreateTaskForm } from '@/components/forms';
 import { ConfirmModal } from '@/components/modals';
-import { ModalWrapper } from '@/components/ui';
+import { ModalScreenWrapper } from '@/components/ui';
 import { useTagManageContext, useTaskModalContext } from '@/context/hooks';
 import { createTask, deleteOneTask, updateTask } from '@/services';
 import { CreateTaskData, ScreenProps, UpdateTaskData } from '@/types';
@@ -63,7 +63,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   const title = taskId ? t('EDIT') : t('CREATE');
 
   return (
-    <ModalWrapper
+    <ModalScreenWrapper
       rightActionComponent={
         taskId && <ContextMenuButton onPress={handleShowConfirmModal} />
       }
@@ -83,6 +83,6 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
         onPressConfirm={handleDeleteTask}
         onPressDismiss={handleShowConfirmModal}
       />
-    </ModalWrapper>
+    </ModalScreenWrapper>
   );
 };

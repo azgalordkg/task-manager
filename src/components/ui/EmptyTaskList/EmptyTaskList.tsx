@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 import { TasksPlaceholder, UnscheduledPlaceholder } from '@/components/icons';
@@ -13,14 +14,15 @@ export const EmptyTaskList: FC<Props> = ({
 }) => {
   const { theme } = useThemeContext();
   const style = styles(theme);
+  const { t } = useTranslation();
 
   return (
     <View style={style.mainWrapper}>
       {isUnscheduled ? <UnscheduledPlaceholder /> : <TasksPlaceholder />}
       <View style={style.textContainer}>
-        <Text style={style.title}>Not much to do yet</Text>
+        <Text style={style.title}>{t('NOT_MUCH')}</Text>
         <TouchableOpacity onPress={handleCreatePress}>
-          <Text style={style.link}>Let’s Create a Task</Text>
+          <Text style={style.link}>{t('LETS_CREATE')}</Text>
         </TouchableOpacity>
       </View>
     </View>

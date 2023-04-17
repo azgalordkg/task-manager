@@ -14,9 +14,10 @@
   "DATE_INPUT_LABEL": "Дата *",
   "DATE_INPUT_PLACEHOLDER": "Выберите дату",
   "UNSCHEDULED": "Незапланированные",
-  "UPCOMING": "Предстоящее",
+  "UPCOMING": "Предстоящие",
   "LABELS": "Метки",
   "TODAY": "Сегодня",
+  "DASHBOARD": "Dashboard",
   "TOMORROW": "Завтра",
   "THIS_WEEKEND": "Эти выходные",
   "NEXT_WEEKEND": "Следующие выходные",
@@ -38,6 +39,7 @@
   "LABEL_LIMIT": "Вы можете выбрать только 3 активные метки",
   "TOTAL_LABELS": "Всего меток",
   "SELECT_LABELS": "Выберите метки",
+  "SELECT_MONTH": "Выберите месяц",
   "SUBMIT_TITLE": "Готово",
   "A_LABEL": "метку",
   "LABEL_NAME_INPUT_PLACEHOLDER": "Название метки",
@@ -156,5 +158,7 @@
   "MONTHLY": "Ежемесячно",
   "YEARLY": "Ежегодно",
   "NEVER": "Никогда",
-  "PURCHASE": "Покупка"
+  "PURCHASE": "Покупка",
+  "NOT_MUCH": "Пока нечем заняться",
+  "LETS_CREATE": "Создать задачу"
 }

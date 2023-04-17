@@ -17,6 +17,7 @@
   "UPCOMING": "A venir",
   "LABELS": "Libellés",
   "TODAY": "Aujourd'hui",
+  "DASHBOARD": "Tableau de bord",
   "TOMORROW": "Demain",
   "THIS_WEEKEND": "Ce week-end",
   "NEXT_WEEKEND": "Week-end suivant",
@@ -38,6 +39,7 @@
   "LABEL_LIMIT": "Vous ne pouvez choisir que 3 étiquettes actives",
   "TOTAL_LABELS": "Nombre total d'étiquettes",
   "SELECT_LABELS": "Sélectionner des étiquettes",
+  "SELECT_MONTH": "Sélectionnez un mois",
   "SUBMIT_TITLE": "Terminé",
   "A_LABEL": "une étiquette",
   "LABEL_NAME_INPUT_PLACEHOLDER": "Nom de l'étiquette",
@@ -156,5 +158,7 @@
   "MONTHLY": "Mensuel",
   "YEARLY": "Annuel",
   "NEVER": "Jamais",
-  "PURCHASE": "Achat"
+  "PURCHASE": "Achat",
+  "NOT_MUCH": "Il n'y a pas grand-chose à faire pour l'instant",
+  "LETS_CREATE": "Créons une tâche"
 }

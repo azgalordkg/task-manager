@@ -1,11 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  mainWrapper: {
-    flex: 1,
-    paddingHorizontal: 20,
-  },
   listWrapper: {
+    flex: 1,
     paddingTop: 20,
   },
 });

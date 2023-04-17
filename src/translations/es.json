@@ -17,6 +17,7 @@
   "UPCOMING": "Próximos",
   "LABELS": "Etiquetas",
   "TODAY": "Hoy",
+  "DASHBOARD": "Tablero",
   "TOMORROW": "Mañana",
   "THIS_WEEKEND": "Este fin de semana",
   "NEXT_WEEKEND": "Próximo fin de semana",
@@ -38,6 +39,7 @@
   "LABEL_LIMIT": "Solo puedes elegir 3 etiquetas activas",
   "TOTAL_LABELS": "Total de etiquetas",
   "SELECT_LABELS": "Seleccionar etiquetas",
+  "SELECT_MONTH": "Seleccione un mes",
   "SUBMIT_TITLE": "Hecho",
   "A_LABEL": "una etiqueta",
   "LABEL_NAME_INPUT_PLACEHOLDER": "Nombre de etiqueta",
@@ -156,5 +158,7 @@
   "MONTHLY": "Mensual",
   "YEARLY": "Anual",
   "NEVER": "Nunca",
-  "PURCHASE": "Compra"
+  "PURCHASE": "Compra",
+  "NOT_MUCH": "No hay mucho que hacer todavía",
+  "LETS_CREATE": "Vamos a crear una tarea"
 }

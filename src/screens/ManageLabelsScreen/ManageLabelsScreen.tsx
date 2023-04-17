@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { ManageLabelsForm } from '@/components/forms';
-import { ModalWrapper } from '@/components/ui';
+import { ModalScreenWrapper } from '@/components/ui';
 import { useTagManageContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
 
@@ -15,7 +15,7 @@ export const ManageLabelsScreen: FC<ScreenProps<'ManageLabels'>> = ({
   const { t } = useTranslation();
 
   return (
-    <ModalWrapper
+    <ModalScreenWrapper
       onRequestClose={() => {
         handleCloseModal();
         updateCurrentSelectedTags();
@@ -30,6 +30,6 @@ export const ManageLabelsScreen: FC<ScreenProps<'ManageLabels'>> = ({
         onEditTagPress={id => navigation.navigate('CreateLabel', { id })}
         onCreateTagPress={() => navigation.navigate('CreateLabel')}
       />
-    </ModalWrapper>
+    </ModalScreenWrapper>
   );
 };

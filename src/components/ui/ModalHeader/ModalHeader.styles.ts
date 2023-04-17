@@ -4,34 +4,14 @@ import { SchemeType } from '@/types';
 
 const styles = (
   theme: SchemeType,
-  responsiveHeight?: boolean,
   contentBackgroundColor?: string,
+  withPadding?: boolean,
 ) =>
   StyleSheet.create({
-    rightAction: {
-      zIndex: 1,
-    },
-    container: {
-      flex: 1,
-      justifyContent: 'flex-end',
-    },
-    contentWrapper: {
-      backgroundColor: contentBackgroundColor,
-      flex: 1,
-      paddingHorizontal: 20,
-    },
-    mainWrapper: {
-      flex: responsiveHeight ? 0 : 1,
-      backgroundColor: theme.BACKGROUND.SECONDARY,
-      paddingTop: 15,
-      paddingBottom: 37,
-      borderTopRightRadius: 25,
-      borderTopLeftRadius: 25,
-    },
     closerWrapper: {
       width: '100%',
       alignItems: 'center',
-      marginBottom: 18,
+      marginBottom: 20,
     },
     closer: {
       height: 3,
@@ -40,8 +20,8 @@ const styles = (
       borderRadius: 3,
     },
     header: {
+      paddingHorizontal: withPadding ? 20 : 0,
       paddingBottom: contentBackgroundColor ? 18 : 0,
-      paddingHorizontal: 20,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
@@ -51,11 +31,9 @@ const styles = (
       color: theme.TEXT.PRIMARY,
       fontWeight: '600',
       zIndex: -1,
+      left: withPadding ? 20 : 0,
+      top: 2,
       position: 'absolute',
-      top: 0,
-      left: 20,
-      right: 0,
-      bottom: 0,
       textAlign: 'center',
       fontSize: 16,
     },

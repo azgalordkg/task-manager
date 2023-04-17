@@ -10,3 +10,4 @@ export * from './PurchaseScreen';
 export * from './SettingsScreen';
 export * from './TasksScreen';
 export * from './ThemeScreen';
+export * from './UpcomingScreen';

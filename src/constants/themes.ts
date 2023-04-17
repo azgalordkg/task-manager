@@ -12,7 +12,7 @@ export const DEFAULT_THEME = {
   TEXT: {
     PRIMARY: COLORS.WHITE,
     SECONDARY: COLORS.GREY_LIGHT,
-    ACCENT: COLORS.GREEN,
+    ACCENT: COLORS.RED,
   },
   BUTTONS: {
     PRIMARY: COLORS.RED,
@@ -39,7 +39,7 @@ export const NEUTRAL_THEME = {
   TEXT: {
     PRIMARY: COLORS.BLACK_DARK,
     SECONDARY: COLORS.GREY_DARK,
-    ACCENT: COLORS.GREEN,
+    ACCENT: COLORS.RED,
   },
   BUTTONS: {
     PRIMARY: COLORS.RED,
@@ -60,6 +60,10 @@ export const JADE_THEME = {
   BACKGROUND: {
     ...DEFAULT_THEME.BACKGROUND,
     PRIMARY: COLORS.GREEN,
+    ACCENT: COLORS.GREEN,
+  },
+  TEXT: {
+    ...DEFAULT_THEME.TEXT,
     ACCENT: COLORS.GREEN,
   },
   BUTTONS: {
@@ -105,6 +109,8 @@ export const THEMES_MENU_ITEMS = [
   },
   {
     label: 'neutral',
-    color: COLORS.WHITE_MEDIUM,
+    color: COLORS.WHITE,
+    bodyBackgroundColor: COLORS.WHITE_MEDIUM,
+    titleColor: COLORS.BLACK_DARK,
   },
 ];

@@ -43,6 +43,9 @@ const styles = ({
       height: 5,
       width: '100%',
     },
+    shortItem: {
+      width: '50%',
+    },
   });
 
 export default styles;
