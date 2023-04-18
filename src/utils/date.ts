@@ -38,6 +38,7 @@ export const getValueForDateInput = (
   t: TFunction,
   dateFormat: string,
   isTime?: boolean,
+  locale?: string,
 ) => {
   if (!isTime) {
     if (isDateToday(moment(date))) {
@@ -48,7 +49,7 @@ export const getValueForDateInput = (
     }
   }
 
-  return formatDate(date, dateFormat);
+  return formatDate(date, dateFormat, locale);
 };
 
 export const isTodayWeekend = () => {
@@ -66,4 +67,18 @@ export const getThisSaturday = () => {
 export const getNextSaturday = () => {
   const thisSaturday = getThisSaturday();
   return new Date(thisSaturday.setDate(thisSaturday.getDate() + 7));
+};
+
+export const getUserTimeFormat = () => {
+  const currentTime = new Date();
+  const formattedTime = currentTime.toLocaleTimeString();
+
+  // Check if it's a 12-hour format (includes 'AM' or 'PM')
+  const is12HourFormat = /am|pm/i.test(formattedTime);
+
+  if (is12HourFormat) {
+    return 'en_US';
+  } else {
+    return 'en_GB';
+  }
 };

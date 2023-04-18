@@ -21,14 +21,16 @@ export const FormContentWrapper: FC<PropsWithChildren<Props>> = ({
     <View style={style.mainWrapper}>
       <View style={style.fieldsWrapper}>{children}</View>
 
-      <CustomButton
-        height={46}
-        fullWidth
-        bgColor={theme.BUTTONS.PRIMARY}
-        onPress={onSubmitPress}
-        disabled={isSubmitDisabled}>
-        {submitTitle}
-      </CustomButton>
+      {onSubmitPress && (
+        <CustomButton
+          height={46}
+          fullWidth
+          bgColor={theme.BUTTONS.PRIMARY}
+          onPress={onSubmitPress}
+          disabled={isSubmitDisabled}>
+          {submitTitle}
+        </CustomButton>
+      )}
     </View>
   );
 };

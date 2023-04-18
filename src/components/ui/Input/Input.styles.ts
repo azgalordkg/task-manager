@@ -15,6 +15,7 @@ const styles = (color?: string, multiline?: boolean) =>
       paddingRight: 30,
       width: '100%',
       color: color,
+      minHeight: multiline ? '50%' : 'auto',
       ...(multiline ? { lineHeight: 18 } : {}),
       fontSize: 18,
     },

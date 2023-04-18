@@ -26,7 +26,10 @@ export const Input: FC<Props> = ({
   borderRadius,
   ...props
 }) => {
-  const { t } = useTranslation();
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
   const {
     field: { value: fieldValue, onChange, onBlur },
   } = useController({
@@ -39,7 +42,13 @@ export const Input: FC<Props> = ({
 
   const formattedValue =
     isDateTime &&
-    (getValueForDateInput(fieldValue as Date, t, dateFormat, isTime) as string);
+    (getValueForDateInput(
+      fieldValue as Date,
+      t,
+      dateFormat,
+      isTime,
+      language,
+    ) as string);
   const value = fieldValue && (formattedValue || (fieldValue as string));
 
   return (

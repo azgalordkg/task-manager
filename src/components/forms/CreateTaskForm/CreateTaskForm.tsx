@@ -4,7 +4,7 @@ import moment from 'moment';
 import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Keyboard, View } from 'react-native';
+import { View } from 'react-native';
 
 import {
   DateFilter,
@@ -45,6 +45,8 @@ import styles from './CreateTaskForm.styles';
 import { Props } from './CreateTaskForm.types';
 
 export const CreateTaskForm: FC<Props> = ({
+  isDescriptionFocused,
+  onToggleDescription,
   onSubmit,
   editItemId,
   onAddPress,
@@ -53,7 +55,6 @@ export const CreateTaskForm: FC<Props> = ({
   const [taskForEdit, setTaskForEdit] = useState({} as TasksResponseItem);
   const [repeatModalVisible, setRepeatModalVisible] = useState(false);
   const [priorityModalVisible, setPriorityModalVisible] = useState(false);
-  const [isDescriptionFocused, setIsDescriptionFocused] = useState(false);
 
   const startDate = roundAndExtendTimeRange();
   const {
@@ -216,19 +217,12 @@ export const CreateTaskForm: FC<Props> = ({
 
   const repeatValue = watch('repeat');
 
-  const handleSubmitButtonPress = () => {
-    if (!isDescriptionFocused) {
-      handleSubmit(onSubmit)();
-    } else {
-      Keyboard.dismiss();
-      setIsDescriptionFocused(false);
-    }
-  };
-
   return (
     <DismissKeyboard>
       <FormContentWrapper
-        onSubmitPress={handleSubmitButtonPress}
+        onSubmitPress={
+          !isDescriptionFocused ? handleSubmit(onSubmit) : undefined
+        }
         isSubmitDisabled={!isEnabled}
         submitTitle={title}>
         <View style={styles.inputsWrapper}>
@@ -244,10 +238,12 @@ export const CreateTaskForm: FC<Props> = ({
           />
           {isDescriptionFocused ? (
             <Input
+              onBlur={() => onToggleDescription(false)}
               icon={<Document color={COLORS.YELLOW} />}
               control={control}
               backgroundColor={theme.INPUTS.PRIMARY}
               color={theme.TEXT.PRIMARY}
+              autoFocus
               numberOfLines={10}
               multiline
               name="description"
@@ -258,7 +254,7 @@ export const CreateTaskForm: FC<Props> = ({
             <InputButton
               placeholder={`${t('DESCRIPTION_INPUT_PLACEHOLDER')}`}
               value={watch('description')}
-              onPress={() => setIsDescriptionFocused(true)}
+              onPress={() => onToggleDescription(true)}
               name="description"
               control={control}
               icon={<Document color={COLORS.YELLOW} />}

@@ -1,5 +1,6 @@
 import { isEqual } from 'lodash';
 import React, { FC, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import OutsidePressHandler from 'react-native-outside-press';
@@ -51,6 +52,9 @@ export const TaskItem: FC<ListItemProps> = ({
   const swipeRef = useRef<Swipeable | null>(null);
   const [swiping, setSwiping] = useState(false);
   const isRecurring = repeat ? repeat !== 'Never' : false;
+  const {
+    i18n: { language },
+  } = useTranslation();
 
   const { fetchList } = useTasksContext();
 
@@ -91,7 +95,7 @@ export const TaskItem: FC<ListItemProps> = ({
     fetchList();
   };
 
-  const deadlineStart = startDate && formatDate(startDate, 'LT');
+  const deadlineStart = startDate && formatDate(startDate, 'LT', language);
 
   const tagsForRender: TagsResponseItem[] = useMemo(
     () => prepareTagsForRender(tags, allTags),

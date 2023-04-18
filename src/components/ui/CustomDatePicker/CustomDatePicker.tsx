@@ -6,6 +6,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { Calendar, TimeCircle } from '@/components/icons';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
+import { getUserTimeFormat } from '@/utils';
 
 import { Input } from '../Input';
 import styles from './CustomDatePicker.styles';
@@ -63,6 +64,7 @@ export const CustomDatePicker: FC<Props> = ({
       </View>
       <DateTimePickerModal
         {...props}
+        locale={getUserTimeFormat()}
         isVisible={open}
         date={(field.value as Date) || new Date()}
         minuteInterval={10}
