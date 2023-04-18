@@ -7354,6 +7354,11 @@ react-native-outside-press@^1.1.0:
   resolved "https://registry.npmjs.org/react-native-outside-press/-/react-native-outside-press-1.1.0.tgz"
   integrity sha512-uapMDdhd+sWc1BtShGOLvOA210cFsVcnbyIjXqoNSKUjmb1Aekb8wO1mIMd0MawHjaMgFLj2ynrPgrfg6Z3Ang==
 
+react-native-rate@^1.2.12:
+  version "1.2.12"
+  resolved "https://registry.yarnpkg.com/react-native-rate/-/react-native-rate-1.2.12.tgz#d4307b2994f9c849b987eb65599ec467db4aee04"
+  integrity sha512-A/z3s7Zth08aXcJnru6S4p71NG8acx2w5LhIfItwTJUbQruNJugk8WrN51dLBCSDv8W33kbS5YoUT4M9jOP5gA==
+
 react-native-reanimated@^2.14.4:
   version "2.15.0"
   resolved "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.15.0.tgz"

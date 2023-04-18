@@ -5,6 +5,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { SearchInput } from '@/components/features/SearchInput';
 import { ArrowBack, Setting } from '@/components/icons';
 import { useTasksContext, useThemeContext } from '@/context/hooks';
+import { vibrate } from '@/utils';
 
 import styles from './Header.styles';
 import { Props } from './Header.types';
@@ -22,6 +23,7 @@ export const Header: FC<Props> = ({
   const { navigate } = useNavigation();
 
   const onSettingPress = () => {
+    vibrate('selection');
     navigate('Settings' as never);
   };
 
