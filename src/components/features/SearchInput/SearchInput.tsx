@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { TextInput, TouchableOpacity, View } from 'react-native';
 
 import { CloseCircle, Search } from '@/components/icons';
@@ -18,6 +19,7 @@ export const SearchInput: FC<Props> = ({}) => {
   } = useTasksContext();
   const { theme } = useThemeContext();
   const style = styles(theme);
+  const { t } = useTranslation();
 
   const handleSearchPress = () => {
     toggleSearchInput();
@@ -39,7 +41,7 @@ export const SearchInput: FC<Props> = ({}) => {
           <Search width={18} height={18} color={theme.ICONS.PRIMARY} />
           <TextInput
             autoFocus
-            placeholder="Search"
+            placeholder={`${t('SEARCH')}...`}
             placeholderTextColor={theme.TEXT.PRIMARY}
             style={style.input}
             value={searchValue}
@@ -54,7 +56,7 @@ export const SearchInput: FC<Props> = ({}) => {
       )}
       {inputVisible ? (
         <AccentButton color={theme.BUTTONS.TEXT} onPress={handleCancelPress}>
-          Cancel
+          {t('CANCEL_BUTTON')}
         </AccentButton>
       ) : (
         <TouchableOpacity onPress={handleSearchPress}>

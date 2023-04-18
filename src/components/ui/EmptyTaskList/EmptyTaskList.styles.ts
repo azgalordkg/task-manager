@@ -20,7 +20,7 @@ const styles = (theme: SchemeType) =>
       fontWeight: '500',
       fontSize: 16,
       lineHeight: 19,
-      color: theme.TEXT.PRIMARY,
+      color: theme.TEXT.SECONDARY,
     },
     link: {
       fontWeight: '700',

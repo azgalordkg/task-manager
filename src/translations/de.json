@@ -160,5 +160,7 @@
   "NEVER": "Nie",
   "PURCHASE": "Kauf",
   "NOT_MUCH": "Noch nicht viel zu tun",
-  "LETS_CREATE": "Erstellen wir eine Aufgabe"
+  "LETS_CREATE": "Erstellen wir eine Aufgabe",
+  "SEARCH": "Suche",
+  "NO_MATCHES": "Keine Übereinstimmungen"
 }

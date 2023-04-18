@@ -83,7 +83,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
   const markers = { ...dottedDays, ...selectedDay };
 
   return (
-    <MainLayout onBack={onBack} screenTitle={`${t('UPCOMING')}`} isFilter>
+    <MainLayout onBack={onBack} screenTitle={`${t('UPCOMING')}`}>
       <View style={style.contentWrapper}>
         <Calendar
           initialDate={selectedDate.toString()}

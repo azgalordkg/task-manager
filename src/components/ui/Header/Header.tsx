@@ -48,12 +48,12 @@ export const Header: FC<Props> = ({
             </TouchableOpacity>*/}
           </>
         )}
-        {isSettings && (
-          <TouchableOpacity onPress={onSettingPress}>
-            <Setting color={theme.ICONS.PRIMARY} />
-          </TouchableOpacity>
-        )}
       </View>
+      {isSettings && (
+        <TouchableOpacity onPress={onSettingPress}>
+          <Setting color={theme.ICONS.PRIMARY} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
