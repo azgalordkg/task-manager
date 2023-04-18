@@ -10,7 +10,7 @@ import { EmptyTaskList } from '@/components/ui';
 import { COLORS } from '@/constants';
 import {
   useTagManageContext,
-  useTaskModalContext,
+  useTasksContext,
   useThemeContext,
 } from '@/context/hooks';
 import { updateRecurringTasks } from '@/services';
@@ -28,7 +28,7 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
     i18n: { language },
   } = useTranslation();
   const isUnscheduled = route?.params?.isUnscheduled;
-  const { taskList, unscheduledTaskList, fetchList } = useTaskModalContext();
+  const { taskList, unscheduledTaskList, fetchList } = useTasksContext();
   const { fetchTags } = useTagManageContext();
   const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);
   const isFocused = useIsFocused();

@@ -4,7 +4,7 @@ import React, { createContext, FC, PropsWithChildren, useState } from 'react';
 import { getTasks, getUnscheduledTasks } from '@/services';
 import { RealmTaskType, TasksResponseItem } from '@/types';
 
-import { TaskListContextType } from './TaskModalProvider.types';
+import { TaskListContextType } from './TasksProvider.types';
 
 export const TaskListContext = createContext<TaskListContextType>(
   {} as TaskListContextType,
@@ -16,6 +16,8 @@ export const TaskListProvider: FC<PropsWithChildren> = ({ children }) => {
   const [unscheduledTaskList, setUnscheduledTaskList] = useState<
     TasksResponseItem[]
   >([]);
+  const [inputVisible, setInputVisible] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
 
   const fetchList = () => {
     let tasks: RealmTaskType = getTasks(targetDate);
@@ -29,18 +31,30 @@ export const TaskListProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
+  const toggleSearchInput = () => {
+    setInputVisible(!inputVisible);
+  };
+
   const handleTaskDateChange = (date: number) => {
     setTargetDate(date);
+  };
+
+  const handleSearchValueChange = (value: string) => {
+    setSearchValue(value);
   };
 
   return (
     <TaskListContext.Provider
       value={{
+        inputVisible,
+        toggleSearchInput,
         unscheduledTaskList,
         taskList,
         fetchList,
         targetDate,
         handleTaskDateChange,
+        searchValue,
+        handleSearchValueChange,
       }}>
       {children}
     </TaskListContext.Provider>

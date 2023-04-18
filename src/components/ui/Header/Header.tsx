@@ -2,8 +2,9 @@ import { useNavigation } from '@react-navigation/native';
 import React, { FC } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { ArrowBack, Search, Setting } from '@/components/icons';
-import { useThemeContext } from '@/context/hooks';
+import { SearchInput } from '@/components/features/SearchInput';
+import { ArrowBack, Setting } from '@/components/icons';
+import { useTasksContext, useThemeContext } from '@/context/hooks';
 
 import styles from './Header.styles';
 import { Props } from './Header.types';
@@ -15,13 +16,10 @@ export const Header: FC<Props> = ({
   isSettings,
 }) => {
   const { theme } = useThemeContext();
+  const { inputVisible } = useTasksContext();
   const style = styles(theme);
 
   const { navigate } = useNavigation();
-
-  const onSearchPress = () => {
-    console.log('search clicked');
-  };
 
   const onSettingPress = () => {
     navigate('Settings' as never);
@@ -29,21 +27,21 @@ export const Header: FC<Props> = ({
 
   return (
     <View style={style.header}>
-      <View style={style.iconContainer}>
-        {onBack && (
-          <TouchableOpacity onPress={onBack}>
-            <ArrowBack color={theme.ICONS.PRIMARY} />
-          </TouchableOpacity>
-        )}
-        <Text style={style.screenTitle}>{screenTitle}</Text>
-      </View>
+      {!inputVisible && (
+        <View style={style.iconContainer}>
+          {onBack && (
+            <TouchableOpacity onPress={onBack}>
+              <ArrowBack color={theme.ICONS.PRIMARY} />
+            </TouchableOpacity>
+          )}
+          <Text style={style.screenTitle}>{screenTitle}</Text>
+        </View>
+      )}
 
-      <View style={style.iconContainer}>
+      <View style={style.search}>
         {isFilter && (
           <>
-            <TouchableOpacity onPress={onSearchPress}>
-              <Search color={theme.ICONS.PRIMARY} />
-            </TouchableOpacity>
+            <SearchInput />
 
             {/*<TouchableOpacity onPress={onFilterPress}>
               <Filter color={theme.ICONS.PRIMARY} />

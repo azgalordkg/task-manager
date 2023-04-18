@@ -5,11 +5,12 @@ const styles = (
   theme: SchemeType,
   isDoneDisabled?: boolean,
   isBold?: boolean,
+  color?: string,
 ) =>
   StyleSheet.create({
     text: {
       fontWeight: isBold ? '700' : '500',
-      color: theme.BUTTONS.PRIMARY,
+      color: color || theme.BUTTONS.PRIMARY,
       opacity: (isDoneDisabled && 0.3) || 1,
     },
     container: {

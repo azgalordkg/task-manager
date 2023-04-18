@@ -4,8 +4,7 @@ import Accordion from 'react-native-collapsible/Accordion';
 
 import { ArrowDown, ArrowForward } from '@/components/icons';
 import { MemoizedAccordionContent } from '@/components/ui';
-import { useTaskModalContext, useThemeContext } from '@/context/hooks';
-import { filterTasks } from '@/utils';
+import { useThemeContext } from '@/context/hooks';
 
 import styles from './DoneTaskAccordion.styles';
 import { Props } from './DoneTaskAccordion.types';
@@ -13,19 +12,16 @@ import { Props } from './DoneTaskAccordion.types';
 export const DoneTaskAccordion: FC<Props> = ({
   onItemPress,
   onDeletePress,
-  isUnscheduled,
+  tasks,
 }) => {
-  const { taskList, unscheduledTaskList } = useTaskModalContext();
   const { theme } = useThemeContext();
   const [activeSection, setActiveSection] = useState([0]);
 
-  const tasks = isUnscheduled ? unscheduledTaskList : taskList;
-  const completeTasks = filterTasks(tasks, 'complete');
   const style = styles(theme);
 
   const sections = {
     title: 'Completed',
-    content: completeTasks,
+    content: tasks,
   };
 
   if (!sections.content?.length) {

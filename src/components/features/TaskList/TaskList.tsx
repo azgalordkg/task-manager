@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { DoneTaskAccordion, QuickTask } from '@/components/features';
 import { ConfirmModal } from '@/components/modals';
 import { TaskItem } from '@/components/ui';
-import { useTaskModalContext } from '@/context/hooks';
+import { useTasksContext } from '@/context/hooks';
 import { deleteOneTask, markTaskAsDone } from '@/services';
 import { filterTasks } from '@/utils';
 
@@ -18,13 +18,14 @@ export const TaskList: FC<Props> = ({
   isUpcoming,
 }) => {
   const { t } = useTranslation();
-  const { taskList, unscheduledTaskList, fetchList } = useTaskModalContext();
+  const { taskList, unscheduledTaskList, fetchList } = useTasksContext();
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [deleteId, setDeleteId] = useState('');
 
   const tasks = isUnscheduled ? unscheduledTaskList : taskList;
   const incompleteTasks = filterTasks(tasks, 'incomplete');
+  const completedTasks = filterTasks(tasks, 'complete');
 
   const handleShowModal = () => {
     setDeleteId('');
@@ -87,7 +88,7 @@ export const TaskList: FC<Props> = ({
       )}
 
       <DoneTaskAccordion
-        isUnscheduled={isUnscheduled}
+        tasks={completedTasks}
         onItemPress={onItemPress}
         onDeletePress={handleDeletePress}
       />

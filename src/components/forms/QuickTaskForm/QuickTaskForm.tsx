@@ -8,7 +8,7 @@ import { View } from 'react-native';
 import { DismissKeyboard } from '@/components/features';
 import { CustomButton, Input } from '@/components/ui';
 import { createTaskFormSchema } from '@/constants/validation';
-import { useTaskModalContext, useThemeContext } from '@/context/hooks';
+import { useTasksContext, useThemeContext } from '@/context/hooks';
 import { createTask } from '@/services';
 import { CreateTaskData } from '@/types';
 import { roundAndExtendTimeRange, vibrate } from '@/utils';
@@ -18,7 +18,7 @@ import { Props } from './QuickTaskForm.types';
 
 export const QuickTaskForm: FC<Props> = ({ handleShowInput }) => {
   const { t } = useTranslation();
-  const { fetchList, targetDate } = useTaskModalContext();
+  const { fetchList, targetDate } = useTasksContext();
   const { theme } = useThemeContext();
 
   const startDate = roundAndExtendTimeRange(moment(targetDate));

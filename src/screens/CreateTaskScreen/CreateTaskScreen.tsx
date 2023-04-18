@@ -6,7 +6,7 @@ import { ContextMenuButton } from '@/components/features';
 import { CreateTaskForm } from '@/components/forms';
 import { ConfirmModal } from '@/components/modals';
 import { ModalScreenWrapper } from '@/components/ui';
-import { useTagManageContext, useTaskModalContext } from '@/context/hooks';
+import { useTagManageContext, useTasksContext } from '@/context/hooks';
 import { createTask, deleteOneTask, updateTask } from '@/services';
 import { CreateTaskData, ScreenProps, UpdateTaskData } from '@/types';
 import { vibrate } from '@/utils';
@@ -16,7 +16,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   route,
 }) => {
   const { t } = useTranslation();
-  const { fetchList } = useTaskModalContext();
+  const { fetchList } = useTasksContext();
   const { selectedTags, clearSelectedTags } = useTagManageContext();
   const taskId = route?.params?.id;
   const isUnscheduled = route?.params?.isUnscheduled;
