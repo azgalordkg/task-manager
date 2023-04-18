@@ -12,6 +12,7 @@ const styles = (color?: string, multiline?: boolean) =>
     },
     input: {
       paddingVertical: 0,
+      paddingRight: 30,
       width: '100%',
       color: color,
       ...(multiline ? { lineHeight: 18 } : {}),

@@ -1,5 +1,6 @@
 import { Animated, StyleSheet } from 'react-native';
 
+import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
 import { addShadow } from '@/utils';
 
@@ -57,7 +58,7 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
       alignItems: 'center',
     },
     time: {
-      color: theme.TEXT.ACCENT,
+      color: COLORS.GREEN,
       fontWeight: '400',
       fontSize: 12,
     },
