@@ -8,9 +8,8 @@ import { useTasksContext, useThemeContext } from '@/context/hooks';
 import { addAlpha } from '@/utils';
 
 import styles from './SearchInput.styles';
-import { Props } from './SearchInput.types';
 
-export const SearchInput: FC<Props> = ({}) => {
+export const SearchInput: FC = () => {
   const {
     toggleSearchInput,
     inputVisible,
@@ -37,7 +36,7 @@ export const SearchInput: FC<Props> = ({}) => {
   return (
     <View style={style.container}>
       {inputVisible && (
-        <View style={[style.inputContainer]}>
+        <View style={style.inputContainer}>
           <Search width={18} height={18} color={theme.ICONS.PRIMARY} />
           <TextInput
             autoFocus
