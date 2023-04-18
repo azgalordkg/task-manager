@@ -4,13 +4,17 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import { TaskList } from '@/components/features';
-import { Plus } from '@/components/icons';
+import {
+  Plus,
+  TasksPlaceholder,
+  UnscheduledPlaceholder,
+} from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { EmptyTaskList } from '@/components/ui';
 import { COLORS } from '@/constants';
 import {
   useTagManageContext,
-  useTaskModalContext,
+  useTasksContext,
   useThemeContext,
 } from '@/context/hooks';
 import { updateRecurringTasks } from '@/services';
@@ -28,7 +32,7 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
     i18n: { language },
   } = useTranslation();
   const isUnscheduled = route?.params?.isUnscheduled;
-  const { taskList, unscheduledTaskList, fetchList } = useTaskModalContext();
+  const { taskList, unscheduledTaskList, fetchList } = useTasksContext();
   const { fetchTags } = useTagManageContext();
   const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);
   const isFocused = useIsFocused();
@@ -86,7 +90,7 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
       ) : (
         <View style={style.container}>
           <EmptyTaskList
-            isUnscheduled={isUnscheduled}
+            image={isUnscheduled ? UnscheduledPlaceholder : TasksPlaceholder}
             handleCreatePress={handleCreatePress}
           />
         </View>

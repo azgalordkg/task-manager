@@ -160,5 +160,7 @@
   "NEVER": "Jamais",
   "PURCHASE": "Achat",
   "NOT_MUCH": "Il n'y a pas grand-chose à faire pour l'instant",
-  "LETS_CREATE": "Créons une tâche"
+  "LETS_CREATE": "Créons une tâche",
+  "SEARCH": "Chercher",
+  "NO_MATCHES": "Aucun résultat"
 }

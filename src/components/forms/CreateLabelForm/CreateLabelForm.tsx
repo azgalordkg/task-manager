@@ -80,7 +80,7 @@ export const CreateLabelForm: FC<Props> = ({
           control={control}
           name="name"
           placeholder={`${t('LABEL_NAME_INPUT_PLACEHOLDER')}`}
-          backgroundColor={theme.BACKGROUND.INPUT}
+          backgroundColor={theme.INPUTS.PRIMARY}
           color={theme.TEXT.PRIMARY}
           errorMessage={errors.name?.message}
           icon={<Label color={watch().color || theme.TEXT.SECONDARY} />}

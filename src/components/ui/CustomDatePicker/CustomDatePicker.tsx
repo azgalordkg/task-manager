@@ -48,7 +48,7 @@ export const CustomDatePicker: FC<Props> = ({
             editable={false}
             isDateTime
             isTime={props.mode === 'time'}
-            backgroundColor={theme.BACKGROUND.INPUT}
+            backgroundColor={theme.INPUTS.PRIMARY}
             control={control}
             name={name}
             icon={

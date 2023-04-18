@@ -25,4 +25,8 @@ export interface SchemeType {
   BORDERS: {
     PRIMARY: string;
   };
+  INPUTS: {
+    PRIMARY: string;
+    SECONDARY: string;
+  };
 }

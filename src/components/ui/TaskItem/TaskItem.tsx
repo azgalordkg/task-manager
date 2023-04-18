@@ -9,7 +9,7 @@ import { ActionButton, CustomCheckbox } from '@/components/ui';
 import { COLORS } from '@/constants';
 import {
   useTagManageContext,
-  useTaskModalContext,
+  useTasksContext,
   useThemeContext,
 } from '@/context/hooks';
 import { TagsResponseItem } from '@/types';
@@ -52,7 +52,7 @@ export const TaskItem: FC<ListItemProps> = ({
   const [swiping, setSwiping] = useState(false);
   const isRecurring = repeat ? repeat !== 'Never' : false;
 
-  const { fetchList } = useTaskModalContext();
+  const { fetchList } = useTasksContext();
 
   const { tags: allTags } = useTagManageContext();
 

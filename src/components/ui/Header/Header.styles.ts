@@ -10,7 +10,7 @@ const styles = (theme: SchemeType) =>
       paddingBottom: 10,
       flexDirection: 'row',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-end',
       backgroundColor: theme.BACKGROUND.PRIMARY,
       ...addShadow({
         shadowOpacity: 0.05,
@@ -21,9 +21,13 @@ const styles = (theme: SchemeType) =>
       }),
     },
     iconContainer: {
+      flexGrow: 1,
       flexDirection: 'row',
       alignItems: 'center',
       columnGap: 16,
+    },
+    search: {
+      flexGrow: 1,
     },
     screenTitle: {
       color: theme.TEXT.PRIMARY,

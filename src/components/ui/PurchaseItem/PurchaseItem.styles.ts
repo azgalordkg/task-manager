@@ -12,7 +12,7 @@ const styles = (containerWidth: number, theme: SchemeType) =>
     iconWrapper: {
       width: 30,
       height: 30,
-      backgroundColor: theme.BACKGROUND.INPUT,
+      backgroundColor: theme.INPUTS.PRIMARY,
       borderRadius: 15,
       justifyContent: 'center',
       alignItems: 'center',
