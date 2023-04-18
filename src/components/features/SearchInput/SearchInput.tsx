@@ -5,7 +5,7 @@ import { TextInput, TouchableOpacity, View } from 'react-native';
 import { CloseCircle, Search } from '@/components/icons';
 import { AccentButton } from '@/components/ui';
 import { useTasksContext, useThemeContext } from '@/context/hooks';
-import { addAlpha } from '@/utils';
+import { addAlpha, vibrate } from '@/utils';
 
 import styles from './SearchInput.styles';
 import { Props } from './SearchInput.types';
@@ -22,6 +22,7 @@ export const SearchInput: FC<Props> = ({}) => {
   const { t } = useTranslation();
 
   const handleSearchPress = () => {
+    vibrate('selection');
     toggleSearchInput();
   };
 

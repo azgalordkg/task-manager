@@ -9,15 +9,15 @@ import { COLORS } from '@/constants/colors';
 export const DASHBOARD_LIST = [
   {
     navigationName: 'Tasks',
-    prependIcon: TimeCircle,
-    title: 'UNSCHEDULED',
-    color: COLORS.RED,
-  },
-  {
-    navigationName: 'Tasks',
     prependIcon: ArrowDownSquare,
     title: 'TODAY',
     color: COLORS.GREEN,
+  },
+  {
+    navigationName: 'Tasks',
+    prependIcon: TimeCircle,
+    title: 'UNSCHEDULED',
+    color: COLORS.RED,
   },
   {
     navigationName: 'Upcoming',
