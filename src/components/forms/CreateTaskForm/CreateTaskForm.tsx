@@ -215,7 +215,7 @@ export const CreateTaskForm: FC<Props> = ({
           <Input
             icon={<CheckboxIcon type="outline" color={COLORS.GREEN} checked />}
             control={control}
-            backgroundColor={theme.BACKGROUND.INPUT}
+            backgroundColor={theme.INPUTS.PRIMARY}
             color={theme.TEXT.PRIMARY}
             name="name"
             placeholder={`${t('NAME_INPUT_PLACEHOLDER')}`}
@@ -225,7 +225,7 @@ export const CreateTaskForm: FC<Props> = ({
           <Input
             icon={<Document color={COLORS.YELLOW} />}
             control={control}
-            backgroundColor={theme.BACKGROUND.INPUT}
+            backgroundColor={theme.INPUTS.PRIMARY}
             color={theme.TEXT.PRIMARY}
             multiline={true}
             numberOfLines={4}

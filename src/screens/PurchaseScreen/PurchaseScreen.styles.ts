@@ -40,7 +40,7 @@ const styles = (theme: SchemeType) =>
       lineHeight: 21,
     },
     planWrapper: {
-      backgroundColor: theme.BACKGROUND.INPUT,
+      backgroundColor: theme.INPUTS.PRIMARY,
       width: '100%',
       flexDirection: 'row',
       justifyContent: 'space-between',

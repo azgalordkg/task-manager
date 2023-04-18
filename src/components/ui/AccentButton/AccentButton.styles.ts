@@ -12,6 +12,7 @@ const styles = (
       fontWeight: isBold ? '700' : '500',
       color: color || theme.BUTTONS.PRIMARY,
       opacity: (isDoneDisabled && 0.3) || 1,
+      fontSize: 16,
     },
     container: {
       padding: 4,

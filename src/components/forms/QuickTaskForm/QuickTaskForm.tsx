@@ -60,8 +60,7 @@ export const QuickTaskForm: FC<Props> = ({ handleShowInput }) => {
             name="name"
             placeholder={`${t('NAME_INPUT_PLACEHOLDER')}`}
             errorMessage={errors.name?.message}
-            borderColor={theme.BACKGROUND.INPUT}
-            backgroundColor={theme.BACKGROUND.INPUT}
+            backgroundColor={theme.INPUTS.PRIMARY}
             maxLength={30}
             color={theme.TEXT.PRIMARY}
           />

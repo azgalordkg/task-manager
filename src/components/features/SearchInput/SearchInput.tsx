@@ -1,9 +1,10 @@
-import React, { FC, useState } from 'react';
-import { Animated, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { FC } from 'react';
+import { TextInput, TouchableOpacity, View } from 'react-native';
 
-import { Search } from '@/components/icons';
+import { CloseCircle, Search } from '@/components/icons';
 import { AccentButton } from '@/components/ui';
 import { useTasksContext, useThemeContext } from '@/context/hooks';
+import { addAlpha } from '@/utils';
 
 import styles from './SearchInput.styles';
 import { Props } from './SearchInput.types';
@@ -16,34 +17,43 @@ export const SearchInput: FC<Props> = ({}) => {
     handleSearchValueChange,
   } = useTasksContext();
   const { theme } = useThemeContext();
-  const [inputWidth] = useState(new Animated.Value(0));
+  const style = styles(theme);
 
   const handleSearchPress = () => {
     toggleSearchInput();
-    Animated.timing(inputWidth, {
-      toValue: inputVisible ? 0 : 1,
-      duration: 250,
-      useNativeDriver: false,
-    }).start();
   };
 
-  const dynamicStyles = {
-    width: inputVisible ? 'auto' : 0,
-    flexGrow: inputWidth,
+  const clearSearchValue = () => {
+    handleSearchValueChange('');
+  };
+
+  const handleCancelPress = () => {
+    toggleSearchInput();
+    clearSearchValue();
   };
 
   return (
-    <View style={styles.container}>
-      <Animated.View style={[styles.inputContainer, dynamicStyles]}>
-        <TextInput
-          placeholder="Search"
-          style={styles.input}
-          value={searchValue}
-          onChangeText={handleSearchValueChange}
-        />
-      </Animated.View>
+    <View style={style.container}>
+      {inputVisible && (
+        <View style={[style.inputContainer]}>
+          <Search width={18} height={18} color={theme.ICONS.PRIMARY} />
+          <TextInput
+            autoFocus
+            placeholder="Search"
+            placeholderTextColor={theme.TEXT.PRIMARY}
+            style={style.input}
+            value={searchValue}
+            onChangeText={handleSearchValueChange}
+          />
+          {searchValue.length > 0 && (
+            <TouchableOpacity onPress={clearSearchValue}>
+              <CloseCircle color={addAlpha(theme.ICONS.PRIMARY, 0.6)} />
+            </TouchableOpacity>
+          )}
+        </View>
+      )}
       {inputVisible ? (
-        <AccentButton color={theme.BUTTONS.TEXT} onPress={handleSearchPress}>
+        <AccentButton color={theme.BUTTONS.TEXT} onPress={handleCancelPress}>
           Cancel
         </AccentButton>
       ) : (
