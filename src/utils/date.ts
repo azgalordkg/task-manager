@@ -1,5 +1,6 @@
 import { TFunction } from 'i18next';
 import moment, { Moment } from 'moment';
+import DeviceTimeFormat from 'react-native-device-time-format';
 
 export const getToday = () => {
   return new Date();
@@ -69,16 +70,12 @@ export const getNextSaturday = () => {
   return new Date(thisSaturday.setDate(thisSaturday.getDate() + 7));
 };
 
-export const getUserTimeFormat = () => {
-  const currentTime = new Date();
-  const formattedTime = currentTime.toLocaleTimeString();
+export const getUserTimeFormat = async () => {
+  const using24HourFormat = await DeviceTimeFormat.is24HourFormat();
 
-  // Check if it's a 12-hour format (includes 'AM' or 'PM')
-  const is12HourFormat = /am|pm/i.test(formattedTime);
-
-  if (is12HourFormat) {
-    return 'en_US';
+  if (using24HourFormat) {
+    return { locale: 'en_GB', format: 'HH:mm' };
   } else {
-    return 'en_GB';
+    return { locale: 'en_US', format: 'hh:mm A' };
   }
 };

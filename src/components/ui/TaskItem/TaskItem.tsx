@@ -1,11 +1,11 @@
 import { isEqual } from 'lodash';
-import React, { FC, useMemo, useRef, useState } from 'react';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import OutsidePressHandler from 'react-native-outside-press';
 
-import { Calendar, Trash } from '@/components/icons';
+import { Calendar, Repeat, Trash } from '@/components/icons';
 import { ActionButton, CustomCheckbox } from '@/components/ui';
 import { COLORS } from '@/constants';
 import {
@@ -17,6 +17,7 @@ import { TagsResponseItem } from '@/types';
 import {
   formatDate,
   getPriorityObject,
+  getUserTimeFormat,
   prepareTagsForRender,
   vibrate,
 } from '@/utils';
@@ -52,6 +53,7 @@ export const TaskItem: FC<ListItemProps> = ({
   const swipeRef = useRef<Swipeable | null>(null);
   const [swiping, setSwiping] = useState(false);
   const isRecurring = repeat ? repeat !== 'Never' : false;
+  const [timeFormat, setTimeFormat] = useState('LT');
   const {
     i18n: { language },
   } = useTranslation();
@@ -59,6 +61,12 @@ export const TaskItem: FC<ListItemProps> = ({
   const { fetchList } = useTasksContext();
 
   const { tags: allTags } = useTagManageContext();
+
+  useEffect(() => {
+    getUserTimeFormat().then(({ format }) => {
+      setTimeFormat(format);
+    });
+  }, []);
 
   const rightSwipe = (
     progress: Animated.AnimatedInterpolation<string>,
@@ -72,9 +80,7 @@ export const TaskItem: FC<ListItemProps> = ({
 
     const handleDeletePress = () => {
       onDeletePress(id);
-      if (!isRecurring) {
-        fetchList();
-      }
+      fetchList();
       vibrate('selection');
     };
 
@@ -95,7 +101,8 @@ export const TaskItem: FC<ListItemProps> = ({
     fetchList();
   };
 
-  const deadlineStart = startDate && formatDate(startDate, 'LT', language);
+  const deadlineStart =
+    startDate && formatDate(startDate, timeFormat, language);
 
   const tagsForRender: TagsResponseItem[] = useMemo(
     () => prepareTagsForRender(tags, allTags),
@@ -147,13 +154,21 @@ export const TaskItem: FC<ListItemProps> = ({
                     {description}
                   </Text>
                 )}
-                {hasDeadline && (
+                {(hasDeadline || isRecurring) && (
                   <View style={style.timeContainer}>
-                    <Calendar height={14} width={14} color={COLORS.GREEN} />
+                    {hasDeadline && (
+                      <>
+                        <Calendar height={14} width={14} color={COLORS.GREEN} />
 
-                    <Text style={[style.time, style.crossedTextStyles]}>
-                      {deadlineStart}
-                    </Text>
+                        <Text style={[style.time, style.crossedTextStyles]}>
+                          {deadlineStart}
+                        </Text>
+                      </>
+                    )}
+
+                    {isRecurring && (
+                      <Repeat width={14} height={14} color={COLORS.GREEN} />
+                    )}
                   </View>
                 )}
 
