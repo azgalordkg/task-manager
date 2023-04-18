@@ -68,6 +68,7 @@ export const TaskList: FC<Props> = ({
           _id,
           isDone,
           name,
+          repeat,
           tags,
           startDate,
           hasDeadline,
@@ -79,6 +80,7 @@ export const TaskList: FC<Props> = ({
             key={_id}
             description={description}
             checked={isDone}
+            repeat={repeat}
             id={_id}
             name={name}
             onCheckPress={markTaskAsDone}

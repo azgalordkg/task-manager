@@ -17,6 +17,7 @@ export const Input: FC<Props> = ({
   isDateTime,
   isTime,
   icon,
+  timeFormat = 'LT',
   errorMessage,
   borderColor,
   backgroundColor,
@@ -38,7 +39,7 @@ export const Input: FC<Props> = ({
     name,
   });
   const style = styles(color, multiline);
-  const dateFormat = isTime ? 'LT' : 'DD MMMM';
+  const dateFormat = isTime ? timeFormat : 'DD MMMM';
 
   const formattedValue =
     isDateTime &&

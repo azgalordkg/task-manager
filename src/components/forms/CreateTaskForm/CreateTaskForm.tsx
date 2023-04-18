@@ -227,6 +227,7 @@ export const CreateTaskForm: FC<Props> = ({
         submitTitle={title}>
         <View style={styles.inputsWrapper}>
           <Input
+            autoCapitalize="sentences"
             icon={<CheckboxIcon type="outline" color={COLORS.GREEN} checked />}
             control={control}
             backgroundColor={theme.INPUTS.PRIMARY}
@@ -238,6 +239,7 @@ export const CreateTaskForm: FC<Props> = ({
           />
           {isDescriptionFocused ? (
             <Input
+              autoCapitalize="sentences"
               onBlur={() => onToggleDescription(false)}
               icon={<Document color={COLORS.YELLOW} />}
               control={control}
@@ -306,12 +308,14 @@ export const CreateTaskForm: FC<Props> = ({
 
         {!isDescriptionFocused && (
           <>
-            <Checkbox
-              control={control}
-              name="hasDeadline"
-              onValueChange={handleHasDeadlineChange}
-              label={`${t('DUE_TIME')}`}
-            />
+            {currentStartDate && (
+              <Checkbox
+                control={control}
+                name="hasDeadline"
+                onValueChange={handleHasDeadlineChange}
+                label={`${t('DUE_TIME')}`}
+              />
+            )}
             {watch('hasDeadline') && (
               <CustomDatePicker
                 control={control}

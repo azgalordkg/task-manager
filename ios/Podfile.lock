@@ -429,6 +429,8 @@ PODS:
     - React-Core
   - RNDateTimePicker (6.7.5):
     - React-Core
+  - RNDeviceTimeFormat (2.0.0):
+    - React-Core
   - RNGestureHandler (2.9.0):
     - React-Core
   - RNRate (1.2.12):
@@ -537,6 +539,7 @@ DEPENDENCIES:
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - "RNCPicker (from `../node_modules/@react-native-picker/picker`)"
   - "RNDateTimePicker (from `../node_modules/@react-native-community/datetimepicker`)"
+  - RNDeviceTimeFormat (from `../node_modules/react-native-device-time-format`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNRate (from `../node_modules/react-native-rate`)
   - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
@@ -642,6 +645,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-picker/picker"
   RNDateTimePicker:
     :path: "../node_modules/@react-native-community/datetimepicker"
+  RNDeviceTimeFormat:
+    :path: "../node_modules/react-native-device-time-format"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNRate:
@@ -710,6 +715,7 @@ SPEC CHECKSUMS:
   RNCAsyncStorage: 8616bd5a58af409453ea4e1b246521bb76578d60
   RNCPicker: 0bf8ef8f7800524f32d2bb2a8bcadd53eda0ecd1
   RNDateTimePicker: 65e1d202799460b286ff5e741d8baf54695e8abd
+  RNDeviceTimeFormat: a66bbc4c86e0e683c006b90095687c7bb351c983
   RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNRate: ef3bcff84f39bb1d1e41c5593d3eea4aab2bd73a
   RNReactNativeHapticFeedback: 1e3efeca9628ff9876ee7cdd9edec1b336913f8c

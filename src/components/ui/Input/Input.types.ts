@@ -8,6 +8,7 @@ export interface Props extends TextInputProps {
   defaultValue?: string;
   name: CreateTaskKey;
   isDateTime?: boolean;
+  timeFormat?: string;
   isTime?: boolean;
   icon?: JSX.Element;
   errorMessage?: string;
