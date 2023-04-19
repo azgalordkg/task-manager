@@ -22,6 +22,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   const isUnscheduled = route?.params?.isUnscheduled;
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [isDescriptionFocused, setIsDescriptionFocused] = useState(false);
 
   const handleShowConfirmModal = () => {
     setConfirmModalVisible(!confirmModalVisible);
@@ -64,12 +65,21 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
 
   return (
     <ModalScreenWrapper
+      doneText={`${t('SUBMIT_TITLE')}`}
+      onDonePress={
+        isDescriptionFocused ? () => setIsDescriptionFocused(false) : undefined
+      }
       rightActionComponent={
-        taskId && <ContextMenuButton onPress={handleShowConfirmModal} />
+        taskId &&
+        !isDescriptionFocused && (
+          <ContextMenuButton onPress={handleShowConfirmModal} />
+        )
       }
       title={`${title} ${t('TASK')}`}
       onRequestClose={closeModal}>
       <CreateTaskForm
+        isDescriptionFocused={isDescriptionFocused}
+        onToggleDescription={setIsDescriptionFocused}
         isUnscheduled={isUnscheduled}
         onAddPress={addTagsHandler}
         editItemId={taskId}

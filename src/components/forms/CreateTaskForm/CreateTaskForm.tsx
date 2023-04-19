@@ -45,6 +45,8 @@ import styles from './CreateTaskForm.styles';
 import { Props } from './CreateTaskForm.types';
 
 export const CreateTaskForm: FC<Props> = ({
+  isDescriptionFocused,
+  onToggleDescription,
   onSubmit,
   editItemId,
   onAddPress,
@@ -57,6 +59,7 @@ export const CreateTaskForm: FC<Props> = ({
   const startDate = roundAndExtendTimeRange();
   const {
     setTagsForEdit,
+    selectedTags,
     tags: allTags,
     clearSelectedTags,
   } = useTagManageContext();
@@ -125,7 +128,10 @@ export const CreateTaskForm: FC<Props> = ({
   const isInitialDataChanged = (
     initialTaskValue: Partial<TasksResponseItem>,
     formValue: CreateTaskData,
+    tags: string[] = [],
   ) => {
+    const initialTags = [...(initialTaskValue?.tags || [])];
+    const areTagsEqual = isEqual(tags, initialTags);
     const stringifyValue = JSON.stringify(initialTaskValue);
 
     const editInitialTaskValue = Object.keys(formValue)?.reduce<CreateTaskData>(
@@ -147,11 +153,17 @@ export const CreateTaskForm: FC<Props> = ({
       {} as CreateTaskData,
     );
 
-    return isEqual(editInitialTaskValue, formValue);
+    return areTagsEqual && isEqual(editInitialTaskValue, formValue);
   };
 
-  const isDisabled = !isInitialDataChanged(taskForEdit, watch()) && isValid;
-  const title = editItemId ? t('EDIT') : t('CREATE');
+  const isEnabled =
+    isDescriptionFocused ||
+    (!isInitialDataChanged(taskForEdit, watch(), selectedTags) && isValid);
+  const title = isDescriptionFocused
+    ? t('SUBMIT_TITLE')
+    : editItemId
+    ? t('EDIT')
+    : t('CREATE');
 
   const handleShowPriorityModal = () => {
     setPriorityModalVisible(!priorityModalVisible);
@@ -208,11 +220,14 @@ export const CreateTaskForm: FC<Props> = ({
   return (
     <DismissKeyboard>
       <FormContentWrapper
-        onSubmitPress={handleSubmit(onSubmit)}
-        isSubmitDisabled={!isDisabled}
+        onSubmitPress={
+          !isDescriptionFocused ? handleSubmit(onSubmit) : undefined
+        }
+        isSubmitDisabled={!isEnabled}
         submitTitle={title}>
         <View style={styles.inputsWrapper}>
           <Input
+            autoCapitalize="sentences"
             icon={<CheckboxIcon type="outline" color={COLORS.GREEN} checked />}
             control={control}
             backgroundColor={theme.INPUTS.PRIMARY}
@@ -222,70 +237,94 @@ export const CreateTaskForm: FC<Props> = ({
             errorMessage={errors.name?.message}
             maxLength={30}
           />
-          <Input
-            icon={<Document color={COLORS.YELLOW} />}
-            control={control}
-            backgroundColor={theme.INPUTS.PRIMARY}
-            color={theme.TEXT.PRIMARY}
-            multiline={true}
-            numberOfLines={4}
-            name="description"
-            placeholder={`${t('DESCRIPTION_INPUT_PLACEHOLDER')}`}
-            maxLength={255}
-          />
-          {currentStartDate && (
-            <InputButton
-              placeholder={`${t('REPEAT')}`}
-              value={repeatValue !== 'Never' ? repeatValue : undefined}
-              onPress={handleShowRepeatModal}
-              name="priority"
+          {isDescriptionFocused ? (
+            <Input
+              autoCapitalize="sentences"
+              onBlur={() => onToggleDescription(false)}
+              icon={<Document color={COLORS.YELLOW} />}
               control={control}
-              icon={<Repeat color={COLORS.BLUE} />}
+              backgroundColor={theme.INPUTS.PRIMARY}
+              color={theme.TEXT.PRIMARY}
+              autoFocus
+              numberOfLines={10}
+              multiline
+              name="description"
+              placeholder={`${t('DESCRIPTION_INPUT_PLACEHOLDER')}`}
+              maxLength={255}
+            />
+          ) : (
+            <InputButton
+              placeholder={`${t('DESCRIPTION_INPUT_PLACEHOLDER')}`}
+              value={watch('description')}
+              onPress={() => onToggleDescription(true)}
+              name="description"
+              control={control}
+              icon={<Document color={COLORS.YELLOW} />}
             />
           )}
-          <InputButton
-            value={
-              activePriority < 4
-                ? `${t('PRIORITY')} ${priorityLabel}`
-                : undefined
-            }
-            placeholder={`${t('PRIORITY')}`}
-            onPress={handleShowPriorityModal}
-            name="priority"
-            control={control}
-            icon={<ArrowUpSquare color={priorityColor} />}
-          />
-          <LabelsField onAddPress={onAddPress} />
-          <View style={styles.dateWrapper}>
-            <View>
-              <CustomDatePicker
-                placeholder={`${t('DUE_DATE')}`}
+          {!isDescriptionFocused && (
+            <>
+              {currentStartDate && (
+                <InputButton
+                  placeholder={`${t('REPEAT')}`}
+                  value={repeatValue !== 'Never' ? repeatValue : undefined}
+                  onPress={handleShowRepeatModal}
+                  name="priority"
+                  control={control}
+                  icon={<Repeat color={COLORS.BLUE} />}
+                />
+              )}
+              <InputButton
+                value={
+                  activePriority < 4
+                    ? `${t('PRIORITY')} ${priorityLabel}`
+                    : undefined
+                }
+                placeholder={`${t('PRIORITY')}`}
+                onPress={handleShowPriorityModal}
+                name="priority"
                 control={control}
-                name="startDate"
-                title={`${t('DATE_INPUT_PLACEHOLDER')}`}
-                mode="date"
+                icon={<ArrowUpSquare color={priorityColor} />}
               />
-            </View>
-            <DateFilter
-              currentStartDate={currentStartDate}
-              onPressHandler={onDateFilterChange}
-            />
-          </View>
+              <LabelsField onAddPress={onAddPress} />
+              <View style={styles.dateWrapper}>
+                <View>
+                  <CustomDatePicker
+                    placeholder={`${t('DUE_DATE')}`}
+                    control={control}
+                    name="startDate"
+                    title={`${t('DATE_INPUT_PLACEHOLDER')}`}
+                    mode="date"
+                  />
+                </View>
+                <DateFilter
+                  currentStartDate={currentStartDate}
+                  onPressHandler={onDateFilterChange}
+                />
+              </View>
+            </>
+          )}
         </View>
 
-        <Checkbox
-          control={control}
-          name="hasDeadline"
-          onValueChange={handleHasDeadlineChange}
-          label={`${t('DUE_TIME')}`}
-        />
-        {watch('hasDeadline') && (
-          <CustomDatePicker
-            control={control}
-            name="startDate"
-            title={`${t('CHOOSE_DATE_INPUT_PLACEHOLDER')}`}
-            mode="time"
-          />
+        {!isDescriptionFocused && (
+          <>
+            {currentStartDate && (
+              <Checkbox
+                control={control}
+                name="hasDeadline"
+                onValueChange={handleHasDeadlineChange}
+                label={`${t('DUE_TIME')}`}
+              />
+            )}
+            {watch('hasDeadline') && (
+              <CustomDatePicker
+                control={control}
+                name="startDate"
+                title={`${t('CHOOSE_DATE_INPUT_PLACEHOLDER')}`}
+                mode="time"
+              />
+            )}
+          </>
         )}
       </FormContentWrapper>
 

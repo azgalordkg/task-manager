@@ -1,3 +1,4 @@
+export * from './date';
 export * from './navigation';
 export * from './svg';
 export * from './tags';

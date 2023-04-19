@@ -6,7 +6,7 @@ import { addShadow } from '@/utils';
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
     header: {
-      paddingHorizontal: 16,
+      paddingHorizontal: 20,
       paddingBottom: 10,
       flexDirection: 'row',
       alignItems: 'center',
