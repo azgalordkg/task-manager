@@ -37,7 +37,10 @@ export const getAllTasks = () => {
 
 export const getUnscheduledTasks = () => {
   if (realm) {
-    return realm.objects('Task').filtered('startDate == null');
+    return realm
+      .objects('Task')
+      .filtered('startDate == null')
+      .sorted('priority');
   }
   return [];
 };
@@ -48,7 +51,9 @@ export const getOverdueTasks = () => {
     today.setHours(0, 0, 0, 0);
     return realm
       .objects('Task')
-      .filtered('startDate < $0 && isDone == $1', today.getTime(), false);
+      .filtered('startDate < $0 && isDone == $1', today.getTime(), false)
+      .sorted('startDate')
+      .sorted('priority');
   }
   return [];
 };
@@ -67,7 +72,9 @@ export const getTasks = (targetDate: number) => {
         'startDate >= $0 && startDate <= $1',
         targetDateStart.getTime(),
         targetDateEnd.getTime(),
-      );
+      )
+      .sorted('startDate')
+      .sorted('priority');
   }
   return [];
 };
