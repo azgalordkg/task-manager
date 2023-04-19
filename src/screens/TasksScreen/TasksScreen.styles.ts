@@ -8,6 +8,9 @@ const styles = (theme: SchemeType) =>
       flex: 1,
       flexDirection: 'row',
     },
+    tasksContainer: {
+      paddingBottom: 90,
+    },
     buttonWrapper: {
       backgroundColor: theme.BACKGROUND.ACCENT,
       width: 60,

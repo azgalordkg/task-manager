@@ -84,13 +84,15 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
       isFilter>
       {!isEmpty ? (
         <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <TasksView
-            currentTasksTitle={
-              !isUnscheduled ? getDayTitle(new Date(), language) : undefined
-            }
-            isUnscheduled={isUnscheduled}
-            onItemPress={handleItemPress}
-          />
+          <View style={style.tasksContainer}>
+            <TasksView
+              currentTasksTitle={
+                !isUnscheduled ? getDayTitle(new Date(), language) : undefined
+              }
+              isUnscheduled={isUnscheduled}
+              onItemPress={handleItemPress}
+            />
+          </View>
         </ScrollView>
       ) : (
         <View style={style.container}>
