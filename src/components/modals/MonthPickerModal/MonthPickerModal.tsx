@@ -58,7 +58,7 @@ export const MonthPickerModal: FC<Props> = ({
   return (
     <ExtendedModal onModalClose={onPressDismiss} isVisible={visible}>
       <ModalComponentWrapper
-        title="Select a Month"
+        title={`${t('SELECT_MONTH')}`}
         onRequestClose={onPressDismiss}
         isDoneDisabled={isDisabled}
         doneText={`${t('TODAY')}`}>

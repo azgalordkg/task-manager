@@ -16,7 +16,7 @@ export const ModalScreenWrapper: FC<Props> = ({
   contentBackgroundColor,
   onDonePress,
   isDoneDisabled,
-  cancelText = 'Close',
+  cancelText,
   doneText,
   title,
   rightActionComponent,

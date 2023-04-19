@@ -55,7 +55,7 @@ export const SearchInput: FC = () => {
         </View>
       )}
       {inputVisible ? (
-        <AccentButton color={theme.BUTTONS.TEXT} onPress={handleCancelPress}>
+        <AccentButton color={theme.TEXT.PRIMARY} onPress={handleCancelPress}>
           {t('CANCEL_BUTTON')}
         </AccentButton>
       ) : (

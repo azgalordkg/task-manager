@@ -9,8 +9,8 @@ import styles from './MountPickerItem.styles';
 
 export const MonthPickerItem: FC<Props> = memo(
   ({ monthItem, handleDatePress, selectedMonth }) => {
-    const { theme } = useThemeContext();
-    const style = styles(theme);
+    const { theme, isDark } = useThemeContext();
+    const style = styles(theme, isDark);
     const today = moment();
 
     const yearTitle = Object.keys(monthItem)[0];
@@ -44,6 +44,7 @@ export const MonthPickerItem: FC<Props> = memo(
                 <Text
                   style={[
                     style.monthText,
+                    isSelectedDate && style.selectedMonthText,
                     isToday && !isSelectedDate && style.todayMonthText,
                     isDisabled && !isSelectedDate && style.disabledMonthText,
                   ]}>

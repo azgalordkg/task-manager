@@ -11,6 +11,9 @@ const styles = ({
   titleColor,
 }: Partial<Props>) =>
   StyleSheet.create({
+    container: {
+      ...addShadow({ shadowRadius: 2, width: 0.5, height: 0.5 }),
+    },
     title: {
       color: titleColor || COLORS.WHITE,
       fontSize: 16,
@@ -32,7 +35,6 @@ const styles = ({
       backgroundColor: bodyBackgroundColor || COLORS.BLACK_DARK,
       flexDirection: 'row',
       alignItems: 'center',
-      ...addShadow({}),
     },
     contentMock: {
       flexGrow: 1,

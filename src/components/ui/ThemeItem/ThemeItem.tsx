@@ -25,7 +25,10 @@ export const ThemeItem: FC<Props> = ({
   const { theme } = useThemeContext();
 
   return (
-    <TouchableOpacity activeOpacity={0.85} onPress={onPress}>
+    <TouchableOpacity
+      style={style.container}
+      activeOpacity={0.85}
+      onPress={onPress}>
       <View style={style.header}>
         <Text style={style.title}>{capitalizeFirstLetter(title)}</Text>
       </View>

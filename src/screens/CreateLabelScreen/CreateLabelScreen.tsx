@@ -58,7 +58,7 @@ export const CreateLabelScreen: FC<ScreenProps<'CreateLabel'>> = ({
       title={`${labelId ? `${t('EDIT')}` : `${t('CREATE')}`} ${t('A_LABEL')}`}
       onDonePress={formHandler.handleSubmit(onSubmit)}
       isDoneDisabled={!isDisabled}
-      doneText="Done"
+      doneText={`${t('SUBMIT_TITLE')}`}
       onRequestClose={handleCloseModal}>
       <CreateLabelForm
         formHandler={formHandler}

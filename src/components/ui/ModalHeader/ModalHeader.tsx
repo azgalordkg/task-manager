@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
 import { AccentButton } from '@/components/ui';
@@ -10,7 +11,7 @@ import { Props } from './ModalHeader.types';
 export const ModalHeader: FC<Props> = ({
   withPadding,
   onCancelPress,
-  cancelText = 'Close',
+  cancelText,
   rightActionComponent,
   onDonePress,
   isDoneDisabled,
@@ -19,6 +20,7 @@ export const ModalHeader: FC<Props> = ({
   contentBackgroundColor,
 }) => {
   const { theme } = useThemeContext();
+  const { t } = useTranslation();
   const style = styles(theme, contentBackgroundColor, withPadding);
 
   return (
@@ -27,7 +29,9 @@ export const ModalHeader: FC<Props> = ({
         <View style={style.closer} />
       </View>
       <View style={style.header}>
-        <AccentButton onPress={onCancelPress}>{cancelText}</AccentButton>
+        <AccentButton onPress={onCancelPress}>
+          {cancelText || t('CLOSE_BUTTON')}
+        </AccentButton>
         <Text style={style.title}>{title}</Text>
         {rightActionComponent}
         {onDonePress && (

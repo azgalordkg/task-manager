@@ -9,6 +9,7 @@ import {
   ExtendedModal,
   MenuItem,
 } from '@/components/ui';
+import { COLORS } from '@/constants';
 import { PRIORITIES } from '@/constants/tasks';
 import { useThemeContext } from '@/context/hooks';
 
@@ -26,11 +27,13 @@ export const PriorityModal: FC<Props> = ({
     <ExtendedModal onModalClose={onPressDismiss} isVisible={visible}>
       <ActionModalWrapper>
         <View>
-          {PRIORITIES.map(({ id, label, color }, index) => (
+          {PRIORITIES.map(({ id, label, color, isLight }, index) => (
             <MenuItem
               onPress={() => onValueChange(id)}
               prependIcon={ArrowUpSquare}
-              prependIconColor={color}
+              prependIconColor={
+                isLight && color === COLORS.WHITE ? COLORS.GREY_LIGHT : color
+              }
               isFirst={index === 0}
               isLast={index === PRIORITIES.length - 1}
               color={theme.BUTTONS.PRIMARY}

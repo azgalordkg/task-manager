@@ -1,15 +1,17 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
+import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
 
-const styles = (theme: SchemeType) =>
+const styles = (theme: SchemeType, isDark: boolean) =>
   StyleSheet.create({
     contentWrapper: {
       marginTop: 20,
     },
     yearTitle: {
-      fontSize: 14,
+      fontSize: 16,
       lineHeight: 16,
+      fontWeight: '600',
       color: theme.TEXT.PRIMARY,
     },
     monthContainer: {
@@ -29,11 +31,14 @@ const styles = (theme: SchemeType) =>
       paddingVertical: 8,
       borderWidth: 1,
       borderRadius: 10,
-      borderColor: theme.BORDERS.PRIMARY,
+      borderColor: isDark ? theme.BORDERS.PRIMARY : COLORS.GREY_LIGHT,
     },
     monthText: {
       fontSize: 14,
       color: theme.TEXT.PRIMARY,
+    },
+    selectedMonthText: {
+      color: !isDark ? COLORS.WHITE : theme.TEXT.PRIMARY,
     },
     selectedMonthItem: {
       backgroundColor: theme.BUTTONS.PRIMARY,

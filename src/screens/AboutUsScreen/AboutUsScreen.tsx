@@ -31,7 +31,7 @@ export const AboutUsScreen: FC<ScreenProps<'AboutUs'>> = ({ navigation }) => {
           </Text>
 
           <Text style={style.screenDescription}>
-            {t('ABOUT_US_DESCRIPTION_PART_ONE')}
+            {t('ABOUT_US_DESCRIPTION_PART_TWO')}
           </Text>
 
           <View style={style.footerContainer}>

@@ -24,7 +24,7 @@ export const ManageLabelsScreen: FC<ScreenProps<'ManageLabels'>> = ({
         acceptSelectedTags();
         handleCloseModal();
       }}
-      doneText="Done"
+      doneText={`${t('SUBMIT_TITLE')}`}
       title={`${t('SELECT_LABELS')}`}>
       <ManageLabelsForm
         onEditTagPress={id => navigation.navigate('CreateLabel', { id })}
