@@ -4,4 +4,5 @@ export * from './DismissKeyboard';
 export * from './DoneTaskAccordion';
 export * from './LabelsField';
 export * from './QuickTask';
-export * from './TaskList';
+export * from './TasksList';
+export * from './TasksView';

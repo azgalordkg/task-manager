@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { Month } from 'react-native-month';
 
-import { TaskList } from '@/components/features';
+import { TasksView } from '@/components/features';
 import { ArrowDown, Plus } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { MonthPickerModal } from '@/components/modals';
@@ -122,19 +122,15 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
             startDateContainerStyle: style.startDateContainerStyle,
           }}
         />
-
-        <MonthPickerModal
-          selectedMonth={selectedDate}
-          visible={monthModalVisible}
-          onPressDismiss={handleShowMonthModal}
-          onDateChange={handleMonthChange}
-        />
       </View>
 
-      <Text style={style.dayTitle}>{dayTitle}</Text>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={style.taskListWrapper}>
-          <TaskList isUpcoming onItemPress={handleItemPress} />
+          <TasksView
+            currentTasksTitle={dayTitle}
+            isUpcoming
+            onItemPress={handleItemPress}
+          />
         </View>
       </ScrollView>
 
@@ -143,6 +139,13 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
           <Plus color={COLORS.WHITE} width={18} height={18} />
         </View>
       </TouchableOpacity>
+
+      <MonthPickerModal
+        selectedMonth={selectedDate}
+        visible={monthModalVisible}
+        onPressDismiss={handleShowMonthModal}
+        onDateChange={handleMonthChange}
+      />
     </MainLayout>
   );
 };

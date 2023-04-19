@@ -162,5 +162,7 @@
   "NOT_MUCH": "Noch nicht viel zu tun",
   "LETS_CREATE": "Erstellen wir eine Aufgabe",
   "SEARCH": "Suche",
-  "NO_MATCHES": "Keine Übereinstimmungen"
+  "NO_MATCHES": "Keine Übereinstimmungen",
+  "COMPLETED": "Abgeschlossen",
+  "OVERDUE": "Überfällig"
 }

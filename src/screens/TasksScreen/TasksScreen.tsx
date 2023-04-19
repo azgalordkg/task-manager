@@ -1,9 +1,9 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, TouchableOpacity, View } from 'react-native';
 
-import { TaskList } from '@/components/features';
+import { TasksView } from '@/components/features';
 import {
   Plus,
   TasksPlaceholder,
@@ -32,8 +32,13 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
     i18n: { language },
   } = useTranslation();
   const isUnscheduled = route?.params?.isUnscheduled;
-  const { taskList, unscheduledTaskList, fetchList, inputVisible } =
-    useTasksContext();
+  const {
+    taskList,
+    unscheduledTaskList,
+    fetchList,
+    inputVisible,
+    overdueTaskList,
+  } = useTasksContext();
   const { fetchTags } = useTagManageContext();
   const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);
   const isFocused = useIsFocused();
@@ -70,23 +75,22 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
   };
 
   const tasks = isUnscheduled ? unscheduledTaskList : taskList;
+  const isEmpty = !tasks.length || (isUnscheduled && !overdueTaskList.length);
 
   return (
     <MainLayout
       screenTitle={`${isUnscheduled ? t('UNSCHEDULED') : t('TODAY')}`}
       onBack={() => navigation.navigate('Dashboard')}
       isFilter>
-      {!isUnscheduled && (
-        <Text style={style.dayTitle}>{getDayTitle(new Date(), language)}</Text>
-      )}
-      {tasks.length ? (
+      {!isEmpty ? (
         <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <View style={style.mainWrapper}>
-            <TaskList
-              isUnscheduled={isUnscheduled}
-              onItemPress={handleItemPress}
-            />
-          </View>
+          <TasksView
+            currentTasksTitle={
+              !isUnscheduled ? getDayTitle(new Date(), language) : undefined
+            }
+            isUnscheduled={isUnscheduled}
+            onItemPress={handleItemPress}
+          />
         </ScrollView>
       ) : (
         <View style={style.container}>

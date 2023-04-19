@@ -75,13 +75,13 @@ export const getDottedDays = (theme: SchemeType) => {
 
 export const getFilteredTasksBySearch = (
   tasks: TasksResponseItem[],
-  searchValue: string,
+  searchValue: string = '',
 ) => {
   if (searchValue) {
     return tasks.filter(
       ({ name, description }) =>
-        name.toLowerCase().includes(searchValue.toLowerCase()) ||
-        description?.toLowerCase().includes(searchValue.toLowerCase()),
+        name.toLowerCase().includes(searchValue.trim().toLowerCase()) ||
+        description?.toLowerCase().includes(searchValue.trim().toLowerCase()),
     );
   }
   return tasks;

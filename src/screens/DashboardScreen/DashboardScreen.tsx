@@ -15,7 +15,8 @@ export const DashboardScreen: FC<ScreenProps<'Dashboard'>> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { taskList, unscheduledTaskList, fetchList } = useTasksContext();
+  const { taskList, unscheduledTaskList, overdueTaskList, fetchList } =
+    useTasksContext();
 
   useEffect(() => {
     fetchList();
@@ -25,7 +26,7 @@ export const DashboardScreen: FC<ScreenProps<'Dashboard'>> = ({
   const getCount = (title: string) => {
     switch (title) {
       case 'TODAY':
-        return taskList.length;
+        return taskList.length + overdueTaskList.length;
       case 'UNSCHEDULED':
         return unscheduledTaskList.length;
       default:

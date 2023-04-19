@@ -7,6 +7,7 @@ export const useTasksContext = () => {
     taskList,
     fetchList,
     unscheduledTaskList,
+    overdueTaskList,
     targetDate,
     handleTaskDateChange,
     toggleSearchInput,
@@ -18,6 +19,7 @@ export const useTasksContext = () => {
   return {
     taskList,
     unscheduledTaskList,
+    overdueTaskList,
     fetchList,
     targetDate,
     handleTaskDateChange,

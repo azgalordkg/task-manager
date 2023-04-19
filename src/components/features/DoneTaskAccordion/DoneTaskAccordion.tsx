@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
 
@@ -15,12 +16,13 @@ export const DoneTaskAccordion: FC<Props> = ({
   tasks,
 }) => {
   const { theme } = useThemeContext();
+  const { t } = useTranslation();
   const [activeSection, setActiveSection] = useState([0]);
 
   const style = styles(theme);
 
   const sections = {
-    title: 'Completed',
+    title: t('COMPLETED'),
     content: tasks,
   };
 

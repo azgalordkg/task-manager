@@ -162,5 +162,7 @@
   "NOT_MUCH": "Not much to do yet",
   "LETS_CREATE": "Let’s Create a Task",
   "SEARCH": "Search",
-  "NO_MATCHES": "No matches"
+  "NO_MATCHES": "No matches",
+  "COMPLETED": "Completed",
+  "OVERDUE": "Overdue"
 }

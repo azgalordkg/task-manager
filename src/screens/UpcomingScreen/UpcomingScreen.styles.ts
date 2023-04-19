@@ -6,6 +6,8 @@ const styles = (theme: SchemeType) =>
   StyleSheet.create({
     contentWrapper: {
       marginTop: 20,
+      borderBottomWidth: 1,
+      borderColor: theme.BORDERS.PRIMARY,
     },
     headerStyle: {
       flexDirection: 'row',
@@ -43,7 +45,7 @@ const styles = (theme: SchemeType) =>
       color: theme.TEXT.SECONDARY,
     },
     dayContainerStyle: {
-      height: 32,
+      height: 30,
       paddingVertical: 0,
       backgroundColor: 'transparent',
       borderColor: 'transparent',
@@ -78,15 +80,6 @@ const styles = (theme: SchemeType) =>
     startDateContainerStyle: {
       borderBottomLeftRadius: 4,
       borderTopLeftRadius: 4,
-    },
-
-    dayTitle: {
-      marginHorizontal: 20,
-      marginTop: 30,
-      marginBottom: 20,
-      fontWeight: '600',
-      fontSize: 14,
-      color: theme.TEXT.PRIMARY,
     },
     taskListWrapper: {
       paddingBottom: 100,
