@@ -55,18 +55,19 @@ export const getDottedDays = (theme: SchemeType) => {
 
   tasks.forEach(task => {
     const taskStartDate = moment(task.startDate);
-    const today = moment();
 
-    if (today.isSameOrBefore(taskStartDate, 'day')) {
-      uniqueDates.add(taskStartDate.format('YYYY-MM-DD'));
-    }
+    uniqueDates.add(taskStartDate.format('YYYY-MM-DD'));
   });
 
   return Array.from(uniqueDates).map(dateItem => {
     return {
       [dateItem]: {
-        marked: true,
-        dotColor: theme.TEXT.ACCENT,
+        dots: [
+          {
+            color: theme.TEXT.ACCENT,
+            selectedColor: theme.TEXT.ACCENT,
+          },
+        ],
       },
     };
   });
