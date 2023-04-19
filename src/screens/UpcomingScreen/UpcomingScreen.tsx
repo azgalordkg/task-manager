@@ -61,7 +61,9 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
 
   const handleCreatePress = () => {
     vibrate('selection');
-    navigation.navigate('CreateTask');
+    navigation.navigate('CreateTask', {
+      startDate: selectedDate.toISOString(),
+    });
   };
 
   const selectedDay = useMemo(

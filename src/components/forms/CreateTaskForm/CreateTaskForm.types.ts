@@ -5,4 +5,5 @@ export interface Props {
   onAddPress: () => void;
   editItemId?: string;
   isUnscheduled?: boolean;
+  taskStartDate?: string;
 }
