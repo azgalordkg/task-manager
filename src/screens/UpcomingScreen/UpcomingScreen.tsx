@@ -113,7 +113,6 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
             activeDayContainerStyle: style.activeDayContainerStyle,
             activeDayTextStyle: style.activeDayTextStyle,
             dayContainerStyle: style.dayContainerStyle,
-            dayContentStyle: {},
             dayTextStyle: style.dayTextStyle,
             endDateContainerStyle: style.endDateContainerStyle,
             todayTextStyle: style.todayTextStyle,
