@@ -2,25 +2,32 @@ import React, { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
-import { DoneTaskAccordion, QuickTask } from '@/components/features';
+import { DoneTaskAccordion, QuickTask, TasksList } from '@/components/features';
 import { NotFoundPlaceholder } from '@/components/icons/NotFoundPlaceholder';
 import { ConfirmModal } from '@/components/modals';
-import { EmptyTaskList, TaskItem } from '@/components/ui';
+import { EmptyTaskList } from '@/components/ui';
 import { useTasksContext } from '@/context/hooks';
-import { deleteOneTask, markTaskAsDone } from '@/services';
+import { deleteOneTask } from '@/services';
 import { filterTasks, getFilteredTasksBySearch } from '@/utils';
 
-import styles from './TaskList.styles';
-import { Props } from './TaskList.types';
+import styles from './TasksView.styles';
+import { Props } from './TasksView.types';
 
-export const TaskList: FC<Props> = ({
+export const TasksView: FC<Props> = ({
   onItemPress,
   isUnscheduled,
   isUpcoming,
+  currentTasksTitle,
 }) => {
   const { t } = useTranslation();
-  const { taskList, unscheduledTaskList, fetchList, searchValue } =
-    useTasksContext();
+  const {
+    taskList,
+    unscheduledTaskList,
+    overdueTaskList,
+    inputVisible,
+    fetchList,
+    searchValue,
+  } = useTasksContext();
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [deleteId, setDeleteId] = useState('');
@@ -30,11 +37,16 @@ export const TaskList: FC<Props> = ({
     () => getFilteredTasksBySearch(tasks, searchValue),
     [searchValue, tasks],
   );
+  const filteredOverdueTasks = useMemo(
+    () => getFilteredTasksBySearch(overdueTaskList, searchValue),
+    [searchValue, overdueTaskList],
+  );
 
   const incompleteTasks = filterTasks(filteredTasks, 'incomplete');
   const completedTasks = filterTasks(filteredTasks, 'complete');
 
-  const isNotFound = tasks.length && !filteredTasks.length;
+  const isNotFound =
+    tasks.length && !filteredTasks.length && !filteredOverdueTasks.length;
 
   const handleShowModal = () => {
     setDeleteId('');
@@ -59,42 +71,28 @@ export const TaskList: FC<Props> = ({
   };
 
   return isNotFound ? (
-    <EmptyTaskList title={`${t('NO_MATCHES')}`} image={NotFoundPlaceholder} />
+    <View style={styles.emptyContainer}>
+      <EmptyTaskList title={`${t('NO_MATCHES')}`} image={NotFoundPlaceholder} />
+    </View>
   ) : (
     <>
-      {incompleteTasks?.map(task => {
-        const {
-          description,
-          _id,
-          isDone,
-          name,
-          repeat,
-          tags,
-          startDate,
-          hasDeadline,
-          priority,
-        } = task;
-        return (
-          <TaskItem
-            priority={priority}
-            key={_id}
-            description={description}
-            checked={isDone}
-            repeat={repeat}
-            id={_id}
-            name={name}
-            onCheckPress={markTaskAsDone}
-            onDeletePress={handleDeletePress}
-            isDone={isDone}
-            onItemPress={onItemPress}
-            tags={tags}
-            startDate={startDate}
-            hasDeadline={hasDeadline}
-          />
-        );
-      })}
+      {!isUnscheduled && !isUpcoming && !!filteredOverdueTasks.length && (
+        <TasksList
+          title={`${t('OVERDUE')}`}
+          tasks={filteredOverdueTasks}
+          onDeletePress={handleDeletePress}
+          onItemPress={onItemPress}
+        />
+      )}
 
-      {!isUnscheduled && !isUpcoming && (
+      <TasksList
+        title={currentTasksTitle}
+        tasks={incompleteTasks}
+        onDeletePress={handleDeletePress}
+        onItemPress={onItemPress}
+      />
+
+      {!isUnscheduled && !isUpcoming && !inputVisible && (
         <View style={styles.buttonContainer}>
           <QuickTask />
         </View>

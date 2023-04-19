@@ -5,7 +5,7 @@ import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import OutsidePressHandler from 'react-native-outside-press';
 
-import { Calendar, Repeat, Trash } from '@/components/icons';
+import { Calendar, InfoCircle, Repeat, Trash } from '@/components/icons';
 import { ActionButton, CustomCheckbox } from '@/components/ui';
 import { COLORS } from '@/constants';
 import {
@@ -55,6 +55,7 @@ export const TaskItem: FC<ListItemProps> = ({
   const isRecurring = repeat ? repeat !== 'Never' : false;
   const [timeFormat, setTimeFormat] = useState('LT');
   const {
+    t,
     i18n: { language },
   } = useTranslation();
 
@@ -112,6 +113,16 @@ export const TaskItem: FC<ListItemProps> = ({
   const { color: priorityColor, isLight } = getPriorityObject(isDark, priority);
   const checkmarkColor = isDark && isLight ? COLORS.BLACK_DARK : undefined;
 
+  const isOverdue = useMemo(() => {
+    if (startDate) {
+      const now = new Date();
+      now.setHours(0, 0, 0, 0);
+      const start = new Date(startDate);
+      return start < now;
+    }
+    return false;
+  }, [startDate]);
+
   return (
     <View style={style.outerContainer}>
       <OutsidePressHandler
@@ -153,6 +164,12 @@ export const TaskItem: FC<ListItemProps> = ({
                     style={[style.description, style.crossedTextStyles]}>
                     {description}
                   </Text>
+                )}
+                {isOverdue && (
+                  <View style={style.timeContainer}>
+                    <InfoCircle height={14} width={14} color={COLORS.RED} />
+                    <Text style={style.overdue}>{t('OVERDUE')}</Text>
+                  </View>
                 )}
                 {(hasDeadline || isRecurring) && (
                   <View style={style.timeContainer}>

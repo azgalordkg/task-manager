@@ -8,12 +8,6 @@ const styles = (theme: SchemeType) =>
       flex: 1,
       flexDirection: 'row',
     },
-    mainWrapper: {
-      marginTop: 30,
-      paddingBottom: 100,
-      rowGap: 6,
-      flex: 1,
-    },
     buttonWrapper: {
       backgroundColor: theme.BACKGROUND.ACCENT,
       width: 60,
@@ -24,13 +18,6 @@ const styles = (theme: SchemeType) =>
       position: 'absolute',
       bottom: 20,
       right: 20,
-    },
-    dayTitle: {
-      marginHorizontal: 20,
-      marginTop: 30,
-      fontWeight: '600',
-      fontSize: 14,
-      color: theme.TEXT.PRIMARY,
     },
   });
 

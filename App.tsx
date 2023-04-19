@@ -29,7 +29,7 @@ const App: FC = () => {
     <ProvidersLayout>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Upcoming"
+          initialRouteName="Dashboard"
           screenOptions={{
             headerShown: false,
           }}>

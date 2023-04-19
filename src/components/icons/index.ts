@@ -20,6 +20,7 @@ export * from './HashTag';
 export * from './Heart';
 export * from './Image';
 export * from './Info';
+export * from './InfoCircle';
 export * from './Label';
 export * from './Lock';
 export * from './Logo';

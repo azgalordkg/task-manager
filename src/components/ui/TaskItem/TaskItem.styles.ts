@@ -62,6 +62,11 @@ const styles = ({ scale, isLast, checked, theme }: StyleProps) =>
       fontWeight: '400',
       fontSize: 12,
     },
+    overdue: {
+      color: COLORS.RED,
+      fontWeight: '400',
+      fontSize: 12,
+    },
     mainWrapper: {
       flexDirection: 'row',
       columnGap: 10,

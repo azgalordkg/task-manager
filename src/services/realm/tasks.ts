@@ -42,6 +42,17 @@ export const getUnscheduledTasks = () => {
   return [];
 };
 
+export const getOverdueTasks = () => {
+  if (realm) {
+    const today = getToday();
+    today.setHours(0, 0, 0, 0);
+    return realm
+      .objects('Task')
+      .filtered('startDate < $0 && isDone == $1', today.getTime(), false);
+  }
+  return [];
+};
+
 export const getTasks = (targetDate: number) => {
   if (realm) {
     const targetDateStart = new Date(targetDate);

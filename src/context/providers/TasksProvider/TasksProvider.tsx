@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { createContext, FC, PropsWithChildren, useState } from 'react';
 
-import { getTasks, getUnscheduledTasks } from '@/services';
+import { getOverdueTasks, getTasks, getUnscheduledTasks } from '@/services';
 import { RealmTaskType, TasksResponseItem } from '@/types';
 
 import { TaskListContextType } from './TasksProvider.types';
@@ -16,18 +16,25 @@ export const TaskListProvider: FC<PropsWithChildren> = ({ children }) => {
   const [unscheduledTaskList, setUnscheduledTaskList] = useState<
     TasksResponseItem[]
   >([]);
+  const [overdueTaskList, setOverdueTaskList] = useState<TasksResponseItem[]>(
+    [],
+  );
   const [inputVisible, setInputVisible] = useState(false);
   const [searchValue, setSearchValue] = useState('');
 
   const fetchList = () => {
-    let tasks: RealmTaskType = getTasks(targetDate);
-    let unscheduledTasks: RealmTaskType = getUnscheduledTasks();
+    const tasks: RealmTaskType = getTasks(targetDate);
+    const unscheduledTasks: RealmTaskType = getUnscheduledTasks();
+    const overdueTasks: RealmTaskType = getOverdueTasks();
 
     if (tasks) {
       setTaskList(tasks as TasksResponseItem[]);
     }
     if (unscheduledTasks) {
       setUnscheduledTaskList(unscheduledTasks as TasksResponseItem[]);
+    }
+    if (overdueTasks) {
+      setOverdueTaskList(overdueTasks as TasksResponseItem[]);
     }
   };
 
@@ -49,6 +56,7 @@ export const TaskListProvider: FC<PropsWithChildren> = ({ children }) => {
         inputVisible,
         toggleSearchInput,
         unscheduledTaskList,
+        overdueTaskList,
         taskList,
         fetchList,
         targetDate,
