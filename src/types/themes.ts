@@ -6,7 +6,6 @@ export interface SchemeType {
     SECONDARY: string;
     ACCENT: string;
     NEUTRAL: string;
-    INPUT: string;
   };
   TEXT: {
     PRIMARY: string;
@@ -24,5 +23,9 @@ export interface SchemeType {
   };
   BORDERS: {
     PRIMARY: string;
+  };
+  INPUTS: {
+    PRIMARY: string;
+    SECONDARY: string;
   };
 }

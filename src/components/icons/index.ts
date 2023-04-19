@@ -12,7 +12,6 @@ export * from './Chat';
 export * from './Checkbox';
 export * from './CheckMark';
 export * from './CloseCircle';
-export * from './Cross';
 export * from './Crown';
 export * from './Dots';
 export * from './Edit';

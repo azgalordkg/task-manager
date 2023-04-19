@@ -9,7 +9,7 @@ import { ArrowDown, Plus } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { MonthPickerModal } from '@/components/modals';
 import { COLORS } from '@/constants';
-import { useTaskModalContext, useThemeContext } from '@/context/hooks';
+import { useTasksContext, useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
 import { formatDate, getDayTitle, getDottedDays, vibrate } from '@/utils';
 
@@ -21,7 +21,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
     t,
     i18n: { language },
   } = useTranslation();
-  const { fetchList, handleTaskDateChange } = useTaskModalContext();
+  const { fetchList, handleTaskDateChange } = useTasksContext();
 
   const [selectedDate, setSelectedDate] = useState(
     moment()
@@ -72,7 +72,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
   const weekdaysShort = moment.localeData(language).weekdaysShort();
 
   return (
-    <MainLayout onBack={onBack} screenTitle={`${t('UPCOMING')}`} isFilter>
+    <MainLayout onBack={onBack} screenTitle={`${t('UPCOMING')}`}>
       <View style={style.contentWrapper}>
         <View style={style.headerStyle}>
           <TouchableOpacity activeOpacity={1} onPress={handleShowMonthModal}>

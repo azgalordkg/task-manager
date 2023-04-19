@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     width: '100%',
     columnGap: 6,
-    rowGap: 8,
+    rowGap: 10,
   },
 });
 

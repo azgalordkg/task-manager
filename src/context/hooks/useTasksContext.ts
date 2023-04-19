@@ -2,13 +2,17 @@ import { useContext } from 'react';
 
 import { TaskListContext } from '../providers';
 
-export const useTaskModalContext = () => {
+export const useTasksContext = () => {
   const {
     taskList,
     fetchList,
     unscheduledTaskList,
     targetDate,
     handleTaskDateChange,
+    toggleSearchInput,
+    inputVisible,
+    searchValue,
+    handleSearchValueChange,
   } = useContext(TaskListContext);
 
   return {
@@ -17,5 +21,9 @@ export const useTaskModalContext = () => {
     fetchList,
     targetDate,
     handleTaskDateChange,
+    toggleSearchInput,
+    inputVisible,
+    searchValue,
+    handleSearchValueChange,
   };
 };

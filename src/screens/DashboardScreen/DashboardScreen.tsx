@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { MainLayout } from '@/components/layouts';
 import { MenuItem } from '@/components/ui';
 import { DASHBOARD_LIST } from '@/constants/dashboard';
-import { useTaskModalContext } from '@/context/hooks';
+import { useTasksContext } from '@/context/hooks';
 import { RootStackParamList, ScreenProps } from '@/types';
 
 import styles from './DashboardScreen.styles';
@@ -15,7 +15,7 @@ export const DashboardScreen: FC<ScreenProps<'Dashboard'>> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { taskList, unscheduledTaskList, fetchList } = useTaskModalContext();
+  const { taskList, unscheduledTaskList, fetchList } = useTasksContext();
 
   useEffect(() => {
     fetchList();

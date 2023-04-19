@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
+import OutsidePressHandler from 'react-native-outside-press';
 
 import { QuickTaskForm } from '@/components/forms';
 import { Plus } from '@/components/icons';
@@ -23,7 +24,9 @@ export const QuickTask: FC = () => {
   return (
     <>
       {showInput ? (
-        <QuickTaskForm handleShowInput={handleShowInput} />
+        <OutsidePressHandler onOutsidePress={handleShowInput} disabled={false}>
+          <QuickTaskForm handleShowInput={handleShowInput} />
+        </OutsidePressHandler>
       ) : (
         <View style={styles.buttonWrapper}>
           <CustomButton

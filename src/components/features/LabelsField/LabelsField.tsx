@@ -30,9 +30,7 @@ export const LabelsField: FC<Props> = ({ onAddPress }) => {
   return (
     <View>
       <TouchableOpacity style={style.button} onPress={onAddPress} />
-      <InputWrapper
-        backgroundColor={theme.BACKGROUND.INPUT}
-        icon={<LabelIcon />}>
+      <InputWrapper backgroundColor={theme.INPUTS.PRIMARY} icon={<LabelIcon />}>
         {tags?.length ? (
           <View style={style.tagsWrapper}>
             {tags?.map(({ name, color, _id }) => (

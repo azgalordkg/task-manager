@@ -1,13 +1,14 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import { DoneTaskAccordion, QuickTask } from '@/components/features';
+import { NotFoundPlaceholder } from '@/components/icons/NotFoundPlaceholder';
 import { ConfirmModal } from '@/components/modals';
-import { TaskItem } from '@/components/ui';
-import { useTaskModalContext } from '@/context/hooks';
+import { EmptyTaskList, TaskItem } from '@/components/ui';
+import { useTasksContext } from '@/context/hooks';
 import { deleteOneTask, markTaskAsDone } from '@/services';
-import { filterTasks } from '@/utils';
+import { filterTasks, getFilteredTasksBySearch } from '@/utils';
 
 import styles from './TaskList.styles';
 import { Props } from './TaskList.types';
@@ -18,13 +19,22 @@ export const TaskList: FC<Props> = ({
   isUpcoming,
 }) => {
   const { t } = useTranslation();
-  const { taskList, unscheduledTaskList, fetchList } = useTaskModalContext();
+  const { taskList, unscheduledTaskList, fetchList, searchValue } =
+    useTasksContext();
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [deleteId, setDeleteId] = useState('');
 
   const tasks = isUnscheduled ? unscheduledTaskList : taskList;
-  const incompleteTasks = filterTasks(tasks, 'incomplete');
+  const filteredTasks = useMemo(
+    () => getFilteredTasksBySearch(tasks, searchValue),
+    [searchValue, tasks],
+  );
+
+  const incompleteTasks = filterTasks(filteredTasks, 'incomplete');
+  const completedTasks = filterTasks(filteredTasks, 'complete');
+
+  const isNotFound = tasks.length && !filteredTasks.length;
 
   const handleShowModal = () => {
     setDeleteId('');
@@ -48,7 +58,9 @@ export const TaskList: FC<Props> = ({
     handleShowModal();
   };
 
-  return (
+  return isNotFound ? (
+    <EmptyTaskList title={`${t('NO_MATCHES')}`} image={NotFoundPlaceholder} />
+  ) : (
     <>
       {incompleteTasks?.map(task => {
         const {
@@ -56,6 +68,7 @@ export const TaskList: FC<Props> = ({
           _id,
           isDone,
           name,
+          repeat,
           tags,
           startDate,
           hasDeadline,
@@ -67,6 +80,7 @@ export const TaskList: FC<Props> = ({
             key={_id}
             description={description}
             checked={isDone}
+            repeat={repeat}
             id={_id}
             name={name}
             onCheckPress={markTaskAsDone}
@@ -87,7 +101,7 @@ export const TaskList: FC<Props> = ({
       )}
 
       <DoneTaskAccordion
-        isUnscheduled={isUnscheduled}
+        tasks={completedTasks}
         onItemPress={onItemPress}
         onDeletePress={handleDeletePress}
       />
