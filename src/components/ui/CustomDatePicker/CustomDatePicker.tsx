@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useController } from 'react-hook-form';
 import { TouchableOpacity, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -7,6 +7,8 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { Calendar, TimeCircle } from '@/components/icons';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
+import { TimeFormat } from '@/types';
+import { getUserTimeFormat } from '@/utils';
 
 import { Input } from '../Input';
 import styles from './CustomDatePicker.styles';
@@ -20,6 +22,10 @@ export const CustomDatePicker: FC<Props> = ({
   placeholder,
   ...props
 }) => {
+  const [timeFormat, setTimeFormat] = useState<TimeFormat>({
+    format: 'LT',
+    locale: 'en_US',
+  });
   const { theme, isDark } = useThemeContext();
   const style = styles(theme, inputWidth);
   const [open, setOpen] = useState(false);
@@ -36,6 +42,14 @@ export const CustomDatePicker: FC<Props> = ({
     field.onChange(currentDate);
   };
 
+  useEffect(() => {
+    if (props.mode === 'time') {
+      getUserTimeFormat().then(format => {
+        setTimeFormat(format);
+      });
+    }
+  }, [props.mode]);
+
   return (
     <>
       <View style={style.container}>
@@ -49,6 +63,7 @@ export const CustomDatePicker: FC<Props> = ({
             color={theme.TEXT.PRIMARY}
             editable={false}
             isDateTime
+            timeFormat={timeFormat.format}
             isTime={props.mode === 'time'}
             backgroundColor={theme.INPUTS.PRIMARY}
             control={control}
@@ -65,6 +80,7 @@ export const CustomDatePicker: FC<Props> = ({
       </View>
       <DateTimePickerModal
         {...props}
+        locale={timeFormat.locale}
         isVisible={open}
         date={(field.value as Date) || new Date()}
         minuteInterval={10}

@@ -25,7 +25,9 @@ export const EmptyTaskList: FC<Props> = ({
       <View style={style.textContainer}>
         <Text style={style.title}>{title || t('NOT_MUCH')}</Text>
         {handleCreatePress && (
-          <TouchableOpacity onPress={handleCreatePress}>
+          <TouchableOpacity
+            style={style.linkWrapper}
+            onPress={handleCreatePress}>
             <Text style={style.link}>{t('LETS_CREATE')}</Text>
           </TouchableOpacity>
         )}

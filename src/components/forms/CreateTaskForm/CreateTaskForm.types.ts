@@ -5,5 +5,7 @@ export interface Props {
   onAddPress: () => void;
   editItemId?: string;
   isUnscheduled?: boolean;
+  isDescriptionFocused: boolean;
+  onToggleDescription: (value: boolean) => void;
   taskStartDate?: string;
 }

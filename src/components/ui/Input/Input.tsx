@@ -17,6 +17,7 @@ export const Input: FC<Props> = ({
   isDateTime,
   isTime,
   icon,
+  timeFormat = 'LT',
   errorMessage,
   borderColor,
   backgroundColor,
@@ -26,7 +27,10 @@ export const Input: FC<Props> = ({
   borderRadius,
   ...props
 }) => {
-  const { t } = useTranslation();
+  const {
+    t,
+    i18n: { language },
+  } = useTranslation();
   const {
     field: { value: fieldValue, onChange, onBlur },
   } = useController({
@@ -35,11 +39,17 @@ export const Input: FC<Props> = ({
     name,
   });
   const style = styles(color, multiline);
-  const dateFormat = isTime ? 'LT' : 'DD MMMM';
+  const dateFormat = isTime ? timeFormat : 'DD MMMM';
 
   const formattedValue =
     isDateTime &&
-    (getValueForDateInput(fieldValue as Date, t, dateFormat, isTime) as string);
+    (getValueForDateInput(
+      fieldValue as Date,
+      t,
+      dateFormat,
+      isTime,
+      language,
+    ) as string);
   const value = fieldValue && (formattedValue || (fieldValue as string));
 
   return (

@@ -1,5 +1,6 @@
 import { TFunction } from 'i18next';
 import moment, { Moment } from 'moment';
+import DeviceTimeFormat from 'react-native-device-time-format';
 
 export const getToday = () => {
   return new Date();
@@ -38,6 +39,7 @@ export const getValueForDateInput = (
   t: TFunction,
   dateFormat: string,
   isTime?: boolean,
+  locale?: string,
 ) => {
   if (!isTime) {
     if (isDateToday(moment(date))) {
@@ -48,7 +50,7 @@ export const getValueForDateInput = (
     }
   }
 
-  return formatDate(date, dateFormat);
+  return formatDate(date, dateFormat, locale);
 };
 
 export const isTodayWeekend = () => {
@@ -66,4 +68,14 @@ export const getThisSaturday = () => {
 export const getNextSaturday = () => {
   const thisSaturday = getThisSaturday();
   return new Date(thisSaturday.setDate(thisSaturday.getDate() + 7));
+};
+
+export const getUserTimeFormat = async () => {
+  const using24HourFormat = await DeviceTimeFormat.is24HourFormat();
+
+  if (using24HourFormat) {
+    return { locale: 'en_GB', format: 'HH:mm' };
+  } else {
+    return { locale: 'en_US', format: 'hh:mm A' };
+  }
 };

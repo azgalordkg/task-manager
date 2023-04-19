@@ -32,7 +32,8 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
     i18n: { language },
   } = useTranslation();
   const isUnscheduled = route?.params?.isUnscheduled;
-  const { taskList, unscheduledTaskList, fetchList } = useTasksContext();
+  const { taskList, unscheduledTaskList, fetchList, inputVisible } =
+    useTasksContext();
   const { fetchTags } = useTagManageContext();
   const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);
   const isFocused = useIsFocused();
@@ -96,11 +97,13 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
         </View>
       )}
 
-      <TouchableOpacity onPress={handleCreatePress} activeOpacity={0.75}>
-        <View style={style.buttonWrapper}>
-          <Plus color={COLORS.WHITE} width={18} height={18} />
-        </View>
-      </TouchableOpacity>
+      {!inputVisible && (
+        <TouchableOpacity onPress={handleCreatePress} activeOpacity={0.75}>
+          <View style={style.buttonWrapper}>
+            <Plus color={COLORS.WHITE} width={18} height={18} />
+          </View>
+        </TouchableOpacity>
+      )}
     </MainLayout>
   );
 };

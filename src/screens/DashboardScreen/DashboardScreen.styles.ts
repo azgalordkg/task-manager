@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   listWrapper: {
-    paddingTop: 20,
+    paddingTop: 30,
   },
 });
 

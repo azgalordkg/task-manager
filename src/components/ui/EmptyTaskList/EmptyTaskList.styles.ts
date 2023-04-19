@@ -13,14 +13,17 @@ const styles = (theme: SchemeType) =>
     },
     textContainer: {
       alignItems: 'center',
-      rowGap: 8,
     },
     title: {
+      textAlign: 'center',
       textTransform: 'uppercase',
       fontWeight: '500',
       fontSize: 16,
       lineHeight: 19,
       color: theme.TEXT.SECONDARY,
+    },
+    linkWrapper: {
+      paddingVertical: 8,
     },
     link: {
       fontWeight: '700',
