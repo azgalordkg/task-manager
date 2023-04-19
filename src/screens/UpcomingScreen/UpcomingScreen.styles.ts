@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 import { SchemeType } from '@/types';
 
@@ -11,7 +11,7 @@ const styles = (theme: SchemeType) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       marginBottom: 20,
-      width: '100%',
+      marginHorizontal: 20,
     },
     todayText: {
       fontWeight: '500',
@@ -31,28 +31,55 @@ const styles = (theme: SchemeType) =>
       color: theme.TEXT.PRIMARY,
     },
 
-    datePicker: {
-      // backgroundColor: 'transparent',
+    weekdayContainer: {
+      flexDirection: 'row',
+      paddingHorizontal: 20,
+      marginBottom: 12,
     },
-    datePickerTodayTextStyle: {
-      color: theme.TEXT.ACCENT,
-    },
-    datePickerTextStyle: {
-      color: theme.TEXT.PRIMARY,
-      fontWeight: '400',
+    weekdayText: {
+      width: Dimensions.get('window').width / 7,
       fontSize: 14,
       lineHeight: 17,
+      color: theme.TEXT.SECONDARY,
     },
-    datePickerSelectedDayTextStyle: {
-      // color: theme.TEXT_PRIMARY,
+    dayContainerStyle: {
+      height: 32,
+      paddingVertical: 0,
+      backgroundColor: 'transparent',
+      borderColor: 'transparent',
+      borderWidth: 1,
     },
-    datePickerSelectedDayStyle: {
-      borderRadius: 4,
+    dayTextStyle: {
+      fontSize: 14,
+      lineHeight: 14,
+      color: theme.TEXT.PRIMARY,
+    },
+    todayTextStyle: {
+      color: theme.TEXT.ACCENT,
+    },
+    nonTouchableDayTextStyle: {
+      fontSize: 14,
+      lineHeight: 14,
+      color: theme.TEXT.SECONDARY,
+    },
+    activeDayContainerStyle: {
       borderStyle: 'solid',
       backgroundColor: 'transparent',
       borderWidth: 1,
-      borderColor: theme.TEXT.ACCENT,
+      borderColor: theme.BUTTONS.PRIMARY,
     },
+    activeDayTextStyle: {
+      color: theme.TEXT.PRIMARY,
+    },
+    endDateContainerStyle: {
+      borderBottomRightRadius: 4,
+      borderTopRightRadius: 4,
+    },
+    startDateContainerStyle: {
+      borderBottomLeftRadius: 4,
+      borderTopLeftRadius: 4,
+    },
+
     dayTitle: {
       marginHorizontal: 20,
       marginTop: 30,

@@ -1,8 +1,8 @@
 import moment from 'moment';
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import { Calendar } from 'react-native-calendars';
+import { Month } from 'react-native-month';
 
 import { TaskList } from '@/components/features';
 import { ArrowDown, Plus } from '@/components/icons';
@@ -23,13 +23,16 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
   } = useTranslation();
   const { fetchList, handleTaskDateChange } = useTasksContext();
 
-  const [selectedDate, setSelectedDate] = useState(moment().toDate());
+  const [selectedDate, setSelectedDate] = useState(
+    moment()
+      .locale(language || 'en')
+      .toDate(),
+  );
   const [monthModalVisible, setMonthModalVisible] = useState(false);
 
   const style = styles(theme);
   const maxDate = moment().add(10, 'years').toDate();
   const dayTitle = getDayTitle(selectedDate, language);
-  const dateFormat = formatDate(selectedDate, 'YYYY-MM-DD');
 
   const handleShowMonthModal = () => {
     setMonthModalVisible(!monthModalVisible);
@@ -64,65 +67,58 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
     navigation.navigate('CreateTask');
   };
 
-  const selectedDay = useMemo(
-    () => ({
-      [dateFormat]: {
-        selected: true,
-        customStyles: {
-          container: style.datePickerSelectedDayStyle,
-          text: {
-            color: theme.TEXT.PRIMARY,
-          },
-        },
-      },
-    }),
-    [selectedDate],
-  );
-
   const dottedDays = Object.assign({}, ...getDottedDays(theme));
-  const markers = { ...dottedDays, ...selectedDay };
+
+  const weekdaysShort = moment.localeData(language).weekdaysShort();
 
   return (
     <MainLayout onBack={onBack} screenTitle={`${t('UPCOMING')}`}>
       <View style={style.contentWrapper}>
-        <Calendar
-          initialDate={selectedDate.toString()}
-          hideArrows
-          markingType="custom"
-          style={style.datePicker}
-          markedDates={markers}
-          maxDate={maxDate.toString()}
-          onDayPress={day => handleDateChange(moment(day.timestamp).toDate())}
-          disableAllTouchEventsForDisabledDays
-          theme={{
-            calendarBackground: 'transparent',
-            dayTextColor: theme.TEXT.PRIMARY,
-            textDisabledColor: theme.TEXT.SECONDARY,
-            todayTextColor: theme.TEXT.ACCENT,
-            textDayFontSize: 14,
-            textSectionTitleColor: COLORS.GREY_LIGHT,
-          }}
-          renderHeader={() => (
-            <View style={style.headerStyle}>
-              <TouchableOpacity
-                activeOpacity={1}
-                onPress={handleShowMonthModal}>
-                <View style={style.selectContainer}>
-                  <Text style={style.selectDateText}>
-                    {formatDate(selectedDate, 'MMM YYYY', language)}
-                  </Text>
-                  <ArrowDown color={theme.TEXT.PRIMARY} />
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() =>
-                  handleDateChange(moment(moment(), 'DD.MM.YYYY').toDate())
-                }>
-                <Text style={style.todayText}>{t('TODAY')}</Text>
-              </TouchableOpacity>
+        <View style={style.headerStyle}>
+          <TouchableOpacity activeOpacity={1} onPress={handleShowMonthModal}>
+            <View style={style.selectContainer}>
+              <Text style={style.selectDateText}>
+                {formatDate(selectedDate, 'MMM YYYY', language)}
+              </Text>
+              <ArrowDown color={theme.TEXT.PRIMARY} />
             </View>
-          )}
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() =>
+              handleDateChange(moment(moment(), 'DD.MM.YYYY').toDate())
+            }>
+            <Text style={style.todayText}>{t('TODAY')}</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={style.weekdayContainer}>
+          {weekdaysShort.map(weekday => (
+            <Text style={style.weekdayText} key={weekday}>
+              {weekday}
+            </Text>
+          ))}
+        </View>
+        <Month
+          month={moment(selectedDate).month()}
+          year={moment(selectedDate).year()}
+          onPress={handleDateChange}
+          startDate={selectedDate}
+          disableRange
+          maxDate={maxDate}
+          firstDayMonday={false}
+          markedDays={dottedDays}
+          theme={{
+            activeDayColor: theme.TEXT.PRIMARY,
+            activeDayContainerStyle: style.activeDayContainerStyle,
+            activeDayTextStyle: style.activeDayTextStyle,
+            dayContainerStyle: style.dayContainerStyle,
+            dayTextStyle: style.dayTextStyle,
+            endDateContainerStyle: style.endDateContainerStyle,
+            todayTextStyle: style.todayTextStyle,
+            nonTouchableDayTextStyle: style.nonTouchableDayTextStyle,
+            startDateContainerStyle: style.startDateContainerStyle,
+          }}
         />
 
         <MonthPickerModal
