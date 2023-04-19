@@ -18,11 +18,13 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   const { t } = useTranslation();
   const { fetchList } = useTasksContext();
   const { selectedTags, clearSelectedTags } = useTagManageContext();
-  const taskId = route?.params?.id;
-  const isUnscheduled = route?.params?.isUnscheduled;
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [isDescriptionFocused, setIsDescriptionFocused] = useState(false);
+
+  const taskId = route?.params?.id;
+  const isUnscheduled = route?.params?.isUnscheduled;
+  const taskStartDate = route?.params?.startDate;
 
   const handleShowConfirmModal = () => {
     setConfirmModalVisible(!confirmModalVisible);
@@ -84,6 +86,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
         onAddPress={addTagsHandler}
         editItemId={taskId}
         onSubmit={createTaskHandler}
+        taskStartDate={taskStartDate}
       />
 
       <ConfirmModal

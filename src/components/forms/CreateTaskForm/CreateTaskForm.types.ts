@@ -7,4 +7,5 @@ export interface Props {
   isUnscheduled?: boolean;
   isDescriptionFocused: boolean;
   onToggleDescription: (value: boolean) => void;
+  taskStartDate?: string;
 }

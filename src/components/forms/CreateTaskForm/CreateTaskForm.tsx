@@ -51,6 +51,7 @@ export const CreateTaskForm: FC<Props> = ({
   editItemId,
   onAddPress,
   isUnscheduled,
+  taskStartDate,
 }) => {
   const [taskForEdit, setTaskForEdit] = useState({} as TasksResponseItem);
   const [repeatModalVisible, setRepeatModalVisible] = useState(false);
@@ -124,6 +125,12 @@ export const CreateTaskForm: FC<Props> = ({
       clearSelectedTags();
     }
   }, [editItemId, taskForEdit]);
+
+  useEffect(() => {
+    if (taskStartDate) {
+      setValue('startDate', new Date(taskStartDate));
+    }
+  }, [taskStartDate]);
 
   const isInitialDataChanged = (
     initialTaskValue: Partial<TasksResponseItem>,

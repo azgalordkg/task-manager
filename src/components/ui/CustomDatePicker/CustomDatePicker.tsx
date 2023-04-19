@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { FC, useEffect, useState } from 'react';
 import { useController } from 'react-hook-form';
 import { TouchableOpacity, View } from 'react-native';
@@ -28,6 +29,7 @@ export const CustomDatePicker: FC<Props> = ({
   const { theme, isDark } = useThemeContext();
   const style = styles(theme, inputWidth);
   const [open, setOpen] = useState(false);
+  const maxDate = moment().add(2, 'years').endOf('year');
 
   const { field } = useController({
     control,
@@ -84,6 +86,7 @@ export const CustomDatePicker: FC<Props> = ({
         minuteInterval={10}
         isDarkModeEnabled={isDark}
         textColor={theme.TEXT.PRIMARY}
+        maximumDate={maxDate.toDate()}
         onConfirm={currentDate => onConfirm(currentDate)}
         onCancel={() => {
           setOpen(false);
