@@ -59,12 +59,12 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
   }, [isFocused, isUnscheduled]);
 
   useEffect(() => {
-    if (Object.keys(taskList).length && !dailyTasksUpdated) {
-      updateRecurringTasks(taskList);
+    if (!dailyTasksUpdated) {
+      updateRecurringTasks();
       fetchList();
       setDailyTasksUpdated(true);
     }
-  }, [taskList, dailyTasksUpdated]);
+  }, [dailyTasksUpdated]);
 
   useEffect(() => {
     fetchTags();

@@ -7,9 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { TaskSchema } from '@/constants';
 import {
   CreateTaskData,
-  RealmTaskType,
   RecurringTypes,
-  TasksList,
   TasksResponseItem,
   UpdateTaskData,
 } from '@/types';
@@ -205,7 +203,6 @@ const checkYearlyTaskUpdate = (today: moment.Moment, start: moment.Moment) => {
 export const updateRecurringDates = (
   tasks: TasksResponseItem[],
   today: Moment,
-  days: string[],
   type: RecurringTypes,
 ) => {
   for (let i in tasks) {
@@ -213,41 +210,29 @@ export const updateRecurringDates = (
     const start = moment(new Date(Number(recurringTask.startDate)));
     start.set({ hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
 
-    for (let day of days) {
-      const isToday = moment(new Date(Number(day))).isSame(today, 'day');
+    let isBefore = false;
 
-      if (isToday) {
-        let isBefore = false;
+    if (type === 'Daily') {
+      isBefore = start.isBefore(today);
+    }
+    if (type === 'Weekly') {
+      isBefore = today.diff(start, 'days') % 7 === 0;
+    }
+    if (type === 'Monthly') {
+      isBefore = checkMonthlyTaskUpdate(today, start, recurringTask.createdAt);
+    }
+    if (type === 'Yearly') {
+      isBefore = checkYearlyTaskUpdate(today, start);
+    }
 
-        if (type === 'Daily') {
-          isBefore = start.isBefore(today);
-        }
-        if (type === 'Weekly') {
-          isBefore = today.diff(start, 'days') % 7 === 0;
-        }
-        if (type === 'Monthly') {
-          isBefore = checkMonthlyTaskUpdate(
-            today,
-            start,
-            recurringTask.createdAt,
-          );
-        }
-        if (type === 'Yearly') {
-          isBefore = checkYearlyTaskUpdate(today, start);
-        }
-
-        if (isBefore) {
-          const updateData = prepareUpdateRecurringData(recurringTask);
-          updateTask(updateData);
-        }
-      }
+    if (isBefore) {
+      const updateData = prepareUpdateRecurringData(recurringTask);
+      updateTask(updateData);
     }
   }
 };
 
-export const updateRecurringTasks = (
-  tasksByDays: TasksList | RealmTaskType,
-) => {
+export const updateRecurringTasks = () => {
   const dailyTasks = getRecurringTasks(
     'Daily',
   ) as unknown as TasksResponseItem[];
@@ -261,21 +246,46 @@ export const updateRecurringTasks = (
     'Yearly',
   ) as unknown as TasksResponseItem[];
 
-  const days = Object.keys(tasksByDays);
   const today = moment();
   today.set({ hours: 0, minutes: 0, seconds: 0, milliseconds: 0 });
 
-  updateRecurringDates(dailyTasks, today, days, 'Daily');
-  updateRecurringDates(weeklyTasks, today, days, 'Weekly');
-  updateRecurringDates(monthlyTasks, today, days, 'Monthly');
-  updateRecurringDates(yearlyTasks, today, days, 'Yearly');
+  updateRecurringDates(dailyTasks, today, 'Daily');
+  updateRecurringDates(weeklyTasks, today, 'Weekly');
+  updateRecurringDates(monthlyTasks, today, 'Monthly');
+  updateRecurringDates(yearlyTasks, today, 'Yearly');
+};
+
+const getPostponeDate = (repeat: string, startDate: number) => {
+  const start = moment(startDate);
+
+  if (repeat === 'Daily') {
+    start.add(1, 'days');
+  }
+  if (repeat === 'Weekly') {
+    start.add(1, 'weeks');
+  }
+  if (repeat === 'Monthly') {
+    start.add(1, 'months');
+  }
+  if (repeat === 'Yearly') {
+    start.add(1, 'years');
+  }
+
+  return start.toDate();
 };
 
 export const markTaskAsDone = (_id: string, isDone: boolean) => {
   const task = findOneTask(_id);
+  const { repeat, startDate } = task;
   if (realm && task) {
     realm.write(() => {
-      (findOneTask(_id) as unknown as TasksResponseItem).isDone = isDone;
+      const taskForUpdate = findOneTask(_id) as unknown as TasksResponseItem;
+
+      if (startDate && repeat && repeat !== 'Never' && isDone) {
+        taskForUpdate.startDate = getPostponeDate(repeat, startDate).getTime();
+      } else {
+        taskForUpdate.isDone = isDone;
+      }
     });
   }
 };
