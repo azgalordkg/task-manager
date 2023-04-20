@@ -1,5 +1,5 @@
 import { isEqual } from 'lodash';
-import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FC, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
@@ -17,7 +17,6 @@ import { TagsResponseItem } from '@/types';
 import {
   formatDate,
   getPriorityObject,
-  getUserTimeFormat,
   prepareTagsForRender,
   vibrate,
 } from '@/utils';
@@ -53,21 +52,14 @@ export const TaskItem: FC<ListItemProps> = ({
   const swipeRef = useRef<Swipeable | null>(null);
   const [swiping, setSwiping] = useState(false);
   const isRecurring = repeat ? repeat !== 'Never' : false;
-  const [timeFormat, setTimeFormat] = useState('LT');
   const {
     t,
     i18n: { language },
   } = useTranslation();
 
-  const { fetchList } = useTasksContext();
+  const { fetchList, timeFormat } = useTasksContext();
 
   const { tags: allTags } = useTagManageContext();
-
-  useEffect(() => {
-    getUserTimeFormat().then(({ format }) => {
-      setTimeFormat(format);
-    });
-  }, []);
 
   const rightSwipe = (
     progress: Animated.AnimatedInterpolation<string>,
@@ -102,8 +94,12 @@ export const TaskItem: FC<ListItemProps> = ({
     fetchList();
   };
 
-  const deadlineStart =
-    startDate && formatDate(startDate, timeFormat, language);
+  const deadlineStart = useMemo(() => {
+    if (startDate) {
+      return formatDate(startDate, timeFormat, language);
+    }
+    return '';
+  }, [startDate, timeFormat, language]);
 
   const tagsForRender: TagsResponseItem[] = useMemo(
     () => prepareTagsForRender(tags, allTags),

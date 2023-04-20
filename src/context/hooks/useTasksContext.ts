@@ -4,6 +4,7 @@ import { TaskListContext } from '../providers';
 
 export const useTasksContext = () => {
   const {
+    timeFormat,
     taskList,
     fetchList,
     unscheduledTaskList,
@@ -17,6 +18,7 @@ export const useTasksContext = () => {
   } = useContext(TaskListContext);
 
   return {
+    timeFormat,
     taskList,
     unscheduledTaskList,
     overdueTaskList,

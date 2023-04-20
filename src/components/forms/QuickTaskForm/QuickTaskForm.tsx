@@ -3,9 +3,8 @@ import moment from 'moment';
 import React, { FC } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import { TouchableWithoutFeedback, View } from 'react-native';
 
-import { DismissKeyboard } from '@/components/features';
 import { CustomButton, Input } from '@/components/ui';
 import { createTaskFormSchema } from '@/constants/validation';
 import { useTasksContext, useThemeContext } from '@/context/hooks';
@@ -51,10 +50,15 @@ export const QuickTaskForm: FC<Props> = ({ handleShowInput }) => {
   };
 
   return (
-    <DismissKeyboard>
+    <TouchableWithoutFeedback
+      onPress={e => {
+        console.log(321);
+        e.stopPropagation();
+      }}>
       <View style={style.container}>
         <View style={style.inputContainer}>
           <Input
+            autoFocus
             borderRadius={8}
             control={control}
             name="name"
@@ -90,6 +94,6 @@ export const QuickTaskForm: FC<Props> = ({ handleShowInput }) => {
           </View>
         </View>
       </View>
-    </DismissKeyboard>
+    </TouchableWithoutFeedback>
   );
 };

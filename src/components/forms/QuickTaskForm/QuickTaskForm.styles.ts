@@ -10,7 +10,6 @@ const styles = (theme: SchemeType) =>
       backgroundColor: theme.BACKGROUND.NEUTRAL,
       flexDirection: 'row',
       columnGap: 14,
-      marginBottom: 10,
     },
     inputContainer: {
       width: '100%',

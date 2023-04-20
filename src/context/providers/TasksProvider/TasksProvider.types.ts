@@ -1,6 +1,7 @@
 import { TasksResponseItem } from '@/types';
 
 export interface TaskListContextType {
+  timeFormat: string;
   taskList: TasksResponseItem[];
   unscheduledTaskList: TasksResponseItem[];
   overdueTaskList: TasksResponseItem[];

@@ -1,7 +1,13 @@
 import { useIsFocused } from '@react-navigation/native';
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, TouchableOpacity, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import { TasksView } from '@/components/features';
 import {
@@ -79,6 +85,12 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
     ? !tasks.length
     : !tasks.length && !overdueTaskList.length;
 
+  const keyboardAvoidingBehavior = !inputVisible
+    ? Platform.OS === 'ios'
+      ? 'position'
+      : 'height'
+    : undefined;
+
   return (
     <MainLayout
       screenTitle={`${isUnscheduled ? t('UNSCHEDULED') : t('TODAY')}`}
@@ -86,7 +98,9 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
       isFilter>
       {!isEmpty ? (
         <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <View style={style.tasksContainer}>
+          <KeyboardAvoidingView
+            behavior={keyboardAvoidingBehavior}
+            style={style.tasksContainer}>
             <TasksView
               currentTasksTitle={
                 !isUnscheduled ? getDayTitle(new Date(), language) : undefined
@@ -94,7 +108,7 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
               isUnscheduled={isUnscheduled}
               onItemPress={handleItemPress}
             />
-          </View>
+          </KeyboardAvoidingView>
         </ScrollView>
       ) : (
         <View style={style.container}>

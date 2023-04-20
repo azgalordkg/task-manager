@@ -1,8 +1,15 @@
 import moment from 'moment';
-import React, { createContext, FC, PropsWithChildren, useState } from 'react';
+import React, {
+  createContext,
+  FC,
+  PropsWithChildren,
+  useEffect,
+  useState,
+} from 'react';
 
 import { getOverdueTasks, getTasks, getUnscheduledTasks } from '@/services';
 import { RealmTaskType, TasksResponseItem } from '@/types';
+import { getUserTimeFormat } from '@/utils';
 
 import { TaskListContextType } from './TasksProvider.types';
 
@@ -21,6 +28,7 @@ export const TaskListProvider: FC<PropsWithChildren> = ({ children }) => {
   );
   const [inputVisible, setInputVisible] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [timeFormat, setTimeFormat] = useState('LT');
 
   const fetchList = () => {
     const tasks: RealmTaskType = getTasks(targetDate);
@@ -50,9 +58,16 @@ export const TaskListProvider: FC<PropsWithChildren> = ({ children }) => {
     setSearchValue(value);
   };
 
+  useEffect(() => {
+    getUserTimeFormat().then(({ format }) => {
+      setTimeFormat(format);
+    });
+  }, []);
+
   return (
     <TaskListContext.Provider
       value={{
+        timeFormat,
         inputVisible,
         toggleSearchInput,
         unscheduledTaskList,

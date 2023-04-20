@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { TextInput, TouchableOpacity, View } from 'react-native';
+import { Keyboard, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { CloseCircle, Search } from '@/components/icons';
 import { AccentButton } from '@/components/ui';
@@ -30,8 +30,12 @@ export const SearchInput: FC = () => {
   };
 
   const handleCancelPress = () => {
-    toggleSearchInput();
-    clearSearchValue();
+    Keyboard.dismiss();
+
+    setTimeout(() => {
+      toggleSearchInput();
+      clearSearchValue();
+    }, 50);
   };
 
   return (
