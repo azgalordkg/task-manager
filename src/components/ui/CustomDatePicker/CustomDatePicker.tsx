@@ -30,6 +30,7 @@ export const CustomDatePicker: FC<Props> = ({
   const style = styles(theme, inputWidth);
   const [open, setOpen] = useState(false);
   const maxDate = moment().add(2, 'years').endOf('year');
+  const isTime = props.mode === 'time';
 
   const { field } = useController({
     control,
@@ -43,7 +44,7 @@ export const CustomDatePicker: FC<Props> = ({
   };
 
   useEffect(() => {
-    if (props.mode === 'time') {
+    if (isTime) {
       getUserTimeFormat().then(format => {
         setTimeFormat(format);
       });
@@ -64,12 +65,12 @@ export const CustomDatePicker: FC<Props> = ({
             editable={false}
             isDateTime
             timeFormat={timeFormat.format}
-            isTime={props.mode === 'time'}
+            isTime={isTime}
             backgroundColor={theme.INPUTS.PRIMARY}
             control={control}
             name={name}
             icon={
-              props.mode === 'time' ? (
+              isTime ? (
                 <TimeCircle color={COLORS.BLUE} />
               ) : (
                 <Calendar color={COLORS.GREEN} />
