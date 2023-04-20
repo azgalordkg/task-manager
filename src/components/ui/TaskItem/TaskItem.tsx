@@ -153,6 +153,7 @@ export const TaskItem: FC<ListItemProps> = ({
                 checked={checked}
                 size={24}
                 type="filled"
+                isTaskItem
               />
               <View style={style.textWrapper}>
                 <Text style={[style.title, style.crossedTextStyles]}>
