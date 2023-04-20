@@ -3,7 +3,7 @@ import moment from 'moment';
 import React, { FC } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import { View } from 'react-native';
 
 import { CustomButton, Input } from '@/components/ui';
 import { createTaskFormSchema } from '@/constants/validation';
@@ -50,50 +50,44 @@ export const QuickTaskForm: FC<Props> = ({ handleShowInput }) => {
   };
 
   return (
-    <TouchableWithoutFeedback
-      onPress={e => {
-        console.log(321);
-        e.stopPropagation();
-      }}>
-      <View style={style.container}>
-        <View style={style.inputContainer}>
-          <Input
-            autoFocus
+    <View style={style.container}>
+      <View style={style.inputContainer}>
+        <Input
+          autoFocus
+          borderRadius={8}
+          control={control}
+          name="name"
+          placeholder={`${t('NAME_INPUT_PLACEHOLDER')}`}
+          errorMessage={errors.name?.message}
+          backgroundColor={theme.INPUTS.PRIMARY}
+          maxLength={30}
+          color={theme.TEXT.PRIMARY}
+        />
+
+        <View style={style.buttonWrapper}>
+          <CustomButton
             borderRadius={8}
-            control={control}
-            name="name"
-            placeholder={`${t('NAME_INPUT_PLACEHOLDER')}`}
-            errorMessage={errors.name?.message}
-            backgroundColor={theme.INPUTS.PRIMARY}
-            maxLength={30}
-            color={theme.TEXT.PRIMARY}
-          />
+            width="48%"
+            height={32}
+            fontSize={16}
+            bgColor={theme.BUTTONS.SECONDARY}
+            textColor={theme.BUTTONS.TEXT}
+            onPress={handleShowInput}>
+            {t('CANCEL_BUTTON')}
+          </CustomButton>
 
-          <View style={style.buttonWrapper}>
-            <CustomButton
-              borderRadius={8}
-              width="48%"
-              height={32}
-              fontSize={16}
-              bgColor={theme.BUTTONS.SECONDARY}
-              textColor={theme.BUTTONS.TEXT}
-              onPress={handleShowInput}>
-              {t('CANCEL_BUTTON')}
-            </CustomButton>
-
-            <CustomButton
-              borderRadius={8}
-              bgColor={theme.BUTTONS.PRIMARY}
-              textColor={theme.BUTTONS.TEXT}
-              height={32}
-              fontSize={16}
-              width="48%"
-              onPress={handleSubmit(onSubmit)}>
-              {t('CREATE_BUTTON')}
-            </CustomButton>
-          </View>
+          <CustomButton
+            borderRadius={8}
+            bgColor={theme.BUTTONS.PRIMARY}
+            textColor={theme.BUTTONS.TEXT}
+            height={32}
+            fontSize={16}
+            width="48%"
+            onPress={handleSubmit(onSubmit)}>
+            {t('CREATE_BUTTON')}
+          </CustomButton>
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </View>
   );
 };

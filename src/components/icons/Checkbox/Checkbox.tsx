@@ -15,7 +15,7 @@ export const Checkbox: FC<Props> = ({
   ...props
 }) => {
   const isTypeFilled = type === 'filled';
-  const fillOpacity = isTypeFilled ? '0.15' : '0.05';
+  const fillOpacity = '0.05';
 
   return (
     <Svg
