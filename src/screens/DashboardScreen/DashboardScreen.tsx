@@ -15,13 +15,22 @@ export const DashboardScreen: FC<ScreenProps<'Dashboard'>> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { taskList, unscheduledTaskList, overdueTaskList, fetchList } =
-    useTasksContext();
+  const {
+    taskList,
+    unscheduledTaskList,
+    overdueTaskList,
+    targetDate,
+    fetchList,
+  } = useTasksContext();
 
   useEffect(() => {
     fetchList();
     navigation.navigate('Tasks');
   }, []);
+
+  useEffect(() => {
+    fetchList();
+  }, [targetDate]);
 
   const getCount = (title: string) => {
     switch (title) {
