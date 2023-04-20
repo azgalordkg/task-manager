@@ -1,6 +1,5 @@
 export * from './AccentButton';
 export * from './AccordionContent';
-export * from './AccordionHeader';
 export * from './ActionButton';
 export * from './ActionModalWrapper';
 export * from './BreakLine';
@@ -10,7 +9,6 @@ export * from './CustomButton';
 export * from './CustomCheckbox';
 export * from './CustomDatePicker';
 export * from './DashedButton';
-export * from './DayBlock';
 export * from './DocumentsContent';
 export * from './DocumentsHeader';
 export * from './EmptyTaskList';

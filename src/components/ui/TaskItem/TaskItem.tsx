@@ -1,4 +1,5 @@
 import { isEqual } from 'lodash';
+import moment from 'moment';
 import React, { FC, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
@@ -111,10 +112,10 @@ export const TaskItem: FC<ListItemProps> = ({
 
   const isOverdue = useMemo(() => {
     if (startDate) {
-      const now = new Date();
-      now.setHours(0, 0, 0, 0);
-      const start = new Date(startDate);
-      return start < now;
+      const now = moment().startOf('day');
+      const start = moment(startDate);
+
+      return start.isBefore(now);
     }
     return false;
   }, [startDate]);
@@ -149,6 +150,7 @@ export const TaskItem: FC<ListItemProps> = ({
                 checked={checked}
                 size={24}
                 type="filled"
+                isAnimated
               />
               <View style={style.textWrapper}>
                 <Text style={[style.title, style.crossedTextStyles]}>
