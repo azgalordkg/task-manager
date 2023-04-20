@@ -33,6 +33,7 @@ export const TasksView: FC<Props> = ({
   const [deleteId, setDeleteId] = useState('');
 
   const tasks = isUnscheduled ? unscheduledTaskList : taskList;
+
   const filteredTasks = useMemo(
     () => getFilteredTasksBySearch(tasks, searchValue),
     [searchValue, tasks],
@@ -44,6 +45,10 @@ export const TasksView: FC<Props> = ({
 
   const incompleteTasks = filterTasks(filteredTasks, 'incomplete');
   const completedTasks = filterTasks(filteredTasks, 'complete');
+
+  const isPast = !isUnscheduled && !isUpcoming;
+  const isShowTaskList = isPast && !!filteredOverdueTasks.length;
+  const isShowQuickTask = isPast && !inputVisible;
 
   const isNotFound =
     tasks.length && !filteredTasks.length && !filteredOverdueTasks.length;
@@ -76,7 +81,7 @@ export const TasksView: FC<Props> = ({
     </View>
   ) : (
     <>
-      {!isUnscheduled && !isUpcoming && !!filteredOverdueTasks.length && (
+      {isShowTaskList && (
         <TasksList
           title={`${t('OVERDUE')}`}
           tasks={filteredOverdueTasks}
@@ -92,7 +97,7 @@ export const TasksView: FC<Props> = ({
         onItemPress={onItemPress}
       />
 
-      {!isUnscheduled && !isUpcoming && !inputVisible && (
+      {isShowQuickTask && (
         <View style={styles.buttonContainer}>
           <QuickTask />
         </View>
