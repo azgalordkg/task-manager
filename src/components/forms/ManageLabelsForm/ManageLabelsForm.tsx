@@ -111,7 +111,7 @@ export const ManageLabelsForm: FC<Props> = ({
                 vibrate('selection');
               }}
               onPress={() => {
-                onEditTagPress(_id);
+                isSettings ? onEditTagPress(_id) : selectTagHandler(_id);
                 vibrate('selection');
               }}
               key={_id}>

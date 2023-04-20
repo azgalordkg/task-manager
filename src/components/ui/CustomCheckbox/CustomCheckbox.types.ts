@@ -7,4 +7,5 @@ export interface Props {
   type?: 'filled' | 'outline';
   backgroundOpacity?: number;
   checkmarkColor?: string;
+  isAnimated?: boolean;
 }
