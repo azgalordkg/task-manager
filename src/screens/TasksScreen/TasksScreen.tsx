@@ -75,7 +75,9 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
   };
 
   const tasks = isUnscheduled ? unscheduledTaskList : taskList;
-  const isEmpty = !tasks.length || (isUnscheduled && !overdueTaskList.length);
+  const isEmpty = isUnscheduled
+    ? !tasks.length
+    : !tasks.length && !overdueTaskList.length;
 
   return (
     <MainLayout
