@@ -16,7 +16,7 @@ export const CustomCheckbox: FC<Props> = ({
   type,
   backgroundOpacity,
   checkmarkColor,
-  isTaskItem,
+  isAnimated,
 }) => {
   const style = styles(checkedColor);
   const scaleValue = useRef(new Animated.Value(1)).current;
@@ -55,7 +55,7 @@ export const CustomCheckbox: FC<Props> = ({
           type={type}
           backgroundOpacity={backgroundOpacity}
         />
-        {isTaskItem && (
+        {isAnimated && (
           <Animated.View
             style={[style.background, { transform: [{ scale: scaleValue }] }]}
           />
