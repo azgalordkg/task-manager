@@ -4,6 +4,7 @@ import { SchemeType } from '@/types';
 
 const styles = (
   theme: SchemeType,
+  titleFontSize: number,
   contentBackgroundColor?: string,
   withPadding?: boolean,
 ) =>
@@ -35,7 +36,7 @@ const styles = (
       top: 2,
       position: 'absolute',
       textAlign: 'center',
-      fontSize: 16,
+      fontSize: titleFontSize,
     },
   });
 
