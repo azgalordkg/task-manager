@@ -10,6 +10,7 @@ export interface CustomProps {
   contentBackgroundColor?: string;
   title: string;
   rightActionComponent?: ReactNode;
+  disablePressable?: boolean;
 }
 
 export type Props = PropsWithChildren<CustomProps>;
