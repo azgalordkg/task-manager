@@ -21,7 +21,14 @@ export const ModalHeader: FC<Props> = ({
 }) => {
   const { theme } = useThemeContext();
   const { t } = useTranslation();
-  const style = styles(theme, contentBackgroundColor, withPadding);
+
+  const titleFontSize = title.length >= 19 ? 15 : 16;
+  const style = styles(
+    theme,
+    titleFontSize,
+    contentBackgroundColor,
+    withPadding,
+  );
 
   return (
     <>

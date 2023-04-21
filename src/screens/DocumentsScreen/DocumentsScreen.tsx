@@ -32,16 +32,21 @@ export const DocumentsScreen: FC<ScreenProps<'Documents'>> = ({
     : getTermsOfUse(t);
 
   return (
-    <ModalScreenWrapper title={screenTitle} onRequestClose={onClose}>
+    <ModalScreenWrapper
+      title={screenTitle}
+      onRequestClose={onClose}
+      disablePressable>
       <View style={style.mainWrapper}>
         <View style={style.container}>
           <Text style={style.update}>
             {t('LAST_UPDATED')} {screenContent.LAST_UPDATED}
           </Text>
+
           <ScrollView>
             {isPrivacyPolicy && (
               <DocumentsContent content={t('PRIVACY_POLICY_DESCRIPTION')} />
             )}
+
             <Accordion
               touchableComponent={TouchableWithoutFeedback}
               sections={screenContent.DATA}
