@@ -6,11 +6,11 @@ import { Props } from './DismissKeyboard.types';
 
 export const DismissKeyboard: FC<PropsWithChildren<Props>> = ({
   children,
-  disablePressable,
+  disabled,
 }) => {
   return (
     <Pressable
-      disabled={disablePressable}
+      disabled={disabled}
       style={styles.container}
       onPress={Keyboard.dismiss}>
       {children}

@@ -1,3 +1,3 @@
 export interface Props {
-  disablePressable?: boolean;
+  disabled?: boolean;
 }

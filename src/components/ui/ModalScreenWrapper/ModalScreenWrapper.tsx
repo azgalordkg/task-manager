@@ -26,7 +26,7 @@ export const ModalScreenWrapper: FC<Props> = ({
   const style = styles(theme, contentBackgroundColor);
 
   return (
-    <DismissKeyboard disablePressable={disablePressable}>
+    <DismissKeyboard disabled={disablePressable}>
       <View style={style.container}>
         <View style={style.mainWrapper}>
           <ModalHeader
