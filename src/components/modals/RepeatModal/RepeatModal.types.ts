@@ -5,4 +5,5 @@ export interface Props {
   activeValue: string;
   onPressDismiss: () => void;
   onValueChange: (value: RecurringTypes) => void;
+  repeatList: { label: string; value: string }[];
 }

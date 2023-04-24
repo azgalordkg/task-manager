@@ -1,6 +1,7 @@
 import moment from 'moment';
 import React, { FC, useEffect, useState } from 'react';
 import { useController } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { Keyboard, TouchableOpacity, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
@@ -22,9 +23,13 @@ export const CustomDatePicker: FC<Props> = ({
   placeholder,
   ...props
 }) => {
+  const {
+    i18n: { language },
+  } = useTranslation();
+
   const [timeFormat, setTimeFormat] = useState<TimeFormat>({
     format: 'LT',
-    locale: 'en_US',
+    locale: language,
   });
   const { theme, isDark } = useThemeContext();
   const [keyboardHeight, setKeyboardHeight] = useState(0);
