@@ -9,7 +9,6 @@ import {
   ExtendedModal,
   MenuItem,
 } from '@/components/ui';
-import { getRepeatList } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 import { RecurringTypes } from '@/types';
 
@@ -20,20 +19,20 @@ export const RepeatModal: FC<Props> = ({
   onPressDismiss,
   activeValue,
   onValueChange,
+  repeatList,
 }) => {
   const { t } = useTranslation();
   const { theme } = useThemeContext();
-  const list = getRepeatList(t);
 
   return (
     <ExtendedModal onModalClose={onPressDismiss} isVisible={visible}>
       <ActionModalWrapper>
         <View>
-          {list.map(({ value, label }, index) => (
+          {repeatList.map(({ value, label }, index) => (
             <MenuItem
               onPress={() => onValueChange(value as RecurringTypes)}
               isFirst={index === 0}
-              isLast={index === list.length - 1}
+              isLast={index === repeatList.length - 1}
               color={theme.BUTTONS.PRIMARY}
               icon={activeValue === value ? CheckMark : null}
               key={value}>
