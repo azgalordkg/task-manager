@@ -25,7 +25,7 @@ import {
   Input,
   InputButton,
 } from '@/components/ui';
-import { COLORS } from '@/constants';
+import { COLORS, getRepeatList } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';
 import { findOneTask } from '@/services/realm';
@@ -222,6 +222,11 @@ export const CreateTaskForm: FC<Props> = ({
   };
 
   const repeatValue = watch('repeat');
+  const repeatList = getRepeatList(t);
+
+  const repeatLabel = repeatList.find(
+    ({ value }) => value === repeatValue,
+  )?.label;
 
   return (
     <DismissKeyboard>
@@ -273,7 +278,7 @@ export const CreateTaskForm: FC<Props> = ({
               {currentStartDate && (
                 <InputButton
                   placeholder={`${t('REPEAT')}`}
-                  value={repeatValue !== 'Never' ? repeatValue : undefined}
+                  value={repeatValue !== 'Never' ? repeatLabel : undefined}
                   onPress={handleShowRepeatModal}
                   name="priority"
                   control={control}
@@ -345,6 +350,7 @@ export const CreateTaskForm: FC<Props> = ({
         activeValue={repeatValue || 'Never'}
         onPressDismiss={handleShowRepeatModal}
         visible={repeatModalVisible}
+        repeatList={repeatList}
       />
     </DismissKeyboard>
   );
