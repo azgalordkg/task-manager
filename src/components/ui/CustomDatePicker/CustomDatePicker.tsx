@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { FC, useEffect, useState } from 'react';
 import { useController } from 'react-hook-form';
-import { TouchableOpacity, View } from 'react-native';
+import { Keyboard, TouchableOpacity, View } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import { Calendar, TimeCircle } from '@/components/icons';
@@ -27,10 +27,26 @@ export const CustomDatePicker: FC<Props> = ({
     locale: 'en_US',
   });
   const { theme, isDark } = useThemeContext();
-  const style = styles(theme, inputWidth);
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [open, setOpen] = useState(false);
+  const style = styles(theme, keyboardHeight, inputWidth);
   const maxDate = moment().add(2, 'years').endOf('year');
   const isTime = props.mode === 'time';
+
+  useEffect(() => {
+    const hideListener = Keyboard.addListener('keyboardWillHide', () => {
+      setKeyboardHeight(0);
+    });
+
+    const showListener = Keyboard.addListener('keyboardWillShow', event => {
+      isTime && setKeyboardHeight(event.endCoordinates.height);
+    });
+
+    return () => {
+      showListener.remove();
+      hideListener.remove();
+    };
+  }, []);
 
   const { field } = useController({
     control,
@@ -79,9 +95,11 @@ export const CustomDatePicker: FC<Props> = ({
           />
         </View>
       </View>
+
       <DateTimePickerModal
         {...props}
         locale={timeFormat.locale}
+        modalStyleIOS={style.modalStyleIOS}
         isVisible={open}
         date={(field.value as Date) || new Date()}
         minuteInterval={10}
