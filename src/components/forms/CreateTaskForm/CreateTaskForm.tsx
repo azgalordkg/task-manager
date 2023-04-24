@@ -201,16 +201,15 @@ export const CreateTaskForm: FC<Props> = ({
 
   const handleHasDeadlineChange = (value: boolean) => {
     setValue('hasDeadline', value);
-    if (editItemId) {
-      if (currentStartDate) {
-        const currentTime = moment(currentStartDate).set({
-          hours: moment().hours(),
-          minutes: moment().minutes(),
-          seconds: 0,
-          milliseconds: 0,
-        });
-        setValue('startDate', roundAndExtendTimeRange(currentTime));
-      }
+
+    if (currentStartDate) {
+      const currentTime = moment(currentStartDate).set({
+        hours: moment().hours(),
+        minutes: moment().minutes(),
+        seconds: 0,
+        milliseconds: 0,
+      });
+      setValue('startDate', roundAndExtendTimeRange(currentTime));
     }
   };
 
