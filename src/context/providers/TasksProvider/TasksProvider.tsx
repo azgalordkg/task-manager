@@ -7,7 +7,13 @@ import React, {
   useState,
 } from 'react';
 
-import { getOverdueTasks, getTasks, getUnscheduledTasks } from '@/services';
+import { useDayChangeListener } from '@/hooks';
+import {
+  getOverdueTasks,
+  getTasks,
+  getUnscheduledTasks,
+  updateRecurringTasks,
+} from '@/services';
 import { RealmTaskType, TasksResponseItem } from '@/types';
 import { getUserTimeFormat } from '@/utils';
 
@@ -30,8 +36,8 @@ export const TaskListProvider: FC<PropsWithChildren> = ({ children }) => {
   const [searchValue, setSearchValue] = useState('');
   const [timeFormat, setTimeFormat] = useState('LT');
 
-  const fetchList = () => {
-    const tasks: RealmTaskType = getTasks(targetDate);
+  const fetchList = (date?: number) => {
+    const tasks: RealmTaskType = getTasks(date || targetDate);
     const unscheduledTasks: RealmTaskType = getUnscheduledTasks();
     const overdueTasks: RealmTaskType = getOverdueTasks();
 
@@ -57,6 +63,11 @@ export const TaskListProvider: FC<PropsWithChildren> = ({ children }) => {
   const handleSearchValueChange = (value: string) => {
     setSearchValue(value);
   };
+
+  useDayChangeListener(() => {
+    updateRecurringTasks();
+    fetchList(moment().valueOf());
+  });
 
   useEffect(() => {
     getUserTimeFormat().then(({ format }) => {
