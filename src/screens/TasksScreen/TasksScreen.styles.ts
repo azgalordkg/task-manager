@@ -11,6 +11,12 @@ const styles = (theme: SchemeType) =>
     tasksContainer: {
       paddingBottom: 90,
     },
+    buttonContainer: {
+      position: 'absolute',
+      zIndex: 5,
+      bottom: 20,
+      right: 20,
+    },
     buttonWrapper: {
       backgroundColor: theme.BACKGROUND.ACCENT,
       width: 60,
@@ -18,9 +24,6 @@ const styles = (theme: SchemeType) =>
       borderRadius: 30,
       alignItems: 'center',
       justifyContent: 'center',
-      position: 'absolute',
-      bottom: 20,
-      right: 20,
     },
   });
 

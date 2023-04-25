@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import {
   KeyboardAvoidingView,
   Platform,
+  SafeAreaView,
   ScrollView,
   TouchableOpacity,
   View,
@@ -120,11 +121,13 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
       )}
 
       {!inputVisible && (
-        <TouchableOpacity onPress={handleCreatePress} activeOpacity={0.75}>
-          <View style={style.buttonWrapper}>
-            <Plus color={COLORS.WHITE} width={18} height={18} />
-          </View>
-        </TouchableOpacity>
+        <SafeAreaView style={style.buttonContainer}>
+          <TouchableOpacity onPress={handleCreatePress} activeOpacity={0.75}>
+            <View style={style.buttonWrapper}>
+              <Plus color={COLORS.WHITE} width={18} height={18} />
+            </View>
+          </TouchableOpacity>
+        </SafeAreaView>
       )}
     </MainLayout>
   );

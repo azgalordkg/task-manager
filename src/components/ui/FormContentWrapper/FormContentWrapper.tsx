@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren } from 'react';
-import { View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
 
 import { CustomButton } from '@/components/ui';
 import { useThemeContext } from '@/context/hooks';
@@ -15,22 +15,28 @@ export const FormContentWrapper: FC<PropsWithChildren<Props>> = ({
 }) => {
   const { theme } = useThemeContext();
 
-  const style = styles();
+  const style = styles(theme);
 
   return (
     <View style={style.mainWrapper}>
-      <View style={style.fieldsWrapper}>{children}</View>
+      <View style={style.fieldsWrapper}>
+        <ScrollView>
+          <Pressable>{children}</Pressable>
+        </ScrollView>
+      </View>
 
-      {onSubmitPress && (
-        <CustomButton
-          height={46}
-          fullWidth
-          bgColor={theme.BUTTONS.PRIMARY}
-          onPress={onSubmitPress}
-          disabled={isSubmitDisabled}>
-          {submitTitle}
-        </CustomButton>
-      )}
+      <View style={style.footer}>
+        {onSubmitPress && (
+          <CustomButton
+            height={46}
+            fullWidth
+            bgColor={theme.BUTTONS.PRIMARY}
+            onPress={onSubmitPress}
+            disabled={isSubmitDisabled}>
+            {submitTitle}
+          </CustomButton>
+        )}
+      </View>
     </View>
   );
 };

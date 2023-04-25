@@ -1,7 +1,13 @@
 import moment from 'moment';
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { Month } from 'react-native-month';
 
 import { TasksView } from '@/components/features';
@@ -135,11 +141,13 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
         </View>
       </ScrollView>
 
-      <TouchableOpacity onPress={handleCreatePress} activeOpacity={0.75}>
-        <View style={style.buttonWrapper}>
-          <Plus color={COLORS.WHITE} width={18} height={18} />
-        </View>
-      </TouchableOpacity>
+      <SafeAreaView style={style.buttonContainer}>
+        <TouchableOpacity onPress={handleCreatePress} activeOpacity={0.75}>
+          <View style={style.buttonWrapper}>
+            <Plus color={COLORS.WHITE} width={18} height={18} />
+          </View>
+        </TouchableOpacity>
+      </SafeAreaView>
 
       <MonthPickerModal
         selectedMonth={selectedDate}

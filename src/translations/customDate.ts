@@ -108,7 +108,7 @@ export const localeCustomDate: LocaleShortDate = {
       'Miércoles',
       'Jueves',
       'Viernes',
-      'sábado',
+      'Sábado',
     ],
   },
   de: {

@@ -22,15 +22,18 @@ export const ModalComponentWrapper: FC<Props> = ({
 
   return (
     <View style={style.container}>
-      <ModalHeader
-        title={title}
-        rightActionComponent={rightActionComponent}
-        doneText={doneText}
-        isDoneDisabled={isDoneDisabled}
-        onCancelPress={onCancelPress}
-        cancelText={cancelText}
-      />
-      {children}
+      <View style={style.headerWrapper}>
+        <ModalHeader
+          title={title}
+          rightActionComponent={rightActionComponent}
+          doneText={doneText}
+          isDoneDisabled={isDoneDisabled}
+          onCancelPress={onCancelPress}
+          cancelText={cancelText}
+        />
+      </View>
+
+      <View style={style.content}>{children}</View>
     </View>
   );
 };

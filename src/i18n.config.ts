@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import { de, en, es, fr, ru } from '@/translations';
+import { de, en, fr, ru } from '@/translations';
 
 const resources = {
   en: {
@@ -10,9 +10,9 @@ const resources = {
   ru: {
     translation: ru,
   },
-  es: {
-    translation: es,
-  },
+  // es: {
+  //   translation: es,
+  // },
   fr: {
     translation: fr,
   },
@@ -21,13 +21,20 @@ const resources = {
   },
 };
 
-i18n.use(initReactI18next).init({
-  compatibilityJSON: 'v3',
-  resources,
-  fallbackLng: 'en',
-  interpolation: {
-    escapeValue: false,
+i18n.use(initReactI18next).init(
+  {
+    compatibilityJSON: 'v3',
+    resources,
+    fallbackLng: 'en',
+    interpolation: {
+      escapeValue: false,
+    },
   },
-});
+  err => {
+    if (err) {
+      console.error('i18next initialization error:', err);
+    }
+  },
+);
 
 export default i18n;

@@ -8,7 +8,7 @@ const styles = (theme: SchemeType) =>
       flex: 1,
     },
     container: {
-      paddingVertical: 30,
+      paddingTop: 20,
       flex: 1,
     },
     update: {

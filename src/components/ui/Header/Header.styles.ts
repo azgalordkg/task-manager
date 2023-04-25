@@ -7,7 +7,7 @@ const styles = (theme: SchemeType) =>
   StyleSheet.create({
     header: {
       paddingHorizontal: 20,
-      paddingBottom: 10,
+      paddingVertical: 12,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'flex-end',
@@ -31,8 +31,8 @@ const styles = (theme: SchemeType) =>
     },
     screenTitle: {
       color: theme.TEXT.PRIMARY,
-      fontSize: 18,
-      fontWeight: '500',
+      fontSize: 20,
+      fontWeight: '600',
     },
   });
 
