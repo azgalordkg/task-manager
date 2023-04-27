@@ -11,7 +11,7 @@ const styles = (theme: SchemeType, isFirst?: boolean, isLast?: boolean) =>
       width: '100%',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingVertical: 14,
+      paddingVertical: 16,
       borderTopLeftRadius: isFirst ? 12 : 0,
       borderTopRightRadius: isFirst ? 12 : 0,
       borderBottomLeftRadius: isLast ? 12 : 0,

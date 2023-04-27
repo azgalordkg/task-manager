@@ -22,7 +22,7 @@ const styles = (
     },
     header: {
       paddingHorizontal: withPadding ? 20 : 0,
-      paddingBottom: contentBackgroundColor ? 18 : 0,
+      paddingBottom: 18,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',

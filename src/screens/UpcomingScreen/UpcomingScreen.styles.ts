@@ -93,6 +93,9 @@ const styles = (theme: SchemeType) =>
       borderRadius: 30,
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    buttonContainer: {
+      zIndex: 5,
       position: 'absolute',
       bottom: 20,
       right: 20,

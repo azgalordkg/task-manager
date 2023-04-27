@@ -12,10 +12,11 @@ const styles = (theme: SchemeType, contentBackgroundColor?: string) =>
       justifyContent: 'flex-end',
     },
     contentWrapper: {
+      borderTopWidth: 1,
+      borderColor: theme.BORDERS.PRIMARY,
       backgroundColor: contentBackgroundColor || theme.BACKGROUND.SECONDARY,
       flex: 1,
       paddingHorizontal: 20,
-      paddingTop: 15,
     },
     mainWrapper: {
       flex: 1,

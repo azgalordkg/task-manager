@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React, { FC, memo } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Text, TouchableOpacity, View } from 'react-native';
 
 import { useThemeContext } from '@/context/hooks';
 
@@ -10,7 +10,8 @@ import styles from './MountPickerItem.styles';
 export const MonthPickerItem: FC<Props> = memo(
   ({ monthItem, handleDatePress, selectedMonth }) => {
     const { theme, isDark } = useThemeContext();
-    const style = styles(theme, isDark);
+    const isSmallScreen = Dimensions.get('window').height < 700;
+    const style = styles(theme, isDark, isSmallScreen);
     const today = moment();
 
     const yearTitle = Object.keys(monthItem)[0];
