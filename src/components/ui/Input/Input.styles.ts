@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
 
@@ -15,7 +15,7 @@ const styles = (color?: string, multiline?: boolean) =>
       paddingRight: 30,
       width: '100%',
       color: color,
-      minHeight: multiline ? '50%' : 'auto',
+      minHeight: multiline ? Dimensions.get('window').height / 4 : 'auto',
       ...(multiline ? { lineHeight: 18 } : {}),
       fontSize: 18,
     },
