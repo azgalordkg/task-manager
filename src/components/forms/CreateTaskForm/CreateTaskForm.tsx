@@ -297,7 +297,9 @@ export const CreateTaskForm: FC<Props> = ({
                 control={control}
                 icon={<ArrowUpSquare color={priorityColor} />}
               />
+
               <LabelsField onAddPress={onAddPress} />
+
               <View style={styles.dateWrapper}>
                 <View>
                   <CustomDatePicker
