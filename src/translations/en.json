@@ -182,5 +182,5 @@
   "PASSWORD_TOO_LONG": "Password too long",
   "PASSWORD_REQUIRED": "Password required",
   "PASSWORDS_MUST_MATCH": "Passwords must match",
-  "CONFIRM_PASSWORD_REQUIRED": "Confirm password required",
+  "CONFIRM_PASSWORD_REQUIRED": "Confirm password required"
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FC } from 'react';
-import Svg, { Defs, Image, Path, Pattern, Rect, Use } from 'react-native-svg';
+import Svg, { Defs, Image, Pattern, Rect, Use } from 'react-native-svg';
 
 import { DefaultSvgProps } from '@/types';
 

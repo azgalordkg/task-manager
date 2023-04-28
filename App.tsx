@@ -30,8 +30,7 @@ const App: FC = () => {
     <ProvidersLayout>
       <NavigationContainer>
         <Stack.Navigator
-          // initialRouteName="Language"
-          initialRouteName="Auth"
+          initialRouteName="Dashboard"
           screenOptions={{
             headerShown: false,
           }}>
