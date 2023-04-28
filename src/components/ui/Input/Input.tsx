@@ -3,10 +3,8 @@ import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
-import { Show } from '@/components/icons';
 import { InputWrapper } from '@/components/ui';
 import { COLORS } from '@/constants';
-import { useThemeContext } from '@/context/hooks';
 import { getValueForDateInput } from '@/utils';
 
 import styles from './Input.styles';
@@ -28,6 +26,7 @@ export const Input: FC<Props> = ({
   multiline,
   borderRadius,
   isSecureInput,
+  isShowClearIcon,
   ...props
 }) => {
   const {
@@ -43,7 +42,8 @@ export const Input: FC<Props> = ({
   });
   const { theme } = useThemeContext();
 
-  const style = styles(color, multiline);
+  const style = styles(isShowClearIcon, color, multiline);
+
   const dateFormat = isTime ? timeFormat : 'DD MMMM';
 
   const formattedValue =
@@ -63,6 +63,10 @@ export const Input: FC<Props> = ({
 
   const handleShowValue = () => {
     serIsHideValue(!isHideValue);
+  };
+
+  const clearInputValue = () => {
+    onChange('');
   };
 
   return (
@@ -89,6 +93,12 @@ export const Input: FC<Props> = ({
         {isSecureInput && (
           <TouchableOpacity onPress={handleShowValue}>
             <Show color={theme.ICONS.SECONDARY} type={iconType} />
+          </TouchableOpacity>
+        )}
+
+        {isShowClearIcon && !!value.length && (
+          <TouchableOpacity onPress={clearInputValue}>
+            <CloseCircle color={addAlpha(theme.ICONS.PRIMARY, 0.6)} />
           </TouchableOpacity>
         )}
       </InputWrapper>
