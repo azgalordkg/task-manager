@@ -3,9 +3,11 @@ import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+import { CloseCircle, Show } from '@/components/icons';
 import { InputWrapper } from '@/components/ui';
 import { COLORS } from '@/constants';
-import { getValueForDateInput } from '@/utils';
+import { useThemeContext } from '@/context/hooks';
+import { addAlpha, getValueForDateInput } from '@/utils';
 
 import styles from './Input.styles';
 import { Props } from './Input.types';
@@ -42,7 +44,7 @@ export const Input: FC<Props> = ({
   });
   const { theme } = useThemeContext();
 
-  const style = styles(isShowClearIcon, color, multiline);
+  const style = styles(isShowClearIcon, isSecureInput, color, multiline);
 
   const dateFormat = isTime ? timeFormat : 'DD MMMM';
 

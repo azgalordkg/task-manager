@@ -86,113 +86,109 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
       <SafeAreaView style={style.topView} />
 
       <DismissKeyboard>
-        <View style={style.mainContainer}>
-          <View style={style.logoContainer}>
-            <Checkbox type="filled" checked color={theme.TEXT.ACCENT} />
+        <View style={style.logoContainer}>
+          <Checkbox type="filled" checked color={theme.TEXT.ACCENT} />
 
-            <Text style={style.logoText}>Task Ninja</Text>
+          <Text style={style.logoText}>Task Ninja</Text>
+        </View>
+
+        <Text style={style.authTitle}>{t('ABOUT_US_TITLE')}</Text>
+
+        <View style={style.formWrapper}>
+          <View style={style.authSwitch}>
+            {AUTH_TYPE.map(({ title, value }) => {
+              const isActive = authType === value;
+              const titleLength = t(title).length;
+
+              return (
+                <TouchableOpacity
+                  key={value}
+                  style={[
+                    style.switchItem,
+                    isActive && style.authSwitchItemActive,
+                  ]}
+                  onPress={() => handleAuthTypeChange(value)}>
+                  <Text
+                    style={[
+                      style.authSwitchText,
+                      titleLength >= 18 && style.authSwitchSmallText,
+                    ]}>
+                    {t(title)}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
 
-          <Text style={style.authTitle}>{t('ABOUT_US_TITLE')}</Text>
+          <View style={style.formContainer}>
+            <Input
+              icon={<Message color={theme.TEXT.ACCENT} />}
+              backgroundColor={theme.BACKGROUND.NEUTRAL}
+              color={theme.TEXT.PRIMARY}
+              control={control}
+              name="email"
+              placeholder={`${t('EMAIL_ADDRESS')}`}
+              errorMessage={errors.email?.message}
+            />
 
-          <View style={style.formWrapper}>
-            <View style={style.authSwitch}>
-              {AUTH_TYPE.map(({ title, value }) => {
-                const isActive = authType === value;
-                const titleLength = t(title).length;
+            <Input
+              icon={<Lock color={theme.TEXT.ACCENT} />}
+              backgroundColor={theme.BACKGROUND.NEUTRAL}
+              color={theme.TEXT.PRIMARY}
+              control={control}
+              isSecureInput
+              name="password"
+              placeholder={`${t('PASSWORD')}`}
+              errorMessage={errors.password?.message}
+            />
 
-                return (
-                  <TouchableOpacity
-                    key={value}
-                    style={[
-                      style.switchItem,
-                      isActive && style.authSwitchItemActive,
-                    ]}
-                    onPress={() => handleAuthTypeChange(value)}>
-                    <Text
-                      style={[
-                        style.authSwitchText,
-                        titleLength >= 18 && style.authSwitchSmallText,
-                      ]}>
-                      {t(title)}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
+            {isSignIn && (
+              <TouchableOpacity onPress={onPressForgotPassword}>
+                <Text style={style.forgotPassword}>{t('FORGOT_PASSWORD')}</Text>
+              </TouchableOpacity>
+            )}
 
-            <View style={style.formContainer}>
-              <Input
-                icon={<Message color={theme.TEXT.ACCENT} />}
-                backgroundColor={theme.BACKGROUND.NEUTRAL}
-                color={theme.TEXT.PRIMARY}
-                control={control}
-                name="email"
-                placeholder={`${t('EMAIL_ADDRESS')}`}
-                errorMessage={errors.email?.message}
-              />
-
+            {!isSignIn && (
               <Input
                 icon={<Lock color={theme.TEXT.ACCENT} />}
                 backgroundColor={theme.BACKGROUND.NEUTRAL}
                 color={theme.TEXT.PRIMARY}
                 control={control}
                 isSecureInput
-                name="password"
-                placeholder={`${t('PASSWORD')}`}
-                errorMessage={errors.password?.message}
+                name="confirmPassword"
+                placeholder={`${t('CONFIRM_PASSWORD')}`}
+                errorMessage={errors.confirmPassword?.message}
               />
+            )}
+          </View>
 
-              {isSignIn && (
-                <TouchableOpacity onPress={onPressForgotPassword}>
-                  <Text style={style.forgotPassword}>
-                    {t('FORGOT_PASSWORD')}
-                  </Text>
+          <CustomButton
+            bgColor={theme.BUTTONS.PRIMARY}
+            disabled={!isValid}
+            onPress={handleSubmit(onSubmit)}>
+            {t('CONTINUE')}
+          </CustomButton>
+
+          <View style={style.continueContainer}>
+            <View style={style.divider} />
+            <Text style={style.continueTitle}>{t('CONTINUE_WITH')}</Text>
+            <View style={style.divider} />
+          </View>
+
+          <View style={style.authVariantContainer}>
+            {AUTH_VARIANTS.map(({ name, Icon }) => {
+              return (
+                <TouchableOpacity
+                  key={name}
+                  activeOpacity={1}
+                  style={style.authVariantItem}
+                  onPress={() => onPressAuthVariant(name)}>
+                  <Icon />
+
+                  <Text style={style.authVariantTitle}>{name}</Text>
                 </TouchableOpacity>
-              )}
-
-              {!isSignIn && (
-                <Input
-                  icon={<Lock color={theme.TEXT.ACCENT} />}
-                  backgroundColor={theme.BACKGROUND.NEUTRAL}
-                  color={theme.TEXT.PRIMARY}
-                  control={control}
-                  isSecureInput
-                  name="confirmPassword"
-                  placeholder={`${t('CONFIRM_PASSWORD')}`}
-                  errorMessage={errors.confirmPassword?.message}
-                />
-              )}
-            </View>
-
-            <CustomButton
-              bgColor={theme.BUTTONS.PRIMARY}
-              disabled={!isValid}
-              onPress={handleSubmit(onSubmit)}>
-              {t('CONTINUE')}
-            </CustomButton>
-
-            <View style={style.continueContainer}>
-              <View style={style.divider} />
-              <Text style={style.continueTitle}>{t('CONTINUE_WITH')}</Text>
-              <View style={style.divider} />
-            </View>
-
-            <View style={style.authVariantContainer}>
-              {AUTH_VARIANTS.map(({ name, Icon }) => {
-                return (
-                  <TouchableOpacity
-                    key={name}
-                    activeOpacity={1}
-                    style={style.authVariantItem}
-                    onPress={() => onPressAuthVariant(name)}>
-                    <Icon />
-
-                    <Text style={style.authVariantTitle}>{name}</Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
+              );
+            })}
           </View>
         </View>
       </DismissKeyboard>

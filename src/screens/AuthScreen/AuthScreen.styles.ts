@@ -17,9 +17,6 @@ const styles = (theme: SchemeType) =>
       backgroundColor: theme.BACKGROUND.SECONDARY,
       paddingHorizontal: 20,
     },
-    mainContainer: {
-      alignItems: 'center',
-    },
     logoContainer: {
       flexDirection: 'row',
       justifyContent: 'center',
@@ -37,6 +34,8 @@ const styles = (theme: SchemeType) =>
       color: theme.TEXT.PRIMARY,
       lineHeight: 16,
       marginBottom: 60,
+      width: '100%',
+      textAlign: 'center',
     },
     forgotPassword: {
       fontSize: 16,
