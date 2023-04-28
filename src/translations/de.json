@@ -165,5 +165,22 @@
   "SEARCH": "Suche",
   "NO_MATCHES": "Keine Übereinstimmungen",
   "COMPLETED": "Abgeschlossen",
-  "OVERDUE": "Überfällig"
+  "OVERDUE": "Überfällig",
+  "SIGN_IN": "Anmelden",
+    "SIGN_UP": "Anmelden",
+  "EMAIL_ADDRESS": "E-Mail-Adresse",
+    "PASSWORD": "Passwort",
+  "FORGOT_PASSWORD": "Passwort vergessen?",
+  "CONFIRM_PASSWORD": "Passwort bestätigen",
+  "CONTINUE": "Fortsetzen",
+  "CONTINUE_WITH": "Weiter mit",
+  "INVALID_EMAIL": "Ungültige E-Mail-Adresse",
+  "EMAIL_TOO_SHORT": "E-Mail-Adresse ist zu kurz",
+  "EMAIL_TOO_LONG": "E-Mail-Adresse ist zu lang",
+  "EMAIL_REQUIRED": "E-Mail-Adresse ist erforderlich",
+  "PASSWORD_TOO_SHORT": "Passwort ist zu kurz",
+  "PASSWORD_TOO_LONG": "Passwort ist zu lang",
+  "PASSWORD_REQUIRED": "Passwort ist erforderlich",
+  "PASSWORDS_MUST_MATCH": "Passwörter müssen übereinstimmen",
+  "CONFIRM_PASSWORD_REQUIRED": "Passwort bestätigen ist erforderlich"
 }

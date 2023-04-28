@@ -1,10 +1,12 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Text, TextInput, View } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+import { Show } from '@/components/icons';
 import { InputWrapper } from '@/components/ui';
 import { COLORS } from '@/constants';
+import { useThemeContext } from '@/context/hooks';
 import { getValueForDateInput } from '@/utils';
 
 import styles from './Input.styles';
@@ -25,6 +27,7 @@ export const Input: FC<Props> = ({
   color = COLORS.BLACK_DARK,
   multiline,
   borderRadius,
+  isSecureInput,
   ...props
 }) => {
   const {
@@ -38,6 +41,8 @@ export const Input: FC<Props> = ({
     defaultValue,
     name,
   });
+  const { theme } = useThemeContext();
+
   const style = styles(color, multiline);
   const dateFormat = isTime ? timeFormat : 'DD MMMM';
 
@@ -52,6 +57,14 @@ export const Input: FC<Props> = ({
     ) as string);
   const value = fieldValue && (formattedValue || (fieldValue as string));
 
+  const [isHideValue, serIsHideValue] = useState(isSecureInput);
+
+  const iconType = isHideValue && isSecureInput ? 'show' : 'hide';
+
+  const handleShowValue = () => {
+    serIsHideValue(!isHideValue);
+  };
+
   return (
     <View style={style.inputContainer}>
       <InputWrapper
@@ -64,6 +77,7 @@ export const Input: FC<Props> = ({
         <TextInput
           placeholderTextColor={COLORS.GREY_LIGHT}
           maxLength={maxLength}
+          secureTextEntry={isHideValue}
           style={style.input}
           value={value}
           onChangeText={onChange}
@@ -71,6 +85,12 @@ export const Input: FC<Props> = ({
           multiline={multiline}
           {...props}
         />
+
+        {isSecureInput && (
+          <TouchableOpacity onPress={handleShowValue}>
+            <Show color={theme.ICONS.SECONDARY} type={iconType} />
+          </TouchableOpacity>
+        )}
       </InputWrapper>
 
       {errorMessage && <Text style={style.errorMessage}>{errorMessage}</Text>}

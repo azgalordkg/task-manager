@@ -7,6 +7,7 @@ import React, { FC } from 'react';
 import { ProvidersLayout } from '@/components/layouts';
 import {
   AboutUsScreen,
+  AuthScreen,
   CreateLabelScreen,
   CreateTaskScreen,
   DashboardScreen,
@@ -29,7 +30,8 @@ const App: FC = () => {
     <ProvidersLayout>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Dashboard"
+          // initialRouteName="Language"
+          initialRouteName="Auth"
           screenOptions={{
             headerShown: false,
           }}>
@@ -37,6 +39,7 @@ const App: FC = () => {
             <Stack.Screen name="Dashboard" component={DashboardScreen} />
             <Stack.Screen name="Tasks" component={TasksScreen} />
             <Stack.Screen name="Settings" component={SettingsScreen} />
+            <Stack.Screen name="Auth" component={AuthScreen} />
             <Stack.Screen
               name="LabelSettings"
               component={LabelSettingsScreen}

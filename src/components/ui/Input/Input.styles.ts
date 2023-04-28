@@ -13,7 +13,7 @@ const styles = (color?: string, multiline?: boolean) =>
     input: {
       paddingVertical: 0,
       paddingRight: 30,
-      width: '100%',
+      width: '82%',
       color: color,
       minHeight: multiline ? Dimensions.get('window').height / 4 : 'auto',
       ...(multiline ? { lineHeight: 18 } : {}),

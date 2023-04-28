@@ -17,6 +17,7 @@ export type RootStackParamList = {
   Theme: undefined;
   Language: undefined;
   Upcoming: undefined;
+  Auth: undefined;
 };
 
 export type ScreenProps<T extends keyof RootStackParamList> =
