@@ -27,7 +27,7 @@ export const Input: FC<Props> = ({
   color = COLORS.BLACK_DARK,
   multiline,
   borderRadius,
-  showClearIcon,
+  isShowClearIcon,
   ...props
 }) => {
   const {
@@ -41,7 +41,7 @@ export const Input: FC<Props> = ({
     defaultValue,
     name,
   });
-  const style = styles(showClearIcon, color, multiline);
+  const style = styles(isShowClearIcon, color, multiline);
   const dateFormat = isTime ? timeFormat : 'DD MMMM';
 
   const formattedValue =
@@ -54,8 +54,6 @@ export const Input: FC<Props> = ({
       language,
     ) as string);
   const value = fieldValue && (formattedValue || (fieldValue as string));
-
-  const isShowClearIcon = showClearIcon && !!value.length;
 
   const clearInputValue = () => {
     onChange('');
@@ -83,7 +81,7 @@ export const Input: FC<Props> = ({
           {...props}
         />
 
-        {isShowClearIcon && (
+        {isShowClearIcon && !!value.length && (
           <TouchableOpacity onPress={clearInputValue}>
             <CloseCircle color={addAlpha(theme.ICONS.PRIMARY, 0.6)} />
           </TouchableOpacity>

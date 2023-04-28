@@ -83,7 +83,7 @@ export const CreateLabelForm: FC<Props> = ({
           backgroundColor={theme.INPUTS.PRIMARY}
           color={theme.TEXT.PRIMARY}
           errorMessage={errors.name?.message}
-          showClearIcon
+          isShowClearIcon
           icon={<Label color={watch().color || theme.TEXT.SECONDARY} />}
         />
         <View style={style.colorContainer}>
