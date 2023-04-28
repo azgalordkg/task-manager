@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { COLORS } from '@/constants';
 
-const styles = (color?: string, multiline?: boolean) =>
+const styles = (showClearIcon?: boolean, color?: string, multiline?: boolean) =>
   StyleSheet.create({
     inputContainer: {
       display: 'flex',
@@ -13,7 +13,7 @@ const styles = (color?: string, multiline?: boolean) =>
     input: {
       paddingVertical: 0,
       paddingRight: 30,
-      width: '100%',
+      width: showClearIcon ? '82%' : '100%',
       color: color,
       minHeight: multiline ? '50%' : 'auto',
       ...(multiline ? { lineHeight: 18 } : {}),

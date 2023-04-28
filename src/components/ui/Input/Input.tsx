@@ -1,11 +1,13 @@
 import React, { FC } from 'react';
 import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Text, TextInput, View } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+import { CloseCircle } from '@/components/icons';
 import { InputWrapper } from '@/components/ui';
 import { COLORS } from '@/constants';
-import { getValueForDateInput } from '@/utils';
+import { useThemeContext } from '@/context/hooks';
+import { addAlpha, getValueForDateInput } from '@/utils';
 
 import styles from './Input.styles';
 import { Props } from './Input.types';
@@ -25,6 +27,7 @@ export const Input: FC<Props> = ({
   color = COLORS.BLACK_DARK,
   multiline,
   borderRadius,
+  showClearIcon,
   ...props
 }) => {
   const {
@@ -38,7 +41,7 @@ export const Input: FC<Props> = ({
     defaultValue,
     name,
   });
-  const style = styles(color, multiline);
+  const style = styles(showClearIcon, color, multiline);
   const dateFormat = isTime ? timeFormat : 'DD MMMM';
 
   const formattedValue =
@@ -51,6 +54,14 @@ export const Input: FC<Props> = ({
       language,
     ) as string);
   const value = fieldValue && (formattedValue || (fieldValue as string));
+
+  const isShowClearIcon = showClearIcon && !!value.length;
+
+  const clearInputValue = () => {
+    onChange('');
+  };
+
+  const { theme } = useThemeContext();
 
   return (
     <View style={style.inputContainer}>
@@ -71,6 +82,12 @@ export const Input: FC<Props> = ({
           multiline={multiline}
           {...props}
         />
+
+        {isShowClearIcon && (
+          <TouchableOpacity onPress={clearInputValue}>
+            <CloseCircle color={addAlpha(theme.ICONS.PRIMARY, 0.6)} />
+          </TouchableOpacity>
+        )}
       </InputWrapper>
 
       {errorMessage && <Text style={style.errorMessage}>{errorMessage}</Text>}

@@ -2,13 +2,13 @@ import { StyleSheet } from 'react-native';
 
 import { SchemeType } from '@/types';
 
-const styles = (theme: SchemeType, tagsLength: number) =>
+const styles = (theme: SchemeType) =>
   StyleSheet.create({
     button: {
       position: 'absolute',
       top: 0,
       left: 0,
-      width: tagsLength ? '86%' : '100%',
+      width: '100%',
       height: '100%',
       zIndex: 2,
     },
@@ -19,11 +19,6 @@ const styles = (theme: SchemeType, tagsLength: number) =>
       color: theme.TEXT.SECONDARY,
     },
     tagsWrapper: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      width: '100%',
-    },
-    tagsContainer: {
       flexDirection: 'row',
       columnGap: 8,
       rowGap: 8,
