@@ -14,9 +14,10 @@ export const LabelsField: FC<Props> = ({ onAddPress }) => {
   const { theme } = useThemeContext();
   const { t } = useTranslation();
 
-  const style = styles(theme);
   const [tags, setTags] = useState<TagsResponseItem[]>([]);
   const { selectedTags, tags: allTags, fetchTags } = useTagManageContext();
+
+  const style = styles(theme);
 
   useEffect(() => {
     if (selectedTags) {
@@ -30,6 +31,7 @@ export const LabelsField: FC<Props> = ({ onAddPress }) => {
   return (
     <View>
       <TouchableOpacity style={style.button} onPress={onAddPress} />
+
       <InputWrapper backgroundColor={theme.INPUTS.PRIMARY} icon={<LabelIcon />}>
         {tags?.length ? (
           <View style={style.tagsWrapper}>
