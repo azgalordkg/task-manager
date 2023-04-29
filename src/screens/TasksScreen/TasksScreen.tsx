@@ -34,6 +34,15 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
   navigation,
   route,
 }) => {
+  // temporary code for example:
+
+  // const value = useSelector(selectTasks);
+  // const { data } = useGetTasksQuery();
+  // const [createUser, { isLoading: isCreateLoading }] = useCreateTaskMutation();
+  // useEffect(() => {
+  //   createUser({ path: 'tasks', userData: { title: 'test' } });
+  // }, []);
+
   const {
     t,
     i18n: { language },

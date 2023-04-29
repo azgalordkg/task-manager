@@ -1,5 +1,6 @@
 import React, { FC, PropsWithChildren } from 'react';
 import { EventProvider } from 'react-native-outside-press';
+import { Provider } from 'react-redux';
 
 import {
   LanguageProvider,
@@ -7,18 +8,21 @@ import {
   TaskListProvider,
   ThemeProvider,
 } from '@/context/providers';
+import { store } from '@/store/store';
 
 export const ProvidersLayout: FC<PropsWithChildren> = ({ children }) => {
   const eventProviderStyles = { flex: 1 };
   return (
-    <EventProvider style={eventProviderStyles}>
-      <LanguageProvider>
-        <TaskListProvider>
-          <TagManageProvider>
-            <ThemeProvider>{children}</ThemeProvider>
-          </TagManageProvider>
-        </TaskListProvider>
-      </LanguageProvider>
-    </EventProvider>
+    <Provider store={store}>
+      <EventProvider style={eventProviderStyles}>
+        <LanguageProvider>
+          <TaskListProvider>
+            <TagManageProvider>
+              <ThemeProvider>{children}</ThemeProvider>
+            </TagManageProvider>
+          </TaskListProvider>
+        </LanguageProvider>
+      </EventProvider>
+    </Provider>
   );
 };
