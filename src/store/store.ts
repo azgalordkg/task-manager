@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
+import { rtkQueryErrorLogger } from '@/store/middlewares';
 import { queryMiddleware, queryReducer } from '@/store/requests';
 
 export const store = configureStore({
@@ -9,13 +10,12 @@ export const store = configureStore({
     ...queryReducer,
   },
 
-  // Тут собираются все мидлвары, они нужны для кэширования запросов и т.д.
+  // Тут собираются все мидлвары, они нужны для кэширования запросов, отлова ошибок и т.д.
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(...queryMiddleware),
+    getDefaultMiddleware().concat(rtkQueryErrorLogger, ...queryMiddleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
 
 // setupListeners - нужен для повторной отправки запросов
 setupListeners(store.dispatch);
