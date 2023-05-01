@@ -180,7 +180,7 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
               return (
                 <TouchableOpacity
                   key={name}
-                  activeOpacity={1}
+                  activeOpacity={0.75}
                   style={style.authVariantItem}
                   onPress={() => onPressAuthVariant(name)}>
                   <Icon />

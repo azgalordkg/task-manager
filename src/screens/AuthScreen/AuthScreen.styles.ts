@@ -83,12 +83,11 @@ const styles = (theme: SchemeType) =>
     },
     divider: {
       height: 1,
-      width: '33%',
+      flexGrow: 1,
       backgroundColor: theme.BORDERS.PRIMARY,
     },
     continueTitle: {
       textAlign: 'center',
-      width: '33%',
       color: theme.TEXT.SECONDARY,
       lineHeight: 17,
     },
