@@ -8,7 +8,7 @@ import {
   TaskListProvider,
   ThemeProvider,
 } from '@/context/providers';
-import { store } from '@/store/store';
+import { store } from '@/store';
 
 export const ProvidersLayout: FC<PropsWithChildren> = ({ children }) => {
   const eventProviderStyles = { flex: 1 };

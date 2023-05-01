@@ -1,7 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { baseUrl } from '@/constants/api';
-import { ITask, ITaskCreateOrEdit } from '@/store/requests/tasksApi/types';
+
+import { Task, TaskCreateOrEdit } from './tasks.types';
 
 export const rtkQueryApi = createApi({
   reducerPath: 'tasks',
@@ -9,11 +10,11 @@ export const rtkQueryApi = createApi({
     baseUrl,
   }),
   endpoints: builder => ({
-    getTasks: builder.query<Array<ITask>, string | void>({
+    getTasks: builder.query<Array<Task>, string | void>({
       query: (id = '') => `/tasks/${id}`,
     }),
 
-    createTask: builder.mutation<ITask, ITaskCreateOrEdit>({
+    createTask: builder.mutation<Task, TaskCreateOrEdit>({
       query: ({ path = '', userData }) => {
         return {
           url: path,
@@ -26,7 +27,7 @@ export const rtkQueryApi = createApi({
       },
     }),
 
-    updateTask: builder.mutation<void, ITaskCreateOrEdit>({
+    updateTask: builder.mutation<void, TaskCreateOrEdit>({
       query: ({ path = '', userData }) => {
         return {
           url: path,
