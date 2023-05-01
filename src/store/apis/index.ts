@@ -1,6 +1,4 @@
-import { rtkQueryApi } from '@/store/requests/tasksApi/tasksApi';
-
-// Собираем все редьюсеры запросов тут
+import { rtkQueryApi } from './tasks';
 
 export const queryReducer = {
   [rtkQueryApi.reducerPath]: rtkQueryApi.reducer,
