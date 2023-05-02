@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import { TouchableOpacity } from 'react-native';
 
-import { Trash } from '@/components/icons';
+import { Dots } from '@/components/icons';
 import { useThemeContext } from '@/context/hooks';
 
 import { Props } from './ContextMenuButton.types';
 
-export const ContextMenuButton: FC<Props> = ({ icon = Trash, onPress }) => {
+export const ContextMenuButton: FC<Props> = ({ icon = Dots, onPress }) => {
   const Icon = icon;
   const { theme } = useThemeContext();
 

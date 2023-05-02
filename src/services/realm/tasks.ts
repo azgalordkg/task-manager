@@ -1,6 +1,7 @@
 import 'react-native-get-random-values';
 
 import moment, { Moment } from 'moment';
+import { Animated, Dimensions } from 'react-native';
 import Realm from 'realm';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -297,4 +298,30 @@ export const deleteOneTask = (_id: string) => {
       realm.delete(task);
     });
   }
+};
+
+export const getTaskManagerTransform = (scale: Animated.Value) => {
+  const { width } = Dimensions.get('window');
+  const rightPosition = width / 3;
+  const topPosition = -75;
+
+  return {
+    transform: [
+      {
+        translateX: scale.interpolate({
+          inputRange: [0, 1],
+          outputRange: [rightPosition, 0],
+        }),
+      },
+      {
+        translateY: scale.interpolate({
+          inputRange: [0, 1],
+          outputRange: [topPosition, 0],
+        }),
+      },
+      { scaleX: scale },
+      { scaleY: scale },
+    ],
+    opacity: scale,
+  };
 };

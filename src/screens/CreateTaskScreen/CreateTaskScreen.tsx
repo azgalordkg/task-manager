@@ -1,10 +1,12 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { Animated } from 'react-native';
 
 import { ContextMenuButton } from '@/components/features';
 import { CreateTaskForm } from '@/components/forms';
 import { ConfirmModal } from '@/components/modals';
+import { TaskManagerModal } from '@/components/modals/TaskManagerModal';
 import { ModalScreenWrapper } from '@/components/ui';
 import { useTagManageContext, useTasksContext } from '@/context/hooks';
 import { createTask, deleteOneTask, updateTask } from '@/services';
@@ -20,13 +22,18 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   const { selectedTags, clearSelectedTags } = useTagManageContext();
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [taskManagerVisible, setTaskManagerVisible] = useState(false);
   const [isDescriptionFocused, setIsDescriptionFocused] = useState(false);
 
   const taskId = route?.params?.id;
   const isUnscheduled = route?.params?.isUnscheduled;
   const taskStartDate = route?.params?.startDate;
 
+  const scale = useRef(new Animated.Value(0)).current;
+  const title = taskId ? t('EDIT') : t('CREATE');
+
   const handleShowConfirmModal = () => {
+    handleTaskManagerVisible();
     setConfirmModalVisible(!confirmModalVisible);
   };
 
@@ -63,7 +70,17 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
     fetchList();
   };
 
-  const title = taskId ? t('EDIT') : t('CREATE');
+  const handleTaskManagerVisible = () => {
+    setTaskManagerVisible(prevState => !prevState);
+  };
+
+  useEffect(() => {
+    Animated.timing(scale, {
+      toValue: taskManagerVisible ? 1 : 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  }, [taskManagerVisible]);
 
   return (
     <ModalScreenWrapper
@@ -74,7 +91,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
       rightActionComponent={
         taskId &&
         !isDescriptionFocused && (
-          <ContextMenuButton onPress={handleShowConfirmModal} />
+          <ContextMenuButton onPress={handleTaskManagerVisible} />
         )
       }
       title={`${title} ${t('TASK')}`}
@@ -87,6 +104,11 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
         editItemId={taskId}
         onSubmit={createTaskHandler}
         taskStartDate={taskStartDate}
+      />
+
+      <TaskManagerModal
+        scale={scale}
+        handleDeleteTask={handleShowConfirmModal}
       />
 
       <ConfirmModal
