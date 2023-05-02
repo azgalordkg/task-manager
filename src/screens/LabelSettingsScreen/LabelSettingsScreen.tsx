@@ -17,6 +17,7 @@ export const LabelSettingsScreen: FC<ScreenProps<'LabelSettings'>> = ({
   return (
     <MainLayout
       onBack={handleClose}
+      showHeader
       screenTitle={`${t('LABELS_SCREEN_TITLE')}`}>
       <View style={styles.mainWrapper}>
         <ManageLabelsForm

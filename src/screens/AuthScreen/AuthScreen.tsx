@@ -2,24 +2,12 @@ import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import {
-  SafeAreaView,
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
-import { DismissKeyboard } from '@/components/features';
-import {
-  Apple,
-  Checkbox,
-  Facebook,
-  Google,
-  Lock,
-  Message,
-} from '@/components/icons';
+import { Checkbox, Lock, Message } from '@/components/icons';
+import { MainLayout } from '@/components/layouts';
 import { CustomButton, Input } from '@/components/ui';
+import { AUTH_TYPE, AUTH_VARIANTS } from '@/constants/auth';
 import {
   signInValidationSchema,
   signUpValidationSchema,
@@ -29,19 +17,8 @@ import { AuthFormValues, ScreenProps } from '@/types';
 
 import styles from './AuthScreen.styles';
 
-const AUTH_TYPE = [
-  { title: 'SIGN_IN', value: 'signIn' },
-  { title: 'SIGN_UP', value: 'signUp' },
-];
-
-const AUTH_VARIANTS = [
-  { name: 'Google', Icon: Google },
-  { name: 'Apple', Icon: Apple },
-  { name: 'Facebook', Icon: Facebook },
-];
-
 export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
-  const { theme, isDark } = useThemeContext();
+  const { theme } = useThemeContext();
   const { t } = useTranslation();
 
   const [authType, setAuthType] = useState('signIn');
@@ -61,7 +38,6 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
   });
 
   const style = styles(theme);
-  const barStyle = isDark ? 'light-content' : 'dark-content';
 
   const handleAuthTypeChange = (value: string) => {
     setAuthType(value);
@@ -81,11 +57,8 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
   };
 
   return (
-    <View style={style.mainWrapper}>
-      <StatusBar barStyle={barStyle} />
-      <SafeAreaView style={style.topView} />
-
-      <DismissKeyboard>
+    <MainLayout topViewBackgroundColor={theme.BACKGROUND.SECONDARY}>
+      <View style={style.mainWrapper}>
         <View style={style.logoContainer}>
           <Checkbox type="filled" checked color={theme.TEXT.ACCENT} />
 
@@ -98,7 +71,7 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
           <View style={style.authSwitch}>
             {AUTH_TYPE.map(({ title, value }) => {
               const isActive = authType === value;
-              const titleLength = t(title).length;
+              const authTitle = t(title);
 
               return (
                 <TouchableOpacity
@@ -111,9 +84,9 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
                   <Text
                     style={[
                       style.authSwitchText,
-                      titleLength >= 18 && style.authSwitchSmallText,
+                      authTitle.length >= 18 && style.authSwitchSmallText,
                     ]}>
-                    {t(title)}
+                    {authTitle}
                   </Text>
                 </TouchableOpacity>
               );
@@ -191,7 +164,7 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
             })}
           </View>
         </View>
-      </DismissKeyboard>
-    </View>
+      </View>
+    </MainLayout>
   );
 };

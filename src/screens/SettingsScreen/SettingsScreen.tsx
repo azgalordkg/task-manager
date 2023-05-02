@@ -73,6 +73,7 @@ export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
   return (
     <MainLayout
       screenTitle={`${t('SETTINGS_SCREEN_TITLE')}`}
+      showHeader
       onBack={onBackPressHandler}>
       <View style={styles.mainWrapper}>
         <View style={styles.listWrapper}>

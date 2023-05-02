@@ -6,11 +6,6 @@ import { addShadow } from '@/utils';
 
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
-    topView: {
-      flex: 0,
-      backgroundColor: theme.BACKGROUND.SECONDARY,
-      marginBottom: 30,
-    },
     mainWrapper: {
       flex: 1,
       justifyContent: 'center',

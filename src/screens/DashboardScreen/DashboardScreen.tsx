@@ -52,7 +52,7 @@ export const DashboardScreen: FC<ScreenProps<'Dashboard'>> = ({
   };
 
   return (
-    <MainLayout screenTitle={`${t('DASHBOARD')}`} isSettings>
+    <MainLayout showHeader screenTitle={`${t('DASHBOARD')}`} isSettings>
       <View style={styles.mainWrapper}>
         <View style={styles.listWrapper}>
           {DASHBOARD_LIST.map(
