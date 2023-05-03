@@ -5,12 +5,3 @@ export interface AuthFormValues {
 }
 
 export type AuthFormValuesKey = keyof AuthFormValues;
-
-export interface ResetPasswordFormValues {
-  email?: string;
-  code?: string;
-  password?: string;
-  confirmPassword?: string;
-}
-
-export type ResetPasswordFormValuesKey = keyof ResetPasswordFormValues;

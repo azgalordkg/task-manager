@@ -7,7 +7,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { Checkbox, Lock, Message } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { CustomButton, Input } from '@/components/ui';
-import { AUTH_TYPE, AUTH_VARIANTS } from '@/constants';
+import { AUTH_TYPE, AUTH_VARIANTS } from '@/constants/auth';
 import {
   signInValidationSchema,
   signUpValidationSchema,
@@ -25,17 +25,12 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
 
   const isSignIn = authType === 'signIn';
 
-  // temporary defaultValues
   const {
     control,
     handleSubmit,
     formState: { errors, isValid },
     reset,
   } = useForm<AuthFormValues>({
-    defaultValues: {
-      email: 'qwe@qweeq',
-      password: '123456789',
-    },
     mode: 'onBlur',
     resolver: yupResolver(
       isSignIn ? signInValidationSchema : signUpValidationSchema,
@@ -50,7 +45,7 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
   };
 
   const onPressForgotPassword = () => {
-    navigation.navigate('ResetPassword');
+    navigation.navigate('ForgotPassword' as never);
   };
 
   const onPressAuthVariant = (name: string) => {
@@ -59,8 +54,6 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
 
   const onSubmit = (data: AuthFormValues) => {
     console.log(data, 'data');
-
-    navigation.navigate('Dashboard');
   };
 
   return (

@@ -8,8 +8,6 @@ export * from './LabelSettingsScreen';
 export * from './LanguageScreen';
 export * from './ManageLabelsScreen';
 export * from './PurchaseScreen';
-export * from './ResetPasswordScreen';
-export * from './ResetPasswordScreen';
 export * from './SettingsScreen';
 export * from './TasksScreen';
 export * from './ThemeScreen';

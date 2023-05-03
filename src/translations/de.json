@@ -182,21 +182,5 @@
   "PASSWORD_TOO_LONG": "Passwort ist zu lang",
   "PASSWORD_REQUIRED": "Passwort ist erforderlich",
   "PASSWORDS_MUST_MATCH": "Passwörter müssen übereinstimmen",
-  "CONFIRM_PASSWORD_REQUIRED": "Passwort bestätigen ist erforderlich",
-  "FORGOT_PASSWORD_TITLE": "Passwort vergessen",
-  "VERIFY_CODE_TITLE": "Code überprüfen",
-  "RESET_PASSWORD_TITLE": "Passwort zurücksetzen",
-  "FORGOT_PASSWORD_DESCRIPTION": "Geben Sie Ihre registrierte E-Mail-Adresse ein, und wir senden Ihnen einen Code zu. Sobald Sie den Code erhalten haben, geben Sie ihn auf dem nächsten Bildschirm ein, um mit dem Zurücksetzen Ihres Passworts fortzufahren.",
-  "VERIFY_CODE_DESCRIPTION": "Bitte geben Sie den Code ein, den Sie in Ihrer E-Mail erhalten haben. So können wir Ihre Identität überprüfen und Ihnen helfen, Ihr Passwort zurückzusetzen.",
-  "CHANGE_PASSWORD_DESCRIPTION": "Erstellen Sie nun ein neues Passwort für Ihr Konto.",
-  "SEND_CODE": "Code senden",
-  "VERIFY_CODE": "Code überprüfen",
-  "RESET_PASSWORD": "Passwort zurücksetzen",
-  "CANCEL": "Abbrechen",
-  "BACK": "Zurück",
-  "CODE": "Code",
-  "BACK_TO_LOGIN": "Zurück zur Anmeldung",
-  "CODE_TOO_SHORT": "Der Code ist zu kurz",
-  "CODE_TOO_LONG": "Der Code ist zu lang",
-  "CODE_REQUIRED": "Code ist erforderlich"
+  "CONFIRM_PASSWORD_REQUIRED": "Passwort bestätigen ist erforderlich"
 }
