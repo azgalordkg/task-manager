@@ -5,4 +5,6 @@ export interface Props extends Partial<ScreenProps<'Home'>> {
   screenTitle?: string;
   isFilter?: boolean;
   isSettings?: boolean;
+  showHeader?: boolean;
+  topViewBackgroundColor?: string;
 }

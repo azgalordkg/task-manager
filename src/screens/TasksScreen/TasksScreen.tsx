@@ -105,6 +105,7 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
     <MainLayout
       screenTitle={`${isUnscheduled ? t('UNSCHEDULED') : t('TODAY')}`}
       onBack={() => navigation.navigate('Dashboard')}
+      showHeader
       isFilter>
       {!isEmpty ? (
         <ScrollView contentInsetAdjustmentBehavior="automatic">

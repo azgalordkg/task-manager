@@ -81,7 +81,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
   const weekdaysShort = moment.localeData(language).weekdaysShort();
 
   return (
-    <MainLayout onBack={onBack} screenTitle={`${t('UPCOMING')}`}>
+    <MainLayout showHeader onBack={onBack} screenTitle={`${t('UPCOMING')}`}>
       <View style={style.contentWrapper}>
         <View style={style.headerStyle}>
           <TouchableOpacity activeOpacity={1} onPress={handleShowMonthModal}>

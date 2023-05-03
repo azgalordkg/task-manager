@@ -166,5 +166,22 @@
   "SEARCH": "Поиск",
   "NO_MATCHES": "Ничего не найдено",
   "COMPLETED": "Выполнено",
-  "OVERDUE": "Просрочено"
+  "OVERDUE": "Просрочено",
+  "SIGN_IN": "Вход",
+  "SIGN_UP": "Регистрация",
+  "EMAIL_ADDRESS": "Адрес электронной почты",
+  "PASSWORD": "Пароль",
+  "FORGOT_PASSWORD": "Забыли пароль?",
+  "CONFIRM_PASSWORD": "Подтвердите пароль",
+  "CONTINUE": "Продолжить",
+  "CONTINUE_WITH": "Или войдите через",
+  "INVALID_EMAIL": "Неверный адрес электронной почты",
+  "EMAIL_TOO_SHORT": "Адрес электронной почты слишком короткий",
+  "EMAIL_TOO_LONG": "Адрес электронной почты слишком длинный",
+  "EMAIL_REQUIRED": "Адрес электронной почты обязателен",
+  "PASSWORD_TOO_SHORT": "Пароль слишком короткий",
+  "PASSWORD_TOO_LONG": "Пароль слишком длинный",
+  "PASSWORD_REQUIRED": "Пароль обязателен",
+  "PASSWORDS_MUST_MATCH": "Пароли должны совпадать",
+  "CONFIRM_PASSWORD_REQUIRED": "Подтверждение пароля обязательно"
 }

@@ -165,5 +165,22 @@
   "SEARCH": "Chercher",
   "NO_MATCHES": "Aucun résultat",
   "COMPLETED": "Achevé",
-  "OVERDUE": "En retard"
+  "OVERDUE": "En retard",
+  "SIGN_IN": "Se connecter",
+  "SIGN_UP": "Registre",
+  "EMAIL_ADDRESS": "Adresse électronique",
+  "PASSWORD": "Mot de passe",
+  "FORGOT_PASSWORD": "Vous avez oublié votre mot de passe ?",
+  "CONFIRM_PASSWORD": "Confirmer le mot de passe",
+  "CONTINUE": "Continuer",
+  "CONTINUE_WITH": "Ou continuer",
+  "INVALID_EMAIL": "Adresse électronique incorrecte",
+  "EMAIL_TOO_SHORT": "L'adresse électronique est trop courte",
+  "EMAIL_TOO_LONG": "L'adresse électronique est trop longue",
+  "EMAIL_REQUIRED": "Une adresse électronique est obligatoire",
+  "PASSWORD_TOO_SHORT": "Le mot de passe est trop court",
+  "PASSWORD_TOO_LONG": "Le mot de passe est trop long",
+  "PASSWORD_REQUIRED": "Mot de passe requis",
+  "PASSWORDS_MUST_MATCH": "Les mots de passe doivent correspondre",
+  "CONFIRM_PASSWORD_REQUIRED": "La confirmation du mot de passe est obligatoire"
 }

@@ -2,11 +2,13 @@ import { StyleSheet } from 'react-native';
 
 import { SchemeType } from '@/types';
 
-const styles = (theme: SchemeType) =>
+const styles = (theme: SchemeType, topViewBackgroundColor?: string) =>
   StyleSheet.create({
     topView: {
       flex: 0,
-      backgroundColor: theme.BACKGROUND.PRIMARY,
+      backgroundColor: topViewBackgroundColor
+        ? topViewBackgroundColor
+        : theme.BACKGROUND.PRIMARY,
     },
     backgroundStyle: {
       flex: 1,

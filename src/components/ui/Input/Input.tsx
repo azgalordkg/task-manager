@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
-import { CloseCircle } from '@/components/icons';
+import { CloseCircle, Show } from '@/components/icons';
 import { InputWrapper } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
@@ -27,6 +27,7 @@ export const Input: FC<Props> = ({
   color = COLORS.BLACK_DARK,
   multiline,
   borderRadius,
+  isSecureInput,
   isShowClearIcon,
   ...props
 }) => {
@@ -41,7 +42,10 @@ export const Input: FC<Props> = ({
     defaultValue,
     name,
   });
-  const style = styles(isShowClearIcon, color, multiline);
+  const { theme } = useThemeContext();
+
+  const style = styles(isShowClearIcon, isSecureInput, color, multiline);
+
   const dateFormat = isTime ? timeFormat : 'DD MMMM';
 
   const formattedValue =
@@ -55,11 +59,17 @@ export const Input: FC<Props> = ({
     ) as string);
   const value = fieldValue && (formattedValue || (fieldValue as string));
 
+  const [isHideValue, serIsHideValue] = useState(isSecureInput);
+
+  const iconType = isHideValue && isSecureInput ? 'show' : 'hide';
+
+  const handleShowValue = () => {
+    serIsHideValue(!isHideValue);
+  };
+
   const clearInputValue = () => {
     onChange('');
   };
-
-  const { theme } = useThemeContext();
 
   return (
     <View style={style.inputContainer}>
@@ -73,6 +83,7 @@ export const Input: FC<Props> = ({
         <TextInput
           placeholderTextColor={COLORS.GREY_LIGHT}
           maxLength={maxLength}
+          secureTextEntry={isHideValue}
           style={style.input}
           value={value}
           onChangeText={onChange}
@@ -80,6 +91,12 @@ export const Input: FC<Props> = ({
           multiline={multiline}
           {...props}
         />
+
+        {isSecureInput && (
+          <TouchableOpacity onPress={handleShowValue}>
+            <Show color={theme.ICONS.SECONDARY} type={iconType} />
+          </TouchableOpacity>
+        )}
 
         {isShowClearIcon && !!value.length && (
           <TouchableOpacity onPress={clearInputValue}>

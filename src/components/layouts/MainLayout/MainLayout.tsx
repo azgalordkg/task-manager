@@ -15,9 +15,11 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
   screenTitle,
   isFilter,
   isSettings,
+  showHeader,
+  topViewBackgroundColor,
 }) => {
   const { theme, isDark } = useThemeContext();
-  const style = styles(theme);
+  const style = styles(theme, topViewBackgroundColor);
 
   return (
     <>
@@ -26,12 +28,14 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
         <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
         <DismissKeyboard>
           <View style={style.mainWrapper}>
-            <Header
-              isFilter={isFilter}
-              isSettings={isSettings}
-              onBack={onBack}
-              screenTitle={screenTitle}
-            />
+            {showHeader && (
+              <Header
+                isFilter={isFilter}
+                isSettings={isSettings}
+                onBack={onBack}
+                screenTitle={screenTitle}
+              />
+            )}
 
             <View style={style.mainWrapper}>{children}</View>
           </View>

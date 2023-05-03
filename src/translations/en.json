@@ -165,5 +165,22 @@
   "SEARCH": "Search",
   "NO_MATCHES": "No matches",
   "COMPLETED": "Completed",
-  "OVERDUE": "Overdue"
+  "OVERDUE": "Overdue",
+  "SIGN_IN": "Sign In",
+  "SIGN_UP": "Sign Up",
+  "EMAIL_ADDRESS": "Email Address",
+  "PASSWORD": "Password",
+  "FORGOT_PASSWORD": "Forgot Password?",
+  "CONFIRM_PASSWORD": "Confirm Password",
+  "CONTINUE": "Continue",
+  "CONTINUE_WITH": "Or continue with",
+  "INVALID_EMAIL": "Invalid email",
+  "EMAIL_TOO_SHORT": "Email too short",
+  "EMAIL_TOO_LONG": "Email too long",
+  "EMAIL_REQUIRED": "Email required",
+  "PASSWORD_TOO_SHORT": "Password too short",
+  "PASSWORD_TOO_LONG": "Password too long",
+  "PASSWORD_REQUIRED": "Password required",
+  "PASSWORDS_MUST_MATCH": "Passwords must match",
+  "CONFIRM_PASSWORD_REQUIRED": "Confirm password required"
 }
