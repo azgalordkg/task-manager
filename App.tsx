@@ -16,6 +16,7 @@ import {
   LanguageScreen,
   ManageLabelsScreen,
   PurchaseScreen,
+  ResetPasswordScreen,
   SettingsScreen,
   TasksScreen,
   ThemeScreen,
@@ -51,6 +52,10 @@ const App: FC = () => {
               contentStyle: { backgroundColor: 'transparent' },
             }}>
             <Stack.Screen name="Language" component={LanguageScreen} />
+            <Stack.Screen
+              name="ResetPassword"
+              component={ResetPasswordScreen}
+            />
             <Stack.Screen name="Theme" component={ThemeScreen} />
             <Stack.Screen name="CreateTask" component={CreateTaskScreen} />
             <Stack.Screen name="ManageLabels" component={ManageLabelsScreen} />
