@@ -1,12 +1,16 @@
 import { Control } from 'react-hook-form/dist/types';
 import { TextInputProps } from 'react-native';
 
-import { AuthFormValuesKey, CreateTaskKey } from '@/types';
+import {
+  AuthFormValuesKey,
+  CreateTaskKey,
+  ResetPasswordFormValuesKey,
+} from '@/types';
 
 export interface Props extends TextInputProps {
   control: Control<any>;
   defaultValue?: string;
-  name: CreateTaskKey | AuthFormValuesKey;
+  name: CreateTaskKey | AuthFormValuesKey | ResetPasswordFormValuesKey;
   isDateTime?: boolean;
   timeFormat?: string;
   isTime?: boolean;

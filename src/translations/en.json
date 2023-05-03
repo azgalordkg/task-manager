@@ -182,5 +182,21 @@
   "PASSWORD_TOO_LONG": "Password too long",
   "PASSWORD_REQUIRED": "Password required",
   "PASSWORDS_MUST_MATCH": "Passwords must match",
-  "CONFIRM_PASSWORD_REQUIRED": "Confirm password required"
+  "CONFIRM_PASSWORD_REQUIRED": "Confirm password required",
+  "FORGOT_PASSWORD_TITLE": "Forgot Password",
+  "VERIFY_CODE_TITLE": "Verify Identity",
+  "RESET_PASSWORD_TITLE": "Reset Password",
+  "FORGOT_PASSWORD_DESCRIPTION": "Enter your registered email address, and we'll send you a code. Once you receive the code, input it on the next screen to proceed with resetting your password.",
+  "VERIFY_CODE_DESCRIPTION": "Please enter the code you received in your email. This will allow us to verify your identity and help you reset your password.",
+  "CHANGE_PASSWORD_DESCRIPTION": "Now, please create a new password for your account.",
+  "SEND_CODE": "Send a code",
+  "VERIFY_CODE": "Verify",
+  "RESET_PASSWORD": "Reset password",
+  "CANCEL": "Cancel",
+  "BACK": "Back",
+  "CODE": "Verification Code",
+  "BACK_TO_LOGIN": "Back to Login",
+  "CODE_TOO_SHORT": "Verification Code too short",
+  "CODE_TOO_LONG": "Verification Code too long",
+  "CODE_REQUIRED": "Verification Code required"
 }
