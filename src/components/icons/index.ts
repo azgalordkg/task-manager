@@ -29,6 +29,7 @@ export * from './Lock';
 export * from './Logo';
 export * from './Message';
 export * from './Paper';
+export * from './Password';
 export * from './Plus';
 export * from './Repeat';
 export * from './Search';

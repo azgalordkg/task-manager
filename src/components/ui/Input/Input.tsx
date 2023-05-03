@@ -105,7 +105,9 @@ export const Input: FC<Props> = ({
         )}
       </InputWrapper>
 
-      {errorMessage && <Text style={style.errorMessage}>{errorMessage}</Text>}
+      {errorMessage && (
+        <Text style={style.errorMessage}>{t(errorMessage)}</Text>
+      )}
     </View>
   );
 };

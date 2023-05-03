@@ -1,6 +1,5 @@
 import React, { FC, PropsWithChildren } from 'react';
 import { SafeAreaView, StatusBar, View } from 'react-native';
-import Toast from 'react-native-toast-message';
 
 import { DismissKeyboard } from '@/components/features';
 import { Header } from '@/components/ui';
@@ -41,7 +40,6 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
           </View>
         </DismissKeyboard>
       </SafeAreaView>
-      <Toast position="bottom" />
     </>
   );
 };

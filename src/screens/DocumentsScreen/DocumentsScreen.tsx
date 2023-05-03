@@ -8,13 +8,9 @@ import {
   DocumentsHeader,
   ModalScreenWrapper,
 } from '@/components/ui';
-import {
-  PRIVACY_POLICY,
-  PRIVACY_POLICY_DESCRIPTION,
-  TERMS_OF_USE,
-} from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 import { ScreenProps } from '@/types';
+import { getPrivacyPolicy, getTermsOfUse } from '@/utils/translation';
 
 import styles from './DocumentsScreen.styles';
 
@@ -31,7 +27,9 @@ export const DocumentsScreen: FC<ScreenProps<'Documents'>> = ({
   const { t } = useTranslation();
 
   const screenTitle = isPrivacyPolicy ? t('PRIVACY_POLICY') : t('TERMS_OF_USE');
-  const screenContent = isPrivacyPolicy ? PRIVACY_POLICY : TERMS_OF_USE;
+  const screenContent = isPrivacyPolicy
+    ? getPrivacyPolicy(t)
+    : getTermsOfUse(t);
 
   return (
     <ModalScreenWrapper
@@ -46,7 +44,7 @@ export const DocumentsScreen: FC<ScreenProps<'Documents'>> = ({
 
           <ScrollView>
             {isPrivacyPolicy && (
-              <DocumentsContent content={PRIVACY_POLICY_DESCRIPTION} />
+              <DocumentsContent content={t('PRIVACY_POLICY_DESCRIPTION')} />
             )}
 
             <Accordion
