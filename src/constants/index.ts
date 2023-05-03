@@ -1,4 +1,3 @@
-export * from './auth';
 export * from './colors';
 export * from './documents';
 export * from './languages';

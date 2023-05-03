@@ -182,21 +182,5 @@
   "PASSWORD_TOO_LONG": "Le mot de passe est trop long",
   "PASSWORD_REQUIRED": "Mot de passe requis",
   "PASSWORDS_MUST_MATCH": "Les mots de passe doivent correspondre",
-  "CONFIRM_PASSWORD_REQUIRED": "La confirmation du mot de passe est obligatoire",
-  "FORGOT_PASSWORD_TITLE": "Mot de passe oublié",
-  "VERIFY_CODE_TITLE": "Vérifier l'identité",
-  "RESET_PASSWORD_TITLE": "Réinitialiser le mot de passe",
-  "FORGOT_PASSWORD_DESCRIPTION": "Saisissez votre adresse électronique enregistrée et nous vous enverrons un code. Une fois que vous avez reçu le code, saisissez-le dans l'écran suivant pour continuer à réinitialiser votre mot de passe.",
-  "VERIFY_CODE_DESCRIPTION": "Veuillez saisir le code que vous avez reçu par courrier électronique. Cela nous permettra de confirmer votre identité et de vous aider à réinitialiser votre mot de passe.",
-  "CHANGE_PASSWORD_DESCRIPTION": "Veuillez maintenant créer un nouveau mot de passe pour votre compte.",
-  "SEND_CODE": "Envoyer le code",
-  "VERIFY_CODE": "Confirmer le code",
-  "RESET_PASSWORD": "Réinitialiser le mot de passe",
-  "CANCEL": "Annulation",
-  "BACK": "Retour",
-  "CODE": "Code",
-  "BACK_TO_LOGIN": "Retour à l'entrée",
-  "CODE_TOO_SHORT": "Le code est trop court",
-  "CODE_TOO_LONG": "Le code est trop long",
-  "CODE_REQUIRED": "Le code est requis"
+  "CONFIRM_PASSWORD_REQUIRED": "La confirmation du mot de passe est obligatoire"
 }
