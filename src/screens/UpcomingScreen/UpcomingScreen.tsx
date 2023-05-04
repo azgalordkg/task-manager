@@ -60,7 +60,6 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
   };
 
   const handleItemPress = (id: string) => {
-    handleTaskDateChange(moment().valueOf());
     vibrate('rigid');
     navigation.navigate('CreateTask', { id });
   };
