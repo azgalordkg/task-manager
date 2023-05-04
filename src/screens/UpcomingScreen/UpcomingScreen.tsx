@@ -76,9 +76,20 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
     });
   };
 
-  const dottedDays = Object.assign({}, ...getDottedDays(theme));
+  const getWeekDays = (lng: any) => {
+    const countriesStartingWithSunday = ['es', 'en'];
 
-  const weekdaysShort = moment.localeData(language).weekdaysShort();
+    const weekdaysShort = moment.localeData(lng).weekdaysShort();
+
+    if (countriesStartingWithSunday.includes(lng)) {
+      return weekdaysShort;
+    }
+
+    const reversedDaysOfWeek = weekdaysShort.reverse();
+    return [...reversedDaysOfWeek.slice(1), reversedDaysOfWeek[0]];
+  };
+
+  const dottedDays = Object.assign({}, ...getDottedDays(theme));
 
   return (
     <MainLayout showHeader onBack={onBack} screenTitle={`${t('UPCOMING')}`}>
@@ -102,7 +113,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
         </View>
 
         <View style={style.weekdayContainer}>
-          {weekdaysShort.map(weekday => (
+          {getWeekDays(language).map(weekday => (
             <Text style={style.weekdayText} key={weekday}>
               {weekday}
             </Text>
