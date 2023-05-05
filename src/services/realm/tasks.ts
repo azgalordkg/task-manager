@@ -303,7 +303,7 @@ export const deleteOneTask = (_id: string) => {
 export const getTaskManagerTransform = (scale: Animated.Value) => {
   const { width } = Dimensions.get('window');
   const rightPosition = width / 3;
-  const topPosition = -75;
+  const topPosition = -55;
 
   return {
     transform: [

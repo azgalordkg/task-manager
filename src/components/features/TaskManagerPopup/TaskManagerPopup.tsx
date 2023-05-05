@@ -6,9 +6,9 @@ import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 import { getTaskManagerTransform } from '@/services';
 
-import styles from './TaskManagerModal.styles';
-import { Props } from './TaskManagerModal.types';
-export const TaskManagerModal: FC<Props> = ({ scale, handleDeleteTask }) => {
+import styles from './TaskManagerPopup.styles';
+import { Props } from './TaskManagerPopup.types';
+export const TaskManagerPopup: FC<Props> = ({ scale, handleDeleteTask }) => {
   const { theme } = useThemeContext();
   const style = styles(theme);
 

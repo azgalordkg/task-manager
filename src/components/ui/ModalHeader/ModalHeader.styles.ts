@@ -26,6 +26,7 @@ const styles = (
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
+      zIndex: 100,
     },
     title: {
       width: '100%',

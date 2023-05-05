@@ -1,12 +1,11 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Animated } from 'react-native';
 
-import { ContextMenuButton } from '@/components/features';
+import { TaskMenu } from '@/components/features';
 import { CreateTaskForm } from '@/components/forms';
 import { ConfirmModal } from '@/components/modals';
-import { TaskManagerModal } from '@/components/modals/TaskManagerModal';
 import { ModalScreenWrapper } from '@/components/ui';
 import { useTagManageContext, useTasksContext } from '@/context/hooks';
 import { createTask, deleteOneTask, updateTask } from '@/services';
@@ -33,7 +32,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   const title = taskId ? t('EDIT') : t('CREATE');
 
   const handleShowConfirmModal = () => {
-    handleTaskManagerVisible();
+    setTaskManagerVisible(false);
     setConfirmModalVisible(!confirmModalVisible);
   };
 
@@ -74,14 +73,6 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
     setTaskManagerVisible(prevState => !prevState);
   };
 
-  useEffect(() => {
-    Animated.timing(scale, {
-      toValue: taskManagerVisible ? 1 : 0,
-      duration: 200,
-      useNativeDriver: true,
-    }).start();
-  }, [taskManagerVisible]);
-
   return (
     <ModalScreenWrapper
       doneText={`${t('SUBMIT_TITLE')}`}
@@ -91,7 +82,12 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
       rightActionComponent={
         taskId &&
         !isDescriptionFocused && (
-          <ContextMenuButton onPress={handleTaskManagerVisible} />
+          <TaskMenu
+            scale={scale}
+            handleDeleteTask={handleShowConfirmModal}
+            handleModalVisible={handleTaskManagerVisible}
+            taskManagerVisible={taskManagerVisible}
+          />
         )
       }
       title={`${title} ${t('TASK')}`}
@@ -104,11 +100,6 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
         editItemId={taskId}
         onSubmit={createTaskHandler}
         taskStartDate={taskStartDate}
-      />
-
-      <TaskManagerModal
-        scale={scale}
-        handleDeleteTask={handleShowConfirmModal}
       />
 
       <ConfirmModal
