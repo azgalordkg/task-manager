@@ -39,6 +39,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
   const style = styles(theme);
   const maxDate = moment().add(10, 'years').toDate();
   const dayTitle = getDayTitle(selectedDate, language);
+  const countriesStartingWithSunday = ['es', 'en'];
 
   const handleShowMonthModal = () => {
     setMonthModalVisible(!monthModalVisible);
@@ -77,8 +78,6 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
   };
 
   const getWeekDays = (lng: string) => {
-    const countriesStartingWithSunday = ['es', 'en'];
-
     const weekdaysShort = moment.localeData(lng).weekdaysShort();
 
     if (countriesStartingWithSunday.includes(lng)) {
@@ -126,7 +125,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
           startDate={selectedDate}
           disableRange
           maxDate={maxDate}
-          firstDayMonday={false}
+          firstDayMonday={!countriesStartingWithSunday.includes(language)}
           markedDays={dottedDays}
           theme={{
             activeDayColor: theme.TEXT.PRIMARY,
