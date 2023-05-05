@@ -25,7 +25,6 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
 
   const isSignIn = authType === 'signIn';
 
-  // temporary defaultValues
   const {
     control,
     handleSubmit,
@@ -33,8 +32,8 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
     reset,
   } = useForm<AuthFormValues>({
     defaultValues: {
-      email: 'qwe@qweeq',
-      password: '123456789',
+      email: '',
+      password: '',
     },
     mode: 'onBlur',
     resolver: yupResolver(
@@ -102,6 +101,9 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
 
           <View style={style.formContainer}>
             <Input
+              textContentType="emailAddress"
+              keyboardType="email-address"
+              autoCapitalize="none"
               icon={<Message color={theme.TEXT.ACCENT} />}
               backgroundColor={theme.BACKGROUND.NEUTRAL}
               color={theme.TEXT.PRIMARY}
@@ -112,6 +114,8 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
             />
 
             <Input
+              textContentType="password"
+              autoCapitalize="none"
               icon={<Lock color={theme.TEXT.ACCENT} />}
               backgroundColor={theme.BACKGROUND.NEUTRAL}
               color={theme.TEXT.PRIMARY}
