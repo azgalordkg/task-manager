@@ -76,7 +76,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
     });
   };
 
-  const getWeekDays = (lng: any) => {
+  const getWeekDays = (lng: string) => {
     const countriesStartingWithSunday = ['es', 'en'];
 
     const weekdaysShort = moment.localeData(lng).weekdaysShort();
