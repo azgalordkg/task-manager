@@ -19,7 +19,7 @@ export const LanguageProviderContext = createContext<LanguageProviderType>(
 
 export const LanguageProvider: FC<PropsWithChildren> = ({ children }) => {
   const {
-    i18n: { changeLanguage },
+    i18n: { changeLanguage, language },
   } = useTranslation();
 
   const getSystemLanguage = () => {
@@ -61,7 +61,7 @@ export const LanguageProvider: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     void getCurrentLanguage();
-  }, []);
+  }, [language]);
 
   const languageHandleChange = async (value: string) => {
     await Storage.storeData('language', value);

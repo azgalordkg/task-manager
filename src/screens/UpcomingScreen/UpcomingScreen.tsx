@@ -39,6 +39,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
   const style = styles(theme);
   const maxDate = moment().add(10, 'years').toDate();
   const dayTitle = getDayTitle(selectedDate, language);
+  const countriesStartingWithSunday = ['es', 'en'];
 
   const handleShowMonthModal = () => {
     setMonthModalVisible(!monthModalVisible);
@@ -75,9 +76,18 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
     });
   };
 
-  const dottedDays = Object.assign({}, ...getDottedDays(theme));
+  const getWeekDays = (lng: string) => {
+    const weekdaysShort = moment.localeData(lng).weekdaysShort();
 
-  const weekdaysShort = moment.localeData(language).weekdaysShort();
+    if (countriesStartingWithSunday.includes(lng)) {
+      return weekdaysShort;
+    }
+
+    const reversedDaysOfWeek = weekdaysShort.reverse();
+    return [...reversedDaysOfWeek.slice(1), reversedDaysOfWeek[0]];
+  };
+
+  const dottedDays = Object.assign({}, ...getDottedDays(theme));
 
   return (
     <MainLayout showHeader onBack={onBack} screenTitle={`${t('UPCOMING')}`}>
@@ -101,7 +111,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
         </View>
 
         <View style={style.weekdayContainer}>
-          {weekdaysShort.map(weekday => (
+          {getWeekDays(language).map(weekday => (
             <Text style={style.weekdayText} key={weekday}>
               {weekday}
             </Text>
@@ -114,7 +124,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
           startDate={selectedDate}
           disableRange
           maxDate={maxDate}
-          firstDayMonday={false}
+          firstDayMonday={!countriesStartingWithSunday.includes(language)}
           markedDays={dottedDays}
           theme={{
             activeDayColor: theme.TEXT.PRIMARY,
