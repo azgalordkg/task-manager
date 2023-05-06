@@ -23,15 +23,23 @@ export const AuthProviderContext = createContext<AuthProviderTypes>({
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  const setToken = async (token: string) => {
+    if (token) {
+      await Storage.storeData(TOKEN, token);
+    }
+  };
 
   const checkUserAuthStatus = async () => {
     try {
+      // await Storage.removeData(TOKEN);
       setLoading(true);
       const response = await axiosInstance.get(`${URL_ROUTES.AUTH}/me`);
-      setUser(response.data);
+
+      await setUser(response?.data);
     } catch (error) {
-      console.log('Error checking auth status:', error);
+      console.error('Error checking auth status: ', error);
     } finally {
       setLoading(false);
     }
@@ -43,13 +51,18 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const signIn = async (data: AuthData) => {
     try {
+      setLoading(true);
       const response = await axiosInstance.post(
         `${URL_ROUTES.AUTH}/login`,
         data,
       );
-      setUser(response.data.user);
+
+      await setToken(response?.data?.token);
+      await checkUserAuthStatus();
     } catch (error) {
-      console.log(error);
+      console.error('Error signing in: ', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,13 +73,18 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const signUp = async (data: AuthData) => {
     try {
+      setLoading(true);
       const response = await axiosInstance.post(
         `${URL_ROUTES.AUTH}/register`,
         data,
       );
-      setUser(response.data.user);
+
+      await setToken(response?.data?.token);
+      await checkUserAuthStatus();
     } catch (error) {
-      console.log(error);
+      console.error('Error signing up: ', error);
+    } finally {
+      setLoading(false);
     }
   };
 

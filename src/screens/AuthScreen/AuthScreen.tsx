@@ -12,7 +12,7 @@ import {
   signInValidationSchema,
   signUpValidationSchema,
 } from '@/constants/validation';
-import { useThemeContext } from '@/context/hooks';
+import { useAuthContext, useThemeContext } from '@/context/hooks';
 import { AuthFormValues, ScreenProps } from '@/types';
 
 import styles from './AuthScreen.styles';
@@ -20,6 +20,7 @@ import styles from './AuthScreen.styles';
 export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
   const { theme } = useThemeContext();
   const { t } = useTranslation();
+  const { signIn, signUp } = useAuthContext();
 
   const [authType, setAuthType] = useState('signIn');
 
@@ -56,10 +57,12 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
     console.log(name);
   };
 
-  const onSubmit = (data: AuthFormValues) => {
-    console.log(data, 'data');
-
-    navigation.navigate('Dashboard');
+  const onSubmit = async ({ email, password }: AuthFormValues) => {
+    if (isSignIn) {
+      await signIn({ email, password });
+    } else {
+      await signUp({ email, password });
+    }
   };
 
   return (
