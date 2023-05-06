@@ -13,7 +13,7 @@ import { Storage } from '@/utils';
 
 import { AuthProviderTypes } from './AuthProvider.types';
 
-export const AuthContext = createContext<AuthProviderTypes>({
+export const AuthProviderContext = createContext<AuthProviderTypes>({
   user: null,
   loading: false,
   signIn: (_: AuthData) => {},
@@ -71,7 +71,7 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider
+    <AuthProviderContext.Provider
       value={{
         user,
         loading,
@@ -80,6 +80,6 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
         signUp,
       }}>
       {children}
-    </AuthContext.Provider>
+    </AuthProviderContext.Provider>
   );
 };

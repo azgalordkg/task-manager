@@ -1,3 +1,4 @@
+export * from './useAuthContext';
 export * from './useLanguageContext';
 export * from './useTagManageContext';
 export * from './useTasksContext';
