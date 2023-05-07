@@ -104,6 +104,9 @@ const styles = (theme: SchemeType) =>
       lineHeight: 21,
       color: COLORS.BLACK_DARK,
     },
+    errorWrapper: {
+      // marginBottom: 10,
+    },
   });
 
 export default styles;

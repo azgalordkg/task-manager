@@ -1,7 +1,13 @@
-import { rtkQueryApi } from './tasks';
+import { authApi } from '@/store/apis/auth';
+import authSlice from '@/store/apis/auth/auth.slice';
 
-export const queryReducer = {
-  [rtkQueryApi.reducerPath]: rtkQueryApi.reducer,
+import { tasksApi } from './tasks';
+
+export const reducer = {
+  [authApi.reducerPath]: authApi.reducer,
+  [tasksApi.reducerPath]: tasksApi.reducer,
+
+  [authSlice.name]: authSlice.reducer,
 };
 
-export const queryMiddleware = [rtkQueryApi.middleware];
+export const queryMiddleware = [authApi.middleware, tasksApi.middleware];

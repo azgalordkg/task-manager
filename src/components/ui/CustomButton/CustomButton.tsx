@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren } from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity } from 'react-native';
 
 import { COLORS } from '@/constants';
 
@@ -7,6 +7,7 @@ import styles from './CustomButton.styles';
 import { Props } from './CustomButton.types';
 
 export const CustomButton: FC<PropsWithChildren<Props>> = ({
+  isLoading,
   children,
   onPress,
   bgColor = COLORS.RED,
@@ -49,14 +50,20 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
       style={style.button}
       onPress={onPress}
       disabled={disabled}>
-      {Icon && (
-        <Icon
-          color={isFilled ? textColor : bgColor}
-          width={iconWidth}
-          height={iconHeight}
-        />
+      {isLoading ? (
+        <ActivityIndicator color={textColor} />
+      ) : (
+        <>
+          {Icon && (
+            <Icon
+              color={isFilled ? textColor : bgColor}
+              width={iconWidth}
+              height={iconHeight}
+            />
+          )}
+          <Text style={style.text}>{children}</Text>
+        </>
       )}
-      <Text style={style.text}>{children}</Text>
     </TouchableOpacity>
   );
 };

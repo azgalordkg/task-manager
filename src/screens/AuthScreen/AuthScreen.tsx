@@ -1,30 +1,56 @@
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 import { Checkbox, Lock, Message } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
-import { CustomButton, Input } from '@/components/ui';
-import { AUTH_TYPE, AUTH_VARIANTS } from '@/constants';
+import { CustomButton, ErrorMessage, Input } from '@/components/ui';
+import { AUTH_TYPE, AUTH_VARIANTS, TOKEN } from '@/constants';
 import {
   signInValidationSchema,
   signUpValidationSchema,
 } from '@/constants/validation';
-import { useAuthContext, useThemeContext } from '@/context/hooks';
-import { AuthFormValues, ScreenProps } from '@/types';
+import { useThemeContext } from '@/context/hooks';
+import {
+  useLazyGetMeQuery,
+  useLoginMutation,
+  useRegisterMutation,
+} from '@/store/apis/auth';
+import { AuthFormValues, ScreenProps, ServerError } from '@/types';
+import { Storage } from '@/utils';
 
 import styles from './AuthScreen.styles';
 
 export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
   const { theme } = useThemeContext();
   const { t } = useTranslation();
-  const { signIn, signUp } = useAuthContext();
+  const [
+    login,
+    { data: loginData, isLoading: isLoginLoading, error: loginError },
+  ] = useLoginMutation();
+  const [
+    register,
+    { data: registerData, isLoading: isRegisterLoading, error: registerError },
+  ] = useRegisterMutation();
+  const [getMe, { isLoading: isMeLoading, error: meError }] =
+    useLazyGetMeQuery();
 
   const [authType, setAuthType] = useState('signIn');
 
   const isSignIn = authType === 'signIn';
+
+  const setToken = async () => {
+    if (loginData || registerData) {
+      await Storage.storeData(TOKEN, loginData?.token || registerData?.token);
+      getMe();
+    }
+  };
+
+  useEffect(() => {
+    void setToken();
+  }, [loginData, registerData]);
 
   const {
     control,
@@ -59,11 +85,17 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
 
   const onSubmit = async ({ email, password }: AuthFormValues) => {
     if (isSignIn) {
-      await signIn({ email, password });
+      await login({ email, password });
     } else {
-      await signUp({ email, password });
+      await register({ email, password });
     }
   };
+
+  const authErrorMessage =
+    (loginError as ServerError)?.data?.message ||
+    (registerError as ServerError)?.data?.message ||
+    (meError as ServerError)?.data?.message ||
+    'SOMETHING_WENT_WRONG';
 
   return (
     <MainLayout topViewBackgroundColor={theme.BACKGROUND.SECONDARY}>
@@ -149,9 +181,17 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
             )}
           </View>
 
+          {(loginError || registerError || meError) && (
+            <View style={style.errorWrapper}>
+              <ErrorMessage size="medium">{t(authErrorMessage)}</ErrorMessage>
+            </View>
+          )}
           <CustomButton
+            isLoading={isLoginLoading || isRegisterLoading || isMeLoading}
             bgColor={theme.BUTTONS.PRIMARY}
-            disabled={!isValid}
+            disabled={
+              !isValid || isLoginLoading || isRegisterLoading || isMeLoading
+            }
             onPress={handleSubmit(onSubmit)}>
             {t('CONTINUE')}
           </CustomButton>

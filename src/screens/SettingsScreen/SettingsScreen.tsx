@@ -7,14 +7,14 @@ import { MainLayout } from '@/components/layouts';
 import { CustomButton } from '@/components/ui';
 import { MenuItem } from '@/components/ui/MenuItem';
 import { SETTINGS_LIST } from '@/constants';
-import { useAuthContext } from '@/context/hooks';
+import { useLogout } from '@/hooks';
 import { ScreenProps } from '@/types';
 
 import styles from './SettingsScreen.styles';
 
 export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
   const { t } = useTranslation();
-  const { signOut } = useAuthContext();
+  const { logout } = useLogout();
 
   const onBackPressHandler = () => {
     navigation.goBack();
@@ -102,7 +102,7 @@ export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
           )}
         </View>
         {/* TODO remove this button after User Account Implementation */}
-        <CustomButton onPress={signOut}>Log Out</CustomButton>
+        <CustomButton onPress={logout}>Log Out</CustomButton>
       </View>
     </MainLayout>
   );

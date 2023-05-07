@@ -3,7 +3,6 @@ import { EventProvider } from 'react-native-outside-press';
 import { Provider } from 'react-redux';
 
 import {
-  AuthProvider,
   LanguageProvider,
   TagManageProvider,
   TaskListProvider,
@@ -14,18 +13,16 @@ import { store } from '@/store';
 export const ProvidersLayout: FC<PropsWithChildren> = ({ children }) => {
   const eventProviderStyles = { flex: 1 };
   return (
-    <AuthProvider>
-      <Provider store={store}>
-        <EventProvider style={eventProviderStyles}>
-          <LanguageProvider>
-            <TaskListProvider>
-              <TagManageProvider>
-                <ThemeProvider>{children}</ThemeProvider>
-              </TagManageProvider>
-            </TaskListProvider>
-          </LanguageProvider>
-        </EventProvider>
-      </Provider>
-    </AuthProvider>
+    <Provider store={store}>
+      <EventProvider style={eventProviderStyles}>
+        <LanguageProvider>
+          <TaskListProvider>
+            <TagManageProvider>
+              <ThemeProvider>{children}</ThemeProvider>
+            </TagManageProvider>
+          </TaskListProvider>
+        </LanguageProvider>
+      </EventProvider>
+    </Provider>
   );
 };

@@ -32,3 +32,11 @@ export interface UserInfo {
   roles: Role[];
   tasks: any[]; // TODO Implement Task type
 }
+
+export interface ServerError {
+  status: number;
+  data: {
+    statusCode?: number;
+    message: string;
+  };
+}

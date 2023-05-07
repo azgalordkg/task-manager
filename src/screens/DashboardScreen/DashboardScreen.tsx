@@ -25,7 +25,9 @@ export const DashboardScreen: FC<ScreenProps<'Dashboard'>> = ({
 
   useEffect(() => {
     fetchList();
-    navigation.navigate('Tasks');
+    setTimeout(() => {
+      navigation.navigate('Tasks');
+    }, 0);
   }, []);
 
   useEffect(() => {

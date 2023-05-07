@@ -1,7 +1,5 @@
 import { Dimensions, StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
-
 const styles = (
   isShowClearIcon?: boolean,
   isSecureInput?: boolean,
@@ -23,9 +21,6 @@ const styles = (
       minHeight: multiline ? Dimensions.get('window').height / 4 : 'auto',
       ...(multiline ? { lineHeight: 18 } : {}),
       fontSize: 18,
-    },
-    errorMessage: {
-      color: COLORS.RED,
     },
   });
 export default styles;

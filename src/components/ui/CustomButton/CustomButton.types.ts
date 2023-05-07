@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { DefaultSvgProps } from '@/types';
 
 export interface Props {
+  isLoading?: boolean;
   onPress: () => void;
   bgColor?: string;
   textColor?: string;

@@ -12,6 +12,7 @@ export * from './DashedButton';
 export * from './DocumentsContent';
 export * from './DocumentsHeader';
 export * from './EmptyTaskList';
+export * from './ErrorMessage';
 export * from './ExtendedModal';
 export * from './FormContentWrapper';
 export * from './Header';

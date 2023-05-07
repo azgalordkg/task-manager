@@ -198,5 +198,9 @@
   "BACK_TO_LOGIN": "Back to Login",
   "CODE_TOO_SHORT": "Verification Code too short",
   "CODE_TOO_LONG": "Verification Code too long",
-  "CODE_REQUIRED": "Verification Code required"
+  "CODE_REQUIRED": "Verification Code required",
+  "INVALID_EMAIL_OR_PASSWORD": "Invalid email or password",
+  "USER_NOT_FOUND": "User not found",
+  "SOMETHING_WENT_WRONG": "Something went wrong",
+  "USER_ALREADY_EXISTS": "User already exists"
 }
