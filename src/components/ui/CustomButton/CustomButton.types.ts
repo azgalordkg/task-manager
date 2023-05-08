@@ -20,4 +20,5 @@ export interface Props {
   iconWidth?: number;
   iconHeight?: number;
   orientation?: 'flex-start' | 'center' | 'flex-end';
+  withShadow?: boolean;
 }

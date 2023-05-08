@@ -1,19 +1,21 @@
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { Checkbox, Lock, Message } from '@/components/icons';
+import { Checkbox, Google, Lock, Message } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { CustomButton, ErrorMessage, Input } from '@/components/ui';
-import { AUTH_TYPE, AUTH_VARIANTS, TOKEN } from '@/constants';
+import { AUTH_TYPE, COLORS, TOKEN } from '@/constants';
 import {
   signInValidationSchema,
   signUpValidationSchema,
 } from '@/constants/validation';
 import { useThemeContext } from '@/context/hooks';
 import {
+  useGoogleSignInMutation,
   useLazyGetMeQuery,
   useLoginMutation,
   useRegisterMutation,
@@ -36,21 +38,38 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
   ] = useRegisterMutation();
   const [getMe, { isLoading: isMeLoading, error: meError }] =
     useLazyGetMeQuery();
+  const [
+    googleSignIn,
+    {
+      data: googleSignInData,
+      isLoading: googleSignInLoading,
+      error: googleSignInError,
+    },
+  ] = useGoogleSignInMutation();
 
   const [authType, setAuthType] = useState('signIn');
 
   const isSignIn = authType === 'signIn';
 
-  const setToken = async () => {
-    if (loginData || registerData) {
-      await Storage.storeData(TOKEN, loginData?.token || registerData?.token);
-      getMe();
-    }
+  const setToken = async (token: string) => {
+    await Storage.storeData(TOKEN, token);
+    getMe();
   };
 
   useEffect(() => {
-    void setToken();
-  }, [loginData, registerData]);
+    let token;
+    if (loginData?.token) {
+      token = loginData.token;
+    } else if (registerData?.token) {
+      token = registerData.token;
+    } else if (googleSignInData?.token) {
+      token = googleSignInData?.token;
+    }
+
+    if (token) {
+      void setToken(token);
+    }
+  }, [loginData, registerData, googleSignInData]);
 
   const {
     control,
@@ -79,8 +98,16 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
     navigation.navigate('ResetPassword');
   };
 
-  const onPressAuthVariant = (name: string) => {
-    console.log(name);
+  const onGoogleSignIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const { idToken } = await GoogleSignin.signIn();
+      if (idToken) {
+        await googleSignIn(idToken);
+      }
+    } catch (error: any) {
+      console.error(error);
+    }
   };
 
   const onSubmit = async ({ email, password }: AuthFormValues) => {
@@ -95,6 +122,7 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
     (loginError as ServerError)?.data?.message ||
     (registerError as ServerError)?.data?.message ||
     (meError as ServerError)?.data?.message ||
+    (googleSignInError as ServerError)?.data?.message ||
     'SOMETHING_WENT_WRONG';
 
   return (
@@ -181,10 +209,8 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
             )}
           </View>
 
-          {(loginError || registerError || meError) && (
-            <View style={style.errorWrapper}>
-              <ErrorMessage size="medium">{t(authErrorMessage)}</ErrorMessage>
-            </View>
+          {(loginError || registerError || meError || googleSignInError) && (
+            <ErrorMessage size="medium">{t(authErrorMessage)}</ErrorMessage>
           )}
           <CustomButton
             isLoading={isLoginLoading || isRegisterLoading || isMeLoading}
@@ -203,19 +229,17 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
           </View>
 
           <View style={style.authVariantContainer}>
-            {AUTH_VARIANTS.map(({ name, Icon }) => {
-              return (
-                <TouchableOpacity
-                  key={name}
-                  activeOpacity={0.75}
-                  style={style.authVariantItem}
-                  onPress={() => onPressAuthVariant(name)}>
-                  <Icon />
-
-                  <Text style={style.authVariantTitle}>{name}</Text>
-                </TouchableOpacity>
-              );
-            })}
+            <CustomButton
+              isLoading={googleSignInLoading}
+              withShadow
+              bgColor={COLORS.WHITE}
+              textColor={COLORS.BLACK_MEDIUM}
+              iconWidth={24}
+              iconHeight={24}
+              icon={Google}
+              onPress={onGoogleSignIn}>
+              Google
+            </CustomButton>
           </View>
         </View>
       </View>

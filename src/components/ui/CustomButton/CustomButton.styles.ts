@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import { addShadow } from '@/utils';
+
 import { Props } from './CustomButton.types';
 
 const styles = ({
@@ -15,6 +17,7 @@ const styles = ({
   disabled,
   orientation,
   borderRadius,
+  withShadow,
 }: Partial<Props>) => {
   const isFilled = type === 'filled';
   const isOutlined = type === 'outlined';
@@ -35,6 +38,9 @@ const styles = ({
       borderWidth: (isOutlined && borderWidth) || 0,
       borderColor: (isOutlined && bgColor) || 'transparent',
       opacity: (disabled && 0.3) || 1,
+      ...(withShadow
+        ? addShadow({ shadowRadius: 2, width: 0.5, height: 0.5 })
+        : {}),
     },
     text: {
       fontWeight: '500',

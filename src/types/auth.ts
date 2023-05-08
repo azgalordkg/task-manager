@@ -29,6 +29,7 @@ export interface UserInfo {
   email: string;
   createdAt: string;
   updatedAt: string;
+  isGoogle: boolean | null;
   roles: Role[];
   tasks: any[]; // TODO Implement Task type
 }

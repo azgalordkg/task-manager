@@ -25,6 +25,7 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
   iconWidth = 14,
   iconHeight = 14,
   orientation = 'center',
+  withShadow,
 }) => {
   const Icon = icon;
   const style = styles({
@@ -40,6 +41,7 @@ export const CustomButton: FC<PropsWithChildren<Props>> = ({
     disabled,
     orientation,
     borderRadius,
+    withShadow,
   });
 
   const isFilled = type === 'filled';

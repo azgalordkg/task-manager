@@ -33,6 +33,14 @@ export const authApi = createApi({
         body: userData,
       }),
     }),
+
+    googleSignIn: builder.mutation<AuthResponse, string>({
+      query: (idToken: string) => ({
+        url: `${URL_ROUTES.AUTH}/google`,
+        method: 'POST',
+        body: { token: idToken },
+      }),
+    }),
   }),
 });
 
@@ -41,4 +49,5 @@ export const {
   useLazyGetMeQuery,
   useLoginMutation,
   useRegisterMutation,
+  useGoogleSignInMutation,
 } = authApi;
