@@ -1,31 +1,76 @@
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
-import React, { FC, useState } from 'react';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { Checkbox, Lock, Message } from '@/components/icons';
+import { Checkbox, Google, Lock, Message } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
-import { CustomButton, Input } from '@/components/ui';
-import { AUTH_TYPE, AUTH_VARIANTS } from '@/constants';
+import { CustomButton, ErrorMessage, Input } from '@/components/ui';
+import { AUTH_TYPE, COLORS, TOKEN } from '@/constants';
 import {
   signInValidationSchema,
   signUpValidationSchema,
 } from '@/constants/validation';
 import { useThemeContext } from '@/context/hooks';
-import { AuthFormValues, ScreenProps } from '@/types';
+import {
+  useGoogleSignInMutation,
+  useLazyGetMeQuery,
+  useLoginMutation,
+  useRegisterMutation,
+} from '@/store/apis/auth';
+import { AuthFormValues, ScreenProps, ServerError } from '@/types';
+import { Storage } from '@/utils';
 
 import styles from './AuthScreen.styles';
 
 export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
   const { theme } = useThemeContext();
   const { t } = useTranslation();
+  const [
+    login,
+    { data: loginData, isLoading: isLoginLoading, error: loginError },
+  ] = useLoginMutation();
+  const [
+    register,
+    { data: registerData, isLoading: isRegisterLoading, error: registerError },
+  ] = useRegisterMutation();
+  const [getMe, { isLoading: isMeLoading, error: meError }] =
+    useLazyGetMeQuery();
+  const [
+    googleSignIn,
+    {
+      data: googleSignInData,
+      isLoading: googleSignInLoading,
+      error: googleSignInError,
+    },
+  ] = useGoogleSignInMutation();
 
   const [authType, setAuthType] = useState('signIn');
 
   const isSignIn = authType === 'signIn';
 
-  // temporary defaultValues
+  const setToken = async (token: string) => {
+    await Storage.storeData(TOKEN, token);
+    getMe();
+  };
+
+  useEffect(() => {
+    let token;
+    if (loginData?.token) {
+      token = loginData.token;
+    } else if (registerData?.token) {
+      token = registerData.token;
+    } else if (googleSignInData?.token) {
+      token = googleSignInData?.token;
+    }
+
+    if (token) {
+      void setToken(token);
+    }
+  }, [loginData, registerData, googleSignInData]);
+
   const {
     control,
     handleSubmit,
@@ -33,8 +78,8 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
     reset,
   } = useForm<AuthFormValues>({
     defaultValues: {
-      email: 'qwe@qweeq',
-      password: '123456789',
+      email: '',
+      password: '',
     },
     mode: 'onBlur',
     resolver: yupResolver(
@@ -53,15 +98,32 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
     navigation.navigate('ResetPassword');
   };
 
-  const onPressAuthVariant = (name: string) => {
-    console.log(name);
+  const onGoogleSignIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const { idToken } = await GoogleSignin.signIn();
+      if (idToken) {
+        await googleSignIn(idToken);
+      }
+    } catch (error: any) {
+      console.error(error);
+    }
   };
 
-  const onSubmit = (data: AuthFormValues) => {
-    console.log(data, 'data');
-
-    navigation.navigate('Dashboard');
+  const onSubmit = async ({ email, password }: AuthFormValues) => {
+    if (isSignIn) {
+      await login({ email, password });
+    } else {
+      await register({ email, password });
+    }
   };
+
+  const authErrorMessage =
+    (loginError as ServerError)?.data?.message ||
+    (registerError as ServerError)?.data?.message ||
+    (meError as ServerError)?.data?.message ||
+    (googleSignInError as ServerError)?.data?.message ||
+    'SOMETHING_WENT_WRONG';
 
   return (
     <MainLayout topViewBackgroundColor={theme.BACKGROUND.SECONDARY}>
@@ -102,6 +164,9 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
 
           <View style={style.formContainer}>
             <Input
+              textContentType="emailAddress"
+              keyboardType="email-address"
+              autoCapitalize="none"
               icon={<Message color={theme.TEXT.ACCENT} />}
               backgroundColor={theme.BACKGROUND.NEUTRAL}
               color={theme.TEXT.PRIMARY}
@@ -112,6 +177,8 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
             />
 
             <Input
+              textContentType="password"
+              autoCapitalize="none"
               icon={<Lock color={theme.TEXT.ACCENT} />}
               backgroundColor={theme.BACKGROUND.NEUTRAL}
               color={theme.TEXT.PRIMARY}
@@ -142,9 +209,15 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
             )}
           </View>
 
+          {(loginError || registerError || meError || googleSignInError) && (
+            <ErrorMessage size="medium">{t(authErrorMessage)}</ErrorMessage>
+          )}
           <CustomButton
+            isLoading={isLoginLoading || isRegisterLoading || isMeLoading}
             bgColor={theme.BUTTONS.PRIMARY}
-            disabled={!isValid}
+            disabled={
+              !isValid || isLoginLoading || isRegisterLoading || isMeLoading
+            }
             onPress={handleSubmit(onSubmit)}>
             {t('CONTINUE')}
           </CustomButton>
@@ -156,19 +229,17 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
           </View>
 
           <View style={style.authVariantContainer}>
-            {AUTH_VARIANTS.map(({ name, Icon }) => {
-              return (
-                <TouchableOpacity
-                  key={name}
-                  activeOpacity={0.75}
-                  style={style.authVariantItem}
-                  onPress={() => onPressAuthVariant(name)}>
-                  <Icon />
-
-                  <Text style={style.authVariantTitle}>{name}</Text>
-                </TouchableOpacity>
-              );
-            })}
+            <CustomButton
+              isLoading={googleSignInLoading}
+              withShadow
+              bgColor={COLORS.WHITE}
+              textColor={COLORS.BLACK_MEDIUM}
+              iconWidth={24}
+              iconHeight={24}
+              icon={Google}
+              onPress={onGoogleSignIn}>
+              Google
+            </CustomButton>
           </View>
         </View>
       </View>

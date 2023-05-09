@@ -4,8 +4,8 @@ import * as yup from 'yup';
 const emailSchema = yup
   .string()
   .email(`${t('INVALID_EMAIL')}`)
-  .min(6, `${t('EMAIL_TOO_SHORT')}`)
-  .max(18, `${t('EMAIL_TOO_LONG')}`)
+  .min(5, `${t('EMAIL_TOO_SHORT')}`)
+  .max(254, `${t('EMAIL_TOO_LONG')}`)
   .required(`${t('EMAIL_REQUIRED')}`);
 
 const passwordSchema = yup

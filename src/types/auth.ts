@@ -1,16 +1,43 @@
-export interface AuthFormValues {
+export interface AuthData {
   email: string;
   password: string;
+}
+
+export interface AuthFormValues extends AuthData {
   confirmPassword?: string;
 }
 
 export type AuthFormValuesKey = keyof AuthFormValues;
 
-export interface ResetPasswordFormValues {
-  email?: string;
+export interface ResetPasswordFormValues extends Partial<AuthData> {
   code?: string;
-  password?: string;
   confirmPassword?: string;
 }
 
 export type ResetPasswordFormValuesKey = keyof ResetPasswordFormValues;
+
+export interface Role {
+  id: number;
+  value: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface UserInfo {
+  id: number;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+  isGoogle: boolean | null;
+  roles: Role[];
+  tasks: any[]; // TODO Implement Task type
+}
+
+export interface ServerError {
+  status: number;
+  data: {
+    statusCode?: number;
+    message: string;
+  };
+}

@@ -181,8 +181,6 @@
   "PASSWORD_TOO_SHORT": "La contraseña es demasiado corta",
   "PASSWORD_TOO_LONG": "La contraseña es demasiado larga",
   "PASSWORD_REQUIRED": "Se requiere contraseña",
-  "PASSWORD_TOO_SHORT": "Las contraseñas no coinciden",
-  "PASSWORD_TOO_SHORT": "La contraseña es demasiado corta",
   "CONFIRM_PASSWORD_REQUIRED": "Confirmar contraseña requerida",
   "FORGOT_PASSWORD_TITLE": "Contraseña olvidada",
   "VERIFY_CODE_TITLE": "Verificar código",
@@ -200,4 +198,8 @@
   "CODE_TOO_SHORT": "El código es demasiado corto",
   "CODE_TOO_LONG": "El código es demasiado largo",
   "CODE_REQUIRED": "Se requiere código",
+  "INVALID_EMAIL_OR_PASSWORD": "Correo electrónico o contraseña no válidos",
+  "USER_NOT_FOUND": "Usuario no encontrado",
+  "SOMETHING_WENT_WRONG": "Algo salió mal",
+  "USER_ALREADY_EXISTS": "El usuario ya existe"
 }

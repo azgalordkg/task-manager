@@ -4,14 +4,17 @@ import { Linking, Platform, View } from 'react-native';
 import Rate, { AndroidMarket } from 'react-native-rate';
 
 import { MainLayout } from '@/components/layouts';
+import { CustomButton } from '@/components/ui';
 import { MenuItem } from '@/components/ui/MenuItem';
 import { SETTINGS_LIST } from '@/constants';
+import { useLogout } from '@/hooks';
 import { ScreenProps } from '@/types';
 
 import styles from './SettingsScreen.styles';
 
 export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
   const { t } = useTranslation();
+  const { logout } = useLogout();
 
   const onBackPressHandler = () => {
     navigation.goBack();
@@ -22,7 +25,6 @@ export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
     const subject = 'Contact Us';
     const body = 'Please describe your issue or question:';
 
-    // Encode the email components
     const encodedSubject = encodeURIComponent(subject);
     const encodedBody = encodeURIComponent(body);
 
@@ -31,7 +33,7 @@ export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
     Linking.canOpenURL(mailtoUrl)
       .then(supported => {
         if (!supported) {
-          console.log("Can't handle url: " + mailtoUrl);
+          console.error("Can't handle url: " + mailtoUrl);
         } else {
           return Linking.openURL(mailtoUrl);
         }
@@ -99,6 +101,8 @@ export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
             ),
           )}
         </View>
+        {/* TODO remove this button after User Account Implementation */}
+        <CustomButton onPress={logout}>Log Out</CustomButton>
       </View>
     </MainLayout>
   );

@@ -1,8 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
-import { addShadow } from '@/utils';
 
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
@@ -88,21 +86,6 @@ const styles = (theme: SchemeType) =>
     },
     authVariantContainer: {
       rowGap: 12,
-    },
-    authVariantItem: {
-      borderRadius: 10,
-      flexDirection: 'row',
-      alignItems: 'center',
-      paddingVertical: 8,
-      justifyContent: 'center',
-      columnGap: 10,
-      backgroundColor: COLORS.WHITE,
-      ...addShadow({ shadowRadius: 2, width: 0.5, height: 0.5 }),
-    },
-    authVariantTitle: {
-      fontSize: 18,
-      lineHeight: 21,
-      color: COLORS.BLACK_DARK,
     },
   });
 

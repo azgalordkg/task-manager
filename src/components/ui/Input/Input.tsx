@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
 import { useController } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { TextInput, TouchableOpacity, View } from 'react-native';
 
 import { CloseCircle, Show } from '@/components/icons';
-import { InputWrapper } from '@/components/ui';
+import { ErrorMessage, InputWrapper } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 import { addAlpha, getValueForDateInput } from '@/utils';
@@ -105,9 +105,7 @@ export const Input: FC<Props> = ({
         )}
       </InputWrapper>
 
-      {errorMessage && (
-        <Text style={style.errorMessage}>{t(errorMessage)}</Text>
-      )}
+      {errorMessage && <ErrorMessage>{t(errorMessage)}</ErrorMessage>}
     </View>
   );
 };

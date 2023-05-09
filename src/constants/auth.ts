@@ -1,19 +1,21 @@
-import { Apple, Facebook, Google } from '@/components/icons';
 import {
   changePasswordSchema,
   resetPasswordSchema,
   verifyCodeSchema,
 } from '@/constants/validation';
 
+export const TOKEN = 'token';
+export const BASE_URL = 'https://task-ninja-back.herokuapp.com';
+
+export const URL_ROUTES = {
+  AUTH: '/auth',
+  LABELS: '/labels',
+  TASKS: '/tasks',
+};
+
 export const AUTH_TYPE = [
   { title: 'SIGN_IN', value: 'signIn' },
   { title: 'SIGN_UP', value: 'signUp' },
-];
-
-export const AUTH_VARIANTS = [
-  { name: 'Google', Icon: Google },
-  { name: 'Apple', Icon: Apple },
-  { name: 'Facebook', Icon: Facebook },
 ];
 
 export const resetTitleText = [

@@ -12,7 +12,7 @@ const styles = (theme: SchemeType) =>
       bottom: 0,
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: theme.BACKGROUND_PRIMARY,
+      backgroundColor: theme.BACKGROUND.SECONDARY,
     },
   });
 

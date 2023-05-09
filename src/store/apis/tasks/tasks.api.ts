@@ -1,13 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { baseUrl } from '@/constants/api';
+import { BASE_URL } from '@/constants';
 
 import { Task, TaskCreateOrEdit } from './tasks.types';
 
-export const rtkQueryApi = createApi({
+export const tasksApi = createApi({
   reducerPath: 'tasks',
   baseQuery: fetchBaseQuery({
-    baseUrl,
+    baseUrl: BASE_URL,
   }),
   endpoints: builder => ({
     getTasks: builder.query<Array<Task>, string | void>({
@@ -59,4 +59,4 @@ export const {
   useCreateTaskMutation,
   useDeleteTaskMutation,
   useUpdateTaskMutation,
-} = rtkQueryApi;
+} = tasksApi;

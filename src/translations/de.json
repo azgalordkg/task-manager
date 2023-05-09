@@ -198,5 +198,9 @@
   "BACK_TO_LOGIN": "Zurück zur Anmeldung",
   "CODE_TOO_SHORT": "Der Code ist zu kurz",
   "CODE_TOO_LONG": "Der Code ist zu lang",
-  "CODE_REQUIRED": "Code ist erforderlich"
+  "CODE_REQUIRED": "Code ist erforderlich",
+  "INVALID_EMAIL_OR_PASSWORD": "Ungültige E-Mail-Adresse oder Passwort",
+  "USER_NOT_FOUND": "Benutzer nicht gefunden",
+  "SOMETHING_WENT_WRONG": "Etwas ist schief gelaufen",
+  "USER_ALREADY_EXISTS": "Benutzer existiert bereits"
 }
