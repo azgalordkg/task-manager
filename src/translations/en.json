@@ -202,5 +202,8 @@
   "INVALID_EMAIL_OR_PASSWORD": "Invalid email or password",
   "USER_NOT_FOUND": "User not found",
   "SOMETHING_WENT_WRONG": "Something went wrong",
-  "USER_ALREADY_EXISTS": "User already exists"
+  "USER_ALREADY_EXISTS": "User already exists",
+  "ACCOUNT": "Account",
+  "FULLNAME": "Full Name",
+  "LOGOUT": "Log Out"
 }

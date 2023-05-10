@@ -202,5 +202,8 @@
   "INVALID_EMAIL_OR_PASSWORD": "Ungültige E-Mail-Adresse oder Passwort",
   "USER_NOT_FOUND": "Benutzer nicht gefunden",
   "SOMETHING_WENT_WRONG": "Etwas ist schief gelaufen",
-  "USER_ALREADY_EXISTS": "Benutzer existiert bereits"
+  "USER_ALREADY_EXISTS": "Benutzer existiert bereits",
+  "ACCOUNT": "Konto",
+  "FULLNAME": "Vollständiger Name",
+  "LOGOUT": "Ausloggen"
 }

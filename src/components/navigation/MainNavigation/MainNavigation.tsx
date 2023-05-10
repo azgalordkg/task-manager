@@ -5,6 +5,7 @@ import React, { FC } from 'react';
 import { ProtectedRoute } from '@/components/navigation';
 import {
   AboutUsScreen,
+  AccountScreen,
   CreateLabelScreen,
   CreateTaskScreen,
   DashboardScreen,
@@ -59,6 +60,7 @@ export const MainNavigation: FC = () => {
             <Stack.Screen name="Documents" component={DocumentsScreen} />
             <Stack.Screen name="AboutUs" component={AboutUsScreen} />
             <Stack.Screen name="Purchase" component={PurchaseScreen} />
+            <Stack.Screen name="Account" component={AccountScreen} />
           </Stack.Group>
         </Stack.Navigator>
       </ProtectedRoute>

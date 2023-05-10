@@ -243,6 +243,7 @@ export const CreateTaskForm: FC<Props> = ({
               icon={
                 <CheckboxIcon type="outline" color={COLORS.GREEN} checked />
               }
+              isShowClearIcon
               control={control}
               backgroundColor={theme.INPUTS.PRIMARY}
               color={theme.TEXT.PRIMARY}

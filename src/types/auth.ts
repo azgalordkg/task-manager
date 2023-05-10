@@ -1,4 +1,5 @@
 export interface AuthData {
+  fullname?: string;
   email: string;
   password: string;
 }
@@ -27,6 +28,7 @@ export interface Role {
 export interface UserInfo {
   id: number;
   email: string;
+  fullname: string;
   createdAt: string;
   updatedAt: string;
   isGoogle: boolean | null;

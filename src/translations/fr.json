@@ -202,5 +202,8 @@
   "INVALID_EMAIL_OR_PASSWORD": "Adresse électronique ou mot de passe incorrect",
   "USER_NOT_FOUND": "Utilisateur non trouvé",
   "SOMETHING_WENT_WRONG": "Quelque chose s'est mal passé",
-  "USER_ALREADY_EXISTS": "L'utilisateur existe déjà"
+  "USER_ALREADY_EXISTS": "L'utilisateur existe déjà",
+  "ACCOUNT": "Compte",
+  "FULLNAME": "Nom complet",
+  "LOGOUT": "Déconnexion"
 }

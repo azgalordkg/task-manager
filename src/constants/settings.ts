@@ -1,6 +1,14 @@
-import { Chat, Image, Send, ShieldDone, Star } from '@/components/icons';
+import {
+  Chat,
+  Image,
+  Profile,
+  Send,
+  ShieldDone,
+  Star,
+} from '@/components/icons';
 
 export const SETTINGS_LIST = [
+  { navigationName: 'Account', prependIcon: Profile, title: 'ACCOUNT' },
   { navigationName: 'Language', prependIcon: Chat, title: 'LANGUAGE' },
   { navigationName: 'Theme', prependIcon: Image, title: 'THEME' },
   // { navigationName: 'AppIcon', prependIcon: Heart, title: 'APP_ICON' },

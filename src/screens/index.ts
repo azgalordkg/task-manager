@@ -1,4 +1,5 @@
 export * from './AboutUsScreen';
+export * from './AccountScreen';
 export * from './AuthScreen';
 export * from './CreateLabelScreen';
 export * from './CreateTaskScreen';
