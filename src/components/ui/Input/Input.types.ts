@@ -23,4 +23,5 @@ export interface Props extends TextInputProps {
   color?: string;
   isShowClearIcon?: boolean;
   isSecureInput?: boolean;
+  clearAuthErrorMessage?: () => void;
 }

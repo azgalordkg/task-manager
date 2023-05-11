@@ -21,7 +21,7 @@ import {
   useRegisterMutation,
 } from '@/store/apis/auth';
 import { AuthFormValues, ScreenProps, ServerError } from '@/types';
-import { Storage } from '@/utils';
+import { getErrorMessage, Storage } from '@/utils';
 
 import styles from './AuthScreen.styles';
 
@@ -48,6 +48,7 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
   ] = useGoogleSignInMutation();
 
   const [authType, setAuthType] = useState('signIn');
+  const [authErrorMessage, setAuthErrorMessage] = useState('');
 
   const isSignIn = authType === 'signIn';
 
@@ -89,9 +90,14 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
 
   const style = styles(theme);
 
+  const clearAuthErrorMessage = () => {
+    authErrorMessage && setAuthErrorMessage('');
+  };
+
   const handleAuthTypeChange = (value: string) => {
     setAuthType(value);
     reset();
+    clearAuthErrorMessage();
   };
 
   const onPressForgotPassword = () => {
@@ -118,15 +124,17 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
     }
   };
 
-  const authErrorMessage =
-    (loginError as ServerError)?.data?.message ||
-    (registerError as ServerError)?.data?.message ||
-    (meError as ServerError)?.data?.message ||
-    (googleSignInError as ServerError)?.data?.message ||
-    'SOMETHING_WENT_WRONG';
+  useEffect(() => {
+    setAuthErrorMessage(
+      getErrorMessage(
+        loginError as ServerError,
+        registerError as ServerError,
+        meError as ServerError,
+        googleSignInError as ServerError,
+      ),
+    );
+  }, [loginError, registerError, meError, googleSignInError]);
 
-  const isShowErrorMessage =
-    loginError || registerError || meError || googleSignInError;
   const isLoading = isLoginLoading || isRegisterLoading || isMeLoading;
 
   return (
@@ -178,6 +186,7 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
               name="email"
               placeholder={`${t('EMAIL_ADDRESS')}`}
               errorMessage={errors.email?.message}
+              clearAuthErrorMessage={clearAuthErrorMessage}
             />
 
             <Input
@@ -191,6 +200,7 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
               name="password"
               placeholder={`${t('PASSWORD')}`}
               errorMessage={errors.password?.message}
+              clearAuthErrorMessage={clearAuthErrorMessage}
             />
 
             {isSignIn && (
@@ -209,11 +219,12 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
                 name="confirmPassword"
                 placeholder={`${t('CONFIRM_PASSWORD')}`}
                 errorMessage={errors.confirmPassword?.message}
+                clearAuthErrorMessage={clearAuthErrorMessage}
               />
             )}
           </View>
 
-          {isShowErrorMessage && (
+          {authErrorMessage && (
             <ErrorMessage size="medium">{t(authErrorMessage)}</ErrorMessage>
           )}
           <CustomButton
