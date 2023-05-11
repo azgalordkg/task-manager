@@ -1,10 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Linking, Platform, Text, View } from 'react-native';
 import Rate, { AndroidMarket } from 'react-native-rate';
 import { useSelector } from 'react-redux';
 
 import { MainLayout } from '@/components/layouts';
+import { ConfirmModal } from '@/components/modals';
 import { CustomButton } from '@/components/ui';
 import { MenuItem } from '@/components/ui/MenuItem';
 import { COLORS, SETTINGS_LIST } from '@/constants';
@@ -21,6 +22,8 @@ export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
   const { theme } = useThemeContext();
   const userInfo = useSelector(selectCurrentUser);
   const style = styles(theme);
+
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
 
   const onBackPressHandler = () => {
     navigation.goBack();
@@ -78,6 +81,10 @@ export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
     }
   };
 
+  const toggleModal = () => {
+    setConfirmModalVisible(!confirmModalVisible);
+  };
+
   return (
     <MainLayout
       screenTitle={`${t('SETTINGS_SCREEN_TITLE')}`}
@@ -112,12 +119,20 @@ export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
             textColor={COLORS.RED}
             bgColor={theme.BACKGROUND.NEUTRAL}
             type="filled"
-            onPress={logout}>
+            onPress={toggleModal}>
             {t('LOGOUT')}
           </CustomButton>
           <Text style={style.userEmail}>{userInfo?.email}</Text>
         </View>
       </View>
+
+      <ConfirmModal
+        confirmLabel={`${t('LOGOUT')}`}
+        dismissLabel={`${t('CANCEL_BUTTON')}`}
+        visible={confirmModalVisible}
+        onPressConfirm={logout}
+        onPressDismiss={toggleModal}
+      />
     </MainLayout>
   );
 };

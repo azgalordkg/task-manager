@@ -14,6 +14,7 @@ const styles = (theme: SchemeType) =>
       textTransform: 'uppercase',
     },
     content: {
+      flexGrow: 1,
       rowGap: 30,
     },
   });

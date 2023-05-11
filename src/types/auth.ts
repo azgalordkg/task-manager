@@ -33,6 +33,7 @@ export interface UserInfo {
   updatedAt: string;
   isGoogle: boolean | null;
   roles: Role[];
+  withPassword: boolean;
   tasks: any[]; // TODO Implement Task type
 }
 
