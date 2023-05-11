@@ -29,7 +29,6 @@ export const Input: FC<Props> = ({
   borderRadius,
   isSecureInput,
   isShowClearIcon,
-  clearAuthErrorMessage,
   ...props
 }) => {
   const {
@@ -72,11 +71,6 @@ export const Input: FC<Props> = ({
     onChange('');
   };
 
-  const handleChangeInput = (inputValue: string) => {
-    clearAuthErrorMessage && clearAuthErrorMessage();
-    onChange(inputValue);
-  };
-
   return (
     <View style={style.inputContainer}>
       <InputWrapper
@@ -92,7 +86,7 @@ export const Input: FC<Props> = ({
           secureTextEntry={isHideValue}
           style={style.input}
           value={value}
-          onChangeText={inputValue => handleChangeInput(inputValue)}
+          onChangeText={onChange}
           onBlur={onBlur}
           multiline={multiline}
           {...props}
