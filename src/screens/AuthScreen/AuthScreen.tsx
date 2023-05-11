@@ -7,7 +7,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 
 import { Checkbox, Google, Lock, Message } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
-import { CustomButton, ErrorMessage, Input } from '@/components/ui';
+import { CustomButton, Input } from '@/components/ui';
 import { AUTH_TYPE, COLORS, TOKEN } from '@/constants';
 import {
   signInValidationSchema,
@@ -20,35 +20,25 @@ import {
   useLoginMutation,
   useRegisterMutation,
 } from '@/store/apis/auth';
-import { AuthFormValues, ScreenProps, ServerError } from '@/types';
-import { getErrorMessage, Storage } from '@/utils';
+import { AuthFormValues, ScreenProps } from '@/types';
+import { Storage } from '@/utils';
 
 import styles from './AuthScreen.styles';
 
 export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
   const { theme } = useThemeContext();
   const { t } = useTranslation();
-  const [
-    login,
-    { data: loginData, isLoading: isLoginLoading, error: loginError },
-  ] = useLoginMutation();
-  const [
-    register,
-    { data: registerData, isLoading: isRegisterLoading, error: registerError },
-  ] = useRegisterMutation();
-  const [getMe, { isLoading: isMeLoading, error: meError }] =
-    useLazyGetMeQuery();
+  const [login, { data: loginData, isLoading: isLoginLoading }] =
+    useLoginMutation();
+  const [register, { data: registerData, isLoading: isRegisterLoading }] =
+    useRegisterMutation();
+  const [getMe, { isLoading: isMeLoading }] = useLazyGetMeQuery();
   const [
     googleSignIn,
-    {
-      data: googleSignInData,
-      isLoading: googleSignInLoading,
-      error: googleSignInError,
-    },
+    { data: googleSignInData, isLoading: googleSignInLoading },
   ] = useGoogleSignInMutation();
 
   const [authType, setAuthType] = useState('signIn');
-  const [authErrorMessage, setAuthErrorMessage] = useState('');
 
   const isSignIn = authType === 'signIn';
 
@@ -90,14 +80,9 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
 
   const style = styles(theme);
 
-  const clearAuthErrorMessage = () => {
-    authErrorMessage && setAuthErrorMessage('');
-  };
-
   const handleAuthTypeChange = (value: string) => {
     setAuthType(value);
     reset();
-    clearAuthErrorMessage();
   };
 
   const onPressForgotPassword = () => {
@@ -123,17 +108,6 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
       await register({ email, password });
     }
   };
-
-  useEffect(() => {
-    setAuthErrorMessage(
-      getErrorMessage(
-        loginError as ServerError,
-        registerError as ServerError,
-        meError as ServerError,
-        googleSignInError as ServerError,
-      ),
-    );
-  }, [loginError, registerError, meError, googleSignInError]);
 
   const isLoading = isLoginLoading || isRegisterLoading || isMeLoading;
 
@@ -186,7 +160,6 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
               name="email"
               placeholder={`${t('EMAIL_ADDRESS')}`}
               errorMessage={errors.email?.message}
-              clearAuthErrorMessage={clearAuthErrorMessage}
             />
 
             <Input
@@ -200,7 +173,6 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
               name="password"
               placeholder={`${t('PASSWORD')}`}
               errorMessage={errors.password?.message}
-              clearAuthErrorMessage={clearAuthErrorMessage}
             />
 
             {isSignIn && (
@@ -219,14 +191,10 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
                 name="confirmPassword"
                 placeholder={`${t('CONFIRM_PASSWORD')}`}
                 errorMessage={errors.confirmPassword?.message}
-                clearAuthErrorMessage={clearAuthErrorMessage}
               />
             )}
           </View>
 
-          {authErrorMessage && (
-            <ErrorMessage size="medium">{t(authErrorMessage)}</ErrorMessage>
-          )}
           <CustomButton
             isLoading={isLoading}
             bgColor={theme.BUTTONS.PRIMARY}
