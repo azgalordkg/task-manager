@@ -125,6 +125,10 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
     (googleSignInError as ServerError)?.data?.message ||
     'SOMETHING_WENT_WRONG';
 
+  const isShowErrorMessage =
+    loginError || registerError || meError || googleSignInError;
+  const isLoading = isLoginLoading || isRegisterLoading || isMeLoading;
+
   return (
     <MainLayout topViewBackgroundColor={theme.BACKGROUND.SECONDARY}>
       <View style={style.mainWrapper}>
@@ -209,15 +213,13 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
             )}
           </View>
 
-          {(loginError || registerError || meError || googleSignInError) && (
+          {isShowErrorMessage && (
             <ErrorMessage size="medium">{t(authErrorMessage)}</ErrorMessage>
           )}
           <CustomButton
-            isLoading={isLoginLoading || isRegisterLoading || isMeLoading}
+            isLoading={isLoading}
             bgColor={theme.BUTTONS.PRIMARY}
-            disabled={
-              !isValid || isLoginLoading || isRegisterLoading || isMeLoading
-            }
+            disabled={!isValid || isLoading}
             onPress={handleSubmit(onSubmit)}>
             {t('CONTINUE')}
           </CustomButton>
