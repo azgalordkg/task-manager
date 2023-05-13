@@ -1,6 +1,9 @@
-export interface AuthData {
+export interface AuthBase {
   fullname?: string;
   email: string;
+}
+
+export interface AuthData extends AuthBase {
   password: string;
 }
 

@@ -11,14 +11,17 @@ import {
   CustomButton,
   Input,
   InputButton,
+  Loader,
   MenuItem,
   ModalScreenWrapper,
 } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { changeEmailSchema, changeNameSchema } from '@/constants/validation';
 import { useThemeContext } from '@/context/hooks';
-import { selectCurrentUser } from '@/store/apis/auth';
-import { AuthFormValues, ScreenProps } from '@/types';
+import { useLogout } from '@/hooks';
+import { selectCurrentUser, useLazyGetMeQuery } from '@/store/apis/auth';
+import { useDeleteUserMutation, useEditUserMutation } from '@/store/apis/users';
+import { AuthFormValues, ScreenProps, ServerError } from '@/types';
 
 import styles from './AccounScreen.styles';
 
@@ -28,6 +31,13 @@ export const AccountScreen: FC<ScreenProps<'Account'>> = ({ navigation }) => {
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [secondConfirmModalVisible, setSecondConfirmModalVisible] =
     useState(false);
+
+  const { logout } = useLogout();
+  const [deleteUser, { isLoading: isDeleteUserLoading }] =
+    useDeleteUserMutation();
+  const [editUser, { isLoading: isEditUserLoading, error: editUserError }] =
+    useEditUserMutation();
+  const [getMe] = useLazyGetMeQuery();
 
   const userInfo = useSelector(selectCurrentUser);
   const { t } = useTranslation();
@@ -87,15 +97,58 @@ export const AccountScreen: FC<ScreenProps<'Account'>> = ({ navigation }) => {
     setIsEmailFocused(false);
   };
 
-  const handleChangeUserInfo = () => {
-    setIsNameFocused(false);
-    setIsEmailFocused(false);
+  const handleChangeUserInfo = async () => {
+    try {
+      if (isNameFocused) {
+        const name = watchName('fullname');
+        await editUser({ fullname: name });
+      } else if (isEmailFocused) {
+        const email = watchEmail('email');
+        await editUser({ email });
+      }
+
+      await getMe();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsNameFocused(false);
+      setIsEmailFocused(false);
+    }
   };
 
-  const handleDeleteAccount = () => {};
+  const handleDeleteAccount = async () => {
+    try {
+      await deleteUser();
+      closeModal();
+      await logout();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setSecondConfirmModalVisible(false);
+    }
+  };
 
   const toggleModal = () => {
     setConfirmModalVisible(!confirmModalVisible);
+  };
+
+  const isFullnameChanged = () => {
+    const fullname = userInfo?.fullname;
+    const name = watchName('fullname');
+    return fullname !== name;
+  };
+
+  const isEmailChanged = () => {
+    const email = userInfo?.email;
+    const newEmail = watchEmail('email');
+    return email !== newEmail;
+  };
+
+  const isDataChanged = () => {
+    return (
+      (isNameFocused && isFullnameChanged()) ||
+      (isEmailFocused && isEmailChanged())
+    );
   };
 
   const isFocused = isNameFocused || isEmailFocused;
@@ -103,13 +156,24 @@ export const AccountScreen: FC<ScreenProps<'Account'>> = ({ navigation }) => {
   const isDoneDisabled = !nameIsValid || !emailIsValid;
   const cancelText = `${isFocused ? t('CANCEL') : t('CLOSE_BUTTON')}`;
 
+  const fullnameErrorMessage =
+    nameErrors.fullname?.message ||
+    (editUserError as ServerError)?.data?.message;
+
+  const emailErrorMessage =
+    emailErrors.email?.message || (editUserError as ServerError)?.data?.message;
+
+  if (isDeleteUserLoading) {
+    return <Loader />;
+  }
+
   return (
     <ModalScreenWrapper
       disablePressable
       doneText={`${t('SAVE')}`}
       cancelText={cancelText}
       onRequestClose={onRequestClose}
-      isDoneDisabled={isDoneDisabled}
+      isDoneDisabled={isDoneDisabled || !isDataChanged()}
       onDonePress={isFocused ? handleChangeUserInfo : undefined}
       title={t('ACCOUNT')}>
       <View style={style.container}>
@@ -132,7 +196,8 @@ export const AccountScreen: FC<ScreenProps<'Account'>> = ({ navigation }) => {
               />
             ) : (
               <InputButton
-                disabled={isEmailFocused}
+                disabled={isEmailFocused || isEditUserLoading}
+                errorMessage={fullnameErrorMessage}
                 placeholder={`${t('FULLNAME')}`}
                 value={watchName('fullname')}
                 onPress={() => setIsNameFocused(true)}
@@ -152,13 +217,15 @@ export const AccountScreen: FC<ScreenProps<'Account'>> = ({ navigation }) => {
                 backgroundColor={theme.INPUTS.PRIMARY}
                 color={theme.TEXT.PRIMARY}
                 autoFocus
-                errorMessage={emailErrors.email?.message}
+                errorMessage={emailErrorMessage}
                 name="email"
                 placeholder={`${t('EMAIL_ADDRESS')}`}
                 maxLength={255}
               />
             ) : (
               <InputButton
+                disabled={isNameFocused || isEditUserLoading}
+                errorMessage={emailErrors.email?.message}
                 placeholder={`${t('EMAIL_ADDRESS')}`}
                 value={watchEmail('email')}
                 onPress={() => setIsEmailFocused(true)}
