@@ -1,6 +1,7 @@
 import React, { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { DoneTaskAccordion, QuickTask, TasksList } from '@/components/features';
 import { NotFoundPlaceholder } from '@/components/icons/NotFoundPlaceholder';
@@ -8,6 +9,8 @@ import { ConfirmModal } from '@/components/modals';
 import { EmptyTaskList } from '@/components/ui';
 import { useTasksContext } from '@/context/hooks';
 import { deleteOneTask } from '@/services';
+import { useGetAllTasksQuery } from '@/store/apis/tasks';
+import { selectAllTasks } from '@/store/apis/tasks/task.selector';
 import { filterTasks, getFilteredTasksBySearch } from '@/utils';
 
 import styles from './TasksView.styles';
@@ -20,14 +23,12 @@ export const TasksView: FC<Props> = ({
   currentTasksTitle,
 }) => {
   const { t } = useTranslation();
-  const {
-    taskList,
-    unscheduledTaskList,
-    overdueTaskList,
-    inputVisible,
-    fetchList,
-    searchValue,
-  } = useTasksContext();
+  const { inputVisible, searchValue } = useTasksContext();
+
+  const { refetch: fetchList } = useGetAllTasksQuery();
+
+  const { taskList, unscheduledTaskList, overdueTaskList } =
+    useSelector(selectAllTasks) || {};
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [deleteId, setDeleteId] = useState('');
@@ -43,15 +44,15 @@ export const TasksView: FC<Props> = ({
     [searchValue, overdueTaskList],
   );
 
-  const incompleteTasks = filterTasks(filteredTasks, 'incomplete');
-  const completedTasks = filterTasks(filteredTasks, 'complete');
+  const incompleteTasks = filterTasks('incomplete', filteredTasks);
+  const completedTasks = filterTasks('complete', filteredTasks);
 
   const isPast = !isUnscheduled && !isUpcoming;
-  const isShowTaskList = isPast && !!filteredOverdueTasks.length;
+  const isShowTaskList = isPast && !!filteredOverdueTasks?.length;
   const isShowQuickTask = isPast && !inputVisible;
 
   const isNotFound =
-    tasks.length && !filteredTasks.length && !filteredOverdueTasks.length;
+    tasks?.length && !filteredTasks?.length && !filteredOverdueTasks?.length;
 
   const handleShowModal = () => {
     setDeleteId('');

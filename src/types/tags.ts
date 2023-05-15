@@ -9,5 +9,5 @@ export interface UpdateTagData extends Partial<CreateTagData> {
 }
 
 export interface TagsResponseItem extends CreateTagData {
-  _id: string;
+  id: number;
 }

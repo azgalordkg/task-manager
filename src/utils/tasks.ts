@@ -4,18 +4,19 @@ import moment from 'moment/moment';
 import { COLORS } from '@/constants';
 import { PRIORITIES } from '@/constants/tasks';
 import { getAllTasks } from '@/services';
+import { Task } from '@/store/apis/tasks/tasks.types';
 import { Priority, SchemeType, TasksResponseItem } from '@/types';
 import { formatDate } from '@/utils/date';
 
 export const filterTasks = (
-  tasks: TasksResponseItem[],
   filterType: 'incomplete' | 'complete',
+  tasks?: Task[],
 ) => {
   if (filterType === 'incomplete') {
-    return tasks.filter(task => !task.isDone);
+    return tasks?.filter(task => !task.isDone);
   }
   if (filterType === 'complete') {
-    return tasks.filter(task => task.isDone);
+    return tasks?.filter(task => task.isDone);
   }
 };
 
@@ -74,11 +75,11 @@ export const getDottedDays = (theme: SchemeType) => {
 };
 
 export const getFilteredTasksBySearch = (
-  tasks: TasksResponseItem[],
+  tasks?: Task[],
   searchValue: string = '',
 ) => {
   if (searchValue) {
-    return tasks.filter(
+    return tasks?.filter(
       ({ name, description }) =>
         name.toLowerCase().includes(searchValue.trim().toLowerCase()) ||
         description?.toLowerCase().includes(searchValue.trim().toLowerCase()),

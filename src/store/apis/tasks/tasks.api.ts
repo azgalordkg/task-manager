@@ -1,16 +1,36 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import moment from 'moment/moment';
 
-import { BASE_URL } from '@/constants';
+import { BASE_URL, URL_ROUTES } from '@/constants';
+import { prepareHeaders } from '@/utils';
 
-import { Task, TaskCreateOrEdit } from './tasks.types';
+import { AllTasksResponse, Task, TaskCreateOrEdit } from './tasks.types';
 
 export const tasksApi = createApi({
-  reducerPath: 'tasks',
+  reducerPath: 'tasksApi',
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
+    prepareHeaders,
   }),
+  tagTypes: ['getAllTasks'],
   endpoints: builder => ({
-    getTasks: builder.query<Array<Task>, string | void>({
+    getAllTasks: builder.query<AllTasksResponse, void>({
+      providesTags: ['getAllTasks'],
+      query: () => `${URL_ROUTES.TASKS}`,
+      transformResponse: (response: Task[]) => {
+        const currentDate = moment();
+
+        return {
+          taskList: response,
+          unscheduledTaskList: response.filter(task => !task.startDate),
+          overdueTaskList: response.filter(
+            task => !task.isDone && moment(task.startDate) < currentDate,
+          ),
+        };
+      },
+    }),
+
+    getTasks: builder.query<Task[], string | void>({
       query: (id = '') => `/tasks/${id}`,
     }),
 
@@ -20,9 +40,6 @@ export const tasksApi = createApi({
           url: path,
           method: 'POST',
           body: userData,
-          headers: {
-            'Content-Type': 'application/json',
-          },
         };
       },
     }),
@@ -33,9 +50,6 @@ export const tasksApi = createApi({
           url: path,
           method: 'PUT',
           body: userData,
-          headers: {
-            'Content-Type': 'application/json',
-          },
         };
       },
     }),
@@ -45,9 +59,6 @@ export const tasksApi = createApi({
         return {
           url: `$tasks/${id}`,
           method: 'Delete',
-          headers: {
-            'Content-Type': 'application/json',
-          },
         };
       },
     }),
@@ -55,6 +66,7 @@ export const tasksApi = createApi({
 });
 
 export const {
+  useGetAllTasksQuery,
   useGetTasksQuery,
   useCreateTaskMutation,
   useDeleteTaskMutation,
