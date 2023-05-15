@@ -11,7 +11,11 @@ import { useTasksContext } from '@/context/hooks';
 import { deleteOneTask } from '@/services';
 import { useGetAllTasksQuery } from '@/store/apis/tasks';
 import { selectAllTasks } from '@/store/apis/tasks/task.selector';
-import { filterTasks, getFilteredTasksBySearch } from '@/utils';
+import {
+  filterTasks,
+  getFilteredTasksByDate,
+  getFilteredTasksBySearch,
+} from '@/utils';
 
 import styles from './TasksView.styles';
 import { Props } from './TasksView.types';
@@ -33,7 +37,9 @@ export const TasksView: FC<Props> = ({
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [deleteId, setDeleteId] = useState('');
 
-  const tasks = isUnscheduled ? unscheduledTaskList : taskList;
+  const tasks = isUnscheduled
+    ? unscheduledTaskList
+    : getFilteredTasksByDate(taskList);
 
   const filteredTasks = useMemo(
     () => getFilteredTasksBySearch(tasks, searchValue),

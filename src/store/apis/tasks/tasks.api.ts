@@ -30,7 +30,7 @@ export const tasksApi = createApi({
       },
     }),
 
-    getTasks: builder.query<Task[], string | void>({
+    getTasks: builder.query<Task, number | string | void>({
       query: (id = '') => `/tasks/${id}`,
     }),
 

@@ -189,11 +189,15 @@ export const TaskItem: FC<ListItemProps> = ({
 
                 {Boolean(tagsForRender?.length) && (
                   <View style={style.tagsWrapper}>
-                    {tagsForRender.map(({ color, name: tagTitle, id }) => (
-                      <Text key={id} style={{ ...style.tagText, color: color }}>
-                        {tagTitle}
-                      </Text>
-                    ))}
+                    {tagsForRender.map(
+                      ({ color, name: tagTitle, id: tagId }) => (
+                        <Text
+                          key={tagId}
+                          style={{ ...style.tagText, color: color }}>
+                          {tagTitle}
+                        </Text>
+                      ),
+                    )}
                   </View>
                 )}
               </View>

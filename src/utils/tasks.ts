@@ -87,3 +87,9 @@ export const getFilteredTasksBySearch = (
   }
   return tasks;
 };
+
+export const getFilteredTasksByDate = (tasks?: Task[], date?: Date) => {
+  const targetDate = moment(date).startOf('day');
+
+  return tasks?.filter(task => moment(task.startDate).isSame(targetDate, 'd'));
+};

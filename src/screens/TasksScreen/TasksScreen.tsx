@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { TasksView } from '@/components/features';
 import {
@@ -25,6 +26,8 @@ import {
   useThemeContext,
 } from '@/context/hooks';
 import { updateRecurringTasks } from '@/services';
+import { useGetAllTasksQuery } from '@/store/apis/tasks';
+import { selectAllTasks } from '@/store/apis/tasks/task.selector';
 import { ScreenProps } from '@/types';
 import { getDayTitle, vibrate } from '@/utils';
 
@@ -39,13 +42,13 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
     i18n: { language },
   } = useTranslation();
   const isUnscheduled = route?.params?.isUnscheduled;
-  const {
-    taskList,
-    unscheduledTaskList,
-    fetchList,
-    inputVisible,
-    overdueTaskList,
-  } = useTasksContext();
+  const { inputVisible } = useTasksContext();
+
+  const { refetch: fetchList } = useGetAllTasksQuery();
+
+  const { taskList, unscheduledTaskList, overdueTaskList } =
+    useSelector(selectAllTasks) || {};
+
   const { fetchTags } = useTagManageContext();
   const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);
   const isFocused = useIsFocused();
@@ -83,8 +86,8 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
 
   const tasks = isUnscheduled ? unscheduledTaskList : taskList;
   const isEmpty = isUnscheduled
-    ? !tasks.length
-    : !tasks.length && !overdueTaskList.length;
+    ? !tasks?.length
+    : !tasks?.length && !overdueTaskList?.length;
 
   const keyboardAvoidingBehavior = !inputVisible
     ? Platform.OS === 'ios'
