@@ -22,8 +22,8 @@ export interface AllTasksResponse {
 }
 
 export interface TaskCreateOrEdit {
-  path?: string;
   userData: Task;
+  id?: number;
 }
 
 export interface TasksState {

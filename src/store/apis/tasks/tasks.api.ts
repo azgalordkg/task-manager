@@ -24,20 +24,22 @@ export const tasksApi = createApi({
           taskList: response,
           unscheduledTaskList: response.filter(task => !task.startDate),
           overdueTaskList: response.filter(
-            task => !task.isDone && moment(task.startDate) < currentDate,
+            task =>
+              !task.isDone &&
+              moment(task.startDate).isBefore(currentDate, 'day'),
           ),
         };
       },
     }),
 
     getTasks: builder.query<Task, number | string | void>({
-      query: (id = '') => `/tasks/${id}`,
+      query: (id = '') => `${URL_ROUTES.TASKS}/${id}`,
     }),
 
     createTask: builder.mutation<Task, TaskCreateOrEdit>({
-      query: ({ path = '', userData }) => {
+      query: ({ userData }) => {
         return {
-          url: path,
+          url: URL_ROUTES.TASKS,
           method: 'POST',
           body: userData,
         };
@@ -45,9 +47,9 @@ export const tasksApi = createApi({
     }),
 
     updateTask: builder.mutation<void, TaskCreateOrEdit>({
-      query: ({ path = '', userData }) => {
+      query: ({ userData, id }) => {
         return {
-          url: path,
+          url: `${URL_ROUTES.TASKS}/${id}`,
           method: 'PUT',
           body: userData,
         };
@@ -57,8 +59,8 @@ export const tasksApi = createApi({
     deleteTask: builder.mutation<void, string | number>({
       query: (id = '') => {
         return {
-          url: `$tasks/${id}`,
-          method: 'Delete',
+          url: `${URL_ROUTES.TASKS}/${id}`,
+          method: 'DELETE',
         };
       },
     }),
@@ -69,6 +71,6 @@ export const {
   useGetAllTasksQuery,
   useGetTasksQuery,
   useCreateTaskMutation,
-  useDeleteTaskMutation,
   useUpdateTaskMutation,
+  useDeleteTaskMutation,
 } = tasksApi;

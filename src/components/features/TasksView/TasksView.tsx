@@ -8,8 +8,7 @@ import { NotFoundPlaceholder } from '@/components/icons/NotFoundPlaceholder';
 import { ConfirmModal } from '@/components/modals';
 import { EmptyTaskList } from '@/components/ui';
 import { useTasksContext } from '@/context/hooks';
-import { deleteOneTask } from '@/services';
-import { useGetAllTasksQuery } from '@/store/apis/tasks';
+import { useDeleteTaskMutation, useGetAllTasksQuery } from '@/store/apis/tasks';
 import { selectAllTasks } from '@/store/apis/tasks/task.selector';
 import {
   filterTasks,
@@ -30,6 +29,7 @@ export const TasksView: FC<Props> = ({
   const { inputVisible, searchValue } = useTasksContext();
 
   const { refetch: fetchList } = useGetAllTasksQuery();
+  const [deleteTask] = useDeleteTaskMutation();
 
   const { taskList, unscheduledTaskList, overdueTaskList } =
     useSelector(selectAllTasks) || {};
@@ -67,7 +67,7 @@ export const TasksView: FC<Props> = ({
 
   const handleDeletePress = (id: string, isQuick?: boolean) => {
     if (isQuick) {
-      deleteOneTask(id);
+      deleteTask(id);
     } else {
       handleShowModal();
       setDeleteId(id);
@@ -76,7 +76,7 @@ export const TasksView: FC<Props> = ({
 
   const handleDeleteTask = () => {
     if (deleteId) {
-      deleteOneTask(deleteId);
+      deleteTask(deleteId);
     }
     fetchList();
     handleShowModal();

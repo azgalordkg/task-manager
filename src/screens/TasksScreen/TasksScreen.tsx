@@ -41,19 +41,18 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
     t,
     i18n: { language },
   } = useTranslation();
-  const isUnscheduled = route?.params?.isUnscheduled;
   const { inputVisible } = useTasksContext();
-
-  const { refetch: fetchList } = useGetAllTasksQuery();
-
   const { taskList, unscheduledTaskList, overdueTaskList } =
     useSelector(selectAllTasks) || {};
-
+  const { refetch: fetchList, isLoading: isTaskLoading } =
+    useGetAllTasksQuery();
   const { fetchTags } = useTagManageContext();
-  const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);
-  const isFocused = useIsFocused();
-
   const { theme } = useThemeContext();
+
+  const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);
+
+  const isUnscheduled = route?.params?.isUnscheduled;
+  const isFocused = useIsFocused();
   const style = styles(theme);
 
   useEffect(() => {
@@ -94,6 +93,8 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
       ? 'position'
       : 'height'
     : undefined;
+
+  console.log(isTaskLoading, 'isTaskLoading');
 
   return (
     <MainLayout
