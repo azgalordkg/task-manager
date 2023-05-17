@@ -1,12 +1,15 @@
 import React, { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { MainLayout } from '@/components/layouts';
 import { MenuItem } from '@/components/ui';
 import { DASHBOARD_LIST } from '@/constants/dashboard';
-import { useTasksContext } from '@/context/hooks';
+import { useGetAllTasksQuery } from '@/store/apis/tasks';
+import { selectAllTasks } from '@/store/apis/tasks/task.selector';
 import { RootStackParamList, ScreenProps } from '@/types';
+import { getFilteredTasksByDate } from '@/utils';
 
 import styles from './DashboardScreen.styles';
 
@@ -18,10 +21,9 @@ export const DashboardScreen: FC<ScreenProps<'Dashboard'>> = ({
   const {
     taskList,
     unscheduledTaskList,
-    overdueTaskList,
-    targetDate,
-    fetchList,
-  } = useTasksContext();
+    overdueTaskList = [],
+  } = useSelector(selectAllTasks) || {};
+  const { refetch: fetchList } = useGetAllTasksQuery();
 
   useEffect(() => {
     fetchList();
@@ -30,16 +32,14 @@ export const DashboardScreen: FC<ScreenProps<'Dashboard'>> = ({
     }, 0);
   }, []);
 
-  useEffect(() => {
-    fetchList();
-  }, [targetDate]);
-
   const getCount = (title: string) => {
+    const todayTaskLength = getFilteredTasksByDate(taskList)?.length;
+
     switch (title) {
       case 'TODAY':
-        return taskList.length + overdueTaskList.length;
+        return todayTaskLength + overdueTaskList.length;
       case 'UNSCHEDULED':
-        return unscheduledTaskList.length;
+        return unscheduledTaskList?.length;
       default:
         return undefined;
     }

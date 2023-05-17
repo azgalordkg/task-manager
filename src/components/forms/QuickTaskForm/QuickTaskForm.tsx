@@ -4,11 +4,13 @@ import React, { FC } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { CustomButton, Input } from '@/components/ui';
 import { createTaskFormSchema } from '@/constants/validation';
-import { useTasksContext, useThemeContext } from '@/context/hooks';
+import { useThemeContext } from '@/context/hooks';
 import { useCreateTaskMutation, useGetAllTasksQuery } from '@/store/apis/tasks';
+import { selectTargetDate } from '@/store/apis/tasks/task.selector';
 import { Task } from '@/store/apis/tasks/tasks.types';
 import { CreateTaskData } from '@/types';
 import { roundAndExtendTimeRange, vibrate } from '@/utils';
@@ -18,7 +20,7 @@ import { Props } from './QuickTaskForm.types';
 
 export const QuickTaskForm: FC<Props> = ({ handleShowInput }) => {
   const { t } = useTranslation();
-  const { targetDate } = useTasksContext();
+  const targetDate = useSelector(selectTargetDate);
   const { theme } = useThemeContext();
 
   const { refetch: fetchList } = useGetAllTasksQuery();

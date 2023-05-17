@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   SafeAreaView,
@@ -9,13 +9,15 @@ import {
   View,
 } from 'react-native';
 import { Month } from 'react-native-month';
+import { useDispatch } from 'react-redux';
 
 import { TasksView } from '@/components/features';
 import { ArrowDown, Plus } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
 import { MonthPickerModal } from '@/components/modals';
 import { COLORS } from '@/constants';
-import { useTasksContext, useThemeContext } from '@/context/hooks';
+import { useThemeContext } from '@/context/hooks';
+import { changeSelectDate } from '@/store/apis/tasks/task.slice';
 import { ScreenProps } from '@/types';
 import { formatDate, getDayTitle, getDottedDays, vibrate } from '@/utils';
 
@@ -27,7 +29,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
     t,
     i18n: { language },
   } = useTranslation();
-  const { fetchList, handleTaskDateChange } = useTasksContext();
+  const dispatch = useDispatch();
 
   const [selectedDate, setSelectedDate] = useState(
     moment()
@@ -47,7 +49,7 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
 
   const handleDateChange = (date: Date) => {
     setSelectedDate(date);
-    handleTaskDateChange(moment(date).valueOf());
+    dispatch(changeSelectDate(moment(date).valueOf()));
   };
 
   const handleMonthChange = (date: Date) => {
@@ -57,17 +59,13 @@ export const UpcomingScreen: FC<ScreenProps<'Upcoming'>> = ({ navigation }) => {
 
   const onBack = () => {
     navigation.goBack();
-    handleTaskDateChange(moment().valueOf());
+    dispatch(changeSelectDate(moment().valueOf()));
   };
 
   const handleItemPress = (id: string) => {
     vibrate('rigid');
     navigation.navigate('CreateTask', { id });
   };
-
-  useEffect(() => {
-    fetchList();
-  }, [selectedDate]);
 
   const handleCreatePress = () => {
     vibrate('selection');

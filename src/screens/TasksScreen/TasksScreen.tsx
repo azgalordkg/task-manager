@@ -44,8 +44,7 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
   const { inputVisible } = useTasksContext();
   const { taskList, unscheduledTaskList, overdueTaskList } =
     useSelector(selectAllTasks) || {};
-  const { refetch: fetchList, isLoading: isTaskLoading } =
-    useGetAllTasksQuery();
+  const { refetch: fetchList } = useGetAllTasksQuery();
   const { fetchTags } = useTagManageContext();
   const { theme } = useThemeContext();
 
@@ -93,8 +92,6 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
       ? 'position'
       : 'height'
     : undefined;
-
-  console.log(isTaskLoading, 'isTaskLoading');
 
   return (
     <MainLayout

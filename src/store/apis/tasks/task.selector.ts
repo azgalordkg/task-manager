@@ -13,3 +13,6 @@ export const selectAllTasks = createSelector(
   (state: RootState) => state.tasksApi?.queries['getAllTasks(undefined)'],
   apiResult => apiResult?.data as AllTasksResponse | undefined,
 );
+
+export const selectTargetDate = (state: RootState) =>
+  state.taskSlice.selectedDate;

@@ -9,7 +9,10 @@ import { ConfirmModal } from '@/components/modals';
 import { EmptyTaskList } from '@/components/ui';
 import { useTasksContext } from '@/context/hooks';
 import { useDeleteTaskMutation, useGetAllTasksQuery } from '@/store/apis/tasks';
-import { selectAllTasks } from '@/store/apis/tasks/task.selector';
+import {
+  selectAllTasks,
+  selectTargetDate,
+} from '@/store/apis/tasks/task.selector';
 import {
   filterTasks,
   getFilteredTasksByDate,
@@ -27,6 +30,7 @@ export const TasksView: FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const { inputVisible, searchValue } = useTasksContext();
+  const targetDate = useSelector(selectTargetDate);
 
   const { refetch: fetchList } = useGetAllTasksQuery();
   const [deleteTask] = useDeleteTaskMutation();
@@ -39,7 +43,7 @@ export const TasksView: FC<Props> = ({
 
   const tasks = isUnscheduled
     ? unscheduledTaskList
-    : getFilteredTasksByDate(taskList);
+    : getFilteredTasksByDate(taskList, targetDate);
 
   const filteredTasks = useMemo(
     () => getFilteredTasksBySearch(tasks, searchValue),

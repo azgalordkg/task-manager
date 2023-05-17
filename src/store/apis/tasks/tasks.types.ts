@@ -26,8 +26,6 @@ export interface TaskCreateOrEdit {
   id?: number;
 }
 
-export interface TasksState {
-  taskList: Task[] | null;
-  unscheduledTasks: Task[] | null;
-  overdueTasks: Task[] | null;
+export interface TaskState {
+  selectedDate: number;
 }
