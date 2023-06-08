@@ -209,6 +209,7 @@
   "SAVE": "Speichern",
   "SET_PASSWORD": "Passwort festlegen",
   "CHANGE_PASSWORD": "Passwort ändern",
+  "CURRENT_PASSWORD": "Aktuelles Passwort",
   "DELETE_ACCOUNT": "Konto löschen",
   "CONFIRM_DELETE_ACCOUNT": "Sie sind im Begriff, Ihr Konto endgültig zu löschen. Diese Aktion ist IRREVERSIBEL. Alle Ihre persönlichen Daten und Einstellungen werden vollständig gelöscht und können NICHT wiederhergestellt werden. Wenn Sie sich sicher sind, fahren Sie bitte fort. Andernfalls können Sie den Vorgang abbrechen und Ihr Konto bleibt aktiv.",
   "SECOND_CONFIRM_DELETE_ACCOUNT": "Sind Sie absolut sicher, dass Sie Ihr Konto löschen möchten?"

@@ -15,6 +15,7 @@ import {
   LabelSettingsScreen,
   LanguageScreen,
   ManageLabelsScreen,
+  PasswordScreen,
   PurchaseScreen,
   ResetPasswordScreen,
   SettingsScreen,
@@ -56,6 +57,7 @@ const AppNavigator = () => (
       <AppStack.Screen name="AboutUs" component={AboutUsScreen} />
       <AppStack.Screen name="Purchase" component={PurchaseScreen} />
       <AppStack.Screen name="Account" component={AccountScreen} />
+      <AppStack.Screen name="Password" component={PasswordScreen} />
     </AppStack.Group>
   </AppStack.Navigator>
 );

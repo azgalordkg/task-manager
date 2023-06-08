@@ -209,6 +209,7 @@
   "SAVE": "Save",
   "SET_PASSWORD": "Set Password",
   "CHANGE_PASSWORD": "Change Password",
+  "CURRENT_PASSWORD": "Current Password",
   "DELETE_ACCOUNT": "Delete Account",
   "CONFIRM_DELETE_ACCOUNT": "You're about to permanently delete your account. This action is IRREVERSIBLE. All your personal data, and settings will be completely erased and CANNOT be recovered. If you're sure, please proceed. Otherwise, you can cancel and your account will remain active.",
   "SECOND_CONFIRM_DELETE_ACCOUNT": "Are you absolutely sure you want to delete your account?"

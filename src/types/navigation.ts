@@ -20,6 +20,7 @@ export type RootStackParamList = {
   Auth: undefined;
   ResetPassword: undefined;
   Account: undefined;
+  Password?: { withPassword?: boolean };
 };
 
 export type ScreenProps<T extends keyof RootStackParamList> =

@@ -9,6 +9,7 @@ export interface AuthData extends AuthBase {
 
 export interface AuthFormValues extends AuthData {
   confirmPassword?: string;
+  oldPassword?: string;
 }
 
 export type AuthFormValuesKey = keyof AuthFormValues;

@@ -208,6 +208,7 @@
   "SAVE": "Guardar",
   "SET_PASSWORD": "Establecer contraseña",
   "CHANGE_PASSWORD": "Cambiar la contraseña",
+  "CURRENT_PASSWORD": "Contraseña actual",
   "DELETE_ACCOUNT": "Eliminar cuenta",
   "CONFIRM_DELETE_ACCOUNT": "Estás a punto de eliminar permanentemente tu cuenta. Esta acción es IRREVERSIBLE. Todos tus datos personales y configuraciones serán completamente borrados y NO podrán ser recuperados. Si estás seguro, por favor procede. De lo contrario, puedes cancelar y tu cuenta permanecerá activa.",
   "SECOND_CONFIRM_DELETE_ACCOUNT": "¿Estás completamente seguro de que quieres eliminar tu cuenta?"

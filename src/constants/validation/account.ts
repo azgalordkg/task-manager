@@ -15,11 +15,13 @@ export const changeEmailSchema = yup.object().shape({
   email: emailSchema,
 });
 
-export const changeAccountPasswordSchema = yup.object().shape({
+export const setAccountPasswordSchema = yup.object().shape({
+  oldPassword: passwordSchema,
   password: passwordSchema,
   confirmPassword: confirmPassword,
 });
 
-export const setPasscodeSchema = yup.object().shape({
-  passcode: passwordSchema,
+export const setPasswordSchema = yup.object().shape({
+  password: passwordSchema,
+  confirmPassword: confirmPassword,
 });

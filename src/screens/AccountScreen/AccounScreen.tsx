@@ -167,6 +167,10 @@ export const AccountScreen: FC<ScreenProps<'Account'>> = ({ navigation }) => {
     return <Loader />;
   }
 
+  const handlePasswordPress = () => {
+    navigation.navigate('Password', { withPassword: userInfo?.withPassword });
+  };
+
   return (
     <ModalScreenWrapper
       disablePressable
@@ -242,7 +246,7 @@ export const AccountScreen: FC<ScreenProps<'Account'>> = ({ navigation }) => {
               isLast
               isFirst
               prependIcon={Lock}
-              onPress={() => {}}>
+              onPress={handlePasswordPress}>
               {userInfo?.withPassword
                 ? t('CHANGE_PASSWORD')
                 : t('SET_PASSWORD')}
