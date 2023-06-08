@@ -4,7 +4,7 @@ import moment from 'moment/moment';
 import { COLORS } from '@/constants';
 import { PRIORITIES } from '@/constants/tasks';
 import { getAllTasks } from '@/services';
-import { Task } from '@/store/apis/tasks/tasks.types';
+import { Task } from '@/store/apis/tasks';
 import { Priority, SchemeType, TasksResponseItem } from '@/types';
 import { formatDate } from '@/utils/date';
 

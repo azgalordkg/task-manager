@@ -12,8 +12,8 @@ import {
   useDeleteTaskMutation,
   useGetAllTasksQuery,
   useUpdateTaskMutation,
+  Task,
 } from '@/store/apis/tasks';
-import { Task } from '@/store/apis/tasks/tasks.types';
 import { ScreenProps } from '@/types';
 import { vibrate } from '@/utils';
 

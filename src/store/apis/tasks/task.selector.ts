@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 import { RootState } from '@/store';
-import { AllTasksResponse } from '@/store/apis/tasks/tasks.types';
+import { AllTasksResponse } from '@/store/apis/tasks';
 
 export const selectTasks = createSelector(
   (state: RootState) => state.tasksApi.queries['getTasks()'],

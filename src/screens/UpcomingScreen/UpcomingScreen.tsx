@@ -17,7 +17,7 @@ import { MainLayout } from '@/components/layouts';
 import { MonthPickerModal } from '@/components/modals';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
-import { changeSelectDate } from '@/store/apis/tasks/task.slice';
+import { changeSelectDate } from '@/store/apis/tasks';
 import { ScreenProps } from '@/types';
 import { formatDate, getDayTitle, getDottedDays, vibrate } from '@/utils';
 

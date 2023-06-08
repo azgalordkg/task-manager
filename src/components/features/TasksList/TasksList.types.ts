@@ -1,4 +1,4 @@
-import { Task } from '@/store/apis/tasks/tasks.types';
+import { Task } from '@/store/apis/tasks';
 
 export interface Props {
   tasks?: Task[];

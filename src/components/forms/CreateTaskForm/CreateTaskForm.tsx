@@ -29,8 +29,7 @@ import {
 import { COLORS, getRepeatList } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';
-import { useGetTasksQuery } from '@/store/apis/tasks';
-import { Task } from '@/store/apis/tasks/tasks.types';
+import { Task, useGetTasksQuery } from '@/store/apis/tasks';
 import { CreateTaskData, CreateTaskKey, RecurringTypes } from '@/types';
 import {
   getPriorityObject,

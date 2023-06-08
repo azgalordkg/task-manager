@@ -26,8 +26,7 @@ import {
   useThemeContext,
 } from '@/context/hooks';
 import { updateRecurringTasks } from '@/services';
-import { useGetAllTasksQuery } from '@/store/apis/tasks';
-import { selectAllTasks } from '@/store/apis/tasks/task.selector';
+import { useGetAllTasksQuery, selectAllTasks } from '@/store/apis/tasks';
 import { ScreenProps } from '@/types';
 import { getDayTitle, vibrate } from '@/utils';
 

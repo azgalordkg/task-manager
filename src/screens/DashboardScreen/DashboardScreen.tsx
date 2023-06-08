@@ -6,8 +6,7 @@ import { useSelector } from 'react-redux';
 import { MainLayout } from '@/components/layouts';
 import { MenuItem } from '@/components/ui';
 import { DASHBOARD_LIST } from '@/constants/dashboard';
-import { useGetAllTasksQuery } from '@/store/apis/tasks';
-import { selectAllTasks } from '@/store/apis/tasks/task.selector';
+import { useGetAllTasksQuery, selectAllTasks } from '@/store/apis/tasks';
 import { RootStackParamList, ScreenProps } from '@/types';
 import { getFilteredTasksByDate } from '@/utils';
 

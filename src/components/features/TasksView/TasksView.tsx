@@ -8,11 +8,12 @@ import { NotFoundPlaceholder } from '@/components/icons/NotFoundPlaceholder';
 import { ConfirmModal } from '@/components/modals';
 import { EmptyTaskList } from '@/components/ui';
 import { useTasksContext } from '@/context/hooks';
-import { useDeleteTaskMutation, useGetAllTasksQuery } from '@/store/apis/tasks';
 import {
   selectAllTasks,
   selectTargetDate,
-} from '@/store/apis/tasks/task.selector';
+  useDeleteTaskMutation,
+  useGetAllTasksQuery,
+} from '@/store/apis/tasks';
 import {
   filterTasks,
   getFilteredTasksByDate,
