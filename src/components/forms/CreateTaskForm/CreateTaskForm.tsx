@@ -24,17 +24,13 @@ import {
   FormContentWrapper,
   Input,
   InputButton,
+  Loader,
 } from '@/components/ui';
 import { COLORS, getRepeatList } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
 import { useTagManageContext, useThemeContext } from '@/context/hooks';
-import { findOneTask } from '@/services/realm';
-import {
-  CreateTaskData,
-  CreateTaskKey,
-  RecurringTypes,
-  TasksResponseItem,
-} from '@/types';
+import { Task, useGetTasksQuery } from '@/store/apis/tasks';
+import { CreateTaskData, CreateTaskKey, RecurringTypes } from '@/types';
 import {
   getPriorityObject,
   prepareTagsForRender,
@@ -53,9 +49,12 @@ export const CreateTaskForm: FC<Props> = ({
   isUnscheduled,
   taskStartDate,
 }) => {
-  const [taskForEdit, setTaskForEdit] = useState({} as TasksResponseItem);
+  const [taskForEdit, setTaskForEdit] = useState({} as Task);
   const [repeatModalVisible, setRepeatModalVisible] = useState(false);
   const [priorityModalVisible, setPriorityModalVisible] = useState(false);
+
+  const { data: taskData, isLoading: isTaskDataFetching } =
+    useGetTasksQuery(editItemId);
 
   const startDate = roundAndExtendTimeRange();
   const {
@@ -68,10 +67,10 @@ export const CreateTaskForm: FC<Props> = ({
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (editItemId) {
-      setTaskForEdit(findOneTask(editItemId));
+    if (editItemId && taskData) {
+      setTaskForEdit(taskData);
     }
-  }, [editItemId]);
+  }, [editItemId, taskData]);
 
   const {
     control,
@@ -91,7 +90,7 @@ export const CreateTaskForm: FC<Props> = ({
     resolver: yupResolver(createTaskFormSchema),
   });
 
-  const prepareEditData = (task: TasksResponseItem) => {
+  const prepareEditData = (task: Task) => {
     const { name, description, hasDeadline, tags, repeat, priority } = task;
     setValue('name', name);
 
@@ -107,7 +106,7 @@ export const CreateTaskForm: FC<Props> = ({
 
     if (tags?.length) {
       const tagsForEdit = prepareTagsForRender(tags, allTags);
-      setTagsForEdit(tagsForEdit.map(({ _id }) => _id));
+      setTagsForEdit(tagsForEdit.map(({ id }) => id));
     } else {
       clearSelectedTags();
     }
@@ -133,31 +132,29 @@ export const CreateTaskForm: FC<Props> = ({
   }, [taskStartDate]);
 
   const isInitialDataChanged = (
-    initialTaskValue: Partial<TasksResponseItem>,
+    initialTaskValue: Partial<Task>,
     formValue: CreateTaskData,
     tags: string[] = [],
   ) => {
     const initialTags = [...(initialTaskValue?.tags || [])];
     const areTagsEqual = isEqual(tags, initialTags);
-    const stringifyValue = JSON.stringify(initialTaskValue);
 
-    const editInitialTaskValue = Object.keys(formValue)?.reduce<CreateTaskData>(
+    const editInitialTaskValue = Object.keys(formValue)?.reduce<Task>(
       (result, key) => {
-        const objectKey = key as keyof CreateTaskData;
-        const isKeyInInitialValue =
-          JSON.parse(stringifyValue).hasOwnProperty(objectKey);
+        const objectKey = key as keyof Task;
+        const isKeyInInitialValue = initialTaskValue?.hasOwnProperty(objectKey);
 
-        if (isKeyInInitialValue) {
+        if (isKeyInInitialValue && initialTaskValue) {
           // TODO need type for result[objectKey]
           // @ts-ignore
           result[objectKey] =
             objectKey === 'startDate'
-              ? new Date(initialTaskValue[objectKey] as number)
+              ? moment(initialTaskValue[objectKey]).toDate()
               : initialTaskValue[objectKey];
         }
         return result;
       },
-      {} as CreateTaskData,
+      {} as Task,
     );
 
     return areTagsEqual && isEqual(editInitialTaskValue, formValue);
@@ -227,6 +224,10 @@ export const CreateTaskForm: FC<Props> = ({
   const repeatLabel = repeatList.find(
     ({ value }) => value === repeatValue,
   )?.label;
+
+  if (isTaskDataFetching && editItemId) {
+    return <Loader />;
+  }
 
   return (
     <DismissKeyboard>

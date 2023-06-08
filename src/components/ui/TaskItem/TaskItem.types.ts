@@ -12,7 +12,7 @@ export interface ListItemProps {
   id: string;
   isDone?: boolean;
   repeat?: RecurringTypes;
-  tags: string[];
+  labels: number[];
   description?: string;
   priority?: number;
 }

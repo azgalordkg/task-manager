@@ -1,10 +1,10 @@
 import { TagsResponseItem } from '@/types';
 
 export const prepareTagsForRender = (
-  tags: string[],
+  tags: number[],
   allTags: TagsResponseItem[],
 ) => {
   return tags
-    .map(tag => allTags.find(({ _id }) => tag === _id))
+    ?.map(tag => allTags.find(({ id }) => tag === id))
     .filter(item => item) as TagsResponseItem[];
 };

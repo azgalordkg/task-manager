@@ -6,9 +6,15 @@ import { ContextMenuButton } from '@/components/features';
 import { CreateTaskForm } from '@/components/forms';
 import { ConfirmModal } from '@/components/modals';
 import { ModalScreenWrapper } from '@/components/ui';
-import { useTagManageContext, useTasksContext } from '@/context/hooks';
-import { createTask, deleteOneTask, updateTask } from '@/services';
-import { CreateTaskData, ScreenProps, UpdateTaskData } from '@/types';
+import { useTagManageContext } from '@/context/hooks';
+import {
+  useCreateTaskMutation,
+  useDeleteTaskMutation,
+  useGetAllTasksQuery,
+  useUpdateTaskMutation,
+  Task,
+} from '@/store/apis/tasks';
+import { ScreenProps } from '@/types';
 import { vibrate } from '@/utils';
 
 export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
@@ -16,8 +22,12 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   route,
 }) => {
   const { t } = useTranslation();
-  const { fetchList } = useTasksContext();
   const { selectedTags, clearSelectedTags } = useTagManageContext();
+
+  const { refetch: fetchList } = useGetAllTasksQuery();
+  const [createTask] = useCreateTaskMutation();
+  const [updateTask] = useUpdateTaskMutation();
+  const [deleteTask] = useDeleteTaskMutation();
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [isDescriptionFocused, setIsDescriptionFocused] = useState(false);
@@ -35,12 +45,13 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   };
 
   const createTaskHandler = (data: FieldValues) => {
-    const requestData = { ...data, tags: selectedTags };
+    // TODO потом заменить на as number[]
+    const requestData = { ...data, labels: selectedTags as any[] };
 
     if (taskId) {
-      updateTask({ ...requestData, _id: taskId } as UpdateTaskData);
+      updateTask({ userData: requestData as Task, id: +taskId });
     } else {
-      createTask(requestData as CreateTaskData);
+      createTask({ userData: requestData as Task });
     }
 
     vibrate('impactHeavy');
@@ -56,7 +67,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
 
   const handleDeleteTask = () => {
     if (taskId) {
-      deleteOneTask(taskId);
+      deleteTask(taskId);
     }
     closeModal();
     handleShowConfirmModal();

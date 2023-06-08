@@ -34,7 +34,7 @@ const customComparator = (
 
 export const TaskItem: FC<ListItemProps> = ({
   name,
-  tags,
+  labels,
   checked,
   onCheckPress,
   onDeletePress,
@@ -103,8 +103,8 @@ export const TaskItem: FC<ListItemProps> = ({
   }, [startDate, timeFormat, language]);
 
   const tagsForRender: TagsResponseItem[] = useMemo(
-    () => prepareTagsForRender(tags, allTags),
-    [allTags, tags],
+    () => prepareTagsForRender(labels, allTags),
+    [allTags, labels],
   );
 
   const { color: priorityColor, isLight } = getPriorityObject(isDark, priority);
@@ -187,15 +187,17 @@ export const TaskItem: FC<ListItemProps> = ({
                   </View>
                 )}
 
-                {Boolean(tagsForRender.length) && (
+                {Boolean(tagsForRender?.length) && (
                   <View style={style.tagsWrapper}>
-                    {tagsForRender.map(({ color, name: tagTitle, _id }) => (
-                      <Text
-                        key={_id}
-                        style={{ ...style.tagText, color: color }}>
-                        {tagTitle}
-                      </Text>
-                    ))}
+                    {tagsForRender.map(
+                      ({ color, name: tagTitle, id: tagId }) => (
+                        <Text
+                          key={tagId}
+                          style={{ ...style.tagText, color: color }}>
+                          {tagTitle}
+                        </Text>
+                      ),
+                    )}
                   </View>
                 )}
               </View>
