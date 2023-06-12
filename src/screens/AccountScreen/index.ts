@@ -1,1 +1,1 @@
-export * from './AccounScreen';
+export * from './AccountScreen';

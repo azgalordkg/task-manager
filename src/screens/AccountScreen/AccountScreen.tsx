@@ -23,7 +23,7 @@ import { selectCurrentUser, useLazyGetMeQuery } from '@/store/apis/auth';
 import { useDeleteUserMutation, useEditUserMutation } from '@/store/apis/users';
 import { AuthFormValues, ScreenProps, ServerError } from '@/types';
 
-import styles from './AccounScreen.styles';
+import styles from './AccountScreen.styles';
 
 export const AccountScreen: FC<ScreenProps<'Account'>> = ({ navigation }) => {
   const [isNameFocused, setIsNameFocused] = useState(false);

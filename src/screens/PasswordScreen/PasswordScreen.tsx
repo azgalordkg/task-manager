@@ -77,7 +77,7 @@ export const PasswordScreen: FC<ScreenProps<'Password'>> = ({
 
   const isDoneDisabled =
     !isValid || isSetPasswordLoading || isChangePasswordLoading;
-  const isShowError = !!setPasswordError || !!changePasswordError;
+  const isShowError = setPasswordError || changePasswordError;
   const passwordChangeError =
     (setPasswordError as ServerError)?.data?.message ||
     (changePasswordError as ServerError)?.data?.message;
