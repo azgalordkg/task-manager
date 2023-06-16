@@ -5,16 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import OutsidePressHandler from 'react-native-outside-press';
+import { useSelector } from 'react-redux';
 
 import { Calendar, InfoCircle, Repeat, Trash } from '@/components/icons';
 import { ActionButton, CustomCheckbox } from '@/components/ui';
 import { COLORS } from '@/constants';
-import {
-  useTagManageContext,
-  useTasksContext,
-  useThemeContext,
-} from '@/context/hooks';
-import { TagsResponseItem } from '@/types';
+import { useTasksContext, useThemeContext } from '@/context/hooks';
+import { selectLabels } from '@/store/apis/labels/labels.selector';
+import { LabelTypes } from '@/types/labels';
 import {
   formatDate,
   getPriorityObject,
@@ -59,8 +57,7 @@ export const TaskItem: FC<ListItemProps> = ({
   } = useTranslation();
 
   const { fetchList, timeFormat } = useTasksContext();
-
-  const { tags: allTags } = useTagManageContext();
+  const allLabels = useSelector(selectLabels) as LabelTypes[];
 
   const rightSwipe = (
     progress: Animated.AnimatedInterpolation<string>,
@@ -102,9 +99,9 @@ export const TaskItem: FC<ListItemProps> = ({
     return '';
   }, [startDate, timeFormat, language]);
 
-  const tagsForRender: TagsResponseItem[] = useMemo(
-    () => prepareTagsForRender(labels, allTags),
-    [allTags, labels],
+  const tagsForRender: LabelTypes[] = useMemo(
+    () => prepareTagsForRender(labels, allLabels),
+    [allLabels, labels],
   );
 
   const { color: priorityColor, isLight } = getPriorityObject(isDark, priority);
@@ -189,15 +186,13 @@ export const TaskItem: FC<ListItemProps> = ({
 
                 {Boolean(tagsForRender?.length) && (
                   <View style={style.tagsWrapper}>
-                    {tagsForRender.map(
-                      ({ color, name: tagTitle, id: tagId }) => (
-                        <Text
-                          key={tagId}
-                          style={{ ...style.tagText, color: color }}>
-                          {tagTitle}
-                        </Text>
-                      ),
-                    )}
+                    {tagsForRender.map(({ color, name: tagTitle, id }) => (
+                      <Text
+                        key={`label-${id}`}
+                        style={{ ...style.tagText, color: color }}>
+                        {tagTitle}
+                      </Text>
+                    ))}
                   </View>
                 )}
               </View>

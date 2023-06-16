@@ -1,13 +1,16 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView, Text, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Label, Plus, Trash } from '@/components/icons';
 import { ConfirmModal } from '@/components/modals';
 import { CustomButton, DashedButton, MenuItem } from '@/components/ui';
 import { TAGS_CREATION_LIMITS } from '@/constants';
-import { useTagManageContext, useThemeContext } from '@/context/hooks';
-import { deleteOneTag } from '@/services';
+import { useThemeContext } from '@/context/hooks';
+import { useDeleteLabelMutation, useGetLabelsQuery } from '@/store/apis/labels';
+import { selectCurrentSelectedTags } from '@/store/apis/labels/labels.selector';
+import { selectTagHandler } from '@/store/apis/labels/labels.slice';
 import { vibrate } from '@/utils';
 
 import styles from './ManageLabelsForm.styles';
@@ -19,48 +22,47 @@ export const ManageLabelsForm: FC<Props> = ({
   isSettings,
 }) => {
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
-  const [deleteId, setDeleteId] = useState('');
+  const [deleteId, setDeleteId] = useState<number | null>(null);
   const { theme } = useThemeContext();
-  const { currentSelectedTags, selectTagHandler, tags, fetchTags } =
-    useTagManageContext();
+  const dispatch = useDispatch();
+  const currentSelectedTags = useSelector(selectCurrentSelectedTags);
+
+  const { data: labels = [], refetch } = useGetLabelsQuery();
+  const [deleteLabelItem] = useDeleteLabelMutation();
+
   const { t } = useTranslation();
 
-  const handleDeletePress = (id: string) => {
+  const isLimit = labels.length >= TAGS_CREATION_LIMITS;
+  const style = styles(theme, isLimit);
+
+  const handleDeletePress = (id: number) => {
     handleShowModal();
     setDeleteId(id);
   };
 
   const handleShowModal = () => {
-    setDeleteId('');
+    setDeleteId(null);
     setConfirmModalVisible(!confirmModalVisible);
   };
 
   const handleDeleteTask = () => {
     if (deleteId) {
-      deleteOneTag(deleteId);
-      fetchTags();
+      deleteLabelItem(deleteId);
+      refetch();
     }
     handleShowModal();
   };
-
-  const isLimit = tags?.length >= TAGS_CREATION_LIMITS;
-  const style = styles(theme, isLimit);
-
-  useEffect(() => {
-    fetchTags();
-  }, []);
 
   const onCreateLabelPress = () => {
     onCreateTagPress();
     vibrate('selection');
   };
-
   return (
     <View style={style.container}>
       <Text style={style.total}>
         {t('TOTAL_LABELS')}:{' '}
         <Text style={style.totalCount}>
-          {tags.length}/{TAGS_CREATION_LIMITS}
+          {labels.length}/{TAGS_CREATION_LIMITS}
         </Text>
       </Text>
 
@@ -69,7 +71,7 @@ export const ManageLabelsForm: FC<Props> = ({
       {isSettings ? (
         <View style={style.buttonContainer}>
           <DashedButton
-            disabled={tags.length >= TAGS_CREATION_LIMITS}
+            disabled={labels.length >= TAGS_CREATION_LIMITS}
             color={theme.TEXT.PRIMARY}
             icon={Plus}
             variant="large"
@@ -83,7 +85,7 @@ export const ManageLabelsForm: FC<Props> = ({
           paddingHorizontal={12}
           bgColor="transparent"
           onPress={onCreateLabelPress}
-          disabled={tags.length >= TAGS_CREATION_LIMITS}
+          disabled={labels.length >= TAGS_CREATION_LIMITS}
           height={32}
           fontSize={16}
           icon={Plus}
@@ -95,26 +97,28 @@ export const ManageLabelsForm: FC<Props> = ({
       )}
 
       <ScrollView style={style.itemsWrapper}>
-        {tags.map(({ _id, name, color }, index) => {
+        {labels.map(({ id, name, color }, index) => {
           return (
             <MenuItem
-              isLast={index === tags.length - 1}
+              isLast={index === labels.length - 1}
               isFirst={index === 0}
               prependIconColor={color}
               prependIcon={Label}
               icon={isSettings ? Trash : null}
               isCheckbox={!isSettings}
-              checked={currentSelectedTags.includes(_id)}
-              onPressIcon={() => handleDeletePress(_id)}
+              checked={currentSelectedTags.includes(id)}
+              onPressIcon={() => handleDeletePress(id)}
               onToggleCheckbox={() => {
-                selectTagHandler(_id);
+                dispatch(selectTagHandler(id));
                 vibrate('selection');
               }}
               onPress={() => {
-                isSettings ? onEditTagPress(_id) : selectTagHandler(_id);
+                isSettings
+                  ? onEditTagPress(id)
+                  : dispatch(selectTagHandler(id));
                 vibrate('selection');
               }}
-              key={_id}>
+              key={`label-${id}`}>
               {name}
             </MenuItem>
           );

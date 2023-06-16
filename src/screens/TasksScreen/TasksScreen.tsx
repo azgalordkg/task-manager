@@ -20,13 +20,10 @@ import {
 import { MainLayout } from '@/components/layouts';
 import { EmptyTaskList } from '@/components/ui';
 import { COLORS } from '@/constants';
-import {
-  useTagManageContext,
-  useTasksContext,
-  useThemeContext,
-} from '@/context/hooks';
+import { useTasksContext, useThemeContext } from '@/context/hooks';
 import { updateRecurringTasks } from '@/services';
-import { useGetAllTasksQuery, selectAllTasks } from '@/store/apis/tasks';
+import { useGetLabelsQuery } from '@/store/apis/labels';
+import { selectAllTasks, useGetAllTasksQuery } from '@/store/apis/tasks';
 import { ScreenProps } from '@/types';
 import { getDayTitle, vibrate } from '@/utils';
 
@@ -44,7 +41,6 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
   const { taskList, unscheduledTaskList, overdueTaskList } =
     useSelector(selectAllTasks) || {};
   const { refetch: fetchList } = useGetAllTasksQuery();
-  const { fetchTags } = useTagManageContext();
   const { theme } = useThemeContext();
 
   const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);
@@ -52,6 +48,8 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
   const isUnscheduled = route?.params?.isUnscheduled;
   const isFocused = useIsFocused();
   const style = styles(theme);
+
+  const {} = useGetLabelsQuery();
 
   useEffect(() => {
     if (isFocused) {
@@ -66,10 +64,6 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
       setDailyTasksUpdated(true);
     }
   }, [dailyTasksUpdated]);
-
-  useEffect(() => {
-    fetchTags();
-  }, []);
 
   const handleItemPress = (id: string) => {
     vibrate('rigid');
