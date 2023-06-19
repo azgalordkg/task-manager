@@ -1,10 +1,15 @@
-export interface AuthData {
+export interface AuthBase {
+  fullname?: string;
   email: string;
+}
+
+export interface AuthData extends AuthBase {
   password: string;
 }
 
 export interface AuthFormValues extends AuthData {
   confirmPassword?: string;
+  oldPassword?: string;
 }
 
 export type AuthFormValuesKey = keyof AuthFormValues;
@@ -27,10 +32,12 @@ export interface Role {
 export interface UserInfo {
   id: number;
   email: string;
+  fullname: string;
   createdAt: string;
   updatedAt: string;
   isGoogle: boolean | null;
   roles: Role[];
+  withPassword: boolean;
   tasks: any[]; // TODO Implement Task type
 }
 

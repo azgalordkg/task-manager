@@ -4,20 +4,18 @@ import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType) =>
   StyleSheet.create({
-    mainWrapper: {
+    container: {
       flex: 1,
-      paddingHorizontal: 20,
-      paddingBottom: 20,
+      paddingVertical: 30,
     },
-    listWrapper: {
-      paddingTop: 30,
-      flexGrow: 1,
-    },
-    userEmail: {
-      width: '100%',
-      textAlign: 'center',
-      marginTop: 12,
+    label: {
       color: theme.TEXT.PRIMARY,
+      marginBottom: 12,
+      textTransform: 'uppercase',
+    },
+    content: {
+      flexGrow: 1,
+      rowGap: 30,
     },
   });
 

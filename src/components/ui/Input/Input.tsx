@@ -7,12 +7,12 @@ import { CloseCircle, Show } from '@/components/icons';
 import { ErrorMessage, InputWrapper } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
+import { InputProps } from '@/types/common';
 import { addAlpha, getValueForDateInput } from '@/utils';
 
 import styles from './Input.styles';
-import { Props } from './Input.types';
 
-export const Input: FC<Props> = ({
+export const Input: FC<InputProps> = ({
   control,
   defaultValue = '',
   name,

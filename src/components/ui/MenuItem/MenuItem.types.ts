@@ -6,6 +6,7 @@ export interface Props {
   onPress?: () => void;
   isSwitcher?: boolean;
   onToggleSwitch?: (value: boolean) => void;
+  backgroundColor?: string;
   value?: boolean;
   isLast?: boolean;
   isFirst?: boolean;

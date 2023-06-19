@@ -4,4 +4,5 @@ export interface Props {
   dismissLabel?: string;
   onPressConfirm: () => void;
   onPressDismiss: () => void;
+  warningText?: string;
 }

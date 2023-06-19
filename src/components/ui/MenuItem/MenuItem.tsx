@@ -20,6 +20,7 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
   icon = ArrowAngle,
   onPressIcon,
   prependIcon,
+  backgroundColor,
   isFirst,
   isLast,
   isCheckbox,
@@ -31,7 +32,7 @@ export const MenuItem: FC<PropsWithChildren<Props>> = ({
   const Icon = icon;
   const PrependIcon = prependIcon;
   const { theme } = useThemeContext();
-  const style = styles(theme, isFirst, isLast);
+  const style = styles(theme, isFirst, isLast, backgroundColor);
   const isShowCheckbox = isCheckbox && onToggleCheckbox;
   const onValueChangePress = (currentValue: boolean) => {
     vibrate();

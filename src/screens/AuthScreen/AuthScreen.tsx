@@ -26,7 +26,7 @@ import { Storage } from '@/utils';
 import styles from './AuthScreen.styles';
 
 export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
-  const { theme } = useThemeContext();
+  const { theme, isDark } = useThemeContext();
   const { t } = useTranslation();
   const [
     login,
@@ -146,6 +146,12 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
               const isActive = authType === value;
               const authTitle = t(title);
 
+              const textStyle = [
+                style.authSwitchText,
+                ...(!isDark && isActive ? [style.authSwitchTextActive] : []),
+                authTitle.length >= 18 && style.authSwitchSmallText,
+              ];
+
               return (
                 <TouchableOpacity
                   key={value}
@@ -154,13 +160,7 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
                     isActive && style.authSwitchItemActive,
                   ]}
                   onPress={() => handleAuthTypeChange(value)}>
-                  <Text
-                    style={[
-                      style.authSwitchText,
-                      authTitle.length >= 18 && style.authSwitchSmallText,
-                    ]}>
-                    {authTitle}
-                  </Text>
+                  <Text style={textStyle}>{authTitle}</Text>
                 </TouchableOpacity>
               );
             })}
