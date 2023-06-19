@@ -7,7 +7,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 
 import { Checkbox, Google, Lock, Message } from '@/components/icons';
 import { MainLayout } from '@/components/layouts';
-import { CustomButton, ErrorMessage, Input } from '@/components/ui';
+import { CustomButton, Input } from '@/components/ui';
 import { AUTH_TYPE, COLORS, TOKEN } from '@/constants';
 import {
   signInValidationSchema,
@@ -20,7 +20,7 @@ import {
   useLoginMutation,
   useRegisterMutation,
 } from '@/store/apis/auth';
-import { AuthFormValues, ScreenProps, ServerError } from '@/types';
+import { AuthFormValues, ScreenProps } from '@/types';
 import { Storage } from '@/utils';
 
 import styles from './AuthScreen.styles';
@@ -28,23 +28,14 @@ import styles from './AuthScreen.styles';
 export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
   const { theme, isDark } = useThemeContext();
   const { t } = useTranslation();
-  const [
-    login,
-    { data: loginData, isLoading: isLoginLoading, error: loginError },
-  ] = useLoginMutation();
-  const [
-    register,
-    { data: registerData, isLoading: isRegisterLoading, error: registerError },
-  ] = useRegisterMutation();
-  const [getMe, { isLoading: isMeLoading, error: meError }] =
-    useLazyGetMeQuery();
+  const [login, { data: loginData, isLoading: isLoginLoading }] =
+    useLoginMutation();
+  const [register, { data: registerData, isLoading: isRegisterLoading }] =
+    useRegisterMutation();
+  const [getMe, { isLoading: isMeLoading }] = useLazyGetMeQuery();
   const [
     googleSignIn,
-    {
-      data: googleSignInData,
-      isLoading: googleSignInLoading,
-      error: googleSignInError,
-    },
+    { data: googleSignInData, isLoading: googleSignInLoading },
   ] = useGoogleSignInMutation();
 
   const [authType, setAuthType] = useState('signIn');
@@ -118,15 +109,6 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
     }
   };
 
-  const authErrorMessage =
-    (loginError as ServerError)?.data?.message ||
-    (registerError as ServerError)?.data?.message ||
-    (meError as ServerError)?.data?.message ||
-    (googleSignInError as ServerError)?.data?.message ||
-    'SOMETHING_WENT_WRONG';
-
-  const isShowErrorMessage =
-    loginError || registerError || meError || googleSignInError;
   const isLoading = isLoginLoading || isRegisterLoading || isMeLoading;
 
   return (
@@ -213,9 +195,6 @@ export const AuthScreen: FC<ScreenProps<'Auth'>> = ({ navigation }) => {
             )}
           </View>
 
-          {isShowErrorMessage && (
-            <ErrorMessage size="medium">{t(authErrorMessage)}</ErrorMessage>
-          )}
           <CustomButton
             isLoading={isLoading}
             bgColor={theme.BUTTONS.PRIMARY}
