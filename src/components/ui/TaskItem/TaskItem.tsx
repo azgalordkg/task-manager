@@ -5,16 +5,14 @@ import { useTranslation } from 'react-i18next';
 import { Animated, Text, TouchableOpacity, View } from 'react-native';
 import { Swipeable } from 'react-native-gesture-handler';
 import OutsidePressHandler from 'react-native-outside-press';
+import { useSelector } from 'react-redux';
 
 import { Calendar, InfoCircle, Repeat, Trash } from '@/components/icons';
 import { ActionButton, CustomCheckbox } from '@/components/ui';
 import { COLORS } from '@/constants';
-import {
-  useTagManageContext,
-  useTasksContext,
-  useThemeContext,
-} from '@/context/hooks';
-import { TagsResponseItem } from '@/types';
+import { useTasksContext, useThemeContext } from '@/context/hooks';
+import { selectLabels } from '@/store/apis/labels/labels.selector';
+import { ILabelItem } from '@/types/labels';
 import {
   formatDate,
   getPriorityObject,
@@ -34,7 +32,7 @@ const customComparator = (
 
 export const TaskItem: FC<ListItemProps> = ({
   name,
-  tags,
+  labels,
   checked,
   onCheckPress,
   onDeletePress,
@@ -59,8 +57,7 @@ export const TaskItem: FC<ListItemProps> = ({
   } = useTranslation();
 
   const { fetchList, timeFormat } = useTasksContext();
-
-  const { tags: allTags } = useTagManageContext();
+  const allLabels = useSelector(selectLabels) as ILabelItem[];
 
   const rightSwipe = (
     progress: Animated.AnimatedInterpolation<string>,
@@ -102,9 +99,9 @@ export const TaskItem: FC<ListItemProps> = ({
     return '';
   }, [startDate, timeFormat, language]);
 
-  const tagsForRender: TagsResponseItem[] = useMemo(
-    () => prepareTagsForRender(tags, allTags),
-    [allTags, tags],
+  const tagsForRender: ILabelItem[] = useMemo(
+    () => prepareTagsForRender(labels, allLabels),
+    [allLabels, labels],
   );
 
   const { color: priorityColor, isLight } = getPriorityObject(isDark, priority);
@@ -187,11 +184,11 @@ export const TaskItem: FC<ListItemProps> = ({
                   </View>
                 )}
 
-                {Boolean(tagsForRender.length) && (
+                {Boolean(tagsForRender?.length) && (
                   <View style={style.tagsWrapper}>
-                    {tagsForRender.map(({ color, name: tagTitle, _id }) => (
+                    {tagsForRender.map(({ color, name: tagTitle, id }) => (
                       <Text
-                        key={_id}
+                        key={`label-${id}`}
                         style={{ ...style.tagText, color: color }}>
                         {tagTitle}
                       </Text>

@@ -1,11 +1,12 @@
 import { Control } from 'react-hook-form/dist/types';
-import { TextInputProps } from 'react-native';
 
-import { CreateTaskData, CreateTaskKey } from '@/types';
+import { CreateTaskKey } from '@/types';
+import { InputProps } from '@/types/common';
 
-export interface Props extends TextInputProps {
+export interface Props extends InputProps {
   onPress: () => void;
   name: CreateTaskKey;
-  control: Control<CreateTaskData>;
+  control: Control<any>;
   icon: JSX.Element;
+  disabled?: boolean;
 }

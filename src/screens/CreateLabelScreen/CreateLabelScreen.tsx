@@ -7,9 +7,12 @@ import { useTranslation } from 'react-i18next';
 import { CreateLabelForm } from '@/components/forms';
 import { ModalScreenWrapper } from '@/components/ui';
 import { createLabelFormSchema } from '@/constants/validation';
-import { useTagManageContext } from '@/context/hooks';
-import { createTag, findOneTag, updateTag } from '@/services';
-import { CreateTagData, ScreenProps } from '@/types';
+import {
+  useCreateOrUpdateLabelMutation,
+  useGetLabelByIdQuery,
+} from '@/store/apis/labels';
+import { ScreenProps } from '@/types';
+import { ILabelItem } from '@/types/labels';
 import { vibrate } from '@/utils';
 
 export const CreateLabelScreen: FC<ScreenProps<'CreateLabel'>> = ({
@@ -17,12 +20,13 @@ export const CreateLabelScreen: FC<ScreenProps<'CreateLabel'>> = ({
   route,
 }) => {
   const { t } = useTranslation();
-  const { fetchTags } = useTagManageContext();
+  const [createOrUpdateLabel] = useCreateOrUpdateLabelMutation();
 
   const labelId = route?.params?.id;
+  const { data: findLabel } = useGetLabelByIdQuery(labelId);
   const handleCloseModal = () => navigation.goBack();
 
-  const formHandler = useForm<CreateTagData>({
+  const formHandler = useForm<ILabelItem>({
     mode: 'onBlur',
     resolver: yupResolver(createLabelFormSchema),
   });
@@ -30,22 +34,15 @@ export const CreateLabelScreen: FC<ScreenProps<'CreateLabel'>> = ({
   const formValue = formHandler.watch();
   const isValid = formHandler.formState.isValid;
 
-  const onSubmit = (data: CreateTagData) => {
-    if (labelId) {
-      updateTag({ ...data, _id: labelId });
-    } else {
-      createTag(data);
-    }
-
+  const onSubmit = (data: ILabelItem) => {
+    createOrUpdateLabel({ ...data, id: labelId });
     vibrate('impactHeavy');
-    fetchTags();
     handleCloseModal();
   };
 
   const isDisabled = useMemo(() => {
-    if (labelId) {
-      const stringifyValue = JSON.stringify(findOneTag(labelId));
-      const { name, color } = JSON.parse(stringifyValue);
+    if (labelId && findLabel) {
+      const { name, color } = findLabel as ILabelItem;
       const label = { name, color };
       return !isEqual(formValue, label) && isValid;
     }
@@ -64,6 +61,7 @@ export const CreateLabelScreen: FC<ScreenProps<'CreateLabel'>> = ({
         formHandler={formHandler}
         editItemId={labelId}
         onClose={handleCloseModal}
+        findLabel={findLabel}
       />
     </ModalScreenWrapper>
   );

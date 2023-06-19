@@ -1,14 +1,24 @@
 import React, { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { DoneTaskAccordion, QuickTask, TasksList } from '@/components/features';
 import { NotFoundPlaceholder } from '@/components/icons/NotFoundPlaceholder';
 import { ConfirmModal } from '@/components/modals';
 import { EmptyTaskList } from '@/components/ui';
 import { useTasksContext } from '@/context/hooks';
-import { deleteOneTask } from '@/services';
-import { filterTasks, getFilteredTasksBySearch } from '@/utils';
+import {
+  selectAllTasks,
+  selectTargetDate,
+  useDeleteTaskMutation,
+  useGetAllTasksQuery,
+} from '@/store/apis/tasks';
+import {
+  filterTasks,
+  getFilteredTasksByDate,
+  getFilteredTasksBySearch,
+} from '@/utils';
 
 import styles from './TasksView.styles';
 import { Props } from './TasksView.types';
@@ -20,19 +30,21 @@ export const TasksView: FC<Props> = ({
   currentTasksTitle,
 }) => {
   const { t } = useTranslation();
-  const {
-    taskList,
-    unscheduledTaskList,
-    overdueTaskList,
-    inputVisible,
-    fetchList,
-    searchValue,
-  } = useTasksContext();
+  const { inputVisible, searchValue } = useTasksContext();
+  const targetDate = useSelector(selectTargetDate);
+
+  const { refetch: fetchList } = useGetAllTasksQuery();
+  const [deleteTask] = useDeleteTaskMutation();
+
+  const { taskList, unscheduledTaskList, overdueTaskList } =
+    useSelector(selectAllTasks) || {};
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [deleteId, setDeleteId] = useState('');
 
-  const tasks = isUnscheduled ? unscheduledTaskList : taskList;
+  const tasks = isUnscheduled
+    ? unscheduledTaskList
+    : getFilteredTasksByDate(taskList, targetDate);
 
   const filteredTasks = useMemo(
     () => getFilteredTasksBySearch(tasks, searchValue),
@@ -43,15 +55,15 @@ export const TasksView: FC<Props> = ({
     [searchValue, overdueTaskList],
   );
 
-  const incompleteTasks = filterTasks(filteredTasks, 'incomplete');
-  const completedTasks = filterTasks(filteredTasks, 'complete');
+  const incompleteTasks = filterTasks('incomplete', filteredTasks);
+  const completedTasks = filterTasks('complete', filteredTasks);
 
   const isPast = !isUnscheduled && !isUpcoming;
-  const isShowTaskList = isPast && !!filteredOverdueTasks.length;
+  const isShowTaskList = isPast && !!filteredOverdueTasks?.length;
   const isShowQuickTask = isPast && !inputVisible;
 
   const isNotFound =
-    tasks.length && !filteredTasks.length && !filteredOverdueTasks.length;
+    tasks?.length && !filteredTasks?.length && !filteredOverdueTasks?.length;
 
   const handleShowModal = () => {
     setDeleteId('');
@@ -60,7 +72,7 @@ export const TasksView: FC<Props> = ({
 
   const handleDeletePress = (id: string, isQuick?: boolean) => {
     if (isQuick) {
-      deleteOneTask(id);
+      deleteTask(id);
     } else {
       handleShowModal();
       setDeleteId(id);
@@ -69,7 +81,7 @@ export const TasksView: FC<Props> = ({
 
   const handleDeleteTask = () => {
     if (deleteId) {
-      deleteOneTask(deleteId);
+      deleteTask(deleteId);
     }
     fetchList();
     handleShowModal();

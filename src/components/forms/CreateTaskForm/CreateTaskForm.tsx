@@ -5,6 +5,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   DateFilter,
@@ -24,17 +25,18 @@ import {
   FormContentWrapper,
   Input,
   InputButton,
+  Loader,
 } from '@/components/ui';
 import { COLORS, getRepeatList } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
-import { useTagManageContext, useThemeContext } from '@/context/hooks';
-import { findOneTask } from '@/services/realm';
+import { useThemeContext } from '@/context/hooks';
+import { selectSelectedTags, useGetLabelsQuery } from '@/store/apis/labels';
 import {
-  CreateTaskData,
-  CreateTaskKey,
-  RecurringTypes,
-  TasksResponseItem,
-} from '@/types';
+  clearSelectedTags,
+  setTagsForEdit,
+} from '@/store/apis/labels/labels.slice';
+import { Task, useGetTasksQuery } from '@/store/apis/tasks';
+import { CreateTaskData, CreateTaskKey, RecurringTypes } from '@/types';
 import {
   getPriorityObject,
   prepareTagsForRender,
@@ -53,25 +55,27 @@ export const CreateTaskForm: FC<Props> = ({
   isUnscheduled,
   taskStartDate,
 }) => {
-  const [taskForEdit, setTaskForEdit] = useState({} as TasksResponseItem);
+  const [taskForEdit, setTaskForEdit] = useState({} as Task);
   const [repeatModalVisible, setRepeatModalVisible] = useState(false);
   const [priorityModalVisible, setPriorityModalVisible] = useState(false);
 
+  const { data: taskData, isLoading: isTaskDataFetching } =
+    useGetTasksQuery(editItemId);
+
   const startDate = roundAndExtendTimeRange();
-  const {
-    setTagsForEdit,
-    selectedTags,
-    tags: allTags,
-    clearSelectedTags,
-  } = useTagManageContext();
+  // const { setTagsForEdit, clearSelectedTags } = useTagManageContext();
+  const dispatch = useDispatch();
+  const selectedTags = useSelector(selectSelectedTags);
+
   const { theme, isDark } = useThemeContext();
   const { t } = useTranslation();
+  const { data: allTags = [] } = useGetLabelsQuery();
 
   useEffect(() => {
-    if (editItemId) {
-      setTaskForEdit(findOneTask(editItemId));
+    if (editItemId && taskData) {
+      setTaskForEdit(taskData);
     }
-  }, [editItemId]);
+  }, [editItemId, taskData]);
 
   const {
     control,
@@ -91,8 +95,8 @@ export const CreateTaskForm: FC<Props> = ({
     resolver: yupResolver(createTaskFormSchema),
   });
 
-  const prepareEditData = (task: TasksResponseItem) => {
-    const { name, description, hasDeadline, tags, repeat, priority } = task;
+  const prepareEditData = (task: Task) => {
+    const { name, description, hasDeadline, labels, repeat, priority } = task;
     setValue('name', name);
 
     if (description) {
@@ -105,11 +109,11 @@ export const CreateTaskForm: FC<Props> = ({
       setValue('hasDeadline', true);
     }
 
-    if (tags?.length) {
-      const tagsForEdit = prepareTagsForRender(tags, allTags);
-      setTagsForEdit(tagsForEdit.map(({ _id }) => _id));
+    if (labels?.length) {
+      const tagsForEdit = prepareTagsForRender(labels, allTags);
+      dispatch(setTagsForEdit(tagsForEdit.map(({ id }) => id)));
     } else {
-      clearSelectedTags();
+      dispatch(clearSelectedTags());
     }
     setValue('repeat', repeat);
     setValue('priority', priority);
@@ -133,31 +137,29 @@ export const CreateTaskForm: FC<Props> = ({
   }, [taskStartDate]);
 
   const isInitialDataChanged = (
-    initialTaskValue: Partial<TasksResponseItem>,
+    initialTaskValue: Partial<Task>,
     formValue: CreateTaskData,
-    tags: string[] = [],
+    tags: number[] = [],
   ) => {
-    const initialTags = [...(initialTaskValue?.tags || [])];
+    const initialTags = [...(initialTaskValue?.labels || [])];
     const areTagsEqual = isEqual(tags, initialTags);
-    const stringifyValue = JSON.stringify(initialTaskValue);
 
-    const editInitialTaskValue = Object.keys(formValue)?.reduce<CreateTaskData>(
+    const editInitialTaskValue = Object.keys(formValue)?.reduce<Task>(
       (result, key) => {
-        const objectKey = key as keyof CreateTaskData;
-        const isKeyInInitialValue =
-          JSON.parse(stringifyValue).hasOwnProperty(objectKey);
+        const objectKey = key as keyof Task;
+        const isKeyInInitialValue = initialTaskValue?.hasOwnProperty(objectKey);
 
-        if (isKeyInInitialValue) {
+        if (isKeyInInitialValue && initialTaskValue) {
           // TODO need type for result[objectKey]
           // @ts-ignore
           result[objectKey] =
             objectKey === 'startDate'
-              ? new Date(initialTaskValue[objectKey] as number)
+              ? moment(initialTaskValue[objectKey]).toDate()
               : initialTaskValue[objectKey];
         }
         return result;
       },
-      {} as CreateTaskData,
+      {} as Task,
     );
 
     return areTagsEqual && isEqual(editInitialTaskValue, formValue);
@@ -228,6 +230,10 @@ export const CreateTaskForm: FC<Props> = ({
     ({ value }) => value === repeatValue,
   )?.label;
 
+  if (isTaskDataFetching && editItemId) {
+    return <Loader />;
+  }
+
   return (
     <DismissKeyboard>
       <FormContentWrapper
@@ -243,6 +249,7 @@ export const CreateTaskForm: FC<Props> = ({
               icon={
                 <CheckboxIcon type="outline" color={COLORS.GREEN} checked />
               }
+              isShowClearIcon
               control={control}
               backgroundColor={theme.INPUTS.PRIMARY}
               color={theme.TEXT.PRIMARY}

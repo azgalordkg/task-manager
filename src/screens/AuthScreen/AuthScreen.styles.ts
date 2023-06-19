@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 
+import { COLORS } from '@/constants';
 import { SchemeType } from '@/types';
 
 const styles = (theme: SchemeType) =>
@@ -59,6 +60,9 @@ const styles = (theme: SchemeType) =>
       fontSize: 18,
       lineHeight: 21,
       color: theme.TEXT.PRIMARY,
+    },
+    authSwitchTextActive: {
+      color: COLORS.WHITE,
     },
     authSwitchSmallText: {
       fontSize: 14,

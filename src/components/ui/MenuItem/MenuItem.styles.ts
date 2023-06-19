@@ -2,11 +2,16 @@ import { StyleSheet } from 'react-native';
 
 import { SchemeType } from '@/types';
 
-const styles = (theme: SchemeType, isFirst?: boolean, isLast?: boolean) =>
+const styles = (
+  theme: SchemeType,
+  isFirst?: boolean,
+  isLast?: boolean,
+  backgroundColor?: string,
+) =>
   StyleSheet.create({
     mainWrapper: {
       paddingHorizontal: 16,
-      backgroundColor: theme.BACKGROUND.NEUTRAL,
+      backgroundColor: backgroundColor || theme.BACKGROUND.NEUTRAL,
       flexDirection: 'row',
       width: '100%',
       alignItems: 'center',

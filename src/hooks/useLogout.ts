@@ -14,6 +14,7 @@ export const useLogout = () => {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
     } catch (error) {
+      console.log(5, error);
       console.error(error);
     }
   };

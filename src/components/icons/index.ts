@@ -31,6 +31,7 @@ export * from './Message';
 export * from './Paper';
 export * from './Password';
 export * from './Plus';
+export * from './Profile';
 export * from './Repeat';
 export * from './Search';
 export * from './Send';

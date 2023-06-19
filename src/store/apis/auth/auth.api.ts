@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { BASE_URL, URL_ROUTES } from '@/constants';
-import { AuthResponse } from '@/store/apis/auth/auth.types';
 import { AuthData, UserInfo } from '@/types';
 import { prepareHeaders } from '@/utils';
+
+import { AuthResponse, PasswordBase, PasswordChange } from './auth.types';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -41,6 +42,22 @@ export const authApi = createApi({
         body: { token: idToken },
       }),
     }),
+
+    setPassword: builder.mutation<void, PasswordBase>({
+      query: passwordData => ({
+        url: `${URL_ROUTES.AUTH}/password/set`,
+        method: 'POST',
+        body: passwordData,
+      }),
+    }),
+
+    changePassword: builder.mutation<void, PasswordChange>({
+      query: passwordData => ({
+        url: `${URL_ROUTES.AUTH}/password/change`,
+        method: 'POST',
+        body: passwordData,
+      }),
+    }),
   }),
 });
 
@@ -50,4 +67,6 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useGoogleSignInMutation,
+  useSetPasswordMutation,
+  useChangePasswordMutation,
 } = authApi;

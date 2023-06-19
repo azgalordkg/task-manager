@@ -1,9 +1,11 @@
 import React, { FC, PropsWithChildren } from 'react';
 import { SafeAreaView, StatusBar, View } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 import { DismissKeyboard } from '@/components/features';
 import { Header } from '@/components/ui';
 import { useThemeContext } from '@/context/hooks';
+import { vibrate } from '@/utils';
 
 import styles from './MainLayout.styles';
 import { Props } from './MainLayout.types';
@@ -38,6 +40,8 @@ export const MainLayout: FC<PropsWithChildren<Props>> = ({
 
             <View style={style.mainWrapper}>{children}</View>
           </View>
+
+          <Toast position="top" onShow={() => vibrate('soft')} />
         </DismissKeyboard>
       </SafeAreaView>
     </>

@@ -4,11 +4,17 @@ import React, { FC } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { CustomButton, Input } from '@/components/ui';
 import { createTaskFormSchema } from '@/constants/validation';
-import { useTasksContext, useThemeContext } from '@/context/hooks';
-import { createTask } from '@/services';
+import { useThemeContext } from '@/context/hooks';
+import {
+  selectTargetDate,
+  useCreateTaskMutation,
+  useGetAllTasksQuery,
+  Task,
+} from '@/store/apis/tasks';
 import { CreateTaskData } from '@/types';
 import { roundAndExtendTimeRange, vibrate } from '@/utils';
 
@@ -17,10 +23,13 @@ import { Props } from './QuickTaskForm.types';
 
 export const QuickTaskForm: FC<Props> = ({ handleShowInput }) => {
   const { t } = useTranslation();
-  const { fetchList, targetDate } = useTasksContext();
+  const targetDate = useSelector(selectTargetDate);
   const { theme } = useThemeContext();
 
-  const startDate = roundAndExtendTimeRange(moment(targetDate));
+  const { refetch: fetchList } = useGetAllTasksQuery();
+  const [createTask] = useCreateTaskMutation();
+
+  const startDate = roundAndExtendTimeRange(moment(targetDate)).toISOString();
   const style = styles(theme);
 
   const {
@@ -35,13 +44,15 @@ export const QuickTaskForm: FC<Props> = ({ handleShowInput }) => {
 
   const onSubmit = (data: FieldValues) => {
     createTask({
-      ...data,
-      startDate,
-      repeat: 'Never',
-      priority: 4,
-      hasDeadline: false,
-      description: '',
-    } as CreateTaskData);
+      userData: {
+        ...data,
+        startDate,
+        repeat: 'Never',
+        priority: 4,
+        hasDeadline: false,
+        description: '',
+      } as Task,
+    });
 
     vibrate('impactHeavy');
     fetchList();

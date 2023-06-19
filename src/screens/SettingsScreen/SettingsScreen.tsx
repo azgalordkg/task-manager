@@ -1,13 +1,17 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Linking, Platform, View } from 'react-native';
+import { Linking, Platform, Text, View } from 'react-native';
 import Rate, { AndroidMarket } from 'react-native-rate';
+import { useSelector } from 'react-redux';
 
 import { MainLayout } from '@/components/layouts';
+import { ConfirmModal } from '@/components/modals';
 import { CustomButton } from '@/components/ui';
 import { MenuItem } from '@/components/ui/MenuItem';
-import { SETTINGS_LIST } from '@/constants';
+import { COLORS, SETTINGS_LIST } from '@/constants';
+import { useThemeContext } from '@/context/hooks';
 import { useLogout } from '@/hooks';
+import { selectCurrentUser } from '@/store/apis/auth';
 import { ScreenProps } from '@/types';
 
 import styles from './SettingsScreen.styles';
@@ -15,6 +19,11 @@ import styles from './SettingsScreen.styles';
 export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
   const { t } = useTranslation();
   const { logout } = useLogout();
+  const { theme } = useThemeContext();
+  const userInfo = useSelector(selectCurrentUser);
+  const style = styles(theme);
+
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
 
   const onBackPressHandler = () => {
     navigation.goBack();
@@ -72,13 +81,17 @@ export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
     }
   };
 
+  const toggleModal = () => {
+    setConfirmModalVisible(!confirmModalVisible);
+  };
+
   return (
     <MainLayout
       screenTitle={`${t('SETTINGS_SCREEN_TITLE')}`}
       showHeader
       onBack={onBackPressHandler}>
-      <View style={styles.mainWrapper}>
-        <View style={styles.listWrapper}>
+      <View style={style.mainWrapper}>
+        <View style={style.listWrapper}>
           {SETTINGS_LIST.map(
             ({ prependIcon, title, navigationName }, index) => (
               <MenuItem
@@ -101,9 +114,25 @@ export const SettingsScreen: FC<ScreenProps<'Settings'>> = ({ navigation }) => {
             ),
           )}
         </View>
-        {/* TODO remove this button after User Account Implementation */}
-        <CustomButton onPress={logout}>Log Out</CustomButton>
+        <View>
+          <CustomButton
+            textColor={COLORS.RED}
+            bgColor={theme.BACKGROUND.NEUTRAL}
+            type="filled"
+            onPress={toggleModal}>
+            {t('LOGOUT')}
+          </CustomButton>
+          <Text style={style.userEmail}>{userInfo?.email}</Text>
+        </View>
       </View>
+
+      <ConfirmModal
+        confirmLabel={`${t('LOGOUT')}`}
+        dismissLabel={`${t('CANCEL_BUTTON')}`}
+        visible={confirmModalVisible}
+        onPressConfirm={logout}
+        onPressDismiss={toggleModal}
+      />
     </MainLayout>
   );
 };

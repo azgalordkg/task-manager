@@ -1,14 +1,22 @@
 import React, { FC, useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ContextMenuButton } from '@/components/features';
 import { CreateTaskForm } from '@/components/forms';
 import { ConfirmModal } from '@/components/modals';
 import { ModalScreenWrapper } from '@/components/ui';
-import { useTagManageContext, useTasksContext } from '@/context/hooks';
-import { createTask, deleteOneTask, updateTask } from '@/services';
-import { CreateTaskData, ScreenProps, UpdateTaskData } from '@/types';
+import { selectSelectedTags } from '@/store/apis/labels/labels.selector';
+import { clearSelectedTags } from '@/store/apis/labels/labels.slice';
+import {
+  Task,
+  useCreateTaskMutation,
+  useDeleteTaskMutation,
+  useGetAllTasksQuery,
+  useUpdateTaskMutation,
+} from '@/store/apis/tasks';
+import { ScreenProps } from '@/types';
 import { vibrate } from '@/utils';
 
 export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
@@ -16,8 +24,13 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   route,
 }) => {
   const { t } = useTranslation();
-  const { fetchList } = useTasksContext();
-  const { selectedTags, clearSelectedTags } = useTagManageContext();
+  const selectedTags = useSelector(selectSelectedTags);
+  const dispatch = useDispatch();
+
+  const { refetch: fetchList } = useGetAllTasksQuery();
+  const [createTask] = useCreateTaskMutation();
+  const [updateTask] = useUpdateTaskMutation();
+  const [deleteTask] = useDeleteTaskMutation();
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [isDescriptionFocused, setIsDescriptionFocused] = useState(false);
@@ -35,17 +48,18 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   };
 
   const createTaskHandler = (data: FieldValues) => {
-    const requestData = { ...data, tags: selectedTags };
+    // TODO потом заменить на as number[]
+    const requestData = { ...data, labels: selectedTags as any[] };
 
     if (taskId) {
-      updateTask({ ...requestData, _id: taskId } as UpdateTaskData);
+      updateTask({ userData: requestData as Task, id: +taskId });
     } else {
-      createTask(requestData as CreateTaskData);
+      createTask({ userData: requestData as Task });
     }
 
     vibrate('impactHeavy');
     fetchList();
-    clearSelectedTags();
+    dispatch(clearSelectedTags());
     closeModal();
   };
 
@@ -56,7 +70,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
 
   const handleDeleteTask = () => {
     if (taskId) {
-      deleteOneTask(taskId);
+      deleteTask(taskId);
     }
     closeModal();
     handleShowConfirmModal();
