@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 
 import {
   LanguageProvider,
-  TagManageProvider,
   TaskListProvider,
   ThemeProvider,
 } from '@/context/providers';
@@ -17,9 +16,7 @@ export const ProvidersLayout: FC<PropsWithChildren> = ({ children }) => {
       <EventProvider style={eventProviderStyles}>
         <LanguageProvider>
           <TaskListProvider>
-            <TagManageProvider>
-              <ThemeProvider>{children}</ThemeProvider>
-            </TagManageProvider>
+            <ThemeProvider>{children}</ThemeProvider>
           </TaskListProvider>
         </LanguageProvider>
       </EventProvider>

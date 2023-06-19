@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useSelector } from 'react-redux';
 
 import { TasksView } from '@/components/features';
 import {
@@ -19,12 +20,10 @@ import {
 import { MainLayout } from '@/components/layouts';
 import { EmptyTaskList } from '@/components/ui';
 import { COLORS } from '@/constants';
-import {
-  useTagManageContext,
-  useTasksContext,
-  useThemeContext,
-} from '@/context/hooks';
+import { useTasksContext, useThemeContext } from '@/context/hooks';
 import { updateRecurringTasks } from '@/services';
+import { useGetLabelsQuery } from '@/store/apis/labels';
+import { selectAllTasks, useGetAllTasksQuery } from '@/store/apis/tasks';
 import { ScreenProps } from '@/types';
 import { getDayTitle, vibrate } from '@/utils';
 
@@ -38,20 +37,19 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
     t,
     i18n: { language },
   } = useTranslation();
-  const isUnscheduled = route?.params?.isUnscheduled;
-  const {
-    taskList,
-    unscheduledTaskList,
-    fetchList,
-    inputVisible,
-    overdueTaskList,
-  } = useTasksContext();
-  const { fetchTags } = useTagManageContext();
-  const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);
-  const isFocused = useIsFocused();
-
+  const { inputVisible } = useTasksContext();
+  const { taskList, unscheduledTaskList, overdueTaskList } =
+    useSelector(selectAllTasks) || {};
+  const { refetch: fetchList } = useGetAllTasksQuery();
   const { theme } = useThemeContext();
+
+  const [dailyTasksUpdated, setDailyTasksUpdated] = useState(false);
+
+  const isUnscheduled = route?.params?.isUnscheduled;
+  const isFocused = useIsFocused();
   const style = styles(theme);
+
+  const {} = useGetLabelsQuery();
 
   useEffect(() => {
     if (isFocused) {
@@ -67,10 +65,6 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
     }
   }, [dailyTasksUpdated]);
 
-  useEffect(() => {
-    fetchTags();
-  }, []);
-
   const handleItemPress = (id: string) => {
     vibrate('rigid');
     navigation.navigate('CreateTask', { id, isUnscheduled });
@@ -83,8 +77,8 @@ export const TasksScreen: FC<ScreenProps<'Tasks'>> = ({
 
   const tasks = isUnscheduled ? unscheduledTaskList : taskList;
   const isEmpty = isUnscheduled
-    ? !tasks.length
-    : !tasks.length && !overdueTaskList.length;
+    ? !tasks?.length
+    : !tasks?.length && !overdueTaskList?.length;
 
   const keyboardAvoidingBehavior = !inputVisible
     ? Platform.OS === 'ios'

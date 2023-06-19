@@ -1,9 +1,10 @@
 import { UseFormReturn } from 'react-hook-form';
 
-import { CreateTagData } from '@/types';
+import { ILabelItem } from '@/types';
 
 export interface Props {
   onClose: () => void;
-  editItemId?: string;
-  formHandler: UseFormReturn<CreateTagData, any>;
+  editItemId?: number;
+  formHandler: UseFormReturn<ILabelItem, any>;
+  findLabel?: Required<ILabelItem>;
 }

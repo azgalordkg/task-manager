@@ -12,7 +12,7 @@ export type RootStackParamList = {
   RateUs: undefined;
   Purchase: undefined;
   Documents?: { isPrivacyPolicy?: boolean };
-  CreateLabel?: { id?: string };
+  CreateLabel?: { id?: number };
   CreateTask?: { id?: string; isUnscheduled?: boolean; startDate?: string };
   Theme: undefined;
   Language: undefined;

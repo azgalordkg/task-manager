@@ -1,5 +1,5 @@
 export interface Props {
   onCreateTagPress: () => void;
-  onEditTagPress: (id: string) => void;
+  onEditTagPress: (id: number) => void;
   isSettings?: boolean;
 }

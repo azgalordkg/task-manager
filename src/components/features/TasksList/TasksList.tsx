@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { FC } from 'react';
 import { Text, View } from 'react-native';
 
@@ -23,11 +24,11 @@ export const TasksList: FC<Props> = ({
         {tasks?.map(task => {
           const {
             description,
-            _id,
+            id,
             isDone,
             name,
             repeat,
-            tags,
+            labels,
             startDate,
             hasDeadline,
             priority,
@@ -35,18 +36,18 @@ export const TasksList: FC<Props> = ({
           return (
             <TaskItem
               priority={priority}
-              key={_id}
+              key={id}
               description={description}
               checked={isDone}
               repeat={repeat}
-              id={_id}
+              id={`${id}`}
               name={name}
               onCheckPress={markTaskAsDone}
               onDeletePress={onDeletePress}
               isDone={isDone}
               onItemPress={onItemPress}
-              tags={tags}
-              startDate={startDate}
+              labels={labels}
+              startDate={moment(startDate).valueOf()}
               hasDeadline={hasDeadline}
             />
           );
