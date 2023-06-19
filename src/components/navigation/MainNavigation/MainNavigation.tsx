@@ -68,6 +68,13 @@ const AuthNavigator = () => (
     screenOptions={{
       headerShown: false,
     }}>
+    <AppStack.Group
+      screenOptions={{
+        presentation: 'modal',
+        contentStyle: { backgroundColor: 'transparent' },
+      }}>
+      <AppStack.Screen name="ResetPassword" component={ResetPasswordScreen} />
+    </AppStack.Group>
     <AuthStack.Screen name="Auth" component={AuthScreen} />
   </AuthStack.Navigator>
 );
