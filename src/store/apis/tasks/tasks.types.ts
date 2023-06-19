@@ -1,4 +1,5 @@
 import { RecurringTypes } from '@/types';
+import { ILabelItem } from '@/types/labels';
 
 export interface Task {
   id: number;
@@ -11,7 +12,7 @@ export interface Task {
   userId: number;
   createdAt: string;
   updatedAt: string;
-  labels: number[];
+  labels: ILabelItem[];
   isDone: boolean;
 }
 

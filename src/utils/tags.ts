@@ -1,10 +1,12 @@
-import { TagsResponseItem } from '@/types';
+import { ILabelItem } from '@/types/labels';
 
 export const prepareTagsForRender = (
-  tags: number[],
-  allTags: TagsResponseItem[],
+  labels: ILabelItem[] = [],
+  allTags: ILabelItem[],
 ) => {
-  return tags
-    ?.map(tag => allTags.find(({ id }) => tag === id))
-    .filter(item => item) as TagsResponseItem[];
+  return labels
+    .map(label => {
+      return allTags?.find(({ id }) => label.id === id);
+    })
+    .filter(item => item) as ILabelItem[];
 };

@@ -5,6 +5,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   DateFilter,
@@ -28,7 +29,12 @@ import {
 } from '@/components/ui';
 import { COLORS, getRepeatList } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
-import { useTagManageContext, useThemeContext } from '@/context/hooks';
+import { useThemeContext } from '@/context/hooks';
+import { selectSelectedTags, useGetLabelsQuery } from '@/store/apis/labels';
+import {
+  clearSelectedTags,
+  setTagsForEdit,
+} from '@/store/apis/labels/labels.slice';
 import { Task, useGetTasksQuery } from '@/store/apis/tasks';
 import { CreateTaskData, CreateTaskKey, RecurringTypes } from '@/types';
 import {
@@ -57,14 +63,13 @@ export const CreateTaskForm: FC<Props> = ({
     useGetTasksQuery(editItemId);
 
   const startDate = roundAndExtendTimeRange();
-  const {
-    setTagsForEdit,
-    selectedTags,
-    tags: allTags,
-    clearSelectedTags,
-  } = useTagManageContext();
+  // const { setTagsForEdit, clearSelectedTags } = useTagManageContext();
+  const dispatch = useDispatch();
+  const selectedTags = useSelector(selectSelectedTags);
+
   const { theme, isDark } = useThemeContext();
   const { t } = useTranslation();
+  const { data: allTags = [] } = useGetLabelsQuery();
 
   useEffect(() => {
     if (editItemId && taskData) {
@@ -91,7 +96,7 @@ export const CreateTaskForm: FC<Props> = ({
   });
 
   const prepareEditData = (task: Task) => {
-    const { name, description, hasDeadline, tags, repeat, priority } = task;
+    const { name, description, hasDeadline, labels, repeat, priority } = task;
     setValue('name', name);
 
     if (description) {
@@ -104,11 +109,11 @@ export const CreateTaskForm: FC<Props> = ({
       setValue('hasDeadline', true);
     }
 
-    if (tags?.length) {
-      const tagsForEdit = prepareTagsForRender(tags, allTags);
-      setTagsForEdit(tagsForEdit.map(({ id }) => id));
+    if (labels?.length) {
+      const tagsForEdit = prepareTagsForRender(labels, allTags);
+      dispatch(setTagsForEdit(tagsForEdit.map(({ id }) => id)));
     } else {
-      clearSelectedTags();
+      dispatch(clearSelectedTags());
     }
     setValue('repeat', repeat);
     setValue('priority', priority);
@@ -134,9 +139,9 @@ export const CreateTaskForm: FC<Props> = ({
   const isInitialDataChanged = (
     initialTaskValue: Partial<Task>,
     formValue: CreateTaskData,
-    tags: string[] = [],
+    tags: number[] = [],
   ) => {
-    const initialTags = [...(initialTaskValue?.tags || [])];
+    const initialTags = [...(initialTaskValue?.labels || [])];
     const areTagsEqual = isEqual(tags, initialTags);
 
     const editInitialTaskValue = Object.keys(formValue)?.reduce<Task>(

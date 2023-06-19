@@ -1,18 +1,20 @@
 import React, { FC, useState } from 'react';
 import { FieldValues } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { ContextMenuButton } from '@/components/features';
 import { CreateTaskForm } from '@/components/forms';
 import { ConfirmModal } from '@/components/modals';
 import { ModalScreenWrapper } from '@/components/ui';
-import { useTagManageContext } from '@/context/hooks';
+import { selectSelectedTags } from '@/store/apis/labels/labels.selector';
+import { clearSelectedTags } from '@/store/apis/labels/labels.slice';
 import {
+  Task,
   useCreateTaskMutation,
   useDeleteTaskMutation,
   useGetAllTasksQuery,
   useUpdateTaskMutation,
-  Task,
 } from '@/store/apis/tasks';
 import { ScreenProps } from '@/types';
 import { vibrate } from '@/utils';
@@ -22,7 +24,8 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   route,
 }) => {
   const { t } = useTranslation();
-  const { selectedTags, clearSelectedTags } = useTagManageContext();
+  const selectedTags = useSelector(selectSelectedTags);
+  const dispatch = useDispatch();
 
   const { refetch: fetchList } = useGetAllTasksQuery();
   const [createTask] = useCreateTaskMutation();
@@ -56,7 +59,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
 
     vibrate('impactHeavy');
     fetchList();
-    clearSelectedTags();
+    dispatch(clearSelectedTags());
     closeModal();
   };
 

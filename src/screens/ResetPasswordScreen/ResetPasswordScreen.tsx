@@ -55,8 +55,6 @@ export const ResetPasswordScreen: FC<ScreenProps<'ResetPassword'>> = ({
   };
 
   const onSubmit = (data: ResetPasswordFormValues) => {
-    console.log(data, 'data');
-
     if (resetPasswordStep === 2) {
       navigation.pop();
       return navigation.navigate('Tasks');

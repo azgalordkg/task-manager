@@ -11,9 +11,9 @@ import {
   COLORS,
   COLORS_FOR_BLACK_CHECKMARK,
 } from '@/constants';
-import { useTagManageContext, useThemeContext } from '@/context/hooks';
-import { deleteOneTag, findOneTag } from '@/services';
-import { TagsResponseItem } from '@/types';
+import { useThemeContext } from '@/context/hooks';
+import { useDeleteLabelMutation } from '@/store/apis/labels';
+import { ILabelItem } from '@/types';
 import { vibrate } from '@/utils';
 
 import styles from './CreateLabelForm.styles';
@@ -23,6 +23,7 @@ export const CreateLabelForm: FC<Props> = ({
   onClose,
   editItemId,
   formHandler,
+  findLabel,
 }) => {
   const { theme } = useThemeContext();
 
@@ -39,10 +40,12 @@ export const CreateLabelForm: FC<Props> = ({
   const style = styles(theme, isColorError);
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
-  const { fetchTags } = useTagManageContext();
+
   const { t } = useTranslation();
 
-  const prepareEditData = (tag: TagsResponseItem) => {
+  const [deleteLabelItem] = useDeleteLabelMutation();
+
+  const prepareEditData = (tag: ILabelItem) => {
     const { name, color } = tag;
 
     setValue('name', name);
@@ -55,19 +58,15 @@ export const CreateLabelForm: FC<Props> = ({
 
   const handleDeleteTask = () => {
     if (editItemId) {
-      deleteOneTag(editItemId);
-      fetchTags();
+      deleteLabelItem(editItemId);
     }
     setConfirmModalVisible(!confirmModalVisible);
     onClose();
   };
 
   useEffect(() => {
-    if (editItemId) {
-      const tag = findOneTag(editItemId);
-      if (tag) {
-        prepareEditData(tag);
-      }
+    if (editItemId && findLabel) {
+      prepareEditData(findLabel);
     } else {
       reset();
     }
