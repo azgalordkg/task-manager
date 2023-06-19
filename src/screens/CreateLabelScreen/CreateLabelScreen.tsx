@@ -12,7 +12,7 @@ import {
   useGetLabelByIdQuery,
 } from '@/store/apis/labels';
 import { ScreenProps } from '@/types';
-import { LabelTypes } from '@/types/labels';
+import { ILabelItem } from '@/types/labels';
 import { vibrate } from '@/utils';
 
 export const CreateLabelScreen: FC<ScreenProps<'CreateLabel'>> = ({
@@ -26,7 +26,7 @@ export const CreateLabelScreen: FC<ScreenProps<'CreateLabel'>> = ({
   const { data: findLabel } = useGetLabelByIdQuery(labelId);
   const handleCloseModal = () => navigation.goBack();
 
-  const formHandler = useForm<LabelTypes>({
+  const formHandler = useForm<ILabelItem>({
     mode: 'onBlur',
     resolver: yupResolver(createLabelFormSchema),
   });
@@ -34,7 +34,7 @@ export const CreateLabelScreen: FC<ScreenProps<'CreateLabel'>> = ({
   const formValue = formHandler.watch();
   const isValid = formHandler.formState.isValid;
 
-  const onSubmit = (data: LabelTypes) => {
+  const onSubmit = (data: ILabelItem) => {
     createOrUpdateLabel({ ...data, id: labelId });
     vibrate('impactHeavy');
     handleCloseModal();
@@ -42,7 +42,7 @@ export const CreateLabelScreen: FC<ScreenProps<'CreateLabel'>> = ({
 
   const isDisabled = useMemo(() => {
     if (labelId && findLabel) {
-      const { name, color } = findLabel as LabelTypes;
+      const { name, color } = findLabel as ILabelItem;
       const label = { name, color };
       return !isEqual(formValue, label) && isValid;
     }

@@ -1,10 +1,10 @@
 import { UseFormReturn } from 'react-hook-form';
 
-import { LabelTypes } from '@/types/labels';
+import { ILabelItem } from '@/types';
 
 export interface Props {
   onClose: () => void;
   editItemId?: number;
-  formHandler: UseFormReturn<LabelTypes, any>;
-  findLabel?: Required<LabelTypes>;
+  formHandler: UseFormReturn<ILabelItem, any>;
+  findLabel?: Required<ILabelItem>;
 }

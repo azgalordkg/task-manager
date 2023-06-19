@@ -1,4 +1,4 @@
-export interface LabelTypes {
+export interface ILabelItem {
   id?: number;
   name: string;
   color: string;

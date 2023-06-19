@@ -12,7 +12,7 @@ import { ActionButton, CustomCheckbox } from '@/components/ui';
 import { COLORS } from '@/constants';
 import { useTasksContext, useThemeContext } from '@/context/hooks';
 import { selectLabels } from '@/store/apis/labels/labels.selector';
-import { LabelTypes } from '@/types/labels';
+import { ILabelItem } from '@/types/labels';
 import {
   formatDate,
   getPriorityObject,
@@ -57,7 +57,7 @@ export const TaskItem: FC<ListItemProps> = ({
   } = useTranslation();
 
   const { fetchList, timeFormat } = useTasksContext();
-  const allLabels = useSelector(selectLabels) as LabelTypes[];
+  const allLabels = useSelector(selectLabels) as ILabelItem[];
 
   const rightSwipe = (
     progress: Animated.AnimatedInterpolation<string>,
@@ -99,7 +99,7 @@ export const TaskItem: FC<ListItemProps> = ({
     return '';
   }, [startDate, timeFormat, language]);
 
-  const tagsForRender: LabelTypes[] = useMemo(
+  const tagsForRender: ILabelItem[] = useMemo(
     () => prepareTagsForRender(labels, allLabels),
     [allLabels, labels],
   );

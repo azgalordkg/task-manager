@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { BASE_URL, URL_ROUTES } from '@/constants';
-import { LabelTypes } from '@/types/labels';
+import { ILabelItem } from '@/types/labels';
 import { prepareHeaders } from '@/utils';
 
 export const labelsApi = createApi({
@@ -12,17 +12,17 @@ export const labelsApi = createApi({
   }),
   tagTypes: ['Label'],
   endpoints: builder => ({
-    getLabels: builder.query<Required<LabelTypes>[], void>({
+    getLabels: builder.query<Required<ILabelItem>[], void>({
       query: () => URL_ROUTES.LABELS,
       providesTags: ['Label'],
     }),
 
-    getLabelById: builder.query<Required<LabelTypes>, number | undefined>({
+    getLabelById: builder.query<Required<ILabelItem>, number | undefined>({
       query: id => `${URL_ROUTES.LABELS}/${id || ''}`,
       providesTags: ['Label'],
     }),
 
-    createOrUpdateLabel: builder.mutation<void, LabelTypes>({
+    createOrUpdateLabel: builder.mutation<void, ILabelItem>({
       query: labelData => {
         const labelId = labelData.id || '';
         return {

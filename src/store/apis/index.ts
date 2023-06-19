@@ -1,10 +1,9 @@
-import { authApi } from '@/store/apis/auth';
-import authSlice from '@/store/apis/auth/auth.slice';
-import taskSlice from '@/store/apis/tasks/task.slice';
-import { labelsApi } from '@/store/apis/labels';
-import labelSlice from '@/store/apis/labels/labels.slice';
-
+import { authApi } from './auth/auth.api';
+import authSlice from './auth/auth.slice';
+import { labelsApi } from './labels';
+import labelSlice from './labels/labels.slice';
 import { tasksApi } from './tasks';
+import taskSlice from './tasks/task.slice';
 
 export const reducer = {
   [authApi.reducerPath]: authApi.reducer,

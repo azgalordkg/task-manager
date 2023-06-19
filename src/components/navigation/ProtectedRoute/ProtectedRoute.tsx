@@ -17,16 +17,16 @@ export const ProtectedRoute: FC<PropsWithChildren> = ({ children }) => {
     return <Loader />;
   }
 
-  // if (!userInfo) {
-  //   return (
-  //     <Stack.Navigator
-  //       screenOptions={{
-  //         headerShown: false,
-  //       }}>
-  //       <Stack.Screen name="Auth" component={AuthScreen} />
-  //     </Stack.Navigator>
-  //   );
-  // }
+  if (!userInfo) {
+    return (
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name="Auth" component={AuthScreen} />
+      </Stack.Navigator>
+    );
+  }
 
   return <>{children}</>;
 };

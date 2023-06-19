@@ -30,8 +30,7 @@ import {
 import { COLORS, getRepeatList } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
 import { useThemeContext } from '@/context/hooks';
-import { useGetLabelsQuery } from '@/store/apis/labels';
-import { selectSelectedTags } from '@/store/apis/labels/labels.selector';
+import { selectSelectedTags, useGetLabelsQuery } from '@/store/apis/labels';
 import {
   clearSelectedTags,
   setTagsForEdit,

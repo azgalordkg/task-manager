@@ -6,9 +6,8 @@ import { useSelector } from 'react-redux';
 import { Label as LabelIcon } from '@/components/icons';
 import { InputWrapper, Label } from '@/components/ui';
 import { useThemeContext } from '@/context/hooks';
-import { useGetLabelsQuery } from '@/store/apis/labels';
-import { selectSelectedTags } from '@/store/apis/labels/labels.selector';
-import { LabelTypes } from '@/types/labels';
+import { selectSelectedTags, useGetLabelsQuery } from '@/store/apis/labels';
+import { ILabelItem } from '@/types/labels';
 
 import styles from './LabelsField.styles';
 import { Props } from './LabelsField.types';
@@ -17,7 +16,7 @@ export const LabelsField: FC<Props> = ({ onAddPress }) => {
   const { theme } = useThemeContext();
   const { t } = useTranslation();
 
-  const [tags, setTags] = useState<LabelTypes[]>([]);
+  const [tags, setTags] = useState<ILabelItem[]>([]);
   const selectedTags = useSelector(selectSelectedTags);
   const { data: allTags = [], refetch } = useGetLabelsQuery();
   const style = styles(theme);
@@ -39,7 +38,7 @@ export const LabelsField: FC<Props> = ({ onAddPress }) => {
         {tags?.length ? (
           <View style={style.tagsWrapper}>
             {tags?.map(({ name, color, id }) => (
-              <Label key={`tags-${id}`} name={name} bgColor={color} />
+              <Label key={`tag-${id}`} name={name} bgColor={color} />
             ))}
           </View>
         ) : (

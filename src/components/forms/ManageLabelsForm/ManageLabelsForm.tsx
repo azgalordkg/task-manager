@@ -8,9 +8,12 @@ import { ConfirmModal } from '@/components/modals';
 import { CustomButton, DashedButton, MenuItem } from '@/components/ui';
 import { TAGS_CREATION_LIMITS } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
-import { useDeleteLabelMutation, useGetLabelsQuery } from '@/store/apis/labels';
-import { selectCurrentSelectedTags } from '@/store/apis/labels/labels.selector';
-import { selectTagHandler } from '@/store/apis/labels/labels.slice';
+import {
+  selectCurrentSelectedTags,
+  selectTagHandler,
+  useDeleteLabelMutation,
+  useGetLabelsQuery,
+} from '@/store/apis/labels';
 import { vibrate } from '@/utils';
 
 import styles from './ManageLabelsForm.styles';

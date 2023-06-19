@@ -13,7 +13,7 @@ import {
 } from '@/constants';
 import { useThemeContext } from '@/context/hooks';
 import { useDeleteLabelMutation } from '@/store/apis/labels';
-import { LabelTypes } from '@/types/labels';
+import { ILabelItem } from '@/types';
 import { vibrate } from '@/utils';
 
 import styles from './CreateLabelForm.styles';
@@ -45,7 +45,7 @@ export const CreateLabelForm: FC<Props> = ({
 
   const [deleteLabelItem] = useDeleteLabelMutation();
 
-  const prepareEditData = (tag: LabelTypes) => {
+  const prepareEditData = (tag: ILabelItem) => {
     const { name, color } = tag;
 
     setValue('name', name);
