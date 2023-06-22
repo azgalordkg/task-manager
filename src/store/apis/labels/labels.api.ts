@@ -10,16 +10,15 @@ export const labelsApi = createApi({
     baseUrl: BASE_URL,
     prepareHeaders,
   }),
-  tagTypes: ['getLabels', 'getOneLabel'],
+  tagTypes: ['Label'],
   endpoints: builder => ({
     getLabels: builder.query<Required<LabelItem>[], void>({
       query: () => URL_ROUTES.LABELS,
-      providesTags: ['getLabels'],
+      providesTags: ['Label'],
     }),
 
     getLabelById: builder.query<Required<LabelItem>, number | undefined>({
       query: id => `${URL_ROUTES.LABELS}/${id || ''}`,
-      providesTags: ['getOneLabel'],
     }),
 
     createOrUpdateLabel: builder.mutation<void, LabelItem>({
@@ -31,7 +30,7 @@ export const labelsApi = createApi({
           body: labelData,
         };
       },
-      invalidatesTags: ['getLabels'],
+      invalidatesTags: ['Label'],
     }),
 
     deleteLabel: builder.mutation<void, string | number>({
@@ -41,7 +40,7 @@ export const labelsApi = createApi({
           method: 'DELETE',
         };
       },
-      invalidatesTags: ['getOneLabel'],
+      invalidatesTags: ['Label'],
     }),
   }),
 });

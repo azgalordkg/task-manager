@@ -47,13 +47,13 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
     navigation.goBack();
   };
 
-  const createTaskHandler = async (data: FieldValues) => {
+  const createTaskHandler = (data: FieldValues) => {
     const requestData = { ...data, labels: selectedTags as number[] };
 
     if (taskId) {
-      await updateTask({ userData: requestData as Task, id: +taskId });
+      updateTask({ userData: requestData as Task, id: +taskId });
     } else {
-      await createTask({ userData: requestData as Task });
+      createTask({ userData: requestData as Task });
     }
 
     vibrate('impactHeavy');

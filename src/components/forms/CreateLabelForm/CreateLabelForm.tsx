@@ -70,7 +70,7 @@ export const CreateLabelForm: FC<Props> = ({
     } else {
       reset();
     }
-  }, [findLabel, editItemId]);
+  }, [editItemId]);
 
   return (
     <DismissKeyboard>

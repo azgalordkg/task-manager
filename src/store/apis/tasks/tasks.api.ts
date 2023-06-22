@@ -71,7 +71,7 @@ export const tasksApi = createApi({
 
 export const {
   useGetAllTasksQuery,
-  useGetTasksQuery,
+  useGetTaskItemQuery,
   useCreateTaskMutation,
   useUpdateTaskMutation,
   useDeleteTaskMutation,
