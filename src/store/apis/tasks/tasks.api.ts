@@ -54,6 +54,7 @@ export const tasksApi = createApi({
           body: userData,
         };
       },
+      invalidatesTags: ['getAllTasks'],
     }),
 
     deleteTask: builder.mutation<void, string | number>({
@@ -63,6 +64,7 @@ export const tasksApi = createApi({
           method: 'DELETE',
         };
       },
+      invalidatesTags: ['getAllTasks'],
     }),
   }),
 });

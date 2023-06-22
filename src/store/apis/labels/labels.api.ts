@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { BASE_URL, URL_ROUTES } from '@/constants';
-import { ILabelItem } from '@/types/labels';
+import { LabelItem } from '@/types/labels';
 import { prepareHeaders } from '@/utils';
 
 export const labelsApi = createApi({
@@ -10,19 +10,19 @@ export const labelsApi = createApi({
     baseUrl: BASE_URL,
     prepareHeaders,
   }),
-  tagTypes: ['Label'],
+  tagTypes: ['getLabels', 'getOneLabel'],
   endpoints: builder => ({
-    getLabels: builder.query<Required<ILabelItem>[], void>({
+    getLabels: builder.query<Required<LabelItem>[], void>({
       query: () => URL_ROUTES.LABELS,
-      providesTags: ['Label'],
+      providesTags: ['getLabels'],
     }),
 
-    getLabelById: builder.query<Required<ILabelItem>, number | undefined>({
+    getLabelById: builder.query<Required<LabelItem>, number | undefined>({
       query: id => `${URL_ROUTES.LABELS}/${id || ''}`,
-      providesTags: ['Label'],
+      providesTags: ['getOneLabel'],
     }),
 
-    createOrUpdateLabel: builder.mutation<void, ILabelItem>({
+    createOrUpdateLabel: builder.mutation<void, LabelItem>({
       query: labelData => {
         const labelId = labelData.id || '';
         return {
@@ -31,7 +31,7 @@ export const labelsApi = createApi({
           body: labelData,
         };
       },
-      invalidatesTags: ['Label'],
+      invalidatesTags: ['getLabels'],
     }),
 
     deleteLabel: builder.mutation<void, string | number>({
@@ -41,7 +41,7 @@ export const labelsApi = createApi({
           method: 'DELETE',
         };
       },
-      invalidatesTags: ['Label'],
+      invalidatesTags: ['getOneLabel'],
     }),
   }),
 });
