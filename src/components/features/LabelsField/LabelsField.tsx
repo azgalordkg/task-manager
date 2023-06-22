@@ -7,7 +7,7 @@ import { Label as LabelIcon } from '@/components/icons';
 import { InputWrapper, Label } from '@/components/ui';
 import { useThemeContext } from '@/context/hooks';
 import { selectSelectedTags, useGetLabelsQuery } from '@/store/apis/labels';
-import { ILabelItem } from '@/types/labels';
+import { LabelItem } from '@/types/labels';
 
 import styles from './LabelsField.styles';
 import { Props } from './LabelsField.types';
@@ -16,7 +16,7 @@ export const LabelsField: FC<Props> = ({ onAddPress }) => {
   const { theme } = useThemeContext();
   const { t } = useTranslation();
 
-  const [tags, setTags] = useState<ILabelItem[]>([]);
+  const [tags, setTags] = useState<LabelItem[]>([]);
   const selectedTags = useSelector(selectSelectedTags);
   const { data: allTags = [], refetch } = useGetLabelsQuery();
   const style = styles(theme);

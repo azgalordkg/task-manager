@@ -36,7 +36,12 @@ import {
   setTagsForEdit,
 } from '@/store/apis/labels/labels.slice';
 import { Task, useGetTasksQuery } from '@/store/apis/tasks';
-import { CreateTaskData, CreateTaskKey, RecurringTypes } from '@/types';
+import {
+  CreateTaskData,
+  CreateTaskKey,
+  LabelItem,
+  RecurringTypes,
+} from '@/types';
 import {
   getPriorityObject,
   prepareTagsForRender,
@@ -59,8 +64,11 @@ export const CreateTaskForm: FC<Props> = ({
   const [repeatModalVisible, setRepeatModalVisible] = useState(false);
   const [priorityModalVisible, setPriorityModalVisible] = useState(false);
 
-  const { data: taskData, isLoading: isTaskDataFetching } =
-    useGetTasksQuery(editItemId);
+  const {
+    data: taskData,
+    isLoading: isTaskDataFetching,
+    refetch: refetchTaksData,
+  } = useGetTasksQuery(editItemId);
 
   const startDate = roundAndExtendTimeRange();
   // const { setTagsForEdit, clearSelectedTags } = useTagManageContext();
@@ -70,6 +78,10 @@ export const CreateTaskForm: FC<Props> = ({
   const { theme, isDark } = useThemeContext();
   const { t } = useTranslation();
   const { data: allTags = [] } = useGetLabelsQuery();
+
+  useEffect(() => {
+    refetchTaksData();
+  }, []);
 
   useEffect(() => {
     if (editItemId && taskData) {
@@ -110,7 +122,7 @@ export const CreateTaskForm: FC<Props> = ({
     }
 
     if (labels?.length) {
-      const tagsForEdit = prepareTagsForRender(labels, allTags);
+      const tagsForEdit = prepareTagsForRender(labels as LabelItem[], allTags);
       dispatch(setTagsForEdit(tagsForEdit.map(({ id }) => id)));
     } else {
       dispatch(clearSelectedTags());
