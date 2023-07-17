@@ -25,7 +25,6 @@ import {
   FormContentWrapper,
   Input,
   InputButton,
-  Loader,
 } from '@/components/ui';
 import { COLORS, getRepeatList } from '@/constants';
 import { createTaskFormSchema } from '@/constants/validation';
@@ -35,8 +34,13 @@ import {
   clearSelectedTags,
   setTagsForEdit,
 } from '@/store/apis/labels/labels.slice';
-import { Task, useGetTasksQuery } from '@/store/apis/tasks';
-import { CreateTaskData, CreateTaskKey, RecurringTypes } from '@/types';
+import { selectTasksItem, Task } from '@/store/apis/tasks';
+import {
+  CreateTaskData,
+  CreateTaskKey,
+  LabelItem,
+  RecurringTypes,
+} from '@/types';
 import {
   getPriorityObject,
   prepareTagsForRender,
@@ -55,12 +59,12 @@ export const CreateTaskForm: FC<Props> = ({
   isUnscheduled,
   taskStartDate,
 }) => {
-  const [taskForEdit, setTaskForEdit] = useState({} as Task);
   const [repeatModalVisible, setRepeatModalVisible] = useState(false);
   const [priorityModalVisible, setPriorityModalVisible] = useState(false);
 
-  const { data: taskData, isLoading: isTaskDataFetching } =
-    useGetTasksQuery(editItemId);
+  const taskData = useSelector(
+    (state: any) => editItemId && selectTasksItem(state, +editItemId),
+  );
 
   const startDate = roundAndExtendTimeRange();
   // const { setTagsForEdit, clearSelectedTags } = useTagManageContext();
@@ -70,12 +74,6 @@ export const CreateTaskForm: FC<Props> = ({
   const { theme, isDark } = useThemeContext();
   const { t } = useTranslation();
   const { data: allTags = [] } = useGetLabelsQuery();
-
-  useEffect(() => {
-    if (editItemId && taskData) {
-      setTaskForEdit(taskData);
-    }
-  }, [editItemId, taskData]);
 
   const {
     control,
@@ -110,7 +108,7 @@ export const CreateTaskForm: FC<Props> = ({
     }
 
     if (labels?.length) {
-      const tagsForEdit = prepareTagsForRender(labels, allTags);
+      const tagsForEdit = prepareTagsForRender(labels as LabelItem[], allTags);
       dispatch(setTagsForEdit(tagsForEdit.map(({ id }) => id)));
     } else {
       dispatch(clearSelectedTags());
@@ -120,15 +118,13 @@ export const CreateTaskForm: FC<Props> = ({
   };
 
   useEffect(() => {
-    if (editItemId) {
-      if (taskForEdit) {
-        prepareEditData(taskForEdit);
-      }
+    if (taskData) {
+      prepareEditData(taskData);
     } else {
       reset();
       clearSelectedTags();
     }
-  }, [editItemId, taskForEdit]);
+  }, [editItemId, taskData]);
 
   useEffect(() => {
     if (taskStartDate) {
@@ -167,7 +163,8 @@ export const CreateTaskForm: FC<Props> = ({
 
   const isEnabled =
     isDescriptionFocused ||
-    (!isInitialDataChanged(taskForEdit, watch(), selectedTags) && isValid);
+    (!isInitialDataChanged(taskData || {}, watch(), selectedTags) && isValid);
+
   const title = isDescriptionFocused
     ? t('SUBMIT_TITLE')
     : editItemId
@@ -229,10 +226,6 @@ export const CreateTaskForm: FC<Props> = ({
   const repeatLabel = repeatList.find(
     ({ value }) => value === repeatValue,
   )?.label;
-
-  if (isTaskDataFetching && editItemId) {
-    return <Loader />;
-  }
 
   return (
     <DismissKeyboard>

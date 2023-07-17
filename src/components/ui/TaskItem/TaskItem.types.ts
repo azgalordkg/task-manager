@@ -1,5 +1,5 @@
 import { RecurringTypes } from '@/types';
-import { ILabelItem } from '@/types/labels';
+import { LabelItem } from '@/types/labels';
 
 export interface ListItemProps {
   name: string;
@@ -13,7 +13,7 @@ export interface ListItemProps {
   id: string;
   isDone?: boolean;
   repeat?: RecurringTypes;
-  labels: ILabelItem[];
+  labels: LabelItem[];
   description?: string;
   priority?: number;
 }

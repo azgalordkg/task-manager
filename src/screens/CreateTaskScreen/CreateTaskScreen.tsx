@@ -27,6 +27,10 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   const selectedTags = useSelector(selectSelectedTags);
   const dispatch = useDispatch();
 
+  const taskId = route?.params?.id;
+  const isUnscheduled = route?.params?.isUnscheduled;
+  const taskStartDate = route?.params?.startDate;
+
   const { refetch: fetchList } = useGetAllTasksQuery();
   const [createTask] = useCreateTaskMutation();
   const [updateTask] = useUpdateTaskMutation();
@@ -34,10 +38,6 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
 
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [isDescriptionFocused, setIsDescriptionFocused] = useState(false);
-
-  const taskId = route?.params?.id;
-  const isUnscheduled = route?.params?.isUnscheduled;
-  const taskStartDate = route?.params?.startDate;
 
   const handleShowConfirmModal = () => {
     setConfirmModalVisible(!confirmModalVisible);
@@ -48,8 +48,7 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
   };
 
   const createTaskHandler = (data: FieldValues) => {
-    // TODO потом заменить на as number[]
-    const requestData = { ...data, labels: selectedTags as any[] };
+    const requestData = { ...data, labels: selectedTags as number[] };
 
     if (taskId) {
       updateTask({ userData: requestData as Task, id: +taskId });
@@ -74,7 +73,6 @@ export const CreateTaskScreen: FC<ScreenProps<'CreateTask'>> = ({
     }
     closeModal();
     handleShowConfirmModal();
-    fetchList();
   };
 
   const title = taskId ? t('EDIT') : t('CREATE');
