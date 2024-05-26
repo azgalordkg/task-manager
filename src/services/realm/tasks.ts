@@ -53,6 +53,7 @@ export const createTask = (data: CreateTaskData) => {
         isDone: false,
         startDate: data.startDate.getTime(),
         endDate: data.endDate.getTime(),
+        createdAt: data.startDate.getTime(),
       });
     });
   }
@@ -107,12 +108,12 @@ export const prepareUpdateRecurringData = (task: TasksResponseItem) => {
   } as unknown as UpdateTaskData;
 
   if (task.startDate && task.endDate) {
-    start.set('date', today.date());
-    start.set('month', today.month());
     start.set('year', today.year());
-    end.set('date', today.date());
-    end.set('month', today.month());
+    start.set('month', today.month());
+    start.set('date', today.date());
     end.set('year', today.year());
+    end.set('month', today.month());
+    end.set('date', today.date());
 
     updateData.startDate = start.toDate();
     updateData.endDate = end.toDate();
@@ -121,17 +122,28 @@ export const prepareUpdateRecurringData = (task: TasksResponseItem) => {
   return updateData;
 };
 
-const checkMonthlyTaskUpdate = (today: moment.Moment, start: moment.Moment) => {
+const checkMonthlyTaskUpdate = (
+  today: moment.Moment,
+  start: moment.Moment,
+  createdAt: number,
+) => {
   const monthDifference = today.diff(start, 'months');
 
   if (monthDifference > 0) {
-    const endOfMonth = moment().endOf('month');
-    const isTodayEnd = today.isSame(endOfMonth, 'day');
-
     const startDate = start.toDate().getDate();
     const todayDate = today.toDate().getDate();
 
-    if (startDate === todayDate || (isTodayEnd && startDate > todayDate)) {
+    const createdAtDate = moment(new Date(Number(createdAt)));
+    const isEndOfMonth = moment(createdAtDate)
+      .endOf('month')
+      .isSame(createdAtDate, 'day');
+
+    const endOfMonth = moment().endOf('month');
+    const isTodayEnd = today.isSame(endOfMonth, 'day');
+
+    if (isEndOfMonth) {
+      return isTodayEnd;
+    } else if (startDate === todayDate) {
       return true;
     }
   }
@@ -179,7 +191,11 @@ export const updateRecurringDates = (
           isBefore = today.diff(start, 'days') % 7 === 0;
         }
         if (type === 'Monthly') {
-          isBefore = checkMonthlyTaskUpdate(today, start);
+          isBefore = checkMonthlyTaskUpdate(
+            today,
+            start,
+            recurringTask.createdAt,
+          );
         }
         if (type === 'Yearly') {
           isBefore = checkYearlyTaskUpdate(today, start);

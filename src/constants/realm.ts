@@ -6,6 +6,7 @@ export const TaskSchema = {
     isDone: 'bool',
     description: 'string?',
     startDate: 'int?',
+    createdAt: 'int',
     endDate: 'int?',
     hasDeadline: 'bool?',
     repeat: 'string?',
